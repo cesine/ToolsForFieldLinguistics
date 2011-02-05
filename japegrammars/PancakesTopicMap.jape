@@ -1,0 +1,16 @@
+
+Phase:   ChapterSections
+Input: Token Lookup Sentence
+Options: control = brill
+
+
+Rule: nounverbnoun
+//chapter 4
+//chapters 1, 3 and 8
+(
+ {Token.category =~ "N"}):subject
+ ({Token.category =~ "N"}):number
+ )
+:section -->
+  :section.SectionReference = {string = "single", kind = :sectionword.Token.string, value = :number.Number.value}
+

@@ -1,0 +1,75 @@
+/*
+ * This file removes tokens if they are not within a Paragraph annotation
+ * 
+ * WARNING: this causes most/all text to be ignored if there are no Paragraph or <p> </p> tags in the Orginal Document. 
+ *  Reasoning: Often the <p></p> are the only sections of an HTML document where it makes sense to run a Sentence Parser.
+ * 	Because the Stanford parser is slow and heavy, reducing the data reduces the run time. 
+ 
+ * This has been tested with Wikipedia articles (Create a Gate Document by providing the URL: http://en.wikipedia.org/wiki/Topic_name)
+ * 
+ * 
+ * Dependancies:
+ * 	TransferPAnnots.jape
+ * 
+ * 
+ */
+
+Imports: {
+	import static gate.Utils.*;//to use the start and end functions
+}
+
+Phase:   ChapterSections
+Input: Token Paragraph
+Options: control = appelt
+
+
+Rule: findtokensinp
+//chapter 4
+//chapters 1, 3 and 8
+(	 {Token within {Paragraph} } 
+):number 
+-->
+:number{ 
+	FeatureMap fm = Factory.newFeatureMap();
+	Annotation  numberAnnot = numberAnnots.iterator().next(); 
+	fm.putAll(numberAnnot.getFeatures());
+	fm.put("rule","token in a p tag, likey inside a sentence");
+	try{
+			outputAS.add(start(numberAnnots),end(numberAnnots),"Token",fm);
+
+			//Removes all matching Annotations:WARNING this removes tokens from the document			
+			AnnotationSet as = bindings.get("number");
+			inputAS.removeAll(as);
+		
+	}catch(InvalidOffsetException e){
+		//the exception wont happen
+		System.out.print("Caught an exception "+e);
+	}	
+}
+
+
+Rule: removetokens
+//chapter 4
+//chapters 1, 3 and 8
+(	 {Token} 
+):number 
+-->
+:number{
+	FeatureMap fm = Factory.newFeatureMap();
+	
+	Annotation  numberAnnot = numberAnnots.iterator().next(); 
+	fm.putAll(numberAnnot.getFeatures());
+	fm.put("rule","token outside a p tag, not likely part of a sentence");
+	try{
+			outputAS.add(start(numberAnnots),end(numberAnnots),"TokenOutsidofP",fm);
+
+			//Removes all matching Annotations:WARNING this removes tokens from the document
+			AnnotationSet as = bindings.get("number");
+			inputAS.removeAll(as);
+		
+	}catch(InvalidOffsetException e){
+		//the exception wont happen
+		System.out.print("Caught an exception "+e);
+	}	
+}
+

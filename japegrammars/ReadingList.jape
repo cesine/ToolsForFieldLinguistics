@@ -1,0 +1,180 @@
+/*
+*
+   Copyright 2011 Gina Cook
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   
+*  This file is designed to annotate authors, citations, document titles, publication dates etc
+*
+*  Gina, 17 Aug 2010
+* 
+*/
+
+
+Phase:   ChapterSections
+Input: Token Lookup Number Sentence
+Options: control = brill
+
+
+
+Macro: CHAPTERS_SECTIONS
+// two hundred and thirty five
+// twenty five
+//a hundred
+( {Token.string == "ch"} | {Token.string == "CH"} | {Token.string == "Ch"} | {Token.string == "chapter"} | {Token.string == "chapters"} | {Token.string == "Chapter"} | {Token.string == "Chapters"} 
+| {Token.string == "sec"} | {Token.string == "sect"} | {Token.string == "section"} | {Token.string == "sections"} | {Token.string == "Section"} | {Token.string == "Sections"} 
+| {Token.string == "pg"} |  {Token.string == "pgs"} | {Token.string == "pp"} | {Token.string == "pages"} | {Token.string == "Page"} | {Token.string == "Pages"} 
+	
+)
+
+
+Rule: chapterssections
+//chapter 4
+//chapters 1, 3 and 8
+(
+ (CHAPTERS_SECTIONS):sectionword 
+ ({Token.string == "."})?
+ ( 		({Number})?
+		 ( {Token.string == "and"} |  {Token.string == ","} )? 
+		 )*
+ ({Number}):number
+ )
+:section -->
+  :section.SectionReference = {string = "single", kind = :sectionword.Token.string, value = :number.Number.value}
+
+ 
+ 
+ Rule: chapterssectionsrange
+//chapter 4 to 6
+//chapters 1-3
+//pp. 89-120
+(
+(CHAPTERS_SECTIONS):sectionword  ({Token.string == "."})?
+ 		({Number}):number1
+		( {Token.string == "to"} |  {Token.subkind == "dashpunct"} )
+({Number}):number2
+)
+:section -->
+ :section.SectionReference = {string = "range", kind = :sectionword.Token.string, startvalue = :number1.Number.value, endvalue = :number2.Number.value}
+
+ 
+ 
+ 
+ Macro: INITIALS
+ ({Token.string ==~ "[A-Z]"}({Token.string == "."})?)+
+ 
+ Macro: VANDE
+ //von
+ //van
+ //de
+ ({Token.string == "van"} | {Token.string == "von"} | {Token.string == "de"}| {Token.string == "du"})
+ 
+ 
+ Rule: citation
+// Heim and Kratzer (1998)
+ (
+		 (VANDE)? {Token.string ==~ "[A-Z].*"} ( {Token.string ==~ "[aA]nd"}| {Token.string ==~ ","}| {Token.string == "&"} )?  (VANDE)?  ({Token.string ==~ "[A-Z].*"} )?
+		 ({Token.string == "et"} {Token.string == "al"} {Token.string == "."})?
+		 ({Token.string == "("} )?
+		 ({Number.value ==~ "19[0-9][0-9]" } | {Number.value ==~ "20[0-9][0-9]" })
+		 ({Token.string == ")"} )?
+		 
+	
+):citation -->
+		  :citation.Citation = {rule = "Citation of a text"}
+ 
+		 
+Rule: fullcitation
+		// Heim, I. and A. Kratzer (1998). Title.
+		 (
+				 (VANDE)? {Token.orth == "upperInitial"} {Token.string ==~ ","} {Token.orth == "upperInitial"} ({Token.string == "."})? ({Token.string ==~ "[A-Za-z]"} {Token.string ==~ "."})?
+				 (
+						 ( {Token.string == "and"}| {Token.string == ","}| {Token.string == "&"} ) ({Token.string == "and"})?
+						 {Token.orth == "upperInitial"} ({Token.string == "."})? ({Token.string ==~ "[A-Za-z]"} {Token.string ==~ "."})? (VANDE)? {Token.orth == "upperInitial"} 
+				 )?
+				 ( ({Token.string == ","})? {Token.string == "et"} {Token.string == "al"} {Token.string == "."} )?
+				 ( ({Token.string == ","})? {Token.string ==~ "ed.*"} {Token.string == "."} )?
+				 
+				 ({Token.string == "."})?
+						 
+				 ({Token.string == "("} )?
+				 ({Number.value ==~ "19[0-9][0-9]" } | {Number.value ==~ "20[0-9][0-9]" })
+				 ({Token.string == ")"} )?
+				{Token.string == "."}
+				 
+				 {Sentence}
+			
+		):citation -->
+				  :citation.BibliographicEntry = {rule = "Full bibliographic entry: Author. Date. Title"}
+		
+		/*
+
+Rule: nearlyfullcitation
+		// Heim, I. and A. Kratzer. Title.
+		 (
+				 (VANDE)? {Token.string ==~ "[A-Z].*"} {Token.string ==~ ","} {Token.string ==~ "[A-Z].*"} 
+				 (
+						 ( {Token.string == "and"}| {Token.string ==~ ","}| {Token.string == "&"} )
+						 {Token.string ==~ "[A-Z].*"} (VANDE)? {Token.string ==~ "[A-Z].*"} 
+				 )?
+				 ({Token.string == "et"} {Token.string == "al"} {Token.string == "."})?
+				 
+				
+				{Token.string == "."}
+				 
+				 {Sentence}
+			
+		):citation -->
+				  :citation.BibliographicEntry = {rule = "Nearly Full bibliographic entry: Author. Title."}
+		*/
+
+Rule: duedate
+//26.1.2009
+//May, 30
+
+(
+	
+		({Token.string ==~ "[0-9][0-9]?" }
+		{Token.string ==~ "[.-Ð]" }
+		{Token.string ==~ "[0-9][0-9]?" }
+		{Token.string ==~ "[.-Ð]" }
+		{Token.string ==~ "20[0-9][0-9]" } )
+	|
+		({Number.string ==~ "[0-9][0-9]?[.-Ð/][0-9][0-9]?"}
+		{Token.string == "." }
+		{Token.string ==~ "20[0-9][0-9]" }	)
+	|
+		({Token.string ==~ "[wW]eek" }
+		{Number})
+	|
+		( ({Token.string ==~ "Jan.*" }
+			| {Token.string ==~ "Feb.*" }
+			| {Token.string ==~ "Mar.*" }
+			| {Token.string ==~ "Apr.*" }
+			| {Token.string ==~ "May.*" }
+			| {Token.string ==~ "Jun.*" }
+			| {Token.string ==~ "Jul.*" }
+			| {Token.string ==~ "Aug.*" }
+			| {Token.string ==~ "Sep.*" }
+			| {Token.string ==~ "Oct.*" }
+			| {Token.string ==~ "Nov.*" }
+			| {Token.string ==~ "Dec.*" }
+			)
+		({Token.kind == "punctuation" })?
+		{Number})
+			 
+	
+):duedate -->
+		  :duedate.DueDate = {rule = "A due date"}
+		
+
