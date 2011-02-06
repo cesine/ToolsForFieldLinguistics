@@ -9,15 +9,21 @@
  *    inputASName: Original markups
  *    outputASName: 
  */
-Phase:   TransferPfromOriginalmarkupstoDefault
-Input: p
+Phase:   AnnotateContentAndFunctionalWords
+Input: Token
 Options: control = appelt
 
 
-Rule: transferp
+Rule: nouns
 (
- {p}
+ {Token.category =~"^N"}
  )
 :section -->
-  :section.Paragraph = {kind = "Paragraph from html in the Original markups"}
+  :section.ContentWord = {contentword = "true", string=:section.Token.string}
 
+Rule: prepositions
+(
+		 {Token.category =~"^I" }
+		 )
+		:section -->
+		  :section.RelationWord = {relationsword = "true", string=:section.Token.string}
