@@ -1,12 +1,9 @@
-
-import java.util.regex.Pattern
-
 def defaultannots = docs[0].getAnnotations();
 AnnotationSet sentences = docs[0].annotations.get('Sentence');
 def wordmap = []
-def out = new File("/home/gina/Documents/outputGraph.html")
+def out = new File("outputGraph.html")
 out.delete()        
-out = new File("/home/gina/Documents/outputGraph.html")
+out = new File("outputGraph.html")
 for(sentence in sentences){
     out.append("var g = new Graph();\n")
 
