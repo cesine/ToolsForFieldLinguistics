@@ -68,7 +68,7 @@ try {
     System.err.println(ex.message)
 }
 
-return outpath
+//return outpath
 
 def opentextsource(){
 	/*TODO get better logic to get filename from user
@@ -82,6 +82,6 @@ def opentextsource(){
 		 * end logic to get filename from user
 		 */
 		
-		return '/home/gina/books/Yann_Martel_-_Life_of_Pi_(2001).txt'
+		return 'res/books/Yann_Martel_-_Life_of_Pi_(2001).txt'
 	
 }

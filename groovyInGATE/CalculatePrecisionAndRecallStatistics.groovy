@@ -3,7 +3,7 @@ def pairs = docs[0].annotations.get('pair');
 pairs = pairs.findAll{ it.features.quantitiesInHypothesis != "" };
 System.out.println("Pairs which have a quantity in the hypothesis: "+pairs.size());
 
-new File("output.csv").withWriter {out ->
+new File("/Users/gina/Documents/workspace2/QuantityInferencer/output.csv").withWriter {out ->
 
     out.writeLine "Reason"+"\tQuantities in H"+"\tQuantities in Pair"+"\tGoldStandard"+"\tSystemResults";
     pairs.each{
