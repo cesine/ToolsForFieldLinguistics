@@ -1,0 +1,67 @@
+/*
+ * This jape grammar transfers the <p></p> tags from the Original markups (found if the document was in HTML)
+ * Reasoning: Often the <p></p> are the only sections of an HTML document where it makes sense to run a Sentence Parser.
+ * 	Because the Stanford parser is slow and heavy, reducing the data reduces the run time. 
+ * 
+ * Tested on Wikipedia articles (Create a Gate Document by providing the URL: http://en.wikipedia.org/wiki/Topic_name)
+ * 
+ * In the Application Pipeline click on the Jape grammar and provide this configuration
+ *    inputASName: Original markups
+ *    outputASName: 
+ */
+Phase:   TransferPfromOriginalmarkupstoDefault
+Input: Token
+Options: control = appelt
+
+
+Rule: conditionals
+(
+ {Token.string ==~ ".*man"}
+ )
+:section -->
+  :section.Conditional = {kind = "suffix", string=:section.Token.string}
+
+
+Rule: negation
+(
+ {Token.string ==~ ".*chu"}
+ )
+:section -->
+  :section.Negation = {kind = "suffix", string=:section.Token.string}
+
+
+Rule: topic
+(
+ {Token.string ==~ ".*qa"}
+ )
+:section -->
+  :section.Topic = {kind = "suffix", string=:section.Token.string}
+
+
+
+Rule: topic2
+(
+ {Token.string ==~ ".*kum"}
+ )
+:section -->
+  :section.DontKnow = {kind = "suffix", string=:section.Token.string}
+
+
+
+
+Rule: NAYA
+(
+ {Token.string ==~ ".*naya.*"}
+ )
+:section -->
+  :section.Impulsative = {kind = "suffix", string=:section.Token.string}
+
+
+
+
+Rule: runa
+(
+ {Token.string ==~ "runa.*"}
+ )
+:section -->
+  :section.Person = {kind = "suffix", meaning="person", string=:section.Token.string}
