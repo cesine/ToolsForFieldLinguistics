@@ -116,6 +116,36 @@ def precedenceRelations2morphologyTemplate(precedencerelations){
 		println "number of relations left to process = ${relations.size}"
 	}
 	
+	/*
+	 * If anymorphemes contain another, then split the extra off
+	 */
+	println "the number of positions in the template is: "+morphtemplate.size
+	morphtemplate.each{ pos ->
+		println pos	
+		def poscopy =pos
+		pos.each{ tocheck ->
+			poscopy.each{ other ->
+				if( tocheck.contains(other)&& (tocheck.size() > other.size()) ){
+					println "this $tocheck contains $other"
+					other = "(.*)("+other+")(.*)"
+					//jimmaringulaur-> jimmaringu laur
+					String resultString = ""
+					Pattern regex = Pattern.compile(other);
+					Matcher regexMatcher = regex.matcher(tocheck);
+					try{
+						regexMatcher.find()
+						resultString=resultString+ " +"+regexMatcher.group(1)+"+ "
+						resultString=resultString+ " +"+regexMatcher.group(2)+"+ "
+						resultString=resultString+ " +"+regexMatcher.group(3)+"+ "
+					}catch(e){
+						//if the template is smaller than 3 error silently..
+					}
+					println resultString
+				}
+			}
+		}
+	}
+	
 	return morphtemplate
 }
 
@@ -135,6 +165,7 @@ def precedenceRelations2morphologyTemplate(precedencerelations){
 def morphologicalTemplate2regEx(morphologicalTemplate){
 	def finitestatemachine = "(.*)"
 	for(position in morphologicalTemplate){
+		//finitestatemachine=finitestatemachine+"(.*|" //allow null middles
 		finitestatemachine=finitestatemachine+"("
 		for(morph in position){
 			finitestatemachine=finitestatemachine+morph+"|"

@@ -1,3 +1,22 @@
+/*
+* The script expects to be called from another script with a binding passed to it
+*
+* For example:
+*
+	   def path = "/home/gina/Documents/workspacests/ToolsForFieldLinguistics/"
+	   Binding binding = new Binding()
+	   binding.setVariable("path",path)
+	   binding.setVariable("filename","../CorporaForFieldLinguistics/InuktitutRomanized/InukMagazine102-104rough-inuktitut.utf8.txt");
+	   binding.setVariable("outdirectory","gen")
+	   binding.setVariable("language","InuktitutRomanized")
+	   binding.setVariable("seeds","")
+	   GroovyShell shell = new GroovyShell(binding);
+	   
+	   def returnValue = shell.run(new File(path+"groovy/Corpus2Wordlist.groovy"), [])
+
+*/
+
+
 //set up the hash which will contain precedence rules and counts with default of 0
 def precedencerelations = [:].withDefault { k -> 0 }
 

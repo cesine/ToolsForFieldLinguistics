@@ -20,7 +20,7 @@
 try {
 	sourcefile = new FileReader(path+filename)
 	def outpath = "${path}${outdirectory}/${language}/"
-	println outpath
+	//println outpath
 	new File(outpath).mkdir()
 	def wordlistout = new FileWriter("${outpath}Words-by_frequency.txt")
 	def longwordsout =new FileWriter("${outpath}Long_Words-by_frequency.txt")
@@ -55,7 +55,7 @@ try {
 			
 			// output map in a descending numeric sort of its values
 			wordlist.entrySet().sort { a,b -> b.value <=> a.value }.each{ e ->
-				println e.value+","+e.key
+				//println e.value+","+e.key
 				wordlistout.printf("%5d %s\n", [e.value, e.key] )
 				if(e.key =~/.*[aeiouy].*[aeiouy].*[aeiouy].*[aeiouy].*[aeiouy][^aeiouy]+[aeiouy].*[aeiouy].*[aiouy]/){
 					longwordsout.printf("%5d %s\n", [e.value, e.key] )
