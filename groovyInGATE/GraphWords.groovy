@@ -1,9 +1,9 @@
 def defaultannots = docs[0].getAnnotations();
 AnnotationSet sentences = docs[0].annotations.get('Sentence');
 def wordmap = []
-def out = new File("outGraph.js")
+def out = new File("gen/outGraph.js")
 out.delete()        
-out = new File("outputGraph.js")
+out = new File("gen/outputGraph.js")
 out.append ("""
 var redraw, g, renderer;
 
