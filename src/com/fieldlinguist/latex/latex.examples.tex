@@ -1,262 +1,445 @@
-%this is a copy of ``new.tex'' i made around may 2003 while learnign tex. this doc was made nov 15 2003
-\documentclass[12pt,twoside,leqno]{article}%leqno is to ahve hte numbers on the left for equations
-%preamble is here, put commands that influence the 
-%\usepackage{thisisapackagename}
-\usepackage{syntonly}
+\documentclass[12pt]{article} %default font size is 10, to specifiy other sizes use \documentclass[12pt]{article} %to have the  numbers on the left for equations use \documentclass[12pt,leqno]{article}
+
+%Documents used to put this together: examples.tex, 070202phonology.qual.javanese.v4.tex, lshort030331.pdf
+
+%------Perhaps outdated--------------------------------------------
+
+%Create asii text blocks, often used to indicate something is code:
+%Check to see if this is necessary
+\usepackage{verbatim} 
+
+%Show how an unknown word can be hyphenated throughout the document.
+	\hyphenation{so-lil-o-quy}
+
 %\syntonly %if this is uncommented this command to make the tex go faster it just checks syntax not make a new dvi file.
 
-\usepackage[dvips]{graphicx} % this is to include graphics. save the file as a eps, or ps in gimp then type
-%\includegraphics{filename} (uncommented in the body of the ducument)
+%-----General Needs------------------------------------------------
 
-\usepackage{verbatim} %inorder to include asii text files \verbatiminput{filename}
+%Standard printing is booksized pages, this makes it a full letter page
+	\usepackage{fullpage}
+	
+%Print 2 pages on 1 page (this is one way to do it)		
+	%\usepackage{2up}
 
-\hyphenation{so-lil-o-quy}%shows how an unknown word can be hyphenated throughout the document.
+%Underline and Strikeout capabilities (sideeffect: \emph changes from the default italics to underline, to avoid this use \textit for italics)
+	\usepackage{ulem}
+
+%Create Grapics (set theory,)
+	\usepackage{PSTricks}
+	\usepackage{pst-grad}
+	
+%Display images	
+	\usepackage[dvips]{graphicx} % save the file as a eps, or ps type to display the image \includegraphics{filename} 
+
+
+%Bibliography:
+	%\usepackage{natbib} %citation style
+	
+%Various Types of Examples
+	%Using the `law' counter:
+	\newcounter{mycounter}
+	\newtheorem{law}{Law}
+	\newtheorem{lingRule}[law]{Rule}
+	\newtheorem{generalization}[law]{Generalization}
+	\newtheorem{constraint}[law]{Constraint}
+	\newtheorem{definition}[law]{Definition}
+	\newtheorem{theorem}[law]{Theorem}
+	\newtheorem{axiom}[law]{Axiom}
+	\newtheorem{assumption}[law]{Assumption}
+	%Using the `proof' counter:
+	\newtheorem{proof}{Proof}
+	\newtheorem{derivation}[proof]{Derivation}
+
+%-----Begin Linguistics Packages----------------------------------
+
+%Syntax/Morphology Intralinear glosses:
+	\usepackage{covington}
+
+%Easy tree structures based off of brackting:
+	%\usepackage{qtree} 
+	\usepackage{qtreegina} %changes: original qtree is incompatible with xyling as both use \Tree, so qtree uses \QTree instead
+%Arrows for easy tree structures
+	%\usepackage{tree-dvips}
+
+%Complicated tree structures and much more
+	%\usepackage{xyling}
+	\usepackage{xylinggina} %changes: over text arrows are added
+
+%IPA fonts
+	\usepackage{tipa}
+	\let\ipa\textipa %this command allows you to use the shorter \ipa{} rather than \textipa{}
+
+%Semantics denotation double brackets
+	\newcommand{\denote}[1]{[\hspace{-.02in}[{\bf #1}]\hspace{-.02in}]}
+	\newcommand{\denoteexpand}[1]{$\left[\hspace{-.06in}\left[#1\hspace{-.5in}\right]\hspace{-.06in}\right]$}
+
+
+%Otimality Theory
+	%to get a hand for the tableau
+	%\usepackage{pifont}
+	\newcommand{\hand}{\ding{43}}
+	%to shade in tables
+	%\usepackage{color}
+	%\usepackage{colortab}
+	%\definecolor{lightgray}{gray}{0.8}
+	%to make long tables spaning a number of pages
+	%\usepackage{supertabular}
+	%to use the ranking symbols which are from french quotes \fg \og
+	%\usepackage[frenchb]{babel}
+
+%Autosegmental phonology represenations
+	%\usepackage{pst-autoseg}
+	
+%Phonology
+	%to create a spaces
+	\usepackage{vowel}
+
+%-------Miscellaneous---------------------------------------------
+
+	%\usepackage{marvosym} for smile
+	%\usepackage{latexsym}
+	%\usepackage{eepic}
+	%\usepackage{pst-eucl}
+	%\usepackage{SpecialCoor}
+	%from phonology 2
+	%\usepackage[curve]{xypic}
+
+%--------------------End Preamble Area-----------------------------
+
 \begin{document}
-\pagenumbering{roman}
-\pagestyle{headings}
+\pagenumbering{roman} %makes the numbering of the preface material in roman numerals
+	%Calling the pavgenumbering command in teh middle of hte documetn has the pages start over again. the style can also be changed for example the table of contents can be in roman and the rest of the document can be in arabic. and the appendix can be in capital Roman letters etc...
 %\pagestyle{myheadings}
-xdvi %\markboth{left-hand (even)page header}{Right-hand (odd) page header}
-%in the book format because its default is doublesided printing you can have different headigns for the right and left hand pages. use \markboth to do this. otherwise you can just use \markright
-
-\pagenumbering{arabic}
-
-\title{MyFirst Document}
-\author{Gina Cook \and Mrs. Fields\thanks{Without whose help, this endeavor would be fruitless}}
-\date{May 25th 2003}%if the \date command is omitted the current date is used or the command \today can be used (anywhere in the document)
-
+	%\markboth{left-hand (even)page header}{Right-hand (odd) page header}
+	%in the book format because its default is doublesided printing you can have different headigns for the right and left hand pages. use \markboth to do this. otherwise you can just use \markright
+\title{Latex for Linguistics Notes\thanks{Acknowlogements: tons and tons of other latex for linguists websites and tutorials}}
+\author{Gina \and Author 2}
+\date{v1 May 25th 2003\\ v2 Feb 24 2008}%if the \date command is omitted the current date is used or the command \today can be used (anywhere in the document)
 \maketitle
 \tableofcontents
 \clearpage %this makes the text go on the next page
-\section{HERE I GO!}
-\label{I_Go}
-\subsection{subsection}
-\subsubsection{subsubsection}
-\paragraph{paragraph}
-\subparagraph{subparagraph}
 
-This is the text of my first document in \LaTeX!
-A     second     sentance.
-It's much more fun to do \LaTeXe{}than to
-just read about it.
-if you have an abreviathion that is a lowercase letter folowed by a period, use the space character (backslash) so that latex doesnt interprit it as a sentance boundary and put two spaces. this  etc.\ this should show up with only one space after it. etc. should show up with two spaces after it. upper case letters before a period are not treated as ends of sentances so you have to put a backslash folowwed by an at symbol. this is an examplE.\@ This is an example without the symbolS. ther should be only one space.. 
-\section{Spacing}
-Here begins the second paragraph. It follows a blank line. I don't have to indent; \LaTeX\ does that automatically.
+%-------------------End Heading Area-------------------------------
 
-\noindent This paragraph won't be indented, since it starts with a special command fo r stopping pharagraph indentation. 
-\section{Qotes}
-``this is a quote''
+\abstract{This is an abstract of what this paper is about. This collection of latex source started in 2003 from reading a book on formating a book in \LaTeX ~by Sally Fields. Since then a number of comands had changed in \LaTeXe{}. This document contains the latest commands as of Feb 2008. }
 
-Yesterday Sally asked, ``Is this how to do quotes?'' She recalled, ``The book says: `there is a difference between open and close quote marks'\,''.
-
-the command \, makes a small horizontal space\footnote{this was put between the single quote and the double quote}
-\part{Part here doesnt change numbering}
-\section{dashes}
-Inter-word dashes, or hyphens, are made with one dash. Dashes for number ranges, like 6--12, are made with two dashes, and punctuation dashes are made with three dashes---like this!!!
-\section{Symbols}Let's see what's behind door \#1---and it is---\$10,000!
-its $-30\,^{\circ}\mathrm{C}$.
-\# \$ \% \& \~{} $\sim$ \_ \^ \{ \} $<$ $>$ $\backslash$ \verb!\\! the double slashes make a new line but without a paragraph indentation.\verb!\\*! makes a pagebreak after the newline.
-\section{Footnotes}
-Cats\footnote[5]{you can specify the number or symbol for the footnote optional arguments must be placed just after the command and before the braces. Warm, soft, furry animals.} are very intelligent.
-\section{I am considerate \protect\footnote{and protect my footnote}}
-footnotes in headings need to be protected
-\section{Margin Notes}
-This is some text in a paragraph. It will have a marginal note\normalmarginpar \marginpar{this is a pretty note} which will be placed next to the paragraph.printing.\reversemarginpar\marginpar{this note will come out on the opposite side of the default note} the side taht the margin note will apear on depends on whether the is single or double sided printed
-
-x=y+2
-
-$x=y+2$
-\section {My First Math Formula}
-Here comes an in-line formula: $x^2+y^2=z^2$
-if $x=1$ and $y=2$ then $z=3$:
-Also, $x'+y' =z_{21}$.
-
-\section{Comments}
-%this is a comment which cannot be seen
-
-This is real text. %This icoment won't print
-%This whole line is a comment tha t won't print
-Ths is more real text.
-
-You can use the comment environment provided by the verbatim package. type
-\begin{verbatim}
-\usepackage{verbatim} in the preamble (between /documentclass and /begin{document}
-
-then you can use
-\begin{comment}
-this wont be displayed.
-\end{comment}
-\end{verbatim}
-This wont work inside the math environment (or other complicated environments).
-
-%arguments go into the list of figures or list of tables\caption
-%arguments goes into the table of contents list of figures or list of tables\addcontentsline
-\section{Verbatim}
-Here is some text which cdescribes the \verb!\footnote!command.The exclaimationpoints in the comand can be any symbol if you ruesing ! in your code use something else like a ?.
-
-\verb!this wont print with symbols \latex\ !
-
-\begin{verbatim}
-I want all this text
-to come out verbatim!!
-Here is a \LaTeX\ command: \footnote(It won't work)
-%This line will not be a comment.
-
-\end{verbatim}
-\section{Typestyles and Sizes}
-Typestyle-changing commands give one a \bf powerful \rm feeling.
-
-The \bf rain \rm in \it Spain \rm falls \sl mainly \rm on the \sf plain! \rm
-
-\tiny this is tiny\\
-\scriptsize THis is script size\\
-\footnotesize This is footnote size\\
-\small THis is small\\
-\normalsize This is normal size\\
-\large This is large\\
-\Large This is larger\\
-\LARGE This is very large\\
-\huge THis is huge\\
-\Huge This is very huge\normalsize\\
-
-%to change the typestyle and size at the same time put the typestyle command after the size command
-
-The \tiny frightened kitten \normalsize raised its fur and \it hissed \rm at the \Large big German Shepherd. \normalsize
-
-The {\tiny frightened kitten} raised its fur and {\it hissed} at the {\Large big German Shepherd.}
-
-\emph{if you use emphasizing inside a peice of emphasized text, then \LaTeX{} uses the \emph{normal} font for emphasizing.}
-\section*{This Section will have no number and serves as a heading}
-
-you must always tex a document twice inorder to get a correct table of contents.
-\section[Entry for the T.O.C.]{Section Heading In the Text}
-you can have an optional argument if you want the table of contents entry to be different from the section heading
-\section*{this is the Heading}
-\addcontentsline{toc}{section}{This is the Heading}
-the addcontentsline must appear on the same page as the unnumberd heading inorder to have the right page number in the table of contents. this heading will appear in the table of contents dispite having no number.
-
-\section[HEading for the TOC]{Heading for the Text:alternateing TOC and Text headings}
-This is a section whose TOC entry is different from its heading in the text!
-
-Chapter \ref{I_Go} contains some of my very first \LaTeX\ commands!
-If latex isnt run twice then the references will apear as ?? it takes two runs for latex references to be resolved correctly. if you still have a ?? then the lable and the ref don't match.
-
-to reference a  page use \verb!\pageref!  see Chapter \ref{I_Go} on page \pageref{I_Go} for more.(this is just an example)
-\section{Hyphenation}
-latex automatically hohenates words so if you ahve a word that isnt in its dictionary youc an specify its hyphatin in between the \verb!\documentstyle! and the 
-\verb!\begin{document}! command.
-
-\section{Quote vs Quotations}
-For a shore quottion, or a series of one liners:
-
-\begin{quote}
-``Is this how to do quotes?'', asked Sallly.
-
-``Very good, Sally!'', said Jane.
-
-``The book says `there is a difference between open and close quote marks'\,'', said Sally.
-
-``That is true.'', said Jane.
-\end{quote}
-
-For a quote of a paraghraph or more:
-
-\begin{quotation}
-Singing is perhaps the most personal of all the performing arts. WHne performing, a good singer makes each member of the audience feel as if he or she is receiving a generous and loving gift. Only in singing is ther ea direct, unhindered path between the muxic in the performer's heart and the listener's senses. 
+\begin{quotation}Alternatively, you can make an abstract like this (see source). blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \end{quotation}
 
+\setcounter{page}{1}
+\pagenumbering{arabic} %brings numbering back to the default
+\section{Here is a Section}
+	\label{sec:sectioningExample} 
 
-\section{Making Lists}
-Her comes a beautiful list:
+In this section (Section~\ref{sec:sectioningExample}) we will first see how to make sections (in \ref{sec:sectioningExample}), subsections (in \ref{sec:subsectionExample}) and subsubsections (in \ref{sec:subsubsectionExample}). In \S \ref{sec:messingWithSectioning} we will see some more advanced tools for sectioning. 
+
+\subsection{This is a subsection}
+	\label{sec:subsectionExample}
+
+
+    `Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe:
+    All mimsy were the borogoves,
+    And the mome raths outgrabe.
+
+
+    ``Beware the Jabberwock, my son!
+    The jaws that bite, the claws that catch!
+    Beware the Jubjub bird, and shun
+    The frumious Bandersnatch!"
+    
+\subsubsection{This is a subsubsection}
+	\label{sec:subsubsectionExample}
+
+    He took his vorpal sword in hand:
+    Long time the manxome foe he sought--
+    So rested he by the Tumtum tree,
+    And stood awhile in thought.
+    
+%\subsubsubsection{There is no such thing as a subsubsubsection}	    
+    
+    And, as in uffish thought he stood,
+    The Jabberwock, with eyes of flame,
+    Came whiffling through the tulgey wood,
+    And burbled as it came!
+
+    One, two! One, two! And through and through
+    The vorpal blade went snicker-snack!
+    He left it dead, and with its head
+    He went galumphing back.
+
+\subsubsection{Paragraphs and subparagraphs}
+
+This is just about the headings use of pharagrahs. The spacing of pharagraphs is discussed in \S \ref{sec:spacing}.
+
+\paragraph{This is a paragraph}
+
+    ``And hast thou slain the Jabberwock?
+    Come to my arms, my beamish boy!
+    O frabjous day! Callooh! Callay!"
+    He chortled in his joy.
+    
+\subparagraph{This is a subparagraph}
+
+    `Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe:
+    All mimsy were the borogoves,
+    And the mome raths outgrabe. 
+
+
+
+\subsection{Advanced Sectioning: Section headings are automatically displayed in the table of contents}
+	\label{sec:messingWithSectioning}
+
+You must always tex a document twice in order to get a correct table of contents, and to get the references to be correctly evaluated. 
+
+The table of contents will be displayed where you use the command {\verb \tableofcontents }. 
+
+
+~\\
+Although sections are automatically put in the Table of Contents (TOC), there are three things you can do to change this.
+
 \begin{itemize}
-\item This is the first list item! Let's make it a long one so taht we can demonstrage how nicely \LaTeX\ indents list items.
-\item[o] groceries
-  \begin{itemize}
-  \item potatoes
-    \begin{itemize}
-    \item red
-  	\begin{itemize}
-	\item russet
+	\item You can use section headings as just headings (that dont appear in the TOC and dont have a number)  with {\verb \section*{JustAHeading} }
+	\item You can specify an optional arugment for the section's TOC entry (to modify/shorten a section heading) with {\verb \section[ShortVersion]{FullVersion} }
+	\item You can add a non-numbered line\footnote{The addcontentsline must appear on the same page as the unnumberd heading inorder to have the right page number in the table of contents.}  in the TOC (to indicate a new Part) \\
+	with {\verb \addcontentsline{toc}{section}{PartII:} }
+\end{itemize} 
+
+
+\addcontentsline{toc}{subsection}{Part II: But you can mess with the Table Of Contents and Headings}
+
+\subsubsection*{But this subsection will have no number and serves as a heading}
+
+	To make a simple heading you can add an asterix in the code between the command and its argument (see code).
+
+\subsubsection[Short for TOC: Occams Razor and more]{Long: Occams greatest Razor and Shaving Cream}
+
+	This section's TOC entry is different from its heading in the text. The TOC entry is specified in an [optional argument] (see code).
+
+\section{Cross Referenecs}
+
+	References {\verb \ref } will take the number of the example or section that their corresponding {\verb \label } command is located after (look for some examples in the code). You can also do {\verb \pageref } For example, spacing is discussed on page~\pageref{sec:spacing}.
+
+	Counters can be reset (counters: part, chapter, section, subsection, subsubsection, paragraph, page, equation, figure, table, footnote, enumi, enumii). See the source between the table of contents and document body, and between the body and the appendix. 
+	
+	You can create your  own counter with newcounter (see the preamble in the source) % more info: http://www.personal.ceu.hu/tex/counters.htm 
+
+\section{How Spacing Works in LaTeX}\label{sec:spacing}
+
+
+\subsection{Basic Spacing: spaces, paragraphs, tabs}	
+
+	\LaTeX ignores spacing in your source code, it handles all the spacing for you.  	Ignoring the spacing in code is actually useful, it means you can space your code so that it is easy to read. 
+
+	\begin{example}\label{ex:forcespacing}
+	Summary of Spacing, and ways to force it\\
+	\begin{itemize} 
+		\item Any number of blank lines will make a new paragraph (use  {\verb \\ } force a paragraph)
+		\item Indentation is handled automatically (use {\verb \noindent } to force no indentation)
+		\item Any number of spaces will make 1 space (use {\verb ~ } to force a space)
+		\item Tabs are completely ignored. (use {\verb ~~~~~~or\hspace{.3in} } to force a tab)
 	\end{itemize}
-    \end{itemize}
-  \item celery
-  \item frying chicken
-  \item milk
-  \end{itemize}
-\item [$\heartsuit$] laundry
-\end{itemize}
+	\end{example}
+	
+	The tilda is also useful for things like \S~1, Section~1, Generalization~1, Figure~1, Example~1 where you dont want the `Example' and the `1' to be seperated by a line break (see code).
 
-There are only four levels of list availlible.
+	
+	\noindent You can get a single line break\\like this\\and this. 
+
+
+\subsection{Indentation: Using quote and quotation}	
+	
+	The formated output (\ref{ex:formated}) was created with forced spacing. The unformated output (\ref{ex:unformated}) is what it looks like with no forced spacing: 
+	
+
+	\begin{example}\label{ex:unformated}
+	Here is what an unformated `Le Jabberwock' looks like:\\ 
+	
+	Il \'{e}tait grilheure; les slictueux toves
+	Gyraient sur l'alloinde et vriblaient:
+	Tout flivoreux allaient les borogoves;
+	Les verchons fourgus bourniflaient.
+	
+	``«Prends garde au Jabberwock, mon fils!
+	A sa gueule qui mord, \`{a} ses griffes qui happent!
+	Gare l`oiseau Jubjube, et laisse
+	En paix le frumieux Bandersnatch!»"
+	
+	Le jeune homme, ayant pris sa vorpaline \'{e}p\'{e}e,
+	Cherchait longtemps l`ennemi manziquais...
+	Puis, arriv\'{e} près de l`Arbre T\'{e}p\'{e},
+	Pour r\'{e}fl\'{e}chir un instant s'arr\^{e}tait.
+	
+	Or, comme il ruminait de suff\^{e}ches pensées,
+	Le Jabberwock, l`oeil flamboyant,
+	Ruginiflant par le bois touffet\'{e},
+	Arrivait en barigoulant.
+	
+	Une, deux! Une, deux! D'outre en outre!
+	Le glaive vorpalin virevolte, flac-vlan!
+	Il terrasse le monstre, et, brandissant sa t\^{e}te,
+	Il s`en retourne galomphant.
+	
+	``«Tu as donc tu\'{e} le Jabberwock!
+	Dans mes bras, mon fils rayonnois!
+	O jour frabieux! Callouh! Callock!»"
+	Le vieux glouffait de joie.
+	
+	Il \'{e}tait grilheure; les slictueux toves
+	Gyraient sur l`alloinde et vriblaient:
+	Tout flivoreux allaient les borogoves;
+	Les verchons fourgus bourniflaient.	
+	\end{example}
+
+	
+	\begin{example} \label{ex:formated}
+	Here is what `Le Jabberwock' should look like. \\
+	
+	\begin{quote}
+		`Le Jabberwock' \\
+		Translated by Henri Parisot: \\
+		http://www.keithlim.com/jabberwocky/translations/index.html\\
+		~\\
+		Il \'{e}tait grilheure; les slictueux toves\\
+		Gyraient sur l'alloinde et vriblaient:\\
+		Tout flivoreux allaient les borogoves;\\
+		Les verchons fourgus bourniflaient.\\
+		~\\
+		``«Prends garde au Jabberwock, mon fils!\\
+		A sa gueule qui mord, \`{a} ses griffes qui happent!\\
+		Gare l`oiseau Jubjube, et laisse\\
+		En paix le frumieux Bandersnatch!»"\\
+		~\\
+		Le jeune homme, ayant pris sa vorpaline \'{e}p\'{e}e,\\
+		Cherchait longtemps l`ennemi manziquais...\\
+		Puis, arriv\'{e} près de l`Arbre T\'{e}p\'{e},\\
+		Pour r\'{e}fl\'{e}chir un instant s'arr\^{e}tait.\\
+		~\\
+		Or, comme il ruminait de suff\^{e}ches pensées, \\
+		Le Jabberwock, l`oeil flamboyant,\\
+		Ruginiflant par le bois touffet\'{e},\\
+		Arrivait en barigoulant.\\
+		~\\
+		Une, deux! Une, deux! D'outre en outre!\\
+		Le glaive vorpalin virevolte, flac-vlan!\\
+		Il terrasse le monstre, et, brandissant sa t\^{e}te,\\
+		Il s`en retourne galomphant.\\~
+		~\\
+		``«Tu as donc tu\'{e} le Jabberwock!\\
+		Dans mes bras, mon fils rayonnois!\\
+		O jour frabieux! Callouh! Callock!»"\\
+		Le vieux glouffait de joie.\\
+		~\\
+		Il \'{e}tait grilheure; les slictueux toves\\
+		Gyraient sur l`alloinde et vriblaient:\\
+		Tout flivoreux allaient les borogoves;\\
+		Les verchons fourgus bourniflaient.\\
+	\end{quote}
+	\end{example}
+	
+
+	The formated output (\ref{ex:formated}) was created using quote. If you want to make a paragraph quotation you can use quotation
+	
+	\begin{quotation}
+	
+		%This immediately raises the question of how one can judge the theoretical significance of a given fact or body of facts. The answer is that this can be done by showing that the facts in question can be accounted for as consequences of laws organized in a well articulated theory\ldots
+		\noindent  Unfortunately, within linguistics it has not been generally recognized how important such formal, theoretical work is; instead  there is a feeling that too much concern for theoretical detail is  a waste of time\ldots [T]he attitude that formal, theoretical work  is bound to be both ad-hoc and sterile is, I am convinced,  fundamentally mistaken \ldots 
+		
+		\hspace{3in}Morris Halle (1975:530)
+	\end{quotation}
+
+
+	
+\subsection{Advanced Spacing: vspace and hspace}\label{sec:advspacing}
+
+You can create vertical space 
+
+	\vspace{.6in} like this. You can create horizontal space \hspace{.6in} like this. This can be useful in graphics, figures and examples. hspace can be useful in getting Trees to be smaller... but vspace and hspace are hacks that are best avoided and can have bad consequences.
+	
+
+
+\section{Lists and Enumeration}
+
+\subsection{Enumerated Lists}
+
+There are only four levels of list available. You can have an itemize list inside of an enumerated list and vice versa. See Item~\ref{list:level2}, Item~\ref{list:level3}, Item~\ref{list:level4} for examples of using references in lists.
+
+Here is the automated way enumerated lists look
 
 \begin{enumerate}
-\item THis is hte first level
-
-  \begin{enumerate}
-  \item This is hte second level
-
-    \begin{enumerate}
-      \item This is the third level
-
+	\item This is the first level
 	\begin{enumerate}
-	  \item This is the fourth level
-	    \end{enumerate}
+		\item \label{list:level2} This is the second level
+		\begin{enumerate}
+			\item \label{list:level3} This is the third level
+			\begin{enumerate}
+				\item \label{list:level4} This is the fourth level
+			\end{enumerate}
+		\end{enumerate}
+		\item This is the seecond item in the second level
 	\end{enumerate}
-    \item This is the seecond item in the second level
-      \end{enumerate}
-  \item This is the second item in the first level
-  \end{enumerate}
-You can have an itemize inside of an enumerate and vice versa
-
-\begin{enumerate}
-\item \label{list:one} this is list item number one.
-\item \label{list:two} Here is number two.
-\item \label{list:three} And here is number three. 
+	\item This is the second item in the first level
 \end{enumerate}
 
-See Item \ref{list:two} in the list above for a description of number two.
+\subsection{Itemized Lists}
 
+Here is the way that a normal itemized list looks. You change the bullet symbols to anything you want.
 
-To refer to a bibliography item in the style of a footnote, use the math superscript command, as in Keating$^{\ref{bib:keating}}$. Or you can just do it like this: see Reference~\ref{bib:keating} for a great story about underspecification.
+\begin{itemize}
+	\item here is a bunch of embedded items
+	\item buy groceries
+	\begin{itemize}
+		\item potatoes
+		\begin{itemize}
+			\item red
+			\begin{itemize}
+				\item russet
+			\end{itemize}
+			\item yellow
+		\end{itemize}
+		\item celery
+		\item frying chicken
+		\item milk
+	\end{itemize}
+	\item[o] Here is a changed example pay bills
+	\item [$\heartsuit$] Here is a changed example do laundry
+	\item [(a)] Here is a changed example using a literal (a)
+	\item [OK] Here is a changed example using the word `OK'
 
-The tilda in the code \verb!~! prints as a space and prevents a line break from occuring inbetween the units.
+\end{itemize}
 
-\section[References]{References}
+\subsection{Descriptive Lists}
+
+Descriptive lists are good for glossaries, and can also be used as  a quick solution for references/bibliography. 
+
 \begin{description}
-\item  \label{bib:barbosa} Barbosa, PliÃ­nio Almeida  1996, ``At Least Two Macrorythmic Units are Necessary for Modeling Brazilian Portugues duration,'' {\it Proceedings of the First ESCA Tutorial Research Workshop on Speech Production Modeling and Fourth Speech Production Seminar} pp. 85-88,\\
-http://www.lafape.iel.unicamp.br/Publica\%C3\%A7\%C3\%B5es/Autrans96.pdf.
-
-\item \label{bib:boersma} Boersma, Paul \& David Weenink 2003, {\it Praat: Doing Phonetics by Computer.}  Version 4.0.43, http://www.praat.org.
-\item \label{bib:cox} Cox, Felicity  2002, {\it The Acoustics of Speech},\\
- http://www.ling.mq.edu.au/units/sph301/consonants/nasalweb.html.
-\item \label{bib:delvaux}Delvaux, Veronique, Alain Soquet \& John Kingston June 2002, {\it Production and Perception of French Nasal Vowels},\\
- http://www.ling.yale.edu:16080/labphon8/Poster\_Abstracts/Delvaux.html.
-\item \label{bib:guion} Guion, Susan 2002, {\it Nasal, Approximate and Lateral Acoustics},\\
-http://www.uoregon.edu/\~{}guion/411notes/nasacous.htm.
-\item \label{bib:keating} Keating, Patricia A. 1988, ``Underspecification in phonetics,'' {\it Phonology 5.2}, pp. 275-292.
-\item \label{bib:ohala} Ohala, John J. Draft 2001,``Aerodynamic Principles'' (Chapter 2), `` Acoustics'', (Chapter 3) {\it Phonology in Your Ear}, pp. 3-56.
-\item \label{bib:ohalas} Ohala, John J.\& Manjari Ohala 1995, ``Speech perception and lexical representation of vowel nasalization in Hindi and English'', {\it  Phonology and Phonetic Evidence Papers in Laboratory Phonology IV}, Cambridge University Press, pp. 41-60.
-\item \label{bib:zang} Zang, Jie 2002 {\it Nasalized Vowels},\\
- http://icg.harvard.edu/~ling113/lectures.
+	\item [Dogs] Dogs, with their friendly obedient nature, make excellent pets. There are many differnt sizes of dogs, ranging from a bundle you can old in one hand to a 50--60 pound animal tha tbegins to resemle a horse. 
+	\item [Cat etc] Cats are ideal pets for people who are on-the-go. Independent and intellegent in nature, they do not require a great deal of attention. While being well able to entertain and take care of themselves, ats also offer warmth and affection to their owners.
+	\item [Birds] Birds add a splash of colour and a pleasant background music to the household. The patient bird owner can train his pet to talk and sit on his finger, and even ride around town on his shoulder.
 \end{description}
 
-\section{Descriptive lists}
 \begin{description}
-\item [Dogs] Dogs, with their friendly obedient nature, make excellent pets. There are many differnt sizes of dogs, ranging from a bundle you can old in one hand to a 50--60 pound animal tha tbegins to resemle a horse. 
-\item [Cat tfdtrfcs] Cats are ideal pets for people who are on-the-go. Independent and intellegent in nature, they do not require a great deal of attention. While being well able to entertain and take care of themselves, ats also offer warmth and affection to their owners.
-\item [Birds] Birds add a splash of colour and a pleasant background music to the household. The patient bird owner can train his pet to talk and sit on his finger, and eve ride around town on his shoulder.
+	\item \label{bib:boersma} Boersma, Paul \& David Weenink 2003, {\it Praat: Doing Phonetics by Computer.}  Version 4.0.43, http://www.praat.org.
+	\item \label{bib:keating} Keating, Patricia A. 1988, ``Underspecification in phonetics,'' {\it Phonology 5.2}, pp. 275-292.
+	\item \label{bib:ohala} Ohala, John J. Draft 2001,``Aerodynamic Principles'' (Chapter 2), `` Acoustics'', (Chapter 3) {\it Phonology in Your Ear}, pp. 3-56.
+	\item \label{bib:ohalas} Ohala, John J.\& Manjari Ohala 1995, ``Speech perception and lexical representation of vowel nasalization in Hindi and English'', {\it  Phonology and Phonetic Evidence Papers in Laboratory Phonology IV}, Cambridge University Press, pp. 41-60.
 \end{description}
-\section{Equations}
-Here is a paragraph of text. It leats up to a brilliant (numbered) euation:
+
+\section{Formating various types of examples, generlizations, rules constraints etc}
+
+
+Equation numbers are usually on the right, but they can be put on the left using [leqno] in the documentclass command (see the preamble in the source)
 \begin{equation}
 x=y+z
 \label{eq:first}
 \end{equation}
 
-That was Equation~\ref{eq:first}.  (Number provided by the ref command.) And another paragraph may follow the euation. TO produce the same euation with out a number, type the following:
+That was Equation~\ref{eq:first}.  (Number provided by the ref command.) And another paragraph may follow the equation. To produce the same equation without a number, type the following:
+
 \begin{displaymath}
 x=y+z
 \end{displaymath}
-
-Using the shorthand notation, \[x=y+z\] let us see what \LaTeX\ will do with a displayed equation entered in teh middle of a paragraph. 
 
 \begin{equation}
 \int_{0}^{\infty} f(x)=g(x)
@@ -265,9 +448,13 @@ Using the shorthand notation, \[x=y+z\] let us see what \LaTeX\ will do with a d
 \[
 \sum_{1}^{5}x=15
 \]
+
+Using the shorthand notation, \LaTeX will still  create \[x=y+z\] the equation in the middle of the page even though the source has the equatin in the middle of a block of text.. 
+
+You can access math mode in the text using {\verb \math{x=y+z} } or the short cut: dollar signs \$ around the text that should be formated in math mode. \begin{math}x=y+z\end{math} $x=y+z$ this is useful for subscripts he$_i$ or T$_{past}$ and superscripts v$^o$ or v$^{intrans}$.
 \LaTeX\ Can have the sums and integrals taller or shorter depending on use of hte displaystyle of textstyle. Here is an in-line integral: $\int_{0}^{1}f(x)=g(x)$, and here is an in-line summation: $\sum_{1}^{5} x =15$. They look different from the displayed forms.
 
-Here is a bunch of text to make a paragraph to see how the tall integral will look. Here is a {\it tall} in-line integral: $\displaystyle \int_{0}^{1}f(x)=g(x)$. And here is a {\it short} displayed summation:
+Here is a bunch of text to make a paragraph to see how the tall integral will look. Here is a {\it tall} in-line integral: $\displaystyle \int_{0}^{1}f(x)=g(x)$. And here is a {\it short} displayed summation (See, they're not pretty when used in the opposite contexts. fortunatly latex will take care of that.)
 
 \[
 \textstyle \sum_{1}^ {5} x=15
@@ -275,165 +462,131 @@ Here is a bunch of text to make a paragraph to see how the tall integral will lo
 \begin{equation}
 x=i\scriptstyle j \scriptscriptstyle k
 \end{equation}
-\\
-\`{o}
-\'{O}
-\^{o}
-\"{O}
-\~{o}
-\={O}
-\.{o}
-\u{O}
-\v{o}
-\H{O}
-\t{ts}
-\c{O}
-\d{o}
-\b{O}
-\oe
-\OE
-\ae
-\AE
-\aa
-\AA
-\o
-\O
-\l
-\L
-\ss
-?`
-!`
-\copyright
-\pounds
-\P75
-\S
-\dag
-\ddag
+
+\subsection{Formating examples for formalisms}
+
+This section will talk about advanced ways of making examples. It's possible to define differnet types of examples to be numbered and formatted according to their own group. Ie, Generalizations could be different from Definitions, which could be different from Derivations. These must be defined in the preamble, and then used in the text	. Here are some Linguistically relevent types of example
+
+
+\begin{example}
+	Here some types of examples that Linguists might want:
+
+\begin{verbatim}
+%\newtheorem{nickname}[counter]{Full Name}[section] 
+Using the `rule' counter:
+\newtheorem{generalization}[rule]{Generalization}[section]
+\newtheorem{lingRule}[rule]{Rule}[section]
+\newtheorem{constraint}[rule]{Constraint}[section]
+\newtheorem{definition}[rule]{Definition}[section]
+\newtheorem{theorem}[rule]{Theorem}[section]
+\newtheorem{axiom}[rule]{Axiom}[section]
+\newtheorem{law}[rule]{Law}[section]
+\newtheorem{assumption}[rule]{Assumption}[section]
+Using the `proof' counter:
+\newtheorem{proof}[proof]{Proof}[section]
+\newtheorem{derivation}[proof]{Derivation}[section]
+\end{verbatim}
+\end{example}	
+
+\begin{generalization}[The Senority Sequencing Principle]
+Onsets rise in sonority toward the nucleus and codas fall in sonority from the nucleus (Kenstowitz 1994:254)
+\end{generalization}
+
+
+\begin{generalization}[Greenberg's Universal 20]	
+When any or all of the items (demonstrative, numeral, and descriptive adjective) precede the noun, they are always found in that order. If they follow, the order is either the same  or its exact opposite (Greenberg 1963:87)
+\end{generalization}
+
+
+\begin{lingRule}[Functional Application (FA) ]\label{FA}
+Functional application models semantic combination like mathematical functions. One element is the function, the other element is the argument. In this representation $\alpha$ is the function and $\beta$ is its argument. 
+
+\Tree{
+& \denote{\gamma}\Below{$_\textsc{fa}$}\B{dl}\B{dr} &&  =\denote{\alpha}(\denote{\beta})\\
+\denote{\alpha} && \denote{\beta}\\
+}
+\end{lingRule}
+
+The robust generalization shown in (\ref{analyticentailments}) can be formalized as the `Intersection Generalization'\footnote{This generalization wasn't named in the class. But since we wanted to mention it frequently we called it the `Intersection Generalization' for lack of a better name.} shown in (\ref{intersectgen}). The generalization is that if $\gamma$ is in the intersection of $\alpha$ and $\beta$, then by definition of intersection $\gamma$ must have the properties of $\alpha$ (i.e. be blue), and the properties of $\beta$ (i.e. be a ball). This is represented logically in (\ref{intersectgen}i), in prose in (\ref{intersectgen}ii) and visually in (\ref{intersectgen}iii).
+
+\begin{generalization}[Intersection Generalization]\label{intersectgen}
+If $\gamma$ is in the intersection of $\alpha$ and $\beta$, then by definition of intersection $\gamma$ must have the properties of $\alpha$ (i.e. be blue), and the properties of $\beta$ (i.e. be a ball). This is represented logically in (\ref{intersectgen}i), in prose in (\ref{intersectgen}ii) and visually in (\ref{intersectgen}iii).
+
+(i) $\gamma \in (\alpha \cap \beta)$\\
+\hspace{.2in}$\models \gamma \in \alpha $\\
+\hspace{.2in}$\models \gamma \in \beta $\\
+(ii) In words: If $\gamma$ is a member of the intersection of sets $\alpha$ and $\beta$, then\\
+\hspace{.2in}it is necessarily the case that $\gamma$ is a member of $\alpha$ and \\
+\hspace{.2in}it is necessarily the case that $\gamma$ is a member of $\beta$.
+\vspace{1in}
+\psset{linestyle=solid}
+% \psgrid(0,0)(-1,-1)(9,3)
+ \pscircle(5.5,1){1}
+ \pscircle(7,1){1}
+   \uput[0](5,1){\psframebox*{$\alpha$}}
+   \uput[0](7,1){\psframebox*{$\beta$}}
+  \uput[0](6,1){$\gamma$}
+\uput[0](4,2){(iii)}
+\vspace{-1in}
+\end{generalization}
+
+
+
+
+\begin{generalization}[No H in Onsets]
+
+~\\H is not found in onsets, but is found word final and sylable final. The data below shows the pattern which the generalization is based on.\\ 
+
+\begin{tabular}{|l|l|c|c|c|c|l|}\hline
+ &&&\multicolumn{2}{c|}{\textit{h}} &\textit{no h}&  \\\hline
+& && Word Final & Sylable Final & Syllable Initial& \\\hline\hline
+a. & i\emph{~~~} &: & \ipa{si.sI{\bf h}} & \ipa{si.sI{\bf h}.ku} & \ipa{si.si.e} &  `side'\\\hline
+b. & u\emph{~~~} &: & \ipa{bu.bU{\bf h}} & \ipa{bu.bU{\bf h}.ku} & \ipa{bu.bu.e} &  `need'\\\hline
+c. & a\emph{~~~} &: & \ipa{o.ma{\bf h}} & \ipa{o.ma{\bf h}.ku} &  \ipa{o.ma.e} &  `house'\\\hline
+d. & e\emph{~~~} &:  &\multicolumn{4}{c|}{(no evidence, but expected)}\\\hline
+e. & o\emph{~~~} &:  &\multicolumn{4}{c|}{(no evidence, but expected)}\\\hline
+\end{tabular}
+\end{generalization}
+
+\begin{lingRule}[H Deletion]
+
+H is deleted in onsets.\\ 
+\begin{tabular}{lllll}
+Predictions& Findable: & V.V \\
+ & Not Findable: & V.hV & C.hV\\
+\end{tabular}
+\end{lingRule}
+
+\begin{constraint}[*.H]
+
+No H in onsets.\\ 
+\begin{tabular}{lllll}
+Predictions& Common: & V.V \\
+ & Uncommon: & V.hV & C.hV\\
+\end{tabular}
+\end{constraint}
+
+
+\section{Languages and quick ways to make accents and diacritics}
+
+\`{o} \'{O} \^{o} \"{O} \~{o} \={O} \.{o} \u{O} \v{o} \H{O} \t{ts} \c{O} \d{o} \b{O} \oe \OE \ae \AE \aa \AA \o \O \l \L \ss ?` !` \copyright \pounds \P75 \S \dag \ddag
 
 ?`Como est\'{a} ustead?\\
 Notre amour est chose l\'{e}g\'{e}re.\\
 Ein V\"{o}gelein fliegt \"{u}ber den Rhein.\\
 
-Calling the pavgenumbering command in teh middle of hte documetn has the pages start over again. the style can also be changed for example the table of contents can be in roman and the rest of the document can be in arabic. and the appendix can be in capital Roman letters etc...
-\section{Array Example}
-\[
-\begin{array}{ccccc}
-x_1 & 0 & 0 &\cdots & 0 \\
-0   & x_2 & 0 & \cdots & \vdots \\
-0 & 0 & \ddots & 0 & \vdots \\
-\vdots & \vdots & 0 & \ddots & 0 \\
-0 & \cdots & \cdots & 0 & x_n \\
-\end{array}
-\]
+\setcounter{page}{1}
+\pagenumbering{roman} %changes numbering to roman for the appendix
+\appendix %marks the start of additional material in your book. After this command chapters will be numbered with letters.
 
-Here is an example using $\alpha$ and $\beta$. $\cal G$ is also used.
-\begin{equation}
-{\cal G } = \frac{\alpha +\beta}{\alpha - \beta}
-\end{equation}
+\section{References}
 
-to keep normal text in a document use mbox
+Kenstowicz, Michael. 1995. \textit{Phonology in Generative Grammar}. Blackwell Publishing, Cambridge Massachusetts.
 
-\begin{equation}
-f(x)=a \mbox{ for negative values of } x
-\end{equation}
-\begin{equation}
-f(x)=a for negative values of 
-x
-\end{equation}
+Greenberg, Joseph. ed. 1963. \textit{Universals of Language} Cambridge MIT Press 1963 2nd ed 1966.
 
-You can also use mbox to keep groups of text together across a line break
-\begin{verbatim}
-my phone number \mbox{0116 291 2319}
-\end{verbatim}
-$\vec{P}$\\
-\[
-\overbrace{\overbrace{a} + b} + \underbrace {\underbrace{c} + d}
-\]
+\section{Index}
 
-\[
-X\stackrel{a}{\rightarrow} Y \stackrel{\textsyle b}{\rightarrow} Z
-\]
-\section{Simple Tabbing}
-\begin{tabbing}
-This is a line of text with a tab stop \= here \\
-Second line: go to tab \>here see? \\
-Now set new tabs: \= one and \=two and \=three \\
-Go to \>one \>two \>three\\
-Any line ending with kill will not be printed\\
-this will not print \kill
-\end{tabbing}
+\section{Glossary}
 
-Unless the tabular environment is surrounded by blank lines it will be treated as a letter and surrounded by text
-\begin{tabular}{|lr|cp{.5in}|}\hline
-\multicolumn{4}{c}{Overall heading of Table}\\\hline
-\multicolumn{2}{c}{Column 1 \& 2}& \multicolumn{2}{c}{Column 3 \& 4}\\\hline
-left justified & right justified & centered & right justified\\[.25in]\hline\hline
-\multicolumn{1}{c}{one} & two & three & four\\ \cline{2-4}%multicolumn can be used to overide the justification of the column
-1&2&3&4\\
-i&ii&iii&iv
-\end{tabular}like this one is.Note, if the first character in a line is [ you have to put \verb!{}[! so that latex doesnt think its a measurement argument.
-
-\begin{center}
-\begin{tabular}{|l|r@{.}l|}\hline
-\multicolumn{3}{|c|}{\bf Household Budget}\\\hline\hline & \multicolumn{2}{c|}{\bf \% of }\\
-\bf Item & \multicolumn{2}{c|}{\bf Budget}\\ \hline
-Housing & 50 & 0 \\
-Food & 25 & 0 \\
-Toys & 10 & 5 \\
-Pet Supplies & 7& 5\\
-Clothes & 5 & 25\\
-Charity & 1 & 75 \\ \hline
-\end{tabular}
-\end{center}
-
-The numbers are centerd around the decimal points that is created with the r- column.
-
-A top-aligned table:
-\begin{tabular}[t]{cc}
-a & b \\
-c & d
-\end{tabular}
-and a bottom-aligned table:
-\begin{tabular}[b]{cc}
-a & b \\
-c & d 
-\end{tabular}
-\subsection{use of equarray for multi-line formulas}
-Arrays can only be used in math mode.
-
-here is a formula contaioning equations~\ref{line1} and~\ref{line3}.
-%\begin{equation} eqnarray automatically pyuts you into math mode, eqnarray is a special array for thest types of arrays it als moakes a number on the side for each equation.
-\begin{eqnarray}
-x& \leq &y+z+p \label{line1}\\
-y-y'&=&x-z \nonumber\\
-z&=&x-y \label{line3}
-\end{eqnarray}
-%\end{array}
-%\end{equation}
-
-you can use eqnarray* to not have any equation numbers in the array
-
-\fbox{text in a box}.
-
-We are now on Page \thepage\ of Section \thesection\ of Chapter \thechapter.
-
-\renewcommand{\thefigure}{\arabic{chapter}.\Alph{figure}}
-\setcounter{chapter}{2}
-\setcounter{figure}{3}
-\begin{figure}[ht]%the h=here t=top b=bottom p=floater page
-\vspace{.5in}
-\caption{This is a sample figure with a customized number including a period.}
-\end{figure}
-\raisebox{0pt}[0pt][0pt]{\large%
-\textbf{Aaaa\raisebox{-0.3ex}{a}%
-\raisebox{-0.7ex}{aa}%
-\raisebox{-1.2ex}{r}%
-\raisebox{-2.2ex}{g}%
-\raisebox{-4.5ex}{h}}}
-he shouted but not even the next one in line noticed that something terrible had happened to him.
-\appendix
-\section{THIS IS AN APPENDIX}
-THis is the text of the Appendix.
-\subsection {Subheading In An Appendix}
-How does this look?
 \end{document}
