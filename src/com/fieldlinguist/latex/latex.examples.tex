@@ -1,6 +1,6 @@
-\documentclass[12pt]{article} %default font size is 10, to specifiy other sizes use \documentclass[12pt]{article} %to have the  numbers on the left for equations use \documentclass[12pt,leqno]{article}
+\documentclass{article} %default font size is 10, to specifiy other sizes use \documentclass[12pt]{article} %to have the  numbers on the left for equations use \documentclass[12pt,leqno]{article} % to have landscape pages to accomdate large tableaus \documentclass[landscape]{article}
 
-%Documents used to put this together: examples.tex, 070202phonology.qual.javanese.v4.tex, lshort030331.pdf
+%Documents used to put this together: examples.tex,  lshort030331.pdf
 
 %------Perhaps outdated--------------------------------------------
 
@@ -35,20 +35,6 @@
 %Bibliography:
 	%\usepackage{natbib} %citation style
 	
-%Various Types of Examples
-	%Using the `law' counter:
-	\newcounter{mycounter}
-	\newtheorem{law}{Law}
-	\newtheorem{lingRule}[law]{Rule}
-	\newtheorem{generalization}[law]{Generalization}
-	\newtheorem{constraint}[law]{Constraint}
-	\newtheorem{definition}[law]{Definition}
-	\newtheorem{theorem}[law]{Theorem}
-	\newtheorem{axiom}[law]{Axiom}
-	\newtheorem{assumption}[law]{Assumption}
-	%Using the `proof' counter:
-	\newtheorem{proof}{Proof}
-	\newtheorem{derivation}[proof]{Derivation}
 
 %-----Begin Linguistics Packages----------------------------------
 
@@ -70,30 +56,39 @@
 	\let\ipa\textipa %this command allows you to use the shorter \ipa{} rather than \textipa{}
 
 %Semantics denotation double brackets
-	\newcommand{\denote}[1]{[\hspace{-.02in}[{\bf #1}]\hspace{-.02in}]}
-	\newcommand{\denoteexpand}[1]{$\left[\hspace{-.06in}\left[#1\hspace{-.5in}\right]\hspace{-.06in}\right]$}
+\newcommand{\denote}[1]{[\hspace{-.02in}[{\bf #1}]\hspace{-.02in}]}	\newcommand{\denoteexpand}[1]{$\left[\hspace{-.06in}\left[#1\hspace{-1in}\right]\hspace{-.06in}\right]$}
 
 
-%Otimality Theory
-	%to get a hand for the tableau
-	%\usepackage{pifont}
-	\newcommand{\hand}{\ding{43}}
-	%to shade in tables
-	%\usepackage{color}
-	%\usepackage{colortab}
-	%\definecolor{lightgray}{gray}{0.8}
-	%to make long tables spaning a number of pages
-	%\usepackage{supertabular}
-	%to use the ranking symbols which are from french quotes \fg \og
-	%\usepackage[frenchb]{babel}
-
-%Autosegmental phonology represenations
-	%\usepackage{pst-autoseg}
 	
 %Phonology
 	%to create a spaces
 	\usepackage{vowel}
 
+
+%Otimality Theory
+	%to get a hand for the tableau
+	\usepackage{pifont}
+	\newcommand{\hand}{\ding{43}}
+	%to shade in tables
+	\usepackage{color}
+	\usepackage{colortab}
+	\definecolor{lightgray}{gray}{0.8}
+	
+	
+	%to make long tables spaning a number of pages
+	%\usepackage{supertabular}
+	%to make landscaped pages add [landscape] in the \documentclass[landscape]{article}
+	
+	%to use the ranking symbols which are from french quotes \fg \og but this has effects on the spacing of : and other changes in the document structure so instead i defined some commands
+	%\usepackage[frenchb]{babel}
+	\newcommand{\fg}{{\raisebox{0.28ex}{\tiny $>$}}\hspace{-.06in}{\raisebox{0.1ex}{\scriptsize $>$}}}
+	\newcommand{\og}{$<\hspace{-.06in}<$}
+
+%Autosegmental phonology represenations
+	\usepackage{pst-autoseg}
+
+%Precedence theory?
+	%\usepackage[curve]{xypic}incompatible with xyling i think
 %-------Miscellaneous---------------------------------------------
 
 	%\usepackage{marvosym} for smile
@@ -107,27 +102,27 @@
 %--------------------End Preamble Area-----------------------------
 
 \begin{document}
-\pagenumbering{roman} %makes the numbering of the preface material in roman numerals
+%\pagenumbering{roman} %makes the numbering of the preface material in roman numerals
 	%Calling the pavgenumbering command in teh middle of hte documetn has the pages start over again. the style can also be changed for example the table of contents can be in roman and the rest of the document can be in arabic. and the appendix can be in capital Roman letters etc...
 %\pagestyle{myheadings}
 	%\markboth{left-hand (even)page header}{Right-hand (odd) page header}
 	%in the book format because its default is doublesided printing you can have different headigns for the right and left hand pages. use \markboth to do this. otherwise you can just use \markright
-\title{Latex for Linguistics Notes\thanks{Acknowlogements: tons and tons of other latex for linguists websites and tutorials}}
+\title{Latex for Linguistics Notes\thanks{Acknowledgments: tons and tons of other latex for linguists websites and tutorials}}
 \author{Gina \and Author 2}
 \date{v1 May 25th 2003\\ v2 Feb 24 2008}%if the \date command is omitted the current date is used or the command \today can be used (anywhere in the document)
 \maketitle
 \tableofcontents
-\clearpage %this makes the text go on the next page
+%\clearpage %this makes the text go on the next page
 
 %-------------------End Heading Area-------------------------------
 
-\abstract{This is an abstract of what this paper is about. This collection of latex source started in 2003 from reading a book on formating a book in \LaTeX ~by Sally Fields. Since then a number of comands had changed in \LaTeXe{}. This document contains the latest commands as of Feb 2008. }
+\abstract{This is an abstract of what this paper is about. This collection of latex source started in 2003 from reading a book on formating a book in \LaTeX ~by Sally Fields. Since then a number of commands had changed in \LaTeXe{}. This document contains the latest commands as of Feb 2008. }
 
 \begin{quotation}Alternatively, you can make an abstract like this (see source). blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \end{quotation}
 
-\setcounter{page}{1}
-\pagenumbering{arabic} %brings numbering back to the default
+%\setcounter{page}{1}
+%\pagenumbering{arabic} %brings numbering back to the default
 \section{Here is a Section}
 	\label{sec:sectioningExample} 
 
@@ -426,9 +421,21 @@ Descriptive lists are good for glossaries, and can also be used as  a quick solu
 	\item \label{bib:ohalas} Ohala, John J.\& Manjari Ohala 1995, ``Speech perception and lexical representation of vowel nasalization in Hindi and English'', {\it  Phonology and Phonetic Evidence Papers in Laboratory Phonology IV}, Cambridge University Press, pp. 41-60.
 \end{description}
 
-\section{Formating various types of examples, generlizations, rules constraints etc}
+\section{Examples}
 
 
+\subsection{Formating glossed examples}
+
+\begin{example}\label{khinch}
+\gll \ipa{k\super{h}@ndala~{\bf ke$_{2}$}} \ipa{g\super{H}@t~{\bf ke$_{3}$}} \ipa{up@\r*{r}} foto \ipa{k\super{h}\~{i}n\textteshlig ~{\bf ke$_{4}$}} \ipa{aj\~{e}}~ge
+   Khandala=gen.pl? Ghat=obl above photo take=ke come.pl=fut
+\glt 'Up on the Khandala Ghat we'll take a photo.'
+\\(\textit{Ghulam,} lyrics from 'Aati kya Khandala?' 1998)
+\glend
+\end{example}
+
+
+\subsection{Formating using math mode}
 Equation numbers are usually on the right, but they can be put on the left using [leqno] in the documentclass command (see the preamble in the source)
 \begin{equation}
 x=y+z
@@ -463,106 +470,6 @@ Here is a bunch of text to make a paragraph to see how the tall integral will lo
 x=i\scriptstyle j \scriptscriptstyle k
 \end{equation}
 
-\subsection{Formating examples for formalisms}
-
-This section will talk about advanced ways of making examples. It's possible to define differnet types of examples to be numbered and formatted according to their own group. Ie, Generalizations could be different from Definitions, which could be different from Derivations. These must be defined in the preamble, and then used in the text	. Here are some Linguistically relevent types of example
-
-
-\begin{example}
-	Here some types of examples that Linguists might want:
-
-\begin{verbatim}
-%\newtheorem{nickname}[counter]{Full Name}[section] 
-Using the `rule' counter:
-\newtheorem{generalization}[rule]{Generalization}[section]
-\newtheorem{lingRule}[rule]{Rule}[section]
-\newtheorem{constraint}[rule]{Constraint}[section]
-\newtheorem{definition}[rule]{Definition}[section]
-\newtheorem{theorem}[rule]{Theorem}[section]
-\newtheorem{axiom}[rule]{Axiom}[section]
-\newtheorem{law}[rule]{Law}[section]
-\newtheorem{assumption}[rule]{Assumption}[section]
-Using the `proof' counter:
-\newtheorem{proof}[proof]{Proof}[section]
-\newtheorem{derivation}[proof]{Derivation}[section]
-\end{verbatim}
-\end{example}	
-
-\begin{example}The Senority Sequencing Principle\\
-Onsets rise in sonority toward the nucleus and codas fall in sonority from the nucleus (Kenstowitz 1994:254)
-\end{example}
-
-
-\begin{example}Greenberg's Universal 20\\	
-``When any or all of the items (demonstrative, numeral, and descriptive adjective) precede the noun, they are always found in that order. If they follow, the order is either the same  or its exact opposite.'' (Greenberg 1963:87)
-\end{example}
-
-
-\begin{example}Functional Application (FA) \label{FA}
-Functional application models semantic combination like mathematical functions. In the representation the node $\gamma$ is computed by applying the function $\alpha$ to its argument  $\beta$. 
-
-\Tree{
-& \denote{\gamma}\Below{$_\textsc{fa}$}\B{dl}\B{dr} &&  =\denote{\alpha}(\denote{\beta})\\
-\denote{\alpha} && \denote{\beta}\\
-}
-\end{example}
-
-The robust generalization shown in (\ref{analyticentailments}) can be formalized as the `Intersection Generalization'\footnote{This generalization wasn't named in the class. But since we wanted to mention it frequently we called it the `Intersection Generalization' for lack of a better name.} shown in (\ref{intersectgen}). The generalization is that if $\gamma$ is in the intersection of $\alpha$ and $\beta$, then by definition of intersection $\gamma$ must have the properties of $\alpha$ (i.e. be blue), and the properties of $\beta$ (i.e. be a ball). This is represented logically in (\ref{intersectgen}i), in prose in (\ref{intersectgen}ii) and visually in (\ref{intersectgen}iii).
-
-\begin{example}Intersection Generalization\label{intersectgen}
-If $\gamma$ is in the intersection of $\alpha$ and $\beta$, then by definition of intersection $\gamma$ must have the properties of $\alpha$ (i.e. be blue), and the properties of $\beta$ (i.e. be a ball). This is represented logically in (\ref{intersectgen}i), in prose in (\ref{intersectgen}ii) and visually in (\ref{intersectgen}iii).
-
-(i) $\gamma \in (\alpha \cap \beta)$\\
-\hspace{.2in}$\models \gamma \in \alpha $\\
-\hspace{.2in}$\models \gamma \in \beta $\\
-(ii) In words: If $\gamma$ is a member of the intersection of sets $\alpha$ and $\beta$, then\\
-\hspace{.2in}it is necessarily the case that $\gamma$ is a member of $\alpha$ and \\
-\hspace{.2in}it is necessarily the case that $\gamma$ is a member of $\beta$.
-\vspace{1in}
-\psset{linestyle=solid}
-% \psgrid(0,0)(-1,-1)(9,3)
- \pscircle(5.5,1){1}
- \pscircle(7,1){1}
-   \uput[0](5,1){\psframebox*{$\alpha$}}
-   \uput[0](7,1){\psframebox*{$\beta$}}
-  \uput[0](6,1){$\gamma$}
-\uput[0](4,2){(iii)}
-\vspace{-1in}
-\end{example}
-
-\begin{example}No H are Found in  Onsets
-
-~\\H is not found in onsets, but is found word final and sylable final. The data below shows the pattern which the generalization is based on.\\ 
-
-\begin{tabular}{|l|l|c|c|c|c|l|}\hline
- &&&\multicolumn{2}{c|}{\textit{h}} &\textit{no h}&  \\\hline
-& && Word Final & Sylable Final & Syllable Initial& \\\hline\hline
-a. & i\emph{~~~} &: & \ipa{si.sI{\bf h}} & \ipa{si.sI{\bf h}.ku} & \ipa{si.si.e} &  `side'\\\hline
-b. & u\emph{~~~} &: & \ipa{bu.bU{\bf h}} & \ipa{bu.bU{\bf h}.ku} & \ipa{bu.bu.e} &  `need'\\\hline
-c. & a\emph{~~~} &: & \ipa{o.ma{\bf h}} & \ipa{o.ma{\bf h}.ku} &  \ipa{o.ma.e} &  `house'\\\hline
-d. & e\emph{~~~} &:  &\multicolumn{4}{c|}{(no evidence, but expected)}\\\hline
-e. & o\emph{~~~} &:  &\multicolumn{4}{c|}{(no evidence, but expected)}\\\hline
-\end{tabular}
-\end{example}
-
-\begin{example} H Deletion
-
-H is deleted in onsets.\\ 
-\begin{tabular}{lllll}
-Predictions& Findable: & V.V \\
- & Not Findable: & V.hV & C.hV\\
-\end{tabular}
-\end{example}
-
-\begin{example}*.H
-No H in onsets.\\ 
-\begin{tabular}{lllll}
-Predictions& Common: & V.V \\
- & Uncommon: & V.hV & C.hV\\
-\end{tabular}
-\end{example}
-
-
 \section{Languages and quick ways to make accents and diacritics}
 
 \`{o} \'{O} \^{o} \"{O} \~{o} \={O} \.{o} \u{O} \v{o} \H{O} \t{ts} \c{O} \d{o} \b{O} \oe \OE \ae \AE \aa \AA \o \O \l \L \ss ?` !` \copyright \pounds \P75 \S \dag \ddag
@@ -571,15 +478,619 @@ Predictions& Common: & V.V \\
 Notre amour est chose l\'{e}g\'{e}re.\\
 Ein V\"{o}gelein fliegt \"{u}ber den Rhein.\\
 
-\setcounter{page}{1}
-\pagenumbering{roman} %changes numbering to roman for the appendix
+\section{Examples}
+
+\subsection{Phonology}
+
+
+\begin{example}Surface Inventory for Consonants\\
+\begin{tabular}{|l||l|l|l|l|l|l|}\hline
+Stops & p,b & t,d & \ipa{\:d} &  & k,g & \ipa{P}\\\hline
+Fricatives & & s & & & & h \\\hline
+Affricates & & & & \v{c},\^{j} & & \\\hline\hline
+Nasals & m & n & \ipa{\:n} & \~{n} & \ipa{N} & \\\hline
+Liquids & & l &r &&&\\\hline
+Glides & & & & j &  w &\\\hline
+\end{tabular}
+\end{example}
+
+
+\begin{example}Surface Inventory for Vowels\\
+  \begin{vowel}[t]
+    \putcvowel{i}{1}
+\putcvowel{e}{2}
+%    \putcvowel{\textipa{E}}{3}
+    \putcvowel{a}{5}
+\putcvowel{\textipa{O}}{6}
+    \putcvowel{o}{7}
+\putcvowel{u}{8}
+    \putcvowel{\textipa{@}}{11}
+    \putcvowel{\textipa{I}}{13}
+\putcvowel{\textipa{U}}{14}
+  \end{vowel} 
+\end{example}
+
+
+
+\begin{example}What is the relationship between [a] and [\ipa{O}] ?\\
+\begin{description}
+\item [Full Specification Approach] ~\\
+Change : +low $\rightarrow$ -low, -round $\rightarrow$ +round\\
+~[a] : $\left[ \begin{array}{l} +syl\\
++voiced\\
+-high\\
++back\\
+-ATR\\
++low\\
+-round\\
+\end{array}\right] $
+~[\ipa{O}] :  $\left[ \begin{array}{l} +syl\\
++voiced\\
+-high\\
++back\\
+-ATR\\
+-low\\
++round\\
+\end{array}\right] $
+\item [Contrastive Specification Approach] ~\\
+Change : +low $\rightarrow$ -low\\
+Fill : \O high $\rightarrow$ -high, \O back $\rightarrow$ +back, \O ATR $\rightarrow$ -ATR, \O round $\rightarrow$ +round\\
+~[a] : $\left[ \begin{array}{l} +syl\\
++low\\
+\end{array}\right] $
+~[\ipa{O}] :  $\left[ \begin{array}{l} +syl\\
+-high\\
++back\\
+-ATR\\
+-low\\
++round\\
+\end{array}\right] $
+\end{description}
+\end{example}
+
+
+\begin{example}H Deletion\\ \label{hdeletiontableau}
+\begin{tabular}{|lll|l|ccc|l|}\hline
+ &  &  &    & *[$_\sigma$h & Max & Onset & No\\
+ &  &  &   &  & IO &  & Coda\\\hline\hline
+ &  &  & \ipa{/butuh/} &  &  & &\\\hline
+MostFaith &  & \hand & \ipa{bu.tUh} &  & & & *\\\hline
+LeastMark & MaxIO \fg NoCoda &  & \ipa{bu.tu} & & * &  & \\\hline\hline
+ &  &  & \ipa{/butuh/+/e/} & &  &  & \\\hline
+ &  & \hand & \ipa{bu.tu.e} & & * & * & \\\hline
+MostFaith,LeastMark & *[$_\sigma$h \fg MaxIO,Onset &  & \ipa{bu.tu.he}& * &  &  & \\\hline
+\end{tabular}
+\end{example}
+
+\begin{example}\label{singularmorpheme}
+Halle-Sagey Style Representation of Shared Features of \textit{singular} /u/\\
+\Tree{
+&&[-cons]\Below{[+son]}\B[-5]{dll}\B[-5]{drr}\B[-5]{d} \\
+Laryngeal\B{d} && Place\B{dl}\B{dr} && [+contin]\\
+[voiced] & Dorsal\B{dl}\B{dr} && Labial\B{d} \\
+[high] && [back] & [round]\\
+~ }
+\end{example}
+	
+\begin{example}\label{placeconstraintrules}
+Place Agreement\\
+Place of articulation spreads from left to right (indicated by (2)).\\
+\Tree{ 
+ [+cons]\B{d}_1\B{drr}_2 && [+cons]\B{d}_1 \\
+place && place\\
+}
+\end{example}
+
+
+\begin{example}Feature Specifications (Halle, Vaux, Wolf 2000)
+\includegraphics{halle2000feature.geo.v3.eps}
+\end{example}
+
+\begin{example}Romanian Surface Consonant Inventory\label{consonants}
+\begin{tabular}{|ll|cc|cc|cc|c|c|c|cccccc}\hline	
+& & \multicolumn{9}{c|}{Secondary Specifications}  \\ 	
+& & \multicolumn{2}{c}{[-cont]} & \multicolumn{2}{c}{[-cont]} &   \multicolumn{2}{c}{[+cont]} & \multicolumn{1}{c}{[+nas]} & \multicolumn{1}{c}{[+lat]} & \multicolumn{1}{c|}{[+rotic]}\\
+& & \multicolumn{2}{c}{[-strid]} & \multicolumn{2}{c}{[+strid]}& \multicolumn{2}{c}{[+strid]} & \multicolumn{3}{c|}{~}  \\\hline
+Primary~&~[labial] & p & b & & & f& v&  m & &\\
+Articul~&~[cor, +ant] & t & d & ts & dz & s & z & n & l & r \\
+~&~[cor, -ant] & & & \ipa{tS} & \ipa{dZ} & \ipa{S} & \ipa{Z} &&&\\
+~&~[dorsal] & k & g & & & x & & \ipa{N} &&\\\hline
+~&~[glottal] & \multicolumn{9}{c|}{h} \\\hline
+\end{tabular}
+\end{example}
+
+
+\begin{example}Anterior Assimilation Rule: Velars\\
+\Tree{
+(k) & (j)\\
+X\ar[u] & X\ar[u]\\
+Place\ar[u] & Place\ar[u]\\
+Body\ar[u] & Blade\ar[u] \\
+[dorsal]\ar[u] & [+anterior]\ar[u]\Linkk[-->]{0}{ul}\\
+}
+\\Dashed -~- : added link\\
+\end{example}
+
+
+\begin{example}\textit{\ipa{n\ae k\textsuperscript{w}\ae s\textsuperscript{j}}} floating Labial [round] and final TH [high] associate\\
+$\xymatrix@=6pt{
+& X\ar[r] &Oral\ar[r] & (n) \cr
+ & X \cr
+& X\ar[r] & Oral\ar[r]\ar[rrd] & (k)Dorsal\ar[r] & TT\ar[r] & [back] \cr
+ &X& & & \fbox{Labial --[round]}\cr
+& X\ar[r] & Oral-(s)\ar[r]\ar[ddr]\ar[ddd] & Dorsal\ar[rr]\ar[rd] & & \fbox{TH --[high]} \cr
+ && & & TT\ar[r] & [front] \cr
+& && Coronal\ar[r] & Tongue Grove\ar[r] & [grooved] \cr
+& &[fricative]\cr
+}~$\\
+\end{example}
+
+\begin{example} \textit{\ipa{g\textsuperscript{w}@z\textsuperscript{j}}} /gz/ `cut \dots', Labial [round] \& TH [high] `feminine', reduplicated  \\
+$\xymatrix@=6pt{	
+& ~\#\ar[d] \cr
+& X\ar[r]\ar[d] & Oral\ar[r] & (g)Dorsal\ar[r]\ar[rd] & TT\ar[r] & [back]\\
+ & X\ar[d] &&& \fbox{Labial --[round]}\cr
+& X\ar[r]\ar[d]\ar@/^2.5pc/[uu] & Oral\ar[r] & (z)Dorsal\ar[r]\ar[dr] & TT\ar[r] & [front] \\
+& ~\%&&& \fbox{TH --[high]}\cr 	
+}~$\\
+\end{example}
+
+\begin{example} Obstruent+Stop clusters\\\label{obststop}
+$\left[\begin{array}{l} -son \end{array}\right]\left[\begin{array}{l} -son \\ -cont \\\alpha voice \end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ \alpha voice\end{array}\right]\left[\begin{array}{l} -son \\ -cont\\ \alpha voice\end{array}\right]$
+\end{example}
+
+\begin{example} Obstruent+Fricative clusters\\\label{obstfric}
+$\left[\begin{array}{l} -son\end{array}\right]\left[\begin{array}{l} -son \\ +cont\end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ -voice\end{array}\right]\left[\begin{array}{l} -son \\ +cont \\ -voice\end{array}\right]$
+\end{example}
+
+\begin{example}Derivation, association, cyclic speading inwards
+
+\vspace{.2in}
+\newpsstyle{assoc}{linestyle=solid,linewidth=.4pt}
+\rput[B](0,\asegtsB){k}
+\rput[B](1,\asegtsB){i}
+\rput[B](2,\asegtsB){l}
+\rput[B](3,\asegtsB){i}
+\rput[B](4,\asegtsB){f}
+\rput[B](5,\asegtsB){o}
+\rput[B](6,\asegtsB){k}
+\rput[B](7,\asegtsB){a}
+\rput[B](8,\asegtsB){f}
+\rput[B](9,\asegtsB){o}
+\rput[B](1,\asegsyB){L}
+\rput[B](3,\asegsyB){H}
+\rput[B](9,\asegsyB){H}
+
+\vspace{.2in}
+\newpsstyle{assoc}{linestyle=solid,linewidth=.4pt}
+\rput[B](0,\asegtsB){k}
+\rput[B](1,\asegtsB){i}
+\rput[B](2,\asegtsB){l}
+\rput[B](3,\asegtsB){i}
+\rput[B](4,\asegtsB){f}
+\rput[B](5,\asegtsB){o}
+\rput[B](6,\asegtsB){k}
+\rput[B](7,\asegtsB){a}
+\rput[B](8,\asegtsB){f}
+\rput[B](9,\asegtsB){o}
+\rput[B](1,\asegsyB){L}
+\rput[B](3,\asegsyB){H}
+\rput[B](9,\asegsyB){H}
+\psline[style=assoc](1,\asegtst)(1,\asegsyb)
+\psline[style=assoc](3,\asegtst)(3,\asegsyb)
+\psline[style=assoc](9,\asegtst)(9,\asegsyb)
+
+\vspace{.2in}
+\newpsstyle{assoc}{linestyle=solid,linewidth=.4pt}
+\rput[B](0,\asegtsB){k}
+\rput[B](1,\asegtsB){i}
+\rput[B](2,\asegtsB){l}
+\rput[B](3,\asegtsB){i}
+\rput[B](4,\asegtsB){f}
+\rput[B](5,\asegtsB){o}
+\rput[B](6,\asegtsB){k}
+\rput[B](7,\asegtsB){a}
+\rput[B](8,\asegtsB){f}
+\rput[B](9,\asegtsB){o}
+\rput[B](1,\asegsyB){L}
+\rput[B](3,\asegsyB){H}
+\rput[B](9,\asegsyB){H}
+\psline[style=assoc](1,\asegtst)(1,\asegsyb)
+\psline[style=assoc](3,\asegtst)(3,\asegsyb)
+\psline[style=assoc](9,\asegtst)(9,\asegsyb)
+\psline[style=assoc](5,\asegtst)(3,\asegsyb)
+\psline[style=assoc](7,\asegtst)(9,\asegsyb)
+
+\end{example}
+
+\begin{example}
+\begin{tabular}{|ll|ccc|ccc|cc|}\hline
+ & tanepwtina & *Clash & WSP & Ft & Right & NonFin & Parse & All & Non\\
+ & & &  & Bin & most & Stress & Syl& FtR & Fin\\\hline\hline
+\hand & ta(n\`{e}pwa)(t\'{i}na) &  &  &  &  &  & * & ** & *\\\hline
+ &  (tan\`{e}p)wa(t\'{i}na) &  &  &  &  &  & * & ***! & *\\\hline
+ &  ta(n\`{e}pwa)(tin\'{a}) &  &  &  &  & *! & * & ** & *\\\hline
+ & ta(n\'{e}pwa)(t\`{i}na) &  &  &  & *! &  & * & ** & *\\\hline
+ & (tan\`{e}p)(wat\'{i})na &  &  &  & *! &  & * & **** & \\\hline
+ & (ta)(n\`{e}pwa)(t\'{i}na) &  &  & *! &  &  &  & ****** & *\\\hline
+ & (t\`{a}nep)wa(t\'{i}na) &  & *! &  &  &  & * & ** & *\\\hline
+\end{tabular}
+\end{example}
+
+\begin{example}\label{manamderivation}
+\begin{enumerate}
+\item Project vowels
+\xymatrix{
+ ~   & L &   & H &   &   & L&   & L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+\item Insert L bracket to the L of H \\
+\xymatrix{
+ ~   & L &   & (H &   &   & L&   & L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+\item Iterate: Insert L bracket to the L of pairs \\
+\xymatrix{
+ ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+\item Head: Left, project head\\
+\xymatrix{
+ ~   &  &   & X &   &   & &   & X &   &   \cr
+ ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+
+\item Edge: R bracket to the R of the R most element\\
+\xymatrix{
+ ~   &  &   & X &   &   & &   & X) &   &   \cr
+ ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+
+\item Head: Right, project head\\
+\xymatrix{
+ ~   &  &   &  &   &   & &   & X &   &   \cr
+ ~   &  &   & X &   &   & &   & X) &   &   \cr
+ ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
+ ~ t & a & n & e & p & w & a & t & i & n & a  \cr
+}~\\
+\end{enumerate}
+\end{example}
+
+
+ \begin{example}\label{rhyme}Hindi Rhyme configurations (Shukla, 2000)\\
+\QTree [.rhyme [.{1 mora} V ] [.{2 mora} V: VC ] [.{3 mora} V:C VCC ] [.{4 mora} V:CC ] ]
+\end{example}
+
+
+\begin{example} $\mu.\mu\mu\mu.\mu\mu.\mu\mu$ : ban\textprimstress du:kba:zi: `marksmanship' 
+\QTree[.PrWd [.$\sigma$  [.o b ] [.r  [.$\mu$ a ] [.$\mu$ n ]  ] ] [.$\sigma$ [.o d ] [.r [.$\mu$ u ] [.$\mu$ u ] [.$\mu$ k ] ] ] [.$\sigma$ [.o b ] [.r [.$\mu$ a ] [.$\mu$ a ] ] ] [.$\sigma$ [.o z ] [.r [.$\mu$ i ] [.$\mu$ i ] ] ] ] 
+\end{example}
+
+\begin{example}
+\begin{tabular}{|ll||l|l|l|}\hline
+Input: &/kat+z/ & $*\left[\begin{array}{l} -son\\ \alpha voice\end{array}\right]\left[\begin{array}{l} -son\\ -\alpha voice\end{array}\right]$ & IDENT-IO(voice)  & $*\left[\begin{array}{l} -son\\ +voice\end{array}\right]$ \\\hline\hline
+\hand & [kats] &  &  * & \\\hline
+& [kadz] &  & * & *! *\\
+\LCC 
+& & & & \color{lightgray} \\\hline
+& [gats] & &  * *! & * \\
+\ECC
+\LCC 
+& & & \color{lightgray}& \color{lightgray} \\\hline
+& [katz] & *! &  & *\\
+\ECC
+\LCC 
+& & & \color{lightgray}& \color{lightgray} \\\hline
+& [kads] & *! &  * * &  * \\\hline
+\ECC
+\end{tabular}
+\end{example}
+
+\subsection{Morphology}
+
+\begin{example}
+\fbox{
+\xymatrix{
+Lexicon\ar[dd] &  \cr
+\ar@/^1pc/[dr] &  {\textit{Spell-out}}\cr
+LF & PF \cr
+}}
+\end{example}
+
+\begin{example}\label{discripfreqschemata}
+Arrernte Frequentive Forms\\
+$verb + ep + final syllable + em$\\
+\Tree[ [ [ [.verb root\\unt v\textsuperscript{o}\\\ipa{\o} ] atelic\\ep ] freq\\unt ] prog\\em ]
+\end{example}
+
+
+\begin{example}Derivation of Frequentive Forms\\\label{freqderivation}
+\begin{enumerate}
+\item Verb
+\xymatrix{
+ ~\#\ar[r] & e\ar[r] & m\ar[r] & p\textsuperscript{w}\ar[r] & a\ar[r] & r\ar[r]   & ~\% \cr
+}~\\
+\item Suffix ep
+\xymatrix{
+ ~\#\ar[r] & e\ar[r] & m\ar[r] & p\textsuperscript{w}\ar[r] & a\ar[r] & r\ar[r]\ar[d]   & ~\% \cr
+ &  & & &  & e\ar[d] & \cr
+ &  & & &  & p &
+}~\\
+\item Final segment precedes Final syllable
+\xymatrix{
+ ~\#\ar[r] & e\ar[r] & m\ar[r] & p\textsuperscript{w}\ar[r] & a\ar[r] & r\ar[r]\ar[d]   & ~\% \cr
+ &  & & & p\ar@/^1.5pc/[u] & e\ar[l] &
+}~\\
+\item Suffix em
+\xymatrix{
+ & & & & & e\ar[r] & m\ar[d]\cr
+ ~\#\ar[r] & e\ar[r] & m\ar[r] & p\textsuperscript{w}\ar[r] & a\ar[r] & r\ar[r]\ar[d]\ar[u]   & ~\% \cr
+ &  & & & p\ar@/^1.5pc/[u] & e\ar[l] &
+}~\\
+\end{enumerate}
+\end{example} 
+
+\begin{example}Final syllable precedes stressed syllable\\\label{manamprecedence}
+\xymatrix{
+~\#\ar[r] & X\ar[r] & \sigma_{A+stress}\ar[r]  & Y\ar[r] & \sigma_{Bn}\ar@/^1.5pc/[ll]\ar[r] & ~\% \cr
+}~\\
+(Where $X$ and $Y$ represent a sequence of $0+$ atoms.)
+\end{example} 
+
+
+\subsection{Syntax}
+
+
+\begin{example} 
+Raising for Case\\
+\begin{tabular}{ll}
+\Treek{1}{ 
+\K{a) Turkish }\\
+& TP\B{dl}\B{dr}\\
+\K{~~~~~~~Subj$_{nom}$} && T'\B{dl}\B{dr} \\
+& vP\B{dl}\B{dr}&&\K{$V^o+v^o+T^o$~~~~~~~~~~~~}\Linkk[<--]{1.8}{rddd}\\
+\K{~~~~~~~Obj$_{acc}$} && v'\B{dl}\B{dr} \QS{2,1}{5,4} \QS[.]{6,2}{12,5}&\\
+&Subj\Below{Ali}\Linkk[>]{1.8}{luuu} && v'\B{dl}\B{dr} \\
+&& VP\B{dl}\B{dr}&&\K{$V^o+v^o$~~~~~}\Linkk[<--]{1.8}{dd}\\
+& && V'\B{dl}\B{dr} \\
+&& VP\B{dl}\B{dr}&&V^o\Below{want}\\
+& && V'\B{dl}\B{dr} \\
+&&Obj\Below{one piano}\Linkk[>]{2.5}{lluuuuuu}&&V^o\Below{rent}\\
+&& && \\
+}
+&
+
+\Treek[-1]{1}{ 
+\K{b) Spanish}\\
+& TP\B{dl}\B{dr} &&&& && &&& \hspace{-.8in}Restricted~Clause\\
+\K{~~~~~~~Subj$_{nom}$}  && T'\B{dl}\B{dr} \\
+& \K{$V^o+v^o+T^o$}&&vP\B{dl}\B{dr}\\
+&&\K{Obj$_{acc}$} && v'\B{dl}\B{dr} \QS{2,1}{5,4} \QS[.]{6,4}{12,11} \\
+&& & Subj\Below{~~~Griselda}\Linkk[>]{4.5}{llluuu}&&v'\B{dl}\B{dr}  && &&&\hspace{-.8in}Nuclear~Scope\\
+&& &&  \K{$V^o+v^o$}\Linkk[-->]{4.5}{llluuu}&&VP\B{dl}\B{dr}\\
+&& && & && V'\B{dl}\B{dr} \\
+&& && &&   V^o\Below{want}\Linkk[-->]{2.5}{lluu}&&VP\B{dl}\B{dr}\\
+&& && && &   && V'\B{dl}\B{dr} \\
+&& && && &&   V^o\Below{invite}&& Obj\Below{a doctor~~~~}\Linkk[>]{8.5}{lllllllluuuuuu}\\
+&& && && && &&\\
+}
+\end{tabular}
+\end{example}
+
+
+\begin{example} 
+Case Triggers Raising\\
+\begin{tabular}{ll}
+\Treek{1}{ 
+\K{a) Turkish }\\
+& TP\B{dl}\B{dr}\\
+\K{~~~~~~~Subj$_{nom}$} && T'\B{dl}\B{dr} \\
+& vP\B{dl}\B{dr}&&\K{$V^o+v^o+T^o$~~~~~~~~~~~~}\Linkk[<--]{1.8}{rddd}\\
+\K{~~~~~~~Obj$_{acc}$} && vPx\B{dl}\B{dr} \QS{2,1}{5,4} \QS[.]{6,2}{12,5}&\\
+&Subj\Below{Ali}\Linkk[>]{1.8}{luuu} && v'\B{dl}\B{dr} \\
+&& VP\B{dl}\B{dr}&&\K{$V^o+v^o$~~~~~}\Linkk[<--]{1.8}{dd}\\
+& && V'\B{dl}\B{dr} \\
+&& VP\B{dl}\B{dr}&&V^o\Below{want}\\
+& && V'\B{dl}\B{dr} \\
+&&\K{Obj$_{acc}$}\Below{one piano}\Linkk[>]{2.5}{lluuuuuu}&&V^o\Below{rent}\\
+&& && \\
+}
+
+&
+
+\Treek[-1]{1}{ 
+\K{b) Spanish}\\
+& TP\B{dl}\B{dr} &&&& && &&& \hspace{-.8in}Restricted~Clause\\
+\K{~~~~~~~Subj$_{nom}$}  && T'\B{dl}\B{dr}\\
+& \K{$V^o+v^o+T^o$}&&vP\B{dl}\B{dr}\\
+&&\K{Obj$_{acc}$} && vP\B{dl}\B{dr} \QS{2,1}{5,4} \QS[.]{6,4}{12,11} \\
+&& & Subj\Below{~~~Griselda}\Linkk[>]{4.5}{llluuu}&&v'\B{dl}\B{dr}&& &&&\hspace{-.8in}Nuclear~Scope\\
+&& &&  \K{$V^o+v^o$}\Linkk[-->]{4.5}{llluuu}&&VP\B{dl}\B{dr}\\
+&& && & && V'\B{dl}\B{dr} \\
+&& && &&   V^o\Below{want}\Linkk[-->]{2.5}{lluu}&&VP\B{dl}\B{dr}\\
+&& && && &   && V'\B{dl}\B{dr} \\
+&& && && &&   V^o\Below{invite}&& \K{Obj$_{acc}$~~~~~~~}\Below{a doctor~~~~}\Linkk[>]{8.5}{lllllllluuuuuu}\\
+&& && && && &&\\
+}
+\end{tabular}
+\end{example}
+
+
+\subsection{Semantics}
+
+\begin{example}Sample denotation brackets
+
+\denoteexpand{\QTree [ Ann walks ]} = (\denote{Ann})\denote{walks}
+
+
+
+
+\begin{example}Semantic Combination under Functional Application (FA)\\
+\label{FA}
+\Tree{
+& \denote{\gamma}\Below{$_\textsc{fa}$}\B{dl}\B{dr} &&  =\denote{\alpha}(\denote{\beta})\\
+\denote{\alpha} && \denote{\beta}\\
+}
+\end{example}
+
+
+\begin{example}Typical example of Functional Appilcation (FA)\\
+\label{typicalFA}
+\begin{tabular}{ll}
+\Tree[-1]{
+\K{(a) English}\\
+& VP_{<e,t>}\Below{$_\textsc{fa}$}\B{dl}\B{dr} &&  =\denote{hug}(\denote{NP})\\
+{V}_{<e,<e,t>>}\Below{\denote{hug}} && NP_e\Below{\denote{Mary}}\\
+}&
+\Tree[-1]{
+\K{(b) Turkish} \\
+& VP_{<e,t>}\Below{$_\textsc{fa}$}\B{dl}\B{dr} && \hspace{-.2in} =(\denote{NP-e})\denote{sardil-di}\\
+NP_e\Below{\denote{Mary-e}} && {V}_{<e,<e,t>>}\Below{\denote{sarid-di}}\\
+}
+\end{tabular}
+\end{example}
+
+\begin{example}Semantic Combination under Intersection (a.k.a. Predicate Modification)\\
+\label{PM}
+\Tree{
+& \denote{\gamma}\Below{$_\cap$}\B{dl}\B{dr} &&  =\denote{\alpha} \cap \denote{\beta}\\
+\denote{\alpha} && \denote{\beta}\\
+}
+\end{example}
+
+
+
+\begin{example}Typical example of Intersection/Predicate Modification($\cap$/PM)\\
+\Tree{
+& NP_{<e,t>}\Below{$_\cap$}\B{dl}\B{dr} &&  =\denote{Adj} \cap \denote{NP}\\
+{AdjP}_{<e,t>}\Below{\denote{blue}} && NP_{<e,t>}\Below{\denote{ball}}\\
+}
+\end{example}
+
+\begin{example}The Intersection Generalization: Adjectives\\
+\label{intersectgenadj}
+(i) English Example: \\
+Assumption: $\gamma$ is an Individual\\
+If $\gamma$ is a wuggy ball (where wuggy stands for any adjective), then\\
+\hspace{.2in}it is necessarily the case that $\gamma$ is wuggy and,\\
+\hspace{.2in}it is necessarily the case that $\gamma$ is a ball.\\
+(ii) This can be modelled logically as:\\
+Assumption: $\gamma \in D_{individuals}$ \\
+$\gamma \in (\denote{Adjective} \cap \denote{Noun})$\\
+\hspace{.2in}$\models \gamma \in \denote{Adjective} $\\
+\hspace{.2in}$\models \gamma \in \denote{Noun} $\\
+(iii) In words: If $\gamma$ is a member of the intersection of sets \denote{Adjective} and \denote{Noun}, then\\
+\hspace{.2in}it is necessarily the case that $\gamma$ is a member of \denote{Adjective} and \\
+\hspace{.2in}it is necessarily the case that$\gamma$ is a member of \denote{Noun}.
+\psset{linestyle=solid}
+ %\psgrid(0,0)(-1,-1)(9,4.5)
+ \pscircle(4.5,3){1}
+ \pscircle(6,3){1}
+   \uput[0](3.5,3){\psframebox*{$\denote{Adj}$}}
+   \uput[0](5.4,3){$\denote{Noun}$}
+  \uput[0](5,3){$\gamma$}
+\uput[0](3,4){(iv)}
+
+\end{example}
+
+
+\begin{example}Adverbs have two possible places of attachment\\
+\label{syntaxforadverbials}
+\Treek{1}{
+\K{(a) Attached to VP}\\
+&& S\B{dl}\B{dr}\\
+&Subj && VP\B{dl}\B{dr}\\
+&&VP\B{dl}\B{dr}\OO && Adv\\
+&V && Obj\\
+}
+\Treek{1}{
+\K{(b) Attached to S}\\
+&&& S\B{dl}\B{dr}\\
+&& S\B{dl}\B{dr}\OO && Adv\\
+&Subj && VP\B{dl}\B{dr}\\
+ &&V && Obj\\
+}
+\end{example}
+
+
+
+\begin{example}Tense is easy to add via Intersection\\
+\Tree{
+ & TP_{\{e\}}\Below{$_\cap$}\B{dl}\B{dr}&&&&&&& \K{ = \{e:  John is an agent of e $\cap$ e is a running event $\cap$ e happened in the past\}}  \\
+T_{\{e\}}\Below{Past} &&  VP_{\{e\}}\B{dl}\B{dr} &&&&& \K{ = \{e:  John is an agent of e $\cap$ e is a running event\}}  \\
+ & {NP}\Below{\denote{John}} && VP\Below{\denote{ran}}\\
+}
+\end{example}
+
+\begin{example}Extra-Linguistic Solution: A sentence is true if the sets of events is non-empty\\
+\label{trueevents}
+(i) Situation:\\
+\hspace{.2in}D = \{e$_1$,e$_2$,e$_3$,e$_4$,e$_5$,e$_6$\}\\
+\hspace{.2in}John is an agent = \{e$_1$,e$_4$,e$_5$\}\\
+\hspace{.2in}run = \{e$_1$,e$_3$,e$_5$\}\\
+\hspace{.2in}quickly = \{e$_1$,e$_2$,e$_5$\}\\
+\hspace{.2in}swim = \{e$_6$\}\\
+
+%\makebox[\textwidth]{\framebox[5cm]{\rule{0pt}{4cm}}}
+%\vspace{.4in}
+\psset{linestyle=solid}
+ %\psgrid(0,0)(-1,-1)(11,3)
+ \pscircle(8,2){1.5}
+ \pscircle(7.5,1){1.5}
+ \pscircle(9,1){1.5}
+   \uput[0](7,3){\psframebox*{John}}
+   \uput[0](6,1){\psframebox*{running}}
+   \uput[0](8.9,.8){quickly}
+ %\psdot*[dotstyle=diamond,fillcolor=blue,dotsize=2pt 8](8,2)
+ %\psdot*[dotstyle=square,fillcolor=blue,dotsize=2pt 8](10,2.5)
+ \uput[0](8,1){e$_1$}
+ \uput[135](10,1.5){e$_2$}
+ \uput[135](7,0){e$_3$}
+  \uput[0](8,2.5){e$_4$}
+  \uput[0](8,1.3){e$_5$}
+  \uput[0](10,2.5){e$_6$}
+\uput[0](5.5,2.5){(iii)}
+
+\vspace{-.5in}
+(ii) Derivation\\
+\denote{John ran quickly} \\
+\hspace{.2in} = John $\cap$ run $\cap$ quick\\
+\hspace{.2in} = \{e$_1$,e$_4$,e$_5$\} $\cap$ \{e$_1$,e$_3$,e$_5$\} $\cap$ \{e$_1$,e$_2$,e$_5$\}\\
+\hspace{.2in} = \{e$_1$,e$_5$\}\\
+\hspace{.2in} (= True)
+\end{example}
+
+\begin{example}Again can also attach to a VP\\
+\label{transVPagain}
+\begin{tabular}{ll}
+Normal Example & Context Driven Example\\\hline
+John hugged Mary because she looked sad, & John's wife hugged Mary because she looked sad,\\
+She still looked sad so & She still looked sad so \\
+\\
+(a) [John hugged Mary] again. & (b) John [hugged Mary] again.\\
+\Tree{
+&& S_{\{e\}}\Below{$_\cap$}\B{dl}\B{dr} && \\
+&S_{\{e\}}\OO\B{dl}\B{dr} && Adv_{\{e\}}\Below{again}\\
+NP_{\{e\}}\Below{John} && VP_{\{e\}}\B{dl}\B{dr}\\
+&V\Below{hugged}&& NP\Below{Mary}\\
+} &
+\Tree{
+&S_{\{e\}}\Below{$_\cap$}\B{dl}\B{dr} &&\\
+NP_{\{e\}}\Below{John} && VP_{\{e\}}\Below{$_\cap$}\B{dl}\B{dr}\\
+&VP_{\{e\}}\OO\B{dl}\B{dr} && Adv_{\{e\}}\Below{again}\\
+V\Below{hugged}&& NP\Below{Mary}\\
+}\\
+\end{tabular}
+\end{example}
+
+
+%\setcounter{page}{1}
+%\pagenumbering{roman} %changes numbering to roman for the appendix
 \appendix %marks the start of additional material in your book. After this command chapters will be numbered with letters.
 
 \section{References}
-
-Kenstowicz, Michael. 1995. \textit{Phonology in Generative Grammar}. Blackwell Publishing, Cambridge Massachusetts.
-
-Greenberg, Joseph. ed. 1963. \textit{Universals of Language} Cambridge MIT Press 1963 2nd ed 1966.
 
 \section{Index}
 
