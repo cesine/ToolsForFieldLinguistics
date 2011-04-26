@@ -15,59 +15,89 @@
 
 %-----General Needs------------------------------------------------
 
-%Standard printing is booksized pages, this makes it a full letter page
+%Standard printing is little centered booksized pages, this makes it a full letter page
 	\usepackage{fullpage}
 	
 %Print 2 pages on 1 page (this is one way to do it)		
 	%\usepackage{2up}
 
 %Underline and Strikeout capabilities (sideeffect: \emph changes from the default italics to underline, to avoid this use \textit for italics)
-	\usepackage{ulem}
+% this also makes ugly underlines in the bibtex references
+	%\usepackage{ulem}
 
-%Create Grapics (set theory,)
-	\usepackage{PSTricks}
-	\usepackage{pst-grad}
 	
 %Display images	
-	\usepackage[dvips]{graphicx} % save the file as a eps, or ps type to display the image \includegraphics{filename} 
+	\usepackage[dvips]{graphicx} % you must save the file as a eps, or ps.  to display the image type this: \includegraphics{filename} 
 
 
 %Bibliography:
-	%\usepackage{natbib} %citation style
+	\usepackage{natbib} %citation style
+	\bibpunct{(}{)}{;}{a}{,}{,}
+	%\bibliographystyle{plainnat}
+	\bibliographystyle{linquiry2}
 	
+
+%A way to make an index
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{glossaries}
+\makeglossaries
+%\makeglossary 
+\newglossaryentry{IDE}{name=IDE Integrated Development Environment,description={a rectangular table of elements}}
+\newglossaryentry{DVI}{name=DVI Device Independent Format,description={a rectangular table of elements}}
+\newglossaryentry{Specials}{name=ps or pdf specials,description={a rectangular table of elements}}
+\newglossaryentry{matrix}% the label
+{name=matrix, % the term
+ description={a rectangular table of elements}, % brief description
+ plural=matrices % the plural
+}
 
 %-----Begin Linguistics Packages----------------------------------
 
 %Syntax/Morphology Intralinear glosses:
 	\usepackage{covington}
+	
+	%complicated package (relatively new!) with lots of features and a whole new way of thinking about trees
+	\usepackage{pst-jtree}
+	\usepackage{xkeyval}
 
 %Easy tree structures based off of brackting:
 	%\usepackage{qtree} 
-	\usepackage{qtreegina} %changes: original qtree is incompatible with xyling as both use \Tree, so qtree uses \QTree instead
-%Arrows for easy tree structures
+	\usepackage{qtreegina} %changes: the original qtree is incompatible with xyling because both use the command \Tree, so i changed qtree so that it uses \QTree instead, now qtreegina and xyling are compatible
+	
+%Arrows for the qtree easy tree structures
 	%\usepackage{tree-dvips}
 
 %Complicated tree structures and much more
 	%\usepackage{xyling}
-	\usepackage{xylinggina} %changes: over text arrows are added
+	\usepackage{xylinggina} %changes: i added text arrows that go over the text. not an important change, so most people can use xyling instead.
 
 %IPA fonts
 	\usepackage{tipa}
-	\let\ipa\textipa %this command allows you to use the shorter \ipa{} rather than \textipa{}
+	\let\ipa\textipa %this command allows you to use the shorter \ipa{} rather than the longer \textipa{}
 
 %Semantics denotation double brackets
-\newcommand{\denote}[1]{[\hspace{-.02in}[{\bf #1}]\hspace{-.02in}]}	\newcommand{\denoteexpand}[1]{$\left[\hspace{-.06in}\left[#1\hspace{-1in}\right]\hspace{-.06in}\right]$}
-
-
+	%this declares some new commands \denote{} and \denoteexpand{} to get semantics denotations that are easier to use than the stmarysrd package.
+	\newcommand{\denote}[1]{[\hspace{-.02in}[{\bf #1}]\hspace{-.02in}]}
+	\newcommand{\denoteexpand}[1]{$\left[\hspace{-.06in}\left[#1\hspace{-1in}\right]\hspace{-.06in}\right]$}
+	
+	
+	%Create diagrams (set theory,)
+	\usepackage{pstricks}
+	\usepackage{pst-grad}
+		%inorder to set the unit size add this before the item \psset{unit=3em}
+	
 	
 %Phonology
-	%to create a spaces
+	%to create a vowel space
 	\usepackage{vowel}
 
 
 %Otimality Theory
 	%to get a hand for the tableau
 	\usepackage{pifont}
+	%declares the command \hand that accesses the dingbat 43
 	\newcommand{\hand}{\ding{43}}
 	%to shade in tables
 	\usepackage{color}
@@ -76,28 +106,27 @@
 	
 	
 	%to make long tables spaning a number of pages
-	%\usepackage{supertabular}
+	\usepackage{supertabular}
 	%to make landscaped pages add [landscape] in the \documentclass[landscape]{article}
 	
-	%to use the ranking symbols which are from french quotes \fg \og but this has effects on the spacing of : and other changes in the document structure so instead i defined some commands
+	
 	%\usepackage[frenchb]{babel}
+	%the french bable makes it possible to use the ranking symbols which are actually french quotes \fg \og, but this effectively makes it a french document, which has effects on the spacing of  the colon : and other changes in the document structure. so instead i defined some commands, which are accessed by \fg and \og:
 	\newcommand{\fg}{{\raisebox{0.28ex}{\tiny $>$}}\hspace{-.06in}{\raisebox{0.1ex}{\scriptsize $>$}}}
 	\newcommand{\og}{$<\hspace{-.06in}<$}
 
 %Autosegmental phonology represenations
-	\usepackage{pst-autoseg}
+	\usepackage{pst-autoseg} %this appears to reset the spacing in the pstricks and set theory graphics... to fix that type \psset{unit=3em} to set the unit spacing
 
 %Precedence theory?
-	%\usepackage[curve]{xypic}incompatible with xyling i think
+	%\usepackage[curve]{xypic}incompatible with xyling i think? xyling is based off of xy or xypic
 %-------Miscellaneous---------------------------------------------
 
-	%\usepackage{marvosym} for smile
+	%\usepackage{marvosym} for smilie
 	%\usepackage{latexsym}
 	%\usepackage{eepic}
 	%\usepackage{pst-eucl}
 	%\usepackage{SpecialCoor}
-	%from phonology 2
-	%\usepackage[curve]{xypic}
 
 %--------------------End Preamble Area-----------------------------
 
@@ -108,21 +137,81 @@
 	%\markboth{left-hand (even)page header}{Right-hand (odd) page header}
 	%in the book format because its default is doublesided printing you can have different headigns for the right and left hand pages. use \markboth to do this. otherwise you can just use \markright
 \title{Latex for Linguistics Notes\thanks{Acknowledgments: tons and tons of other latex for linguists websites and tutorials}}
-\author{Gina \and Author 2}
+\author{Gina \and Author2}
 \date{v1 May 25th 2003\\ v2 Feb 24 2008}%if the \date command is omitted the current date is used or the command \today can be used (anywhere in the document)
 \maketitle
+
+%the table of contents is very useful in planning a document. it can serve as an outline both for the author, and for the reviewers until the final version where it maybe preffered to not display it. 
 \tableofcontents
-%\clearpage %this makes the text go on the next page
+%\clearpage %this makes the text go on the next page, handy with real tables of contents
+
 
 %-------------------End Heading Area-------------------------------
 
-\abstract{This is an abstract of what this paper is about. This collection of latex source started in 2003 from reading a book on formating a book in \LaTeX ~by Sally Fields. Since then a number of commands had changed in \LaTeXe{}. This document contains the latest commands as of Feb 2008. }
+\abstract{This is an abstract of what this paper is about. This collection of latex source started in 2003 from reading a LaTEX for Everyone by Jane Hahn (published in 1993).  Since then, a number of commands had changed in \LaTeXe{}. This document contains the latest commands  (to my knowledge) as of Feb 2008. This document is designed to contain tons of Latex examples that a linguist can copy and paste into their own documents, it should also help with a bit of theory so you can learn how to get the packages you need to run the code, and you can learn how to  tweek the example code by looking up the documentation for those packages, or for LaTeX in general. It should get you up and running as a good mentor should. As you read the .pdf output of this .tex file you can bounce back and forth between the output (.pdf) and the source (.tex) to see how the output was coded. LaTeX is certainly one of the easiest programming languages you can learn. Essentially,  almost all latex comands are 1 place predicates that start with a slash and take one obligatory argument in curly braces \{arg\} and perhaps optional (comma seperated) arguments in square brackets [arg1,arg2,arg3], take a look at the code to see some examples}
 
 \begin{quotation}Alternatively, you can make an abstract like this (see source). blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \end{quotation}
 
 %\setcounter{page}{1}
 %\pagenumbering{arabic} %brings numbering back to the default
+
+\part{Instalation}
+\section{How to use LaTeX}
+
+You can use Latex on Windows, MacOS and Linux.
+
+LaTeX is a type of programming language for formating scientific texts/books. It's not a Word Processor (like Microsoft Word, WordPad or WordPerfect). In fact, all word processers save their documents in a code that is readable by that application. LaTex is like this code, its a level deeper than what you view, and allows you more control over the document than a Word Processor. 
+
+LaTex makes it very easy to draw uniform diagrams and write forumlas using plain text. If you already know a bit about HTML or any other programming language this will be easy for you.
+
+There are 3 steps to making a file in LaTeX.
+
+\begin{itemize}
+   \item Edit a plain text file.
+   \item run LaTex to proccess the file.
+   \item view the output (there are three formats for the output, dvi, ps, pdf. there are differences that will be discussed later). 
+\end{itemize}
+
+After you are finished your document it will exist as a .pdf 
+
+LaTex began on the Linux operating system. So the installation for Linux users is very common and there are plenty of explainations online. Similarly Mac OS X is actually based off of Linux, so its also common to install Latex on a Mac. Since running Latex on Microsoft Windows is the most complicated, I will explain a way to install LaTeX on a MS Windows machine. (If you have a Mac you can try http://www.esm.psu.edu/mac-tex/)
+
+\subsection{Windows instalation}
+
+Getting \LaTeX to run on windows can be annoying. As of March 2008 here is something that works:
+
+\begin{itemize}
+	\item Download MikTex (the distribution of LaTeX for windows, for linux its teTeX, for Mac its XeTeX or something like that), 
+		\begin{itemize}
+			\item download and open a file similar to setup-2.7.2904.exe This file is both for downloading, and for installing. 
+			\item First choose the Download MiKTex, then choose Basic (it takes less time to download) or choose Complete (this is better if you can do it, because you will have less problems installing packages later) 
+			\item Choose a source to download from (the sources in the united states are not reliable and quit downloading in the middle, the sources from canada and austria work pretty well. if the source stops downloading in the middle you can just repeat the same process and it will skip the files that it has already sucessfully downloaded and continue to download where it left off.)
+		\end{itemize}
+	\item Install MikTex using the same file as before: setup-2.7.2904.exe
+	\item Install an IDE (Integrated Development Environment) a centralized place to edit your LaTex source, and view the output(s) in DVI, PS or PDF format. There are two options I know about: TeXnicCenter (a file named something like TXCSetup\_1Beta7\_01.exe) and TexMaker, but I've had far more errors and trouble using TexMaker, so I like TeXnicCenter better. 
+	\item Install Ghostscript and Ghostview (do an internet search for them and how to install them)
+	\item Open a .tex file using the IDE (TeXnixCenter), browse around and try to latex it 
+	\item Install packages that you need (often if you need a package a box will pop up when you latex the file which will ask you to download the file. This might work. But, a surefire way to install packages is to go to $Start>>Programs>>MiKTeX>>Browse Packages$ )
+	\item If you have packages that you want to use, but they aren't downloadable (ie, you made them or someone else made them) then you can go  $Start>>Programs>>MiKTeX>>Settings$ again you should browse around and become familiar with the options. Choose the Roots tab, this is a list of directories where the packages (.sty files) can be saved. Basically you can put your .sty files into C:\\Local TeX Files , then go the General tab in the Settings box, and click on Refresh FNDB (this refreshes the database of packages, and it should find your new packages)
+	\item Try editing your .tex document, and viewing it. You might have to explore around the IDE (TeXnicCenter) to find out how to do a spell check, how to latex the document, how to view the document, and how to change your output between  DVI, PS and PDF.
+\end{itemize} 
+
+(Note, this advice is old, from 2003 and might not be true anymore.) There are basically 4 stages to get from a .tex file to the .pdf that you can distribute. 
+\begin{itemize}
+	\item Latex the file into a DVI \glslink{DVI}{DVI Device Independent Format} (Device Independent Format) \\now the output is viewable with Yap
+	\item dvips the file from dvi to ps (Post Script, a langauge that printers can read, the predecesor of pdf) \\now the output is viewable with Ghost View
+	\item distill/print the document from ps to pdf (Portable Document Format) \\now the output is viewable with Adobe Reader/Professional
+\end{itemize}
+
+These extra stages have been recently bypassed using pdfTex. This makes a better pdf using modern pdf features. But, linguists use a number of packages that use ps specials \glslink{Specials}{ps or pdf specials} (specials are arrows and lines) that can only be displayed in ps, which are then converted into images when the document is made as a pdf. 
+
+So, for most linguistics papers we are forced to go through the 4 stages of output. If you ever have arrows and graphics that dont show up, (or error messages like ``Non-PDF special ignored!'') chances are youre using pdfTex, and you need to change some options in your IDE to get it to go through all the dvi and ps stages. You can still view the document, you will just be missing the fancy specials...
+
+\part{Using LaTex}
+
+
+
 \section{Here is a Section}
 	\label{sec:sectioningExample} 
 
@@ -214,11 +303,13 @@ Although sections are automatically put in the Table of Contents (TOC), there ar
 
 \section{Cross Referenecs}
 
-	References {\verb \ref } will take the number of the example or section that their corresponding {\verb \label } command is located after (look for some examples in the code). You can also do {\verb \pageref } For example, spacing is discussed on page~\pageref{sec:spacing}.
+	References {\verb \ref{} }  (not to be confused with a bibliography) will take the number of the example or section that their corresponding {\verb \label{} } command is located after (look for some examples in the code). You can also do {\verb \pageref{} } For example, spacing is discussed on page~\pageref{sec:spacing}.
 
 	Counters can be reset (counters: part, chapter, section, subsection, subsubsection, paragraph, page, equation, figure, table, footnote, enumi, enumii). See the source between the table of contents and document body, and between the body and the appendix. 
 	
-	You can create your  own counter with newcounter (see the preamble in the source) % more info: http://www.personal.ceu.hu/tex/counters.htm 
+	You can create your  own counter with newcounter, do an internet search for more info.  % more info: http://www.personal.ceu.hu/tex/counters.htm 
+	
+	It helps to name your labels with a prefix depending on what they are, ie a section as sec: or example as ex: (see code for examples).
 
 \section{How Spacing Works in LaTeX}\label{sec:spacing}
 
@@ -341,16 +432,16 @@ Although sections are automatically put in the Table of Contents (TOC), there ar
 		%This immediately raises the question of how one can judge the theoretical significance of a given fact or body of facts. The answer is that this can be done by showing that the facts in question can be accounted for as consequences of laws organized in a well articulated theory\ldots
 		\noindent  Unfortunately, within linguistics it has not been generally recognized how important such formal, theoretical work is; instead  there is a feeling that too much concern for theoretical detail is  a waste of time\ldots [T]he attitude that formal, theoretical work  is bound to be both ad-hoc and sterile is, I am convinced,  fundamentally mistaken \ldots 
 		
-		\hspace{3in}Morris Halle (1975:530)
+		\index{hspace} \hspace{3in}Morris Halle (1975:530)
 	\end{quotation}
 
 
 	
-\subsection{Advanced Spacing: vspace and hspace}\label{sec:advspacing}
+\subsection{Advanced Spacing: vspace \index{vspace} and \index{hspace} hspace}\label{sec:advspacing}
 
 You can create vertical space 
 
-	\vspace{.6in} like this. You can create horizontal space \hspace{.6in} like this. This can be useful in graphics, figures and examples. hspace can be useful in getting Trees to be smaller... but vspace and hspace are hacks that are best avoided and can have bad consequences.
+	\vspace{.6in} \index{vspace} like this. You can create horizontal space \hspace{.6in} like this. This can be useful in graphics, figures and examples. hspace can be useful in getting Trees to be smaller... but vspace and hspace are hacks that are best avoided and can have bad consequences.
 	
 
 
@@ -470,6 +561,17 @@ Here is a bunch of text to make a paragraph to see how the tall integral will lo
 x=i\scriptstyle j \scriptscriptstyle k
 \end{equation}
 
+\subsubsection{Tailored examples, axioms, theoems, derivations, rules etc}
+
+this uses the covington package 
+
+it makes an exercise numbered according to chapter,
+section, and subsection (suitable for use in a large book
+
+\begin{exercise}[Type of exercise]
+Prove that the above assertion is true.
+\end{exercise}
+
 \section{Languages and quick ways to make accents and diacritics}
 
 \`{o} \'{O} \^{o} \"{O} \~{o} \={O} \.{o} \u{O} \v{o} \H{O} \t{ts} \c{O} \d{o} \b{O} \oe \OE \ae \AE \aa \AA \o \O \l \L \ss ?` !` \copyright \pounds \P75 \S \dag \ddag
@@ -478,10 +580,18 @@ x=i\scriptstyle j \scriptscriptstyle k
 Notre amour est chose l\'{e}g\'{e}re.\\
 Ein V\"{o}gelein fliegt \"{u}ber den Rhein.\\
 
-\section{Examples}
+
+%\setcounter{page}{1}
+%\pagenumbering{roman} %changes numbering to roman for the appendix
+\appendix %marks the start of additional material in your book. After this command chapters will be numbered with letters.
+
+\section{Code Samples}
 
 \subsection{Phonology}
 
+\subsubsection{Inventories}
+
+uses no special package
 
 \begin{example}Surface Inventory for Consonants\\
 \begin{tabular}{|l||l|l|l|l|l|l|}\hline
@@ -493,6 +603,25 @@ Liquids & & l &r &&&\\\hline
 Glides & & & & j &  w &\\\hline
 \end{tabular}
 \end{example}
+
+
+uses no special packages
+
+\begin{example}Romanian Surface Consonant Inventory\label{consonants}
+\begin{tabular}{|ll|cc|cc|cc|c|c|c|cccccc}\hline	
+& & \multicolumn{9}{c|}{Secondary Specifications}  \\ 	
+& & \multicolumn{2}{c}{[-cont]} & \multicolumn{2}{c}{[-cont]} &   \multicolumn{2}{c}{[+cont]} & \multicolumn{1}{c}{[+nas]} & \multicolumn{1}{c}{[+lat]} & \multicolumn{1}{c|}{[+rotic]}\\
+& & \multicolumn{2}{c}{[-strid]} & \multicolumn{2}{c}{[+strid]}& \multicolumn{2}{c}{[+strid]} & \multicolumn{3}{c|}{~}  \\\hline
+Primary~&~[labial] & p & b & & & f& v&  m & &\\
+Articul~&~[cor, +ant] & t & d & ts & dz & s & z & n & l & r \\
+~&~[cor, -ant] & & & \ipa{tS} & \ipa{dZ} & \ipa{S} & \ipa{Z} &&&\\
+~&~[dorsal] & k & g & & & x & & \ipa{N} &&\\\hline
+~&~[glottal] & \multicolumn{9}{c|}{h} \\\hline
+\end{tabular}
+\end{example}
+
+
+uses the vowel package 
 
 
 \begin{example}Surface Inventory for Vowels\\
@@ -511,6 +640,41 @@ Glides & & & & j &  w &\\\hline
 \end{example}
 
 
+\subsubsection{Feature Geometry}
+
+uses graphicx package
+
+\begin{example}Feature Specifications (Halle, Vaux, Wolf 2000)
+\includegraphics{halle2000feature.geo.v3.eps}
+\end{example}
+
+uses xyling\index{xyling} package
+
+\begin{example}\label{singularmorpheme}
+Halle-Sagey Style Representation of Shared Features of \textit{singular} /u/\\
+\Tree{
+&&[-cons]\Below{[+son]}\B[-5]{dll}\B[-5]{drr}\B[-5]{d} \\
+Laryngeal\B{d} && Place\B{dl}\B{dr} && [+contin]\\
+[voiced] & Dorsal\B{dl}\B{dr} && Labial\B{d} \\
+[high] && [back] & [round]\\
+~ }
+\end{example}
+	
+	
+uses no special packages
+
+\begin{example} Obstruent+Stop clusters\\\label{obststop}
+$\left[\begin{array}{l} -son \end{array}\right]\left[\begin{array}{l} -son \\ -cont \\\alpha voice \end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ \alpha voice\end{array}\right]\left[\begin{array}{l} -son \\ -cont\\ \alpha voice\end{array}\right]$
+\end{example}
+
+uses no special packages
+
+\begin{example} Obstruent+Fricative clusters\\\label{obstfric}
+$\left[\begin{array}{l} -son\end{array}\right]\left[\begin{array}{l} -son \\ +cont\end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ -voice\end{array}\right]\left[\begin{array}{l} -son \\ +cont \\ -voice\end{array}\right]$
+\end{example}
+
+	
+uses mathmode but no special package
 
 \begin{example}What is the relationship between [a] and [\ipa{O}] ?\\
 \begin{description}
@@ -548,29 +712,9 @@ Fill : \O high $\rightarrow$ -high, \O back $\rightarrow$ +back, \O ATR $\righta
 \end{description}
 \end{example}
 
+\subsubsection{Assimilation, Spreading and Feature Specification}
 
-\begin{example}H Deletion\\ \label{hdeletiontableau}
-\begin{tabular}{|lll|l|ccc|l|}\hline
- &  &  &    & *[$_\sigma$h & Max & Onset & No\\
- &  &  &   &  & IO &  & Coda\\\hline\hline
- &  &  & \ipa{/butuh/} &  &  & &\\\hline
-MostFaith &  & \hand & \ipa{bu.tUh} &  & & & *\\\hline
-LeastMark & MaxIO \fg NoCoda &  & \ipa{bu.tu} & & * &  & \\\hline\hline
- &  &  & \ipa{/butuh/+/e/} & &  &  & \\\hline
- &  & \hand & \ipa{bu.tu.e} & & * & * & \\\hline
-MostFaith,LeastMark & *[$_\sigma$h \fg MaxIO,Onset &  & \ipa{bu.tu.he}& * &  &  & \\\hline
-\end{tabular}
-\end{example}
-
-\begin{example}\label{singularmorpheme}
-Halle-Sagey Style Representation of Shared Features of \textit{singular} /u/\\
-\Tree{
-&&[-cons]\Below{[+son]}\B[-5]{dll}\B[-5]{drr}\B[-5]{d} \\
-Laryngeal\B{d} && Place\B{dl}\B{dr} && [+contin]\\
-[voiced] & Dorsal\B{dl}\B{dr} && Labial\B{d} \\
-[high] && [back] & [round]\\
-~ }
-\end{example}
+uses xyling\index{xyling} package	
 	
 \begin{example}\label{placeconstraintrules}
 Place Agreement\\
@@ -580,25 +724,7 @@ Place of articulation spreads from left to right (indicated by (2)).\\
 place && place\\
 }
 \end{example}
-
-
-\begin{example}Feature Specifications (Halle, Vaux, Wolf 2000)
-\includegraphics{halle2000feature.geo.v3.eps}
-\end{example}
-
-\begin{example}Romanian Surface Consonant Inventory\label{consonants}
-\begin{tabular}{|ll|cc|cc|cc|c|c|c|cccccc}\hline	
-& & \multicolumn{9}{c|}{Secondary Specifications}  \\ 	
-& & \multicolumn{2}{c}{[-cont]} & \multicolumn{2}{c}{[-cont]} &   \multicolumn{2}{c}{[+cont]} & \multicolumn{1}{c}{[+nas]} & \multicolumn{1}{c}{[+lat]} & \multicolumn{1}{c|}{[+rotic]}\\
-& & \multicolumn{2}{c}{[-strid]} & \multicolumn{2}{c}{[+strid]}& \multicolumn{2}{c}{[+strid]} & \multicolumn{3}{c|}{~}  \\\hline
-Primary~&~[labial] & p & b & & & f& v&  m & &\\
-Articul~&~[cor, +ant] & t & d & ts & dz & s & z & n & l & r \\
-~&~[cor, -ant] & & & \ipa{tS} & \ipa{dZ} & \ipa{S} & \ipa{Z} &&&\\
-~&~[dorsal] & k & g & & & x & & \ipa{N} &&\\\hline
-~&~[glottal] & \multicolumn{9}{c|}{h} \\\hline
-\end{tabular}
-\end{example}
-
+uses xyling\index{xyling} package
 
 \begin{example}Anterior Assimilation Rule: Velars\\
 \Tree{
@@ -611,6 +737,7 @@ Body\ar[u] & Blade\ar[u] \\
 \\Dashed -~- : added link\\
 \end{example}
 
+uses xyling\index{xyling} package
 
 \begin{example}\textit{\ipa{n\ae k\textsuperscript{w}\ae s\textsuperscript{j}}} floating Labial [round] and final TH [high] associate\\
 $\xymatrix@=6pt{
@@ -625,27 +752,11 @@ $\xymatrix@=6pt{
 }~$\\
 \end{example}
 
-\begin{example} \textit{\ipa{g\textsuperscript{w}@z\textsuperscript{j}}} /gz/ `cut \dots', Labial [round] \& TH [high] `feminine', reduplicated  \\
-$\xymatrix@=6pt{	
-& ~\#\ar[d] \cr
-& X\ar[r]\ar[d] & Oral\ar[r] & (g)Dorsal\ar[r]\ar[rd] & TT\ar[r] & [back]\\
- & X\ar[d] &&& \fbox{Labial --[round]}\cr
-& X\ar[r]\ar[d]\ar@/^2.5pc/[uu] & Oral\ar[r] & (z)Dorsal\ar[r]\ar[dr] & TT\ar[r] & [front] \\
-& ~\%&&& \fbox{TH --[high]}\cr 	
-}~$\\
-\end{example}
-
-\begin{example} Obstruent+Stop clusters\\\label{obststop}
-$\left[\begin{array}{l} -son \end{array}\right]\left[\begin{array}{l} -son \\ -cont \\\alpha voice \end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ \alpha voice\end{array}\right]\left[\begin{array}{l} -son \\ -cont\\ \alpha voice\end{array}\right]$
-\end{example}
-
-\begin{example} Obstruent+Fricative clusters\\\label{obstfric}
-$\left[\begin{array}{l} -son\end{array}\right]\left[\begin{array}{l} -son \\ +cont\end{array}\right]\rightarrow\left[\begin{array}{l} -son \\ -voice\end{array}\right]\left[\begin{array}{l} -son \\ +cont \\ -voice\end{array}\right]$
-\end{example}
+uses pst-autoseg package
 
 \begin{example}Derivation, association, cyclic speading inwards
 
-\vspace{.2in}
+\vspace{.2in} \index{vspace}
 \newpsstyle{assoc}{linestyle=solid,linewidth=.4pt}
 \rput[B](0,\asegtsB){k}
 \rput[B](1,\asegtsB){i}
@@ -703,53 +814,56 @@ $\left[\begin{array}{l} -son\end{array}\right]\left[\begin{array}{l} -son \\ +co
 
 \end{example}
 
-\begin{example}
-\begin{tabular}{|ll|ccc|ccc|cc|}\hline
- & tanepwtina & *Clash & WSP & Ft & Right & NonFin & Parse & All & Non\\
- & & &  & Bin & most & Stress & Syl& FtR & Fin\\\hline\hline
-\hand & ta(n\`{e}pwa)(t\'{i}na) &  &  &  &  &  & * & ** & *\\\hline
- &  (tan\`{e}p)wa(t\'{i}na) &  &  &  &  &  & * & ***! & *\\\hline
- &  ta(n\`{e}pwa)(tin\'{a}) &  &  &  &  & *! & * & ** & *\\\hline
- & ta(n\'{e}pwa)(t\`{i}na) &  &  &  & *! &  & * & ** & *\\\hline
- & (tan\`{e}p)(wat\'{i})na &  &  &  & *! &  & * & **** & \\\hline
- & (ta)(n\`{e}pwa)(t\'{i}na) &  &  & *! &  &  &  & ****** & *\\\hline
- & (t\`{a}nep)wa(t\'{i}na) &  & *! &  &  &  & * & ** & *\\\hline
-\end{tabular}
+\subsubsection{Prosodic Structures}
+uses qtreegina package
+
+ \begin{example}\label{rhyme}Hindi Rhyme configurations (Shukla, 2000)\\
+\QTree [.rhyme [.{1 mora} V ] [.{2 mora} V: VC ] [.{3 mora} V:C VCC ] [.{4 mora} V:CC ] ]
 \end{example}
+
+uses qtreegina package
+
+\begin{example} $\mu.\mu\mu\mu.\mu\mu.\mu\mu$ : ban\textprimstress du:kba:zi: `marksmanship' 
+\QTree[.PrWd [.$\sigma$  [.o b ] [.r  [.$\mu$ a ] [.$\mu$ n ]  ] ] [.$\sigma$ [.o d ] [.r [.$\mu$ u ] [.$\mu$ u ] [.$\mu$ k ] ] ] [.$\sigma$ [.o b ] [.r [.$\mu$ a ] [.$\mu$ a ] ] ] [.$\sigma$ [.o z ] [.r [.$\mu$ i ] [.$\mu$ i ] ] ] ] 
+\end{example}
+
+
+
+\subsubsection{Stress projection and Tone association}
+
+uses xyling\index{xyling}
 
 \begin{example}\label{manamderivation}
 \begin{enumerate}
 \item Project vowels
-\xymatrix{
+\Treek[0]{0}{
  ~   & L &   & H &   &   & L&   & L &   & L  \cr
  ~ t & a & n & e & p & w & a & t & i & n & a  \cr
 }~\\
 \item Insert L bracket to the L of H \\
-\xymatrix{
+\Treek[0]{0}{
  ~   & L &   & (H &   &   & L&   & L &   & L  \cr
  ~ t & a & n & e & p & w & a & t & i & n & a  \cr
 }~\\
 \item Iterate: Insert L bracket to the L of pairs \\
-\xymatrix{
+\Treek[0]{0}{
  ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
  ~ t & a & n & e & p & w & a & t & i & n & a  \cr
 }~\\
 \item Head: Left, project head\\
-\xymatrix{
+\Treek[0]{0}{
  ~   &  &   & X &   &   & &   & X &   &   \cr
  ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
  ~ t & a & n & e & p & w & a & t & i & n & a  \cr
 }~\\
-
 \item Edge: R bracket to the R of the R most element\\
-\xymatrix{
+\Treek[0]{0}{
  ~   &  &   & X &   &   & &   & X) &   &   \cr
  ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
  ~ t & a & n & e & p & w & a & t & i & n & a  \cr
 }~\\
-
 \item Head: Right, project head\\
-\xymatrix{
+\Treek[0]{0}{
  ~   &  &   &  &   &   & &   & X &   &   \cr
  ~   &  &   & X &   &   & &   & X) &   &   \cr
  ~   & L &   & (H &   &   & L&   & (L &   & L  \cr
@@ -759,14 +873,14 @@ $\left[\begin{array}{l} -son\end{array}\right]\left[\begin{array}{l} -son \\ +co
 \end{example}
 
 
- \begin{example}\label{rhyme}Hindi Rhyme configurations (Shukla, 2000)\\
-\QTree [.rhyme [.{1 mora} V ] [.{2 mora} V: VC ] [.{3 mora} V:C VCC ] [.{4 mora} V:CC ] ]
-\end{example}
 
+\subsubsection{Optimality Theory}
 
-\begin{example} $\mu.\mu\mu\mu.\mu\mu.\mu\mu$ : ban\textprimstress du:kba:zi: `marksmanship' 
-\QTree[.PrWd [.$\sigma$  [.o b ] [.r  [.$\mu$ a ] [.$\mu$ n ]  ] ] [.$\sigma$ [.o d ] [.r [.$\mu$ u ] [.$\mu$ u ] [.$\mu$ k ] ] ] [.$\sigma$ [.o b ] [.r [.$\mu$ a ] [.$\mu$ a ] ] ] [.$\sigma$ [.o z ] [.r [.$\mu$ i ] [.$\mu$ i ] ] ] ] 
-\end{example}
+uses pifont package the hand defined in preamble
+
+as well as color and colortab packages, and the lightgrey  defined in the preamble
+
+as well as the ranking comands fg and og defined in the preamble
 
 \begin{example}
 \begin{tabular}{|ll||l|l|l|}\hline
@@ -788,7 +902,179 @@ Input: &/kat+z/ & $*\left[\begin{array}{l} -son\\ \alpha voice\end{array}\right]
 \end{tabular}
 \end{example}
 
+uses pifont package the hand defined in preamble
+
+as well as the ranking comands fg and og defined in the preamble
+
+\begin{example}
+\begin{tabular}{|ll|ccc|ccc|cc|}\hline
+ & tanepwtina & *Clash & WSP & Ft & Right & NonFin & Parse & All & Non\\
+ & & &  & Bin & most & Stress & Syl& FtR & Fin\\\hline\hline
+\hand & ta(n\`{e}pwa)(t\'{i}na) &  &  &  &  &  & * & ** & *\\\hline
+ &  (tan\`{e}p)wa(t\'{i}na) &  &  &  &  &  & * & ***! & *\\\hline
+ &  ta(n\`{e}pwa)(tin\'{a}) &  &  &  &  & *! & * & ** & *\\\hline
+ & ta(n\'{e}pwa)(t\`{i}na) &  &  &  & *! &  & * & ** & *\\\hline
+ & (tan\`{e}p)(wat\'{i})na &  &  &  & *! &  & * & **** & \\\hline
+ & (ta)(n\`{e}pwa)(t\'{i}na) &  &  & *! &  &  &  & ****** & *\\\hline
+ & (t\`{a}nep)wa(t\'{i}na) &  & *! &  &  &  & * & ** & *\\\hline
+\end{tabular}
+\end{example}
+
+uses pifont package the hand defined in preamble
+
+
+as well as the ranking comands fg and og defined in the preamble
+
+\begin{example}H Deletion\\ \label{hdeletiontableau}
+\begin{tabular}{|lll|l|ccc|l|}\hline
+ &  &  &    & *[$_\sigma$h & Max & Onset & No\\
+ &  &  &   &  & IO &  & Coda\\\hline\hline
+ &  &  & \ipa{/butuh/} &  &  & &\\\hline
+MostFaith &  & \hand & \ipa{bu.tUh} &  & & & *\\\hline
+LeastMark & MaxIO \fg NoCoda &  & \ipa{bu.tu} & & * &  & \\\hline\hline
+ &  &  & \ipa{/butuh/+/e/} & &  &  & \\\hline
+ &  & \hand & \ipa{bu.tu.e} & & * & * & \\\hline
+MostFaith,LeastMark & *[$_\sigma$h \fg MaxIO,Onset &  & \ipa{bu.tu.he}& * &  &  & \\\hline
+\end{tabular}
+\end{example}
+
+
+uses supertabular\index{supertabular} package
+
+as well as the ranking comands fg and og defined in the preamble
+
+\begin{example} A factorial typology of reduplication systems - Kager Ch5,Ex5\\
+Five factorial (!5) is 5*4*3*2*1 = 120 different rankings\\
+\begin{supertabular}{llllll}
+1 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+2 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+3 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+4 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+5 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+6 & {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+7 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+8 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+9 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+10 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+11 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+12 & {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+13 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+14 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+15 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+16 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+17 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+18 & {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+19 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+20 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+21 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+22 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+23 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+24 & {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+25 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+26 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+27 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+28 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+29 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+30 & {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+31 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+32 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+33 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+34 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+35 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+36 & {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+37 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+38 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+39 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+40 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+41 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+42 & {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+43 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+44 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+45 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+46 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+47 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+48 & {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+49 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+50 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+51 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+52 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+53 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+54 & {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+55 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$\\
+56 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset}\\
+57 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+58 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+59 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+60 & {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+61 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+62 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+63 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+64 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+65 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+66 & {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+67 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+68 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+69 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+70 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+71 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+72 & {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+73 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+74 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+75 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+76 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+77 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+78 & {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+79 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$\\
+80 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} \\
+81 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+82 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+83 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+84 & {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+85 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$\\
+86 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR}\\
+87 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Red}-$\sigma$\\
+88 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda}\\
+89 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+90 & {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+91 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+92 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+93 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+94 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+95 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+96 & {\sc Onset} & \fg {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+97 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+98 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+99 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+100 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+101 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+102 & {\sc Red}-$\sigma$ & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+103 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc Align-Red-L} \\
+104 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc Onset}\\
+105 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+106 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+107 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+108 & {\sc Red}-$\sigma$ & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+109 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} \\
+110 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR}\\
+111 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Align-Red-L} \\
+112 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda}\\
+113 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+114 & {\sc Red}-$\sigma$ & \fg {\sc Onset} & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+115 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Onset} & \fg {\sc Max-BR}\\
+116 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc No-Coda} & \fg {\sc Max-BR} & \fg {\sc Onset}\\
+117 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc No-Coda} & \fg {\sc Max-BR}\\
+118 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Onset} & \fg {\sc Max-BR} & \fg {\sc No-Coda}\\
+119 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc Onset} & \fg {\sc No-Coda}\\
+120 & {\sc Red}-$\sigma$ & \fg {\sc Align-Red-L} & \fg {\sc Max-BR} & \fg {\sc No-Coda} & \fg {\sc Onset}\\
+\end{supertabular}
+\end{example}
+
+
 \subsection{Morphology}
+
+\subsubsection{Architecture of the grammar}
+
+uses xyling\index{xyling} package
 
 \begin{example}
 \fbox{
@@ -799,12 +1085,40 @@ LF & PF \cr
 }}
 \end{example}
 
+uses qtreegina  package
+
 \begin{example}\label{discripfreqschemata}
 Arrernte Frequentive Forms\\
 $verb + ep + final syllable + em$\\
-\Tree[ [ [ [.verb root\\unt v\textsuperscript{o}\\\ipa{\o} ] atelic\\ep ] freq\\unt ] prog\\em ]
+\QTree[ [ [ [.verb root\\unt v\textsuperscript{o}\\\ipa{\o} ] atelic\\ep ] freq\\unt ] prog\\em ]
 \end{example}
 
+
+\subsubsection{Precedence Theory Phonology-Morphology Interface}
+
+uses xyling\index{xyling} package
+
+\begin{example}Final syllable precedes stressed syllable\\\label{manamprecedence}
+\hspace{1in} \xymatrix{
+~\#\ar[r] & X\ar[r] & \sigma_{A+stress}\ar[r]  & Y\ar[r] & \sigma_{Bn}\ar@/^1.5pc/[ll]\ar[r] & ~\% \cr
+}
+~\\~\\
+(Where $X$ and $Y$ represent a sequence of $0+$ atoms.)
+\end{example} 
+
+uses xyling\index{xyling} package
+
+\begin{example} \textit{\ipa{g\textsuperscript{w}@z\textsuperscript{j}}} /gz/ `cut \dots', Labial [round] \& TH [high] `feminine', reduplicated  \\
+$\xymatrix@=6pt{	
+& ~\#\ar[d] \cr
+& X\ar[r]\ar[d] & Oral\ar[r] & (g)Dorsal\ar[r]\ar[rd] & TT\ar[r] & [back]\\
+ & X\ar[d] &&& \fbox{Labial --[round]}\cr
+& X\ar[r]\ar[d]\ar@/^2.5pc/[uu] & Oral\ar[r] & (z)Dorsal\ar[r]\ar[dr] & TT\ar[r] & [front] \\
+& ~\%&&& \fbox{TH --[high]}\cr 	
+}~$\\
+\end{example}
+
+uses xyling\index{xyling}
 
 \begin{example}Derivation of Frequentive Forms\\\label{freqderivation}
 \begin{enumerate}
@@ -832,16 +1146,150 @@ $verb + ep + final syllable + em$\\
 \end{enumerate}
 \end{example} 
 
-\begin{example}Final syllable precedes stressed syllable\\\label{manamprecedence}
-\xymatrix{
-~\#\ar[r] & X\ar[r] & \sigma_{A+stress}\ar[r]  & Y\ar[r] & \sigma_{Bn}\ar@/^1.5pc/[ll]\ar[r] & ~\% \cr
-}~\\
-(Where $X$ and $Y$ represent a sequence of $0+$ atoms.)
+
+\subsection{Syntax}
+	
+\subsubsection{John Frampton's trees}
+
+uses pst-jtree, pst-xkey and pstricks packages
+
+see jtree documentation
+
+\jtree
+\! = :{a} :{b} :{c} :{d} {e}.
+\endjtree
+
+
+\jtree[xunit=2.8em,yunit=1em]
+\! = {S}
+:{NP}!a {VP}
+:{V}!b {NP}
+<vert>{Tom}.
+\!a = <vert>{Mary}.
+\!b = <vert>{saw}.
+\endjtree
+
+
+\jtree
+\! = :{\rnode{A1}{who}}
+:{\rnode{B1}{did}} :{Jack}
+:{\rnode{B2}{\sl t}} :{see}
+{\rnode{A2}{\sl t}}.
+\psset{arrows=->,angleA=-150,
+angleB=-90}
+\nccurve{A2}{A1}
+\nccurve{B2}{B1}
+\endjtree
+
+
+\jtree
+\! = :{a}!a (:{b}{c}){d}.
+\endjtree
+
+
+\jtree
+\def\fracture{\psframebox{Fracture}}
+\! = {\stuff[a]}
+<vert>{\fracture}
+:\jtbig{\stuff[b]}!a
+\jtbig{\stuff[c]}
+<vert>{\fracture}
+:{$\vdots$} {$\vdots$}.
+\endjtree
+
+\jtree[xunit=2.6em,yunit=1em]
+\def\\{[labelgapb=-1.2ex]}% 1
+\everymath={\rm}%
+\! = {CP}
+:({XP}\\{$\scriptstyle [wh]$}@A1 ) {$C’$}
+:({$Cˆ0$}\\{$\scriptstyle [wh,Q]$})
+{$\langle\, TP\,\rangle$}
+<tri>{\dots\quad\rnode[b]{A2}{\it t}\quad\dots}. 2
+\nccurve[angleA=-150,angleB=-90,ncurv=1]{->}{A2}{A1}
+\endjtree
+
+
+\subsubsection{xyling\index{xyling} tree templates for copying}
+
+uses xyling\index{xyling} package
+
+\begin{example}Head Final Structure for copying \\
+\Treek{1}{ 
+& TP\B{dl}\B{dr}\\
+DP && '\B{dl}\B{dr} \\
+& P\B{dl}\B{dr}&&^o\\
+DP && '\B{dl}\B{dr} \\
+& P&&^o\\
+}
+
+\end{example}
+
+uses xyling\index{xyling} package
+
+\begin{example}Head Initial Structure for copying\\
+\Treek{1}{ 
+& TP\B{dl}\B{dr}\\
+DP  && '\B{dl}\B{dr} \\
+& ^o&&P\B{dl}\B{dr}\\
+&&DP && '\B{dl}\B{dr} \\
+&& & ^o&&P\B{dl}\B{dr}\\
+&& &&DP && '\B{dl}\B{dr} \\
+&& && & ^o&&P\B{dl}\B{dr}\\
+&& && &&DP && '\B{dl}\B{dr} \\
+&& && &&  & ^o&&P\B{dl}\B{dr}\\
+&& && && &&  DP && '\B{dl}\B{dr} \\
+&& && && &&  & ^o&&P\\
+}
+
+\end{example}
+\subsubsection{Changing spacing in the tree}
+
+uses xyling\index{xyling} package
+
+\begin{example}Default space\\
+\Tree{ 
+& TP\B{dl}\B{dr}\\
+DP && '\B{dl}\B{dr} \\
+& P\B{dl}\B{dr}&&^o\\
+DP && '\B{dl}\B{dr} \\
+& P&&^o\\
+}
 \end{example} 
 
 
-\subsection{Syntax}
+You can use Treek to change the vertical spacing, put its argument in curly braces \begin{verbatim} \Treek{3} \end{verbatim}
 
+uses xyling\index{xyling} package
+
+\begin{example} 3 space \\
+\Treek{3}{ 
+& TP\B{dl}\B{dr}\\
+DP && '\B{dl}\B{dr} \\
+& P\B{dl}\B{dr}&&^o\\
+DP && '\B{dl}\B{dr} \\
+& P&&^o\\
+}
+\end{example}
+
+You can also change the horizontal spacing with an optional argument in square brackets in either Tree (the default vertical spacing) or Treek (a specified vertical spacing) \begin{verbatim} \Treek[4]{3} or \Tree[4] \end{verbatim}
+
+uses xyling\index{xyling} package
+
+\begin{example} 3 space, with 4 wide \\
+\Treek[4]{3}{ 
+& TP\B{dl}\B{dr}\\
+DP && '\B{dl}\B{dr} \\
+& P\B{dl}\B{dr}&&^o\\
+DP && '\B{dl}\B{dr} \\
+& P&&^o\\
+}
+\end{example}
+
+\subsubsection{Complicated tree samples}
+
+These examples were made from looking at the xyling\index{xyling} documentation. 
+
+uses xyling\index{xyling} package
 
 \begin{example} 
 Raising for Case\\
@@ -918,14 +1366,31 @@ Case Triggers Raising\\
 \end{example}
 
 
+\subsubsection{Discourse representation theory}
+
+uses covington package
+
+\drs{X}
+{named(X,‘Pedro’) \\
+\drs{Y}{donkey(Y)\\owns(X,Y)}~~
+{\large $\Rightarrow$}~
+\drs{~}{feeds(X,Y)}
+}
+
+
+
 \subsection{Semantics}
+
+uses the denotation brackets that are in the preamble (some people use the stmarysrd package, but this definition makes the denotation bold, and is simpler to declare)
+
+uses the qtreegina package
 
 \begin{example}Sample denotation brackets
 
 \denoteexpand{\QTree [ Ann walks ]} = (\denote{Ann})\denote{walks}
+\end{example}
 
-
-
+uses the xyling\index{xyling} package
 
 \begin{example}Semantic Combination under Functional Application (FA)\\
 \label{FA}
@@ -934,6 +1399,8 @@ Case Triggers Raising\\
 \denote{\alpha} && \denote{\beta}\\
 }
 \end{example}
+
+uses the xyling\index{xyling} package
 
 
 \begin{example}Typical example of Functional Appilcation (FA)\\
@@ -952,6 +1419,8 @@ NP_e\Below{\denote{Mary-e}} && {V}_{<e,<e,t>>}\Below{\denote{sarid-di}}\\
 \end{tabular}
 \end{example}
 
+uses the xyling\index{xyling} package
+
 \begin{example}Semantic Combination under Intersection (a.k.a. Predicate Modification)\\
 \label{PM}
 \Tree{
@@ -961,6 +1430,7 @@ NP_e\Below{\denote{Mary-e}} && {V}_{<e,<e,t>>}\Below{\denote{sarid-di}}\\
 \end{example}
 
 
+uses the xyling\index{xyling} package
 
 \begin{example}Typical example of Intersection/Predicate Modification($\cap$/PM)\\
 \Tree{
@@ -968,6 +1438,8 @@ NP_e\Below{\denote{Mary-e}} && {V}_{<e,<e,t>>}\Below{\denote{sarid-di}}\\
 {AdjP}_{<e,t>}\Below{\denote{blue}} && NP_{<e,t>}\Below{\denote{ball}}\\
 }
 \end{example}
+
+uses the PSTricks and pst-grad packages
 
 \begin{example}The Intersection Generalization: Adjectives\\
 \label{intersectgenadj}
@@ -985,6 +1457,7 @@ $\gamma \in (\denote{Adjective} \cap \denote{Noun})$\\
 \hspace{.2in}it is necessarily the case that $\gamma$ is a member of \denote{Adjective} and \\
 \hspace{.2in}it is necessarily the case that$\gamma$ is a member of \denote{Noun}.
 \psset{linestyle=solid}
+\psset{unit=3em} % gets the right unit size, pst-autoseg interferes with it
  %\psgrid(0,0)(-1,-1)(9,4.5)
  \pscircle(4.5,3){1}
  \pscircle(6,3){1}
@@ -995,6 +1468,7 @@ $\gamma \in (\denote{Adjective} \cap \denote{Noun})$\\
 
 \end{example}
 
+uses xyling\index{xyling} package
 
 \begin{example}Adverbs have two possible places of attachment\\
 \label{syntaxforadverbials}
@@ -1015,6 +1489,7 @@ $\gamma \in (\denote{Adjective} \cap \denote{Noun})$\\
 \end{example}
 
 
+uses xyling\index{xyling} package
 
 \begin{example}Tense is easy to add via Intersection\\
 \Tree{
@@ -1023,6 +1498,9 @@ T_{\{e\}}\Below{Past} &&  VP_{\{e\}}\B{dl}\B{dr} &&&&& \K{ = \{e:  John is an ag
  & {NP}\Below{\denote{John}} && VP\Below{\denote{ran}}\\
 }
 \end{example}
+
+uses the PSTricks and pst-grad packages \index{set theory}
+
 
 \begin{example}Extra-Linguistic Solution: A sentence is true if the sets of events is non-empty\\
 \label{trueevents}
@@ -1034,7 +1512,8 @@ T_{\{e\}}\Below{Past} &&  VP_{\{e\}}\B{dl}\B{dr} &&&&& \K{ = \{e:  John is an ag
 \hspace{.2in}swim = \{e$_6$\}\\
 
 %\makebox[\textwidth]{\framebox[5cm]{\rule{0pt}{4cm}}}
-%\vspace{.4in}
+\vspace{.4in}
+\psset{unit=3em} % gets the right unit size, pst-autoseg interferes with it
 \psset{linestyle=solid}
  %\psgrid(0,0)(-1,-1)(11,3)
  \pscircle(8,2){1.5}
@@ -1062,6 +1541,8 @@ T_{\{e\}}\Below{Past} &&  VP_{\{e\}}\B{dl}\B{dr} &&&&& \K{ = \{e:  John is an ag
 \hspace{.2in} (= True)
 \end{example}
 
+uses xyling\index{xyling} package
+
 \begin{example}Again can also attach to a VP\\
 \label{transVPagain}
 \begin{tabular}{ll}
@@ -1084,16 +1565,36 @@ V\Below{hugged}&& NP\Below{Mary}\\
 }\\
 \end{tabular}
 \end{example}
+\section{Some examples of how to site from a bibtex bibliography}
+
+\citet{Ormazabal:2007}
 
 
-%\setcounter{page}{1}
-%\pagenumbering{roman} %changes numbering to roman for the appendix
-\appendix %marks the start of additional material in your book. After this command chapters will be numbered with letters.
 
-\section{References}
+\citet[Chap.~3]{Diesing:1992}
 
-\section{Index}
+\citet[: 78]{Diesing:1992}
 
-\section{Glossary}
+\citet{Epstein:1996}
+
+\citet*{Epstein:1996}
+
+\citep{Lasnik:1977}
+
+
+% \section{References}
+
+\bibliography{bibliography071218}
+
+
+%\section{Index}
+
+\printindex
+%latex the file once, then run this at the commandline in the same directory: makeindex  latex.examples-gina.v5.ist
+
+%\section{Glossary}
+\printglossaries
+%latex the file once, then run this at the commandline in this directory to make the glossary: makeindex -s latex.examples-gina.v5.ist -t latex.examples-gina.v5.glg -o latex.examples-gina.v5.gls  latex.examples-gina.v5.glo
+
 
 \end{document}
