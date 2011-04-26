@@ -2,6 +2,22 @@
 .settings
 .classpath
 
+# LaTeX output #
+################
+*.dvi
+*.aux
+*.toc
+*.bbl
+*.blg
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.ps
+
 # Compiled source #
 ###################
 target
@@ -23,11 +39,11 @@ target
 *.jar
 *.rar
 *.tar
-*.zip
+#*.zip
 
 # Logs and databases #
 ######################
-#*.log
+*.log
 #*.sql
 #*.sqlite
 
@@ -37,3 +53,7 @@ target
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Linux generated files #
+#########################
+*~
