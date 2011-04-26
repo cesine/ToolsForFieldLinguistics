@@ -23,7 +23,7 @@
 
 %Underline and Strikeout capabilities (sideeffect: \emph changes from the default italics to underline, to avoid this use \textit for italics)
 % this also makes ugly underlines in the bibtex references
-	%\usepackage{ulem}
+	%\usepackage{ulem} use \sout
 
 	
 %Display images	
@@ -41,17 +41,7 @@
 \usepackage{makeidx}
 \makeindex
 
-%\usepackage{glossaries}
-%\makeglossaries
-%%\makeglossary 
-%\newglossaryentry{IDE}{name=IDE Integrated Development Environment,description={a rectangular table of elements}}
-%\newglossaryentry{DVI}{name=DVI Device Independent Format,description={a rectangular table of elements}}
-%\newglossaryentry{Specials}{name=ps or pdf specials,description={a rectangular table of elements}}
-%\newglossaryentry{matrix}% the label
-%{name=matrix, % the term
-% description={a rectangular table of elements}, % brief description
-% plural=matrices % the plural
-%}
+
 
 %-----Begin Linguistics Packages----------------------------------
 
@@ -175,9 +165,27 @@ There are 3 steps to making a file in LaTeX.
 
 After you are finished your document it will exist as a .pdf 
 
-LaTex began on the Linux operating system. So the installation for Linux users is very common and there are plenty of explainations online. Similarly Mac OS X is actually based off of Linux, so its also common to install Latex on a Mac. Since running Latex on Microsoft Windows is the most complicated, I will explain a way to install LaTeX on a MS Windows machine. (If you have a Mac you can try http://www.esm.psu.edu/mac-tex/)
+LaTex began on the Linux operating system. So the installation for Linux users is very common and there are plenty of explainations online. Similarly Mac OS X is actually based off of Linux, so its also common to install Latex on a Mac. 
+
+
+\subsubsection{Linux Instalation}
+
+teTex is no longer supported (2006) instead use texlive.
+
+create a user directory to put your own sty files
+
+
+cd ~
+mkdir -p texmf/tex/latex/foo
+
+Now, we must make LaTeX recognize the new package:
+
+texhash ~/texmf
 
 \subsection{Windows instalation}
+Since running Latex on Microsoft Windows is the most complicated, I will explain a way to install LaTeX on a MS Windows machine. (If you have a Mac you can try http://www.esm.psu.edu/mac-tex/)
+
+
 
 Getting \LaTeX to run on windows can be annoying. As of March 2008 here is something that works:
 
@@ -199,12 +207,12 @@ Getting \LaTeX to run on windows can be annoying. As of March 2008 here is somet
 
 (Note, this advice is old, from 2003 and might not be true anymore.) There are basically 4 stages to get from a .tex file to the .pdf that you can distribute. 
 \begin{itemize}
-	\item Latex the file into a DVI \glslink{DVI}{DVI Device Independent Format} (Device Independent Format) \\now the output is viewable with Yap
+	\item Latex the file into a DVI (Device Independent Format) \\now the output is viewable with Yap
 	\item dvips the file from dvi to ps (Post Script, a langauge that printers can read, the predecesor of pdf) \\now the output is viewable with Ghost View
 	\item distill/print the document from ps to pdf (Portable Document Format) \\now the output is viewable with Adobe Reader/Professional
 \end{itemize}
 
-These extra stages have been recently bypassed using pdfTex. This makes a better pdf using modern pdf features. But, linguists use a number of packages that use ps specials \glslink{Specials}{ps or pdf specials} (specials are arrows and lines) that can only be displayed in ps, which are then converted into images when the document is made as a pdf. 
+These extra stages have been recently bypassed using pdfTex. This makes a better pdf using modern pdf features. But, linguists use a number of packages that use ps specials (specials are arrows and lines) that can only be displayed in ps, which are then converted into images when the document is made as a pdf. 
 
 So, for most linguistics papers we are forced to go through the 4 stages of output. If you ever have arrows and graphics that dont show up, (or error messages like ``Non-PDF special ignored!'') chances are youre using pdfTex, and you need to change some options in your IDE to get it to go through all the dvi and ps stages. You can still view the document, you will just be missing the fancy specials...
 
@@ -1591,10 +1599,6 @@ V\Below{hugged}&& NP\Below{Mary}\\
 
 \printindex
 %latex the file once, then run this at the commandline in the same directory: makeindex  latex.examples-gina.v5.ist
-
-%\section{Glossary}
-%\printglossaries
-%latex the file once, then run this at the commandline in this directory to make the glossary: makeindex -s latex.examples-gina.v5.ist -t latex.examples-gina.v5.glg -o latex.examples-gina.v5.gls  latex.examples-gina.v5.glo
 
 
 \end{document}
