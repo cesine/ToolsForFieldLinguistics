@@ -1,9 +1,7 @@
 def defaultannots = docs[0].getAnnotations();
 AnnotationSet sentences = docs[0].annotations.get('Sentence');
 def wordmap = []
-def out = new File("gen/outGraph.js")
-out.delete()        
-out = new File("gen/outputGraph.js")
+def out = new FileWriter("gen/outputGraph.js")
 out.append ("""
 var redraw, g, renderer;
 
@@ -63,3 +61,5 @@ out.append("""
     //    console.log(g.nodes["kiwi"]);
 };""")
 System.out.println("Sentences: "+sentences.size());
+out.flush();
+out.close();
