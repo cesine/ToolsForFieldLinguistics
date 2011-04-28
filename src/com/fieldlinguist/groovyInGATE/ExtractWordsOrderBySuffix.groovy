@@ -32,8 +32,8 @@ Step 3
 Loop through the words, adding it to the frequency map
 */
 for(wordObject in words){
-	numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)
-	if(numberToStopTheLoopToShowOnlyPartOfIt >125){ break; }   //(to only run part of the loop)
+	//numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)
+	//if(numberToStopTheLoopToShowOnlyPartOfIt >125){ break; }   //(to only run part of the loop)
 	
 	//we just want the string of the word
 	word = wordObject.getFeatures().get("string")
@@ -75,6 +75,11 @@ def outpath = ""  //change this to any path you want
 new File(outpath).mkdir()
 
 def frequencyOrderFileOut = new FileWriter("${outpath}Words_function_vs_content.txt")
+def frequencyOrderVisualizeOut = new FileWriter("${outpath}Words_function_vs_content.html")
+frequencyOrderVisualizeOut.append "<!DOCTYPE html> <html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\" /> <title>Function Words to content words in Blogworkorange</title> <link href=\"basic.css\" type=\"text/css\" rel=\"stylesheet\" /> <script type=\"text/javascript\" src=\"enhance.js\"></script> <script type=\"text/javascript\"> // Run capabilities test    \n        enhance({ \n            loadScripts: [ \n                {src: 'excanvas.js', iecondition: 'all'}, \n                '../jquery/jquery.min.js', \n                'visualize.jQuery.js', \n                'example_wordCount.js' \n            ], \n            loadStyles: [ \n                'visualize.css', \n                'visualize-dark.css' \n            ]     \n        });     </script> </head> <body> <table >"
+frequencyOrderVisualizeOut.append "\n <caption>Functional vs Content words: Blogworkorange</caption> <thead> <tr> <td></td> <th scope=\"col\">count</th> </tr> </thead> <tbody>"
+
+
 
 // output map in a descending numeric sort of its values
 print "\nThis is what the frequency map looks like when its sorted by value and printed using our own formating.\n"
@@ -91,6 +96,7 @@ frequencyMap.entrySet().sort {
 			 Here we do what we want with the sorted item, in this case, print it out to the file and to the console.
 			 */
 			frequencyOrderFileOut.append "${sortedItem.value}\t ${sortedItem.key}\n"
+			frequencyOrderVisualizeOut.append "\n<tr> <th scope=\"row\">${sortedItem.key}</th> <td>${sortedItem.value}</td> </tr>"
 			print "${sortedItem.value}\t ${sortedItem.key}\n"
 }
 
@@ -100,6 +106,9 @@ Always remember to flush the pipes when your done :)
 frequencyOrderFileOut.flush()
 frequencyOrderFileOut.close()
 
+frequencyOrderVisualizeOut.append "\n</tbody> </table> </body> </html>"
+frequencyOrderVisualizeOut.flush()
+frequencyOrderVisualizeOut.close()
 
 /*
 Step 5b:
