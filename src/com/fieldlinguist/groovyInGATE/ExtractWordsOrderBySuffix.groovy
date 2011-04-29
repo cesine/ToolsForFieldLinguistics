@@ -104,11 +104,11 @@ frequencyMap.entrySet().sort {
             frequencyOrderVisualizeOut.append "\n<tr> <th scope=\"row\">${sortedItem.key}</th> <td>${sortedItem.value}</td> </tr>"
             if( (100000*sortedItem.value/totalWords) >10){
                 wordType ="FunctionalVery"
-            }else if( (10000*sortedItem.value/totalWords) >5){
+            }else if( (100000*sortedItem.value/totalWords) >5){
                 wordType ="Functional"
-            }else if( (10000*sortedItem.value/totalWords) >3){
+            }else if( (100000*sortedItem.value/totalWords) >3){
                 wordType ="FunctionalMaybe"
-            }else if( (10000*sortedItem.value/totalWords) >1){
+            }else if( (100000*sortedItem.value/totalWords) >1){
                 wordType ="Functionalkinda"
             }else {
                 wordType = "Content"
