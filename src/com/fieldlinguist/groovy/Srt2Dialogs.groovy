@@ -9,8 +9,12 @@ try {
 	 * 
 	 */	
 	def subtitlesDir = new File(NonPublicCorpora+'subtitles/')
-	files = subtitlesDir.listFiles().grep(~/.*Megamind.*srt$/)
-	def title="Megamind_Movie"
+	files = subtitlesDir.listFiles().grep(~/.*Bougon.*srt$/)
+	def title="Bougon_TV_Series"
+	def albumfolder=title
+	def outpath = "gen/${albumfolder}"
+	new File(outpath).mkdir()
+	def out = new FileWriter("${outpath}/${title}_Dialogs.txt")
 	for(currentFile in files){	
 		sourcefile = new FileReader(currentFile)
 	
@@ -19,14 +23,12 @@ try {
 			result = list[-1]
 			*/
 		def subtitlesfilename = currentFile.toString().split(/[\\\/]/)[-1]
-		def albumfolder=title
-		def outpath = "gen/${albumfolder}"
-		new File(outpath).mkdir()
+		
 		println "The subtitles results will be created in this directory: ${albumfolder}"
 		/*
 		 * Creates 1 file of dialogs per episode
 		 */
-		def out = new FileWriter("${outpath}/${subtitlesfilename}_Dialogs.txt")
+		//def out = new FileWriter("${outpath}/${subtitlesfilename}_Dialogs.txt")
 		try{
 			try{
 				sourcefile.eachLine{
@@ -44,13 +46,15 @@ try {
 					}
 				}
 			}finally{
-				out.close()
+				//out.close()
 			}
 		}catch(e) { }		
 	}//end loop for files
 }catch (Exception ex) {
 	System.err.println(ex.message)
 }
+
+out.close()
 /*
  * Below are helping functions
  */
