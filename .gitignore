@@ -53,6 +53,7 @@ target
 ehthumbs.db
 Icon?
 Thumbs.db
+.swp
 
 # Linux generated files #
 #########################
