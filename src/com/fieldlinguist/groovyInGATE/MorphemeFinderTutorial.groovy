@@ -1,3 +1,21 @@
+import java.util.HashMap
+
+/*
+Step 1: get the Tokens Annotation Set from Gate
+*/
+def defaultannots = docs[0].getAnnotations()
+AnnotationSet words = docs[0].annotations.get('Token')
+
+/*
+Assert that the words set has more than 0 elements (basically to make sure that the import worked)
+*/
+assert(words.size()>0)
+
+/*
+Print the size of the word set, just for fun to see how many words we have to work with...
+*/
+print (words.size())
+
 
 /*
 Step 2: prepare your map to hold the word:frequency pairs
@@ -6,9 +24,19 @@ ex: the:388  Means that the word "the" appears 388 times in the document
 
 def frequencyMap = [:]
 
-def word = "Hi"
-//make the word lowercase, this is optional it depends on what your goal is.
-//word = word.toLowerCase()
+def numberToStopTheLoopToShowOnlyPartOfIt = 0
+/*
+Loop through the words
+*/
+for(wordObject in words){
+    numberToStopTheLoopToShowOnlyPartOfIt ++
+    if(numberToStopTheLoopToShowOnlyPartOfIt >5){ break; }
+    
+    //The words come out as objects from gate(with a lot of values...)
+    print "\n"+wordObject
+    word = wordObject.getFeatures().get("string")
+    //make the word lowercase, this is optional it depends on what your goal is.
+    word = word.toLowerCase()
 
     /*
      *  If: the word isnt in the map, set its value to 1 because its the first occurrence
@@ -16,33 +44,11 @@ def word = "Hi"
      */
     if (null == frequencyMap[word]) {
                 frequencyMap[word] = 1
+    } else {
+                frequencyMap[word]++
     }
     
-/*
-Test it, 
-   assert that the value of the word is 1, 
-   increase the value, 
-   then assert that the value is 2
-*/
-assert (frequencyMap[word] == 1)
-frequencyMap[word]++
-assert frequencyMap[word] == 2
+}//end for loop to go through all the words
 
-/*
-For curiosity, 
-    take a look at what the map looks like
-    add another word
-    take a look again
-*/
-print "This is what a 'map' looks like"+ frequencyMap
-
-word = "not"
-//word = word.toLowerCase()
-    if (null == frequencyMap[word]) {
-                frequencyMap[word] = 1
-    }
-assert frequencyMap[word] == 1
-print "\nThis is what the map looks like with two words:"+frequencyMap
-
-
+print "This is what the frequency map looks like\n"+ frequencyMap
 
