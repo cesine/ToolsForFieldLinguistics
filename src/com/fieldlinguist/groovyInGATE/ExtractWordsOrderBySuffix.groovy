@@ -72,7 +72,7 @@ print "\n\nAll Done. \n This is what the frequency map looks like\n"+ frequencyM
 Step 5
 Print out the list by frequency (could use this to look for function vs content words)
 */
-def outpath = ""  //change this to any path you want
+def outpath = "/home/pheel/Projects/ToolsForFieldLinguistics/gen/"  //change this to any path you want
 new File(outpath).mkdir()
 
 def frequencyOrderFileOut = new FileWriter("${outpath}Words_function_vs_content.txt")
