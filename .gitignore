@@ -2,6 +2,12 @@
 .settings
 .classpath
 
+# Big files #
+#############
+*.mov
+*.avi
+
+
 # LaTeX output #
 ################
 *.dvi
