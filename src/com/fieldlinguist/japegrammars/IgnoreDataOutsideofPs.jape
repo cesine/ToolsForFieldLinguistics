@@ -18,7 +18,7 @@ Imports: {
 	import static gate.Utils.*;//to use the start and end functions
 }
 
-Phase:   ChapterSections
+Phase: IgnoreDataOutsideofPs   
 Input: Token Paragraph
 Options: control = appelt
 
