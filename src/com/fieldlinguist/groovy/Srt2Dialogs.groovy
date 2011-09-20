@@ -9,8 +9,8 @@ try {
 	 * 
 	 */	
 	def subtitlesDir = new File(NonPublicCorpora+'subtitles/')
-	files = subtitlesDir.listFiles().grep(~/.*Bougon.*srt$/)
-	def title="Bougon_TV_Series"
+	files = subtitlesDir.listFiles().grep(~/House.*srt$/)
+	def title="House"
 	def albumfolder=title
 	def outpath = "gen/${albumfolder}"
 	new File(outpath).mkdir()
