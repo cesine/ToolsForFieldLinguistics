@@ -2,6 +2,12 @@
 .settings
 .classpath
 
+# compiled files
+bin
+gen/srt
+
+
+
 # Big files #
 #############
 *.mov
