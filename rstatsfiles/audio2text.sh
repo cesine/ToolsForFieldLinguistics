@@ -3,6 +3,13 @@ if [ -z "$1" ]; then
   echo usage: $0 directory "Provide a file name (without the .srt, .amr, .wav suffixes)"
    exit
 fi
+# This file demonstrates 
+## using Git to merge text files (transcription results from sphinx)
+## converting audio files from one format to another using ffmepg
+## converting audio to text using sphinx speech recogntion package from Carnege Mellon University 
+
+
+
 echo "======================================================="
 
 echo ==Moving to data folder

@@ -1,3 +1,5 @@
+#!/usr/bin/R
+
 #create labels for plots
 articulationlabel <- "Articulation rate (syl/phonation)"
 labparticipantslabel <- "Lab Participants"
