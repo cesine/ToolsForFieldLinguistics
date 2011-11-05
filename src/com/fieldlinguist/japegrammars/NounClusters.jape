@@ -54,10 +54,15 @@ Rule: CollectionNounClusters
 	( {Token.category == "JJ"} | {Token.category == "JJR"} )* 
 	( { Token.category == "JJ"} {Token.category == "VBG"} )?
 	( {Token.category == "NN"} | {Token.category == "NNP"} | (NONCOUNTNOUN) )*
-	( (NONCOUNTNOUN) | {Token.category == "NNS"} | {Token.category == "NNPS"} | {Token.string == "policemen"} ):head
+	( 	(NONCOUNTNOUN) | 
+		{Token.category == "NNS"} | 
+		{Token.category == "NNPS"} | 
+		{Token.string == "policemen"} ):head
 )
 :number -->
-  :number.CollectionNounCluster = {rule = "CollectionNounCluster", value = "UNKNOWN", headnoun = :head.Token.stem}
+  :number.CollectionNounCluster = {	rule = "CollectionNounCluster", 
+  									value = "UNKNOWN", 
+  									headnoun = :head.Token.stem}
 
 
 Rule: SingularNounClusters

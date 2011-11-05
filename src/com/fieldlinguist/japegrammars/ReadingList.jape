@@ -97,10 +97,25 @@ Rule: chapterssections
 Rule: fullcitation
 		// Heim, I. and A. Kratzer (1998). Title.
 		 (
-				 (VANDE)? {Token.orth == "upperInitial"} {Token.string ==~ ","} {Token.orth == "upperInitial"} ({Token.string == "."})? ({Token.string ==~ "[A-Za-z]"} {Token.string ==~ "."})?
+				 (VANDE)? 
+				 {Token.orth == "upperInitial"} 
+				 {Token.string ==~ ","} 
+				 {Token.orth == "upperInitial"} 
+				 ({Token.string == "."})? 
+				 ({Token.string ==~ "[A-Za-z]"} {Token.string ==~ "."})?
 				 (
-						 ( {Token.string == "and"}| {Token.string == ","}| {Token.string == "&"} ) ({Token.string == "and"})?
-						 {Token.orth == "upperInitial"} ({Token.string == "."})? ({Token.string ==~ "[A-Za-z]"} {Token.string ==~ "."})? (VANDE)? {Token.orth == "upperInitial"} 
+					 ( {Token.string == "and"} | 
+						 {Token.string == ","} | 
+						 {Token.string == "&"} ) 
+					 ({Token.string == "and"})?
+					 {Token.orth == "upperInitial"} 
+					 ({Token.string == "."})? 
+					 (
+						 {Token.string ==~ "[A-Za-z]"} 
+						 {Token.string ==~ "."}
+					 )? 
+					 (VANDE)? 
+					 {Token.orth == "upperInitial"} 
 				 )?
 				 ( ({Token.string == ","})? {Token.string == "et"} {Token.string == "al"} {Token.string == "."} )?
 				 ( ({Token.string == ","})? {Token.string ==~ "ed.*"} {Token.string == "."} )?

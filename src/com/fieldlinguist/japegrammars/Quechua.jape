@@ -1,15 +1,8 @@
 /*
- * This jape grammar transfers the <p></p> tags from the Original markups (found if the document was in HTML)
- * Reasoning: Often the <p></p> are the only sections of an HTML document where it makes sense to run a Sentence Parser.
- * 	Because the Stanford parser is slow and heavy, reducing the data reduces the run time. 
- * 
- * Tested on Wikipedia articles (Create a Gate Document by providing the URL: http://en.wikipedia.org/wiki/Topic_name)
- * 
- * In the Application Pipeline click on the Jape grammar and provide this configuration
- *    inputASName: Original markups
- *    outputASName: 
+ * This jape grammar tags frequent suffixes to color code the 
+ * text of an unknown language to find morphemes in context
  */
-Phase:   TransferPfromOriginalmarkupstoDefault
+Phase:   TagProductiveMorphology
 Input: Token
 Options: control = appelt
 
@@ -27,7 +20,8 @@ Rule: negation
  {Token.string ==~ ".*chu"}
  )
 :section -->
-  :section.Negation = {kind = "suffix", string=:section.Token.string}
+  :section.Negation = {	kind = "suffix", 
+		 				string = :section.Token.string}
 
 
 Rule: topic

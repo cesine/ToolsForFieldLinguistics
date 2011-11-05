@@ -9,18 +9,18 @@
 
 # Display config form 
 form Save spectral peaks for all labels
-comment Give the path of the directory containing the sound and TextGrid files:
-text directory florin\targets\by.root\
-comment Which tier of the TextGrid files should be used for segment analysis?
-integer Tier 2
-comment Which interval tier of the TextGrid files should be used for item names?
-integer Item_tier 1
-comment Where would you like to save the results?
-text resultfile 060720results.v29.spectralpeaks.v1notuse.txt
-comment Formant analysis options
-integer Max_number_of_formants 5
-positive Maximum_formant_(Hz) 4500 (= specialized for florins o and m)
-positive Window_length_(s) 0.025
+	comment Give the path of the directory containing the sound and TextGrid files:
+	text directory florin\targets\by.root\
+	comment Which tier of the TextGrid files should be used for segment analysis?
+	integer Tier 2
+	comment Which interval tier of the TextGrid files should be used for item names?
+	integer Item_tier 1
+	comment Where would you like to save the results?
+	text resultfile 060720results.v29.spectralpeaks.v1notuse.txt
+	comment Formant analysis options
+	integer Max_number_of_formants 5
+	positive Maximum_formant_(Hz) 4500 (= specialized for florins o and m)
+	positive Window_length_(s) 0.025
 endform
 
 echo Files in directory 'directory$' will now be checked...
@@ -32,7 +32,7 @@ margin = 0.00
 lineNumber = 0
 
 
-#open some variables for the vowel volume holdre
+#open some variables for the vowel volume holder
 for  i to 14
 	vowel'i'Loudness =0
 endfor

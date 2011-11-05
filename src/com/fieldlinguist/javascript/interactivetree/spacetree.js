@@ -25,103 +25,102 @@ var Log = {
   }
 };
 
-//the original data
-function loadJasonDataLocal(){
 
-    return {
-    	id: "node02",
-    	name: "TP",
-    	data: {},
-    	children: [{
-    		id: "node03",
-    		name: "Spec",
-    		data: {},
-    		children: []
-    	},{
-    		id: "node04",
-    		name: "T'",
-    		data: {},
-    		children: [{
-    	        id: "node05",
-    	        name: "T",
-    	        data: {},
-    	        children: []
-    	                },{
-    	                    id: "node06",
-    	                    name: "vP",
-    	                    data: {},
-    	                    children: [{
-    	                        id: "node07",
-    	                        name: "Spec",
-    	                        data: {},
-    	                        children: []
-    	                                },{
-    	                                    id: "node08",
-    	                                    name: "v'",
-    	                                    data: {},
-    	                                    children: [{
-    	                                        id: "node09",
-    	                                        name: "v",
-    	                                        data: {},
-    	                                        children: []
-    	                                                },{
-    	                                                    id: "node10",
-    	                                                    name: "VP",
-    	                                                    data: {},
-    	                                                    children: [{
-    	                                                        id: "node11",
-    	                                                        name: "Spec",
-    	                                                        data: {},
-    	                                                        children: []
-    	                                                                },{
-    	                                                                    id: "node12",
-    	                                                                    name: "V'",
-    	                                                                    data: {},
-    	                                                                    children: [{
-    	                                                                        id: "node13",
-    	                                                                        name: "V",
-    	                                                                        data: {},
-    	                                                                        children: []
-    	                                                                                },{
-    	                                                                                    id: "node14",
-    	                                                                                    name: "NP",
-    	                                                                                    data: {},
-    	                                                                                    children: []
-    	                                                                                            }]
-    	                                                                            }]
-    	                                                            }]
-    	                                            }]
-    	                            }]
-    	}]
-    };
+function loadJasonDataLocal() {
+	return {
+		id : "node02",
+		name : "TP",
+		data : {},
+		children : [ {
+			id : "node03",
+			name : "Spec",
+			data : {},
+			children : []
+		}, {
+			id : "node04",
+			name : "T'",
+			data : {},
+			children : [ {
+				id : "node05",
+				name : "T",
+				data : {},
+				children : []
+			}, {
+				id : "node06",
+				name : "vP",
+				data : {},
+				children : [ {
+					id : "node07",
+					name : "Spec",
+					data : {},
+					children : []
+				}, {
+					id : "node08",
+					name : "v'",
+					data : {},
+					children : [ {
+						id : "node09",
+						name : "v",
+						data : {},
+						children : []
+					}, {
+						id : "node10",
+						name : "VP",
+						data : {},
+						children : [ {
+							id : "node11",
+							name : "Spec",
+							data : {},
+							children : []
+						}, {
+							id : "node12",
+							name : "V'",
+							data : {},
+							children : [ {
+								id : "node13",
+								name : "V",
+								data : {},
+								children : []
+							}, {
+								id : "node14",
+								name : "NP",
+								data : {},
+								children : []
+							} ]
+						} ]
+					} ]
+				} ]
+			} ]
+		} ]
+	};
 
 }
 
 function init(){
-    //init data
+    // init data
 	json = loadJasonDataLocal();
-    //end
-    //init Spacetree
-    //Create a new ST instance
+    // end
+    // init Spacetree
+    // Create a new ST instance
     var st = new $jit.ST({
     	orientation: "top",
     	indent:10,
-        //id of viz container element
+        // id of viz container element
         injectInto: 'infovis',
-        //set duration for the animation
+        // set duration for the animation
         duration: 800,
-        //set animation transition type
+        // set animation transition type
         transition: $jit.Trans.Quart.easeInOut,
-        //set distance between node and its children
+        // set distance between node and its children
         levelDistance: 50,
-        //enable panning
+        // enable panning
         Navigation: {
           enable:true,
           panning:true
         },
-        //set node and edge styles
-        //set overridable=true for styling individual
-        //nodes or edges
+        // set node and edge styles
+        // set overridable=true for styling individual
+        // nodes or edges
         Node: {
             height: 30,
             width: 40,
@@ -143,9 +142,9 @@ function init(){
             Log.write("done");
         },
         
-        //This method is called on DOM label creation.
-        //Use this method to add event handlers and styles to
-        //your node.
+        // This method is called on DOM label creation.
+        // Use this method to add event handlers and styles to
+        // your node.
         onCreateLabel: function(label, node){
             label.id = node.id;            
             label.innerHTML = node.name;
@@ -156,7 +155,7 @@ function init(){
                 st.setRoot(node.id, 'animate');
             	}
             };
-            //set label styles
+            // set label styles
             var style = label.style;
             style.width = 40 + 'px';
             style.height = 17 + 'px';            
@@ -167,11 +166,11 @@ function init(){
             style.paddingTop = '8px';
         },
         
-        //This method is called right before plotting
-        //a node. It's useful for changing an individual node
-        //style properties before plotting it.
-        //The data properties prefixed with a dollar
-        //sign will override the global node style properties.
+        // This method is called right before plotting
+        // a node. It's useful for changing an individual node
+        // style properties before plotting it.
+        // The data properties prefixed with a dollar
+        // sign will override the global node style properties.
         onBeforePlotNode: function(node){
             //add some color to the nodes in the path between the
             //root node and the selected node.
