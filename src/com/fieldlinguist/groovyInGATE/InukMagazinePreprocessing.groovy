@@ -1,4 +1,4 @@
-//to change file encoding in vim :write ++enc=utf-8 russian.txt
+//to change file encoding in vim :write ++enc=utf-8 
 import java.util.HashMap
 
 /*
@@ -13,49 +13,63 @@ try {
   println files
  
   def title="InukMagzine"
-  def albumfolder=title
-  def outpath = NonPublicCorpora+"gen/${albumfolder}"
-  println "The results will be created in this directory: ${albumfolder}"
+  def outpath = NonPublicCorpora+"gen/${title}"
+  println "The results will be created in this directory: ${title}"
   new File(outpath).mkdir()
 
   
   for(currentFile in files){
-    sourcefile = new FileReader(currentFile)
+    println "======${currentFile}========"
+    InputStreamReader sourcefile = new InputStreamReader(new FileInputStream(currentFile),"UTF-8");
+    
     def individualfilename = currentFile.toString().split(/[\\\/]/)[-1]
     /*
-     * Creates 1 file of dialogs per episode
+     * Creates 1 file per file
      */
-    def out = new FileWriter("${outpath}/${individualfilename.replaceAll('.txt','')}_preprocessed.html")
+    def path = "${outpath}/${individualfilename.replaceAll('.txt','')}_preprocessed.txt"
+    OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path),"UTF-8");
     try{
-      try{
-      
-          out.print "<html>\n"
-          def numberToStopTheLoopToShowOnlyPartOfIt = 0                  //(to only run part of the Loop)
-            for (line in sourcefile){
-                numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)    
-                if(numberToStopTheLoopToShowOnlyPartOfIt >10){ break; }   //(to only run part of the loop)
-            
-                def words = line.split(" ")
-                for (word in words){
-                    out.print "<p>"+word+"</p>\n"
-                    println "<p>"+word+"</p>\n"
-                }
+        out.append "<html>\n"
+        def numberToStopTheLoopToShowOnlyPartOfIt = 0                  //(to only run part of the Loop)
+        while (true){
+            line = sourcefile.readLine()
+            numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)    
+            if(numberToStopTheLoopToShowOnlyPartOfIt >40 || line == null){ break; }    //(to only run part of the loop)
                 
-            }
-      }finally{
-        
-        out.print "</html>\n"
+            if (line.length() > 1){
+              out.append "<p>"
+              def words = line.split(" ")
+              for (word in words){
+                print word+" "
+                if( (word =~ /[a-zA-Z]\d/) || (word =~ /[a-z][A-Z]/) ){
+                   try {
+                     word = nunacomToUnicode(word)
+                     print " : "+ word+" " 
+                   }catch(Exception ex) {
+                        println( "\n\nProblem with word: "+ex.message)
+                   }
+                 }
+                 out.append word+ " "
+              }
+              out.append "</p>\n"
+              println ""
+            } 
+        }//end loop for lines:
+        println "==end of file=="
+    }catch(Exception ex) {
+        println( "Problem with line: "+ex.message)
+    }finally{
+        out.append "</html>\n"
+        out.flush()
         out.close()
-      }
-    }catch(e) { }
-    
-    }//end loop for files
+    }
+  }//end loop for files
 }catch (Exception ex) {
-  System.err.println(ex.message)
+  println("Problem with file: "+ex.message)
 }
 
 def  nunacomToUnicode(word){
 
-return word.replaceAll('!','1').replaceAll('#','3').replaceAll('%','5').replaceAll('&','7').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('[*]','8').replaceAll('[/]','ᔭ').replaceAll('[?]','ᕙ').replaceAll('@','2').replaceAll('A','ᒍ').replaceAll('B','ᕼ').replaceAll('C','ᕋ').replaceAll('D','ᕈ').replaceAll('E','ᕆ').replaceAll('F','ᕕ').replaceAll('G','(').replaceAll('H',')').replaceAll('J','ᒧ').replaceAll('J','ᔪ').replaceAll('K','ᕗ').replaceAll('M','ᓚ').replaceAll('N','ᓇ').replaceAll('Q','ᒋ').replaceAll('S','ᐳ').replaceAll('W','ᐱ').replaceAll('X','ᐸ').replaceAll('Z','ᒐ').replaceAll('^','6').replaceAll('a','ᖑ').replaceAll('b','ᑕ').replaceAll('c','ᖃ').replaceAll('d','ᖁ').replaceAll('f','ᑯ').replaceAll('g','ᑐ').replaceAll('h','ᓱ').replaceAll('i','ᓂ').replaceAll('j','ᒧ').replaceAll('k','ᓄ').replaceAll('l','ᓗ').replaceAll('m','ᒪ').replaceAll('n','ᓴ').replaceAll('o','ᓕ').replaceAll('q','ᖏ').replaceAll('r','ᑭ').replaceAll('s','ᐅ').replaceAll('t','ᑎ').replaceAll('u','ᒥ').replaceAll('v','ᑲ').replaceAll('w','ᐃ').replaceAll('x','ᐊ').replaceAll('y','ᓯ').replaceAll('z','ᖓ').replaceAll('¡','!').replaceAll('â','ᑖ').replaceAll('Œ','ᒌ').replaceAll('μ','ᒫ').replaceAll('†','ᑏ').replaceAll('‰','‰').replaceAll('√','ᑳ').replaceAll('∫','ᑖ').replaceAll('∫','ᓂ').replaceAll('2','ᑉ').replaceAll('3','ᕐ').replaceAll('4','ᒃ').replaceAll('5','ᑦ').replaceAll('6','ᖅ').replaceAll('7','ᒻ').replaceAll('8','ᓐ').replaceAll('9','ᓪ')
+    return word.replaceAll('!','1').replaceAll('#','3').replaceAll('%','5').replaceAll('&','7').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('[*]','8').replaceAll('[/]','?').replaceAll('[?]','?').replaceAll('@','2').replaceAll('A','?').replaceAll('B','?').replaceAll('C','?').replaceAll('D','?').replaceAll('E','?').replaceAll('F','?').replaceAll('G','(').replaceAll('H',')').replaceAll('J','?').replaceAll('J','?').replaceAll('K','?').replaceAll('M','?').replaceAll('N','?').replaceAll('Q','?').replaceAll('S','?').replaceAll('W','?').replaceAll('X','?').replaceAll('Z','?').replaceAll('^','6').replaceAll('a','?').replaceAll('b','?').replaceAll('c','?').replaceAll('d','?').replaceAll('f','?').replaceAll('g','?').replaceAll('h','?').replaceAll('i','?').replaceAll('j','?').replaceAll('k','?').replaceAll('l','?').replaceAll('m','?').replaceAll('n','?').replaceAll('o','?').replaceAll('q','?').replaceAll('r','?').replaceAll('s','?').replaceAll('t','?').replaceAll('u','?')//.replaceAll('v','?').replaceAll('w','?').replaceAll('x','?').replaceAll('y','?').replaceAll('z','?').replaceAll('�','!').replaceAll('�','?').replaceAll('�','?').replaceAll('?','?').replaceAll('�','?').replaceAll('�','�').replaceAll('�','?').replaceAll('�','?').replaceAll('�','?').replaceAll('2','?').replaceAll('3','?').replaceAll('4','?').replaceAll('5','?').replaceAll('6','?').replaceAll('7','?').replaceAll('8','?').replaceAll('9','?')
 
 }
