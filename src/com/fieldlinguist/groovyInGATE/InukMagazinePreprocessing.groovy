@@ -36,10 +36,11 @@ try {
             if(numberToStopTheLoopToShowOnlyPartOfIt >20 || line == null){ break; }    //(to only run part of the loop)
                 
             if (line.length() > 1){
+              println line
               out.append "<p>"
               def words = line.split(" ")
               for (word in words){
-                if( (word =~ /[^ \d]\d/) || (word =~ /[^ ][A-Z]/) ){
+                if( !(word =~ /\d\d/) && ( (word =~ /[^ \d]\d/) || (word =~ /[^ ABCDEFGHIJKLMNOPQRSTUVWXYZ][A-Z]/) || (word =~ /xb/) || (word =~ /\d[a-zA-Z][a-zA-Z]/) ) ){
                    try {
                      word = nunacomToUnicode(word)
                      //print " : "+ word+" " 
@@ -47,8 +48,13 @@ try {
                         println( "\n\nProblem with word: "+ex.message)
                    }
                  }
-                 print word+" "
-                 out.append word+ " "
+                 if(word ==~ /^[ᖕᑉᕐᒃᑦᖅᒻᓐᓪᔾ].*/){
+                     print "_"+word
+                     out.append "_"+word
+                 }else{
+                     print " "+word
+                     out.append " "+word
+                 }
               }
               out.append "</p>\n"
               println ""
@@ -72,7 +78,7 @@ def  nunacomToUnicode(word){
     //println(System.properties['file.encoding']);
     //println "ᓕᖏᖑᒪᕿᓕᐃᕿᑭᓂᓕᓴᓄᑲᖁ"
     //System.out.println nunacomToUnicode("weciwmoe4")
-
+        //.replaceAll('^','6')
     word = word.replaceAll('‰','ᕇ').replaceAll('[/]','ᔭ').replaceAll('[?]','ᕙ').replaceAll('A','ᒍ').replaceAll('C','ᕋ').replaceAll('D','ᕈ').replaceAll('E','ᕆ').replaceAll('F','ᕕ').replaceAll('j','ᒧ').replaceAll('I','ᖤ').replaceAll('J','ᔪ').replaceAll('K','ᕗ').replaceAll('L','ᖢ').replaceAll('M','ᓚ').replaceAll('N','ᓇ').replaceAll('O','ᖠ').replaceAll('P','ᖦ').replaceAll('Q','ᒋ').replaceAll('R','ᖖ').replaceAll('S','ᐳ').replaceAll('T','ᙱ').replaceAll('U','ᙵ').replaceAll('V','?').replaceAll('W','ᐱ').replaceAll('X','ᐸ').replaceAll('Y','ᙳ').replaceAll('Z','ᒐ').replaceAll('a','ᖑ').replaceAll('b','ᑕ').replaceAll('c','ᖃ').replaceAll('d','ᖁ').replaceAll('e','ᕿ').replaceAll('f','ᑯ').replaceAll('g','ᑐ').replaceAll('h','ᓱ').replaceAll('i','ᓂ').replaceAll('j','ᒧ').replaceAll('k','ᓄ').replaceAll('l','ᓗ').replaceAll('m','ᒪ').replaceAll('n','ᓴ').replaceAll('o','ᓕ').replaceAll('p','ᔨ').replaceAll('q','ᖏ').replaceAll('r','ᑭ').replaceAll('s','ᐅ').replaceAll('t','ᑎ').replaceAll('u','ᒥ').replaceAll('v','ᑲ').replaceAll('w','ᐃ').replaceAll('x','ᐊ').replaceAll('y','ᓯ').replaceAll('z','ᖓ').replaceAll('â','ᑖ').replaceAll('Œ','ᒌ').replaceAll('μ','ᒫ').replaceAll('†','ᑏ').replaceAll('√','ᑳ').replaceAll('∫','ᑖ').replaceAll('0','ᔾ').replaceAll('1','ᖕ').replaceAll('2','ᑉ').replaceAll('3','ᕐ').replaceAll('4','ᒃ').replaceAll('5','ᑦ').replaceAll('6','ᖅ').replaceAll('7','ᒻ').replaceAll('8','ᓐ').replaceAll('9','ᓪ')
-    return word.replaceAll('!','1').replaceAll('@','2').replaceAll('#','3').replaceAll('[$]','4').replaceAll('%','5').replaceAll('^','6').replaceAll('&','7').replaceAll('[*]','8').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('G','(').replaceAll('H',')').replaceAll('¡','!').replaceAll('V','?')
+    return word.replaceAll('!','1').replaceAll('@','2').replaceAll('#','3').replaceAll('[$]','4').replaceAll('%','5').replaceAll('&','7').replaceAll('[*]','8').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('G','(').replaceAll('H',')').replaceAll('¡','!').replaceAll('V','?')
 }
