@@ -1,4 +1,6 @@
+//to change file encoding in vim :write ++enc=utf-8 russian.txt
 import java.util.HashMap
+
 /*
 Step 1: open the text files
 */
@@ -31,32 +33,14 @@ try {
           def numberToStopTheLoopToShowOnlyPartOfIt = 0                  //(to only run part of the Loop)
             for (line in sourcefile){
                 numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)    
-                if(numberToStopTheLoopToShowOnlyPartOfIt >1000){ break; }   //(to only run part of the loop)
+                if(numberToStopTheLoopToShowOnlyPartOfIt >10){ break; }   //(to only run part of the loop)
             
-                println "This is a line: $line"
-                def tag = ""
-                def languageCount = 0
-                if ( line =~ /[wxy]\d/ ){
-                    tag = tag+"inuktitut"
-                    languageCount++
+                def words = line.split(" ")
+                for (word in words){
+                    out.print "<p>"+word+"</p>\n"
+                    println "<p>"+word+"</p>\n"
                 }
-                if ( line.toLowerCase().contains("ful") || line.toLowerCase().contains("the") || line.toLowerCase().contains(" or ")){
-                    tag = tag+"english"
-                    languageCount++
-                }
-                if ( line.toLowerCase().contains("ux") || line.toLowerCase().contains("�") || line.toLowerCase().contains(" � ") || line.toLowerCase().contains(" en ") || line.toLowerCase().contains(" le ") || line.toLowerCase().contains(" de ") ){
-                    tag = tag+"francais"
-                    languageCount++
-                }
-                if (line.toLowerCase().contains("qq") || line.toLowerCase().contains("tt") || line.toLowerCase().contains("jj") || line.toLowerCase().contains("ii") || line.toLowerCase().contains("unga") || line =~ /[jkmtv]u[qt] / ){
-                    tag = tag+"inuktitutRomanized"
-                    languageCount++
-                }
-                if ("" == tag){
-                    tag = "unknown"
-                }
-                tag = tag + languageCount
-                out.print "<p><${tag}>"+line.trim()+"</${tag}></p>\n"
+                
             }
       }finally{
         
@@ -70,4 +54,8 @@ try {
   System.err.println(ex.message)
 }
 
+def  nunacomToUnicode(word){
 
+return word.replaceAll('!','1').replaceAll('#','3').replaceAll('%','5').replaceAll('&','7').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('[*]','8').replaceAll('[/]','ᔭ').replaceAll('[?]','ᕙ').replaceAll('@','2').replaceAll('A','ᒍ').replaceAll('B','ᕼ').replaceAll('C','ᕋ').replaceAll('D','ᕈ').replaceAll('E','ᕆ').replaceAll('F','ᕕ').replaceAll('G','(').replaceAll('H',')').replaceAll('J','ᒧ').replaceAll('J','ᔪ').replaceAll('K','ᕗ').replaceAll('M','ᓚ').replaceAll('N','ᓇ').replaceAll('Q','ᒋ').replaceAll('S','ᐳ').replaceAll('W','ᐱ').replaceAll('X','ᐸ').replaceAll('Z','ᒐ').replaceAll('^','6').replaceAll('a','ᖑ').replaceAll('b','ᑕ').replaceAll('c','ᖃ').replaceAll('d','ᖁ').replaceAll('f','ᑯ').replaceAll('g','ᑐ').replaceAll('h','ᓱ').replaceAll('i','ᓂ').replaceAll('j','ᒧ').replaceAll('k','ᓄ').replaceAll('l','ᓗ').replaceAll('m','ᒪ').replaceAll('n','ᓴ').replaceAll('o','ᓕ').replaceAll('q','ᖏ').replaceAll('r','ᑭ').replaceAll('s','ᐅ').replaceAll('t','ᑎ').replaceAll('u','ᒥ').replaceAll('v','ᑲ').replaceAll('w','ᐃ').replaceAll('x','ᐊ').replaceAll('y','ᓯ').replaceAll('z','ᖓ').replaceAll('¡','!').replaceAll('â','ᑖ').replaceAll('Œ','ᒌ').replaceAll('μ','ᒫ').replaceAll('†','ᑏ').replaceAll('‰','‰').replaceAll('√','ᑳ').replaceAll('∫','ᑖ').replaceAll('∫','ᓂ').replaceAll('2','ᑉ').replaceAll('3','ᕐ').replaceAll('4','ᒃ').replaceAll('5','ᑦ').replaceAll('6','ᖅ').replaceAll('7','ᒻ').replaceAll('8','ᓐ').replaceAll('9','ᓪ')
+
+}
