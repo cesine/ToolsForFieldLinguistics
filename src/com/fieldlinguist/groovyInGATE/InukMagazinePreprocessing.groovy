@@ -89,7 +89,7 @@ try {
         while (true){
             line = sourcefile.readLine()
             numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)    
-            if(numberToStopTheLoopToShowOnlyPartOfIt >1000 || line == null){ break; }    //(to only run part of the loop)
+            //if(numberToStopTheLoopToShowOnlyPartOfIt >10 || line == null){ break; }    //(to only run part of the loop)
                 
             if (line.length() > 1){
               debugln line
@@ -97,7 +97,7 @@ try {
               out.append "\n<unicode>"
               def words = line.split(" ")
               for (word in words){
-                if( !(word =~ /\d\d/) && !(word == "•") && ((word == "nixi") || (word =~ /[!?][^ ]/) || (word =~ /@[^abcdefghijklmnopqrstuvwxyz]/) || (word =~ /[„‰ß˚∑¿ƒ•¬÷©μ†√∫˛]/) || (word =~ /[{]$/) || (word =~ /[?#$%¿&*)][^., ]/) || (word =~ /[^\/( \d]\d/) || (word =~ /[^ \/ABCDEÉÈÇFGHIJKLMNOPQRSTUVWXYZ.('’-][A-Z]/) || (word =~ /[hxqw][b]/) || (word =~ /\d[a-zA-Z][a-zA-Z]/) ) ){
+                if( !(word =~ /\d\d/) && !(word == "•") && ((word == "nixi") || (word =~ /[!?][^ ]/) || (word =~ /@[^abcdefghijklmnopqrstuvwxyz]/) || (word =~ /[„‰ß˚∑¿ƒ•¬÷©μ†√∫˛]/) || (word =~ /[{]$/) || (word =~ /[?#$%¿&*)][^., ]/) || (word =~ /[^\/( \d]\d/) || (word =~ /[^ \/ABCDEÉÈÇFGHIJKLMNOPQRSTUVWXYZ“.('’-][A-Z]/) || (word =~ /[hxqw][b]/) || (word =~ /\d[a-zA-Z][a-zA-Z]/) ) ){
                    try {
                      word = inukMagazineToUnicode(word)
                      //print " : "+ word+" " 
@@ -120,7 +120,7 @@ try {
               debugln ""
             } 
         }//end loop for lines:
-        println "==end of file=="
+        println "==end of file ${numberToStopTheLoopToShowOnlyPartOfIt} Lines=="
     }catch(Exception ex) {
         println( "Problem with line: "+ex.message)
     }finally{

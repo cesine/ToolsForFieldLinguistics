@@ -16,7 +16,7 @@ Options: control = appelt
 
 Rule: transferp
 (
- {p}
+ {unicode}
  )
 :section -->
   :section.Paragraph = {kind = "Paragraph from html in the Original markups"}
