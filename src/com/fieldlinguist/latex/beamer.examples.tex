@@ -1,0 +1,248 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/conference-talks/conference-ornate-20min.en.tex,v 1.6 2004/10/07 20:53:08 tantau Exp $
+
+%to make a handout
+%documentclass[11pt]{article}
+%\usepackage{beamerarticle}
+
+%to suppress all frame titles in the article mode
+%\setbeamertemplate<article>{frametitle}{}
+%\only<article>{This text is shown only in article mode.}
+\documentclass[noamsthm]{beamer}
+
+\usepackage{tipa}
+\let\ipa\textipa
+%\usepackage{pgf}
+\usepackage{graphicx}
+%Phonology
+	%to create a vowel space
+	\usepackage{vowel}
+
+\mode<presentation>
+{
+%\usetheme{Malmoe}
+%\usetheme{Warsaw}
+
+%\usetheme{Montpellier}
+%\usetheme{AntibesGina}
+
+%shows full sections
+%\usetheme{PaloAlto}
+\usetheme{Hannover}
+
+%lots of info on the bottom
+%\usetheme{Madrid}
+
+%no sections shown
+%\usetheme{Rochester}
+%\usetheme{Pittsburgh}
+
+%very different
+%\usetheme{Bergen}
+
+  % or ...
+
+ %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[english]{babel}
+% or whatever
+
+%\usepackage[latin1]{inputenc}
+% or whatever
+
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\usepackage{covington}
+
+\title[Beamer Examples] % (optional, use only with long paper titles)
+{Some Beamer Examples}
+
+%\subtitle
+%{Include Only If Paper Has a Subtitle}
+
+\author[Author1,Author2] % (optional, use only with lots of authors)
+{Author One  \and Author Two }
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Concordia] % (optional, but mostly needed)
+{Concordia University}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[LaTeX 2008] % (optional, should be abbreviation of conference name)
+{LaTeX Workshop, 2008}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+% \AtBeginSubsection[]
+% {
+%   \begin{frame}<beamer>
+%     \frametitle{Outline}
+%     \tableofcontents[currentsection,currentsubsection]
+%   \end{frame}
+% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Lists}
+
+\subsection{Enumerated Lists}
+
+\begin{frame}
+\frametitle{Enumerated Lists}
+
+
+Here is the automated way enumerated lists look
+
+\begin{enumerate}
+	\item This is the first level in the first level
+	\item This is the second item in the first level
+	\begin{enumerate}
+	\item This is the first item in the second level
+	\item This is the second item in the second level
+	
+\end{enumerate}
+	\item This is the third item in the first level
+	\item This is the fourth item in the first level
+\end{enumerate}
+
+\end{frame}
+
+\subsection{Itemized Lists}
+
+\begin{frame}
+\frametitle{Itemized Lists}
+
+
+\begin{itemize}
+	\item here is a bunch of embedded items
+	\item buy groceries
+	\begin{itemize}
+		\item potatoes
+		\item celery
+		\item frying chicken
+		\item milk
+	\end{itemize}
+	\item[o] Here is a changed example pay bills
+	\item [$\heartsuit$] Here is a changed example do laundry
+	\item [(a)] Here is a changed example using a literal (a)
+	\item [OK] Here is a changed example using the word `OK'
+
+\end{itemize}
+
+\end{frame}
+
+\section{Tabular and Tabbing}
+
+\subsection{Tabbing}
+
+\begin{frame}
+\frametitle{Tabbing environment}
+
+\begin{example}  
+\begin{tabbing}
+~a. 	[lup] ~~~\=	wolf.M.sg  ~~~~~~\= [lup\textsuperscript{j}]  ~~~\= 	`wolf-M.pl'\\%(\textit{lupi})	
+~b. 	[alb] 	\> white.M.sg \> [alb\textsuperscript{j}] \> `white-M.pl' \\%(\textit{albi})
+~c. 	[sar]	\> jump.1.sg \> [sar\textsuperscript{j}]	 \> `jump-2.sg'\\ %(\textit{sari})
+\end{tabbing}
+\end{example}
+
+\end{frame}
+
+\subsection{Tabular}
+
+\begin{frame}
+\frametitle{Tabular}
+
+
+\begin{example}\label{morphologicalprimary}
+\begin{tabular}{llll}
+a.& rak & \ipa{ratS}$^j$ \\
+& \textit{`crawfish'} & \textit{`crawfishes'}\\
+b. & pas & \ipa{paS}$^j$\\
+&\textit{`step'} & \textit{`steps-pl'}\\
+\end{tabular}
+\end{example}
+
+\end{frame}
+
+\section{Graphics}
+
+\begin{frame}
+\frametitle{Articulatory Description (Keating \& Lahiri 1993)}
+\fbox{\includegraphics[height=2cm]{keating,lahiri-1993palate.eps}}\begin{tabular}{l}\vspace{-.8in}
+~\\
+1. corner of the alveolar ridge\\
+2. diagonal\\
+3. roof\\
+4. soft palate
+\end{tabular}
+
+\end{frame}
+
+
+\begin{example}Surface Inventory for Vowels\\
+  \begin{vowel}[t]
+    \putcvowel{i}{1}
+\putcvowel{e}{2}
+%    \putcvowel{\textipa{E}}{3}
+    \putcvowel{a}{5}
+\putcvowel{\textipa{O}}{6}
+    \putcvowel{o}{7}
+\putcvowel{u}{8}
+    \putcvowel{\textipa{@}}{11}
+    \putcvowel{\textipa{I}}{13}
+\putcvowel{\textipa{U}}{14}
+  \end{vowel} 
+\end{example}
+
+
+\section*{References}
+
+\begin{frame}[shrink=5]
+\frametitle{Selected References}
+\begin{itemize}
+\item Chitoran, I. 2001. The Phonology of Romanian: A Constraint-based Approach. New York, Mouton de Gruyter.
+\item Kochetov, A. 2002. Production, Perception, and Emergent Phonotactic Patterns: A Case of Contrastive Palatalization.
+New York, Routledge.
+\item Keating, P. \& A. Lahiri. (1993) Fronted velars, palatalized velars, and palatals. Phonetica 50, 73-101.
+\item Spinu, L. 2006. Perceptual properties of palatalization in Romanian. Paper presented at the 36th Linguistics
+Symposium on Romance Languages, Rutgers University.
+\item Stevens, K. 1989. On the quantal nature of speech, Journal of 
+Phonetics 17, 3-46.
+\item Stevens, K. 2003. Acoustic and Perceptual Evidence for Universal Phonological Features. In Proceedings of the 15th
+ICPhS Barcelona, 33-38.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+~~~~~~~~~~~~~~~~~~~~Thank you!
+\end{frame}
+\end{document}
+
+

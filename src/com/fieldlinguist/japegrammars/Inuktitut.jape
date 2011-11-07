@@ -1,0 +1,49 @@
+/*
+ * This jape grammar tags frequent suffixes to color code the 
+ * text of an unknown language to find morphemes in context
+ */
+Phase:   TagRoots
+Input: Token
+Options: control = appelt
+
+
+Rule: aaahailaak
+(
+ {Token.string ==~ "aahailaak.*"}
+ )
+:section -->
+  :section.Adverb = {kind = "root", meaning = "Yes, I know!", string=:section.Token.string}
+
+
+
+Rule: rule2
+(
+ {Token.string ==~ "ukiuq.*"}
+ )
+:section -->
+  :section.Noun = {kind = "root", meaning = "(1) winter (2) year, as a unit of time", string=:section.Token.string}
+
+
+Rule: rule3
+(
+ {Token.string ==~ "amma.*"}
+ )
+:section -->
+  :section.Conjunction = {kind = "root", meaning = "and", string=:section.Token.string}
+
+Rule: aaggisi
+(
+ {Token.string ==~ "aaggisi.*"}
+ )
+:section -->
+  :section.Noun = {kind = "root", meaning = "August", string=:section.Token.string}
+
+
+Rule: rule4
+(
+ {Token.string ==~ "saqqi.*"}
+ )
+:section -->
+  :section.Verb = {kind = "root", underlyingForm = "saqqik", meaning = "appear, make appear, show to view, with suffixes magazine issue", string=:section.Token.string}
+
+
