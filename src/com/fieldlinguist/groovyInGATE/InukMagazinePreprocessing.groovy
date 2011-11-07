@@ -97,7 +97,7 @@ try {
               out.append "\n<unicode>"
               def words = line.split(" ")
               for (word in words){
-                if( !(word =~ /\d\d/) && ((word == "nixi") || (word =~ /[!?][^ ]/) || (word =~ /@[^abcdefghijklmnopqrstuvwxyz]/) || (word =~ /[„‰ß˚∑¿ƒ•¬÷©μ†√∫˛]/) || (word =~ /[{]$/) || (word =~ /[?#$%¿&*()][^. ]/) || (word =~ /[^ \d]\d/) || (word =~ /[^ ABCDEÉÈÇFGHIJKLMNOPQRSTUVWXYZ-][A-Z]/) || (word =~ /[hxw][mb]/) || (word =~ /\d[a-zA-Z][a-zA-Z]/) ) ){
+                if( !(word =~ /\d\d/) && !(word == "•") && ((word == "nixi") || (word =~ /[!?][^ ]/) || (word =~ /@[^abcdefghijklmnopqrstuvwxyz]/) || (word =~ /[„‰ß˚∑¿ƒ•¬÷©μ†√∫˛]/) || (word =~ /[{]$/) || (word =~ /[?#$%¿&*)][^., ]/) || (word =~ /[^\/( \d]\d/) || (word =~ /[^ \/ABCDEÉÈÇFGHIJKLMNOPQRSTUVWXYZ.('’-][A-Z]/) || (word =~ /[hxqw][b]/) || (word =~ /\d[a-zA-Z][a-zA-Z]/) ) ){
                    try {
                      word = inukMagazineToUnicode(word)
                      //print " : "+ word+" " 
@@ -142,9 +142,9 @@ def debugln(stringToPrint){
 
 //this is mostly nunacom but there are some exceptions that are unique to the inukmagazines and the pdftotext extraction process
 def  inukMagazineToUnicode(word){
-        //.replaceAll('^','6')ßᕚᓃÔ~ ᐋᔫ≈„˛˚ ÇÎ∑÷Ï ˆ¬ ƒ©
+        //.replaceAll('^','6')ßᕚᓃÔ~ ᐋᔫ≈„˛˚ ÇÎ∑÷Ï ˆ¬ ƒ© “
     word = word.replaceAll('‰','ᕇ').replaceAll('©','ᑑ').replaceAll('„','ᐲ').replaceAll('Ï','ᕖ').replaceAll('÷','ᔮ').replaceAll('¬','ᓘ').replaceAll('ƒ','ᑰ').replaceAll('∑','ᐄ').replaceAll('˛','ᐹ').replaceAll('Ô','ᔫ').replaceAll('≈','ᐋ').replaceAll('~','ᓵ').replaceAll('[{]','ᔅ').replaceAll('Ç','ᕌ').replaceAll('Î','ᕉ').replaceAll('˚','ᓅ').replaceAll('•','ᓃ').replaceAll('¿','ᕚ').replaceAll('ß','ᐆ').replaceAll('[/]','ᔭ').replaceAll('[?]','ᕙ').replaceAll('A','ᒍ').replaceAll('C','ᕋ').replaceAll('D','ᕈ').replaceAll('E','ᕆ').replaceAll('F','ᕕ').replaceAll('j','ᒧ').replaceAll('I','ᖤ').replaceAll('J','ᔪ').replaceAll('K','ᕗ').replaceAll('L','ᖢ').replaceAll('M','ᓚ').replaceAll('N','ᓇ').replaceAll('O','ᖠ').replaceAll('P','ᖦ').replaceAll('Q','ᒋ').replaceAll('R','ᖖ').replaceAll('S','ᐳ').replaceAll('T','ᙱ').replaceAll('U','ᙵ').replaceAll('V','?').replaceAll('W','ᐱ').replaceAll('X','ᐸ').replaceAll('Y','ᙳ').replaceAll('Z','ᒐ').replaceAll('a','ᖑ').replaceAll('b','ᑕ').replaceAll('c','ᖃ').replaceAll('d','ᖁ').replaceAll('e','ᕿ').replaceAll('f','ᑯ').replaceAll('g','ᑐ').replaceAll('h','ᓱ').replaceAll('i','ᓂ').replaceAll('j','ᒧ').replaceAll('k','ᓄ').replaceAll('l','ᓗ').replaceAll('m','ᒪ').replaceAll('n','ᓴ').replaceAll('o','ᓕ').replaceAll('p','ᔨ').replaceAll('q','ᖏ').replaceAll('r','ᑭ').replaceAll('s','ᐅ').replaceAll('t','ᑎ').replaceAll('u','ᒥ').replaceAll('v','ᑲ').replaceAll('w','ᐃ').replaceAll('x','ᐊ').replaceAll('y','ᓯ').replaceAll('z','ᖓ').replaceAll('â','ᑖ').replaceAll('Œ','ᒌ').replaceAll('μ','ᒫ').replaceAll('†','ᑏ').replaceAll('√','ᑳ').replaceAll('∫','ᑖ').replaceAll('0','ᔾ').replaceAll('1','ᖕ').replaceAll('2','ᑉ').replaceAll('3','ᕐ').replaceAll('4','ᒃ').replaceAll('5','ᑦ').replaceAll('6','ᖅ').replaceAll('7','ᒻ').replaceAll('8','ᓐ').replaceAll('9','ᓪ')
-    return word.replaceAll('!','1').replaceAll('@','2').replaceAll('#','3').replaceAll('[$]','4').replaceAll('%','5').replaceAll('&','7').replaceAll('[*]','8').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('G','(').replaceAll('H',')').replaceAll('¡','!').replaceAll('V','?')
+    return word.replaceAll('!','1').replaceAll('@','2').replaceAll('#','3').replaceAll('[$]','4').replaceAll('%','5').replaceAll('&','7').replaceAll('[*]','8').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('G','(').replaceAll('H',')').replaceAll('¡','!').replaceAll('V','?').replaceAll('B','H')
 }
 def testSystemEncoding(){
     println("The system encoding is : "+System.properties['file.encoding']+" (If it is not UTF-8, this script will not work as intended) ");
