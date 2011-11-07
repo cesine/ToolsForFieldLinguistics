@@ -2,60 +2,24 @@
  * This jape grammar tags frequent suffixes to color code the 
  * text of an unknown language to find morphemes in context
  */
-Phase:   TagProductiveMorphology
+Phase:   TagRoots
 Input: Token
 Options: control = appelt
 
 
-Rule: conditionals
+Rule: aaggisi
 (
- {Token.string ==~ ".*man"}
+ {Token.string ==~ "aaggisi.*"}
  )
 :section -->
-  :section.Conditional = {kind = "suffix", string=:section.Token.string}
+  :section.Noun = {kind = "root", meaning = "August", string=:section.Token.string}
 
 
-Rule: negation
+Rule: aaggisi
 (
- {Token.string ==~ ".*chu"}
+ {Token.string ==~ "saqqi.*"}
  )
 :section -->
-  :section.Negation = {	kind = "suffix", 
-		 				string = :section.Token.string}
+  :section.Verb = {kind = "root", underlyingForm = "saqqik", meaning = "appear, make appear, show to view, with suffixes magazine issue", string=:section.Token.string}
 
 
-Rule: topic
-(
- {Token.string ==~ ".*qa"}
- )
-:section -->
-  :section.Topic = {kind = "suffix", string=:section.Token.string}
-
-
-
-Rule: topic2
-(
- {Token.string ==~ ".*kum"}
- )
-:section -->
-  :section.DontKnow = {kind = "suffix", string=:section.Token.string}
-
-
-
-
-Rule: NAYA
-(
- {Token.string ==~ ".*naya.*"}
- )
-:section -->
-  :section.Impulsative = {kind = "suffix", string=:section.Token.string}
-
-
-
-
-Rule: runa
-(
- {Token.string ==~ "runa.*"}
- )
-:section -->
-  :section.Person = {kind = "suffix", meaning="person", string=:section.Token.string}
