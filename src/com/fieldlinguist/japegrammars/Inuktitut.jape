@@ -31,4 +31,19 @@ Rule: rule3
 :section -->
   :section.Conjunction = {kind = "root", meaning = "and", string=:section.Token.string}
 
+Rule: aaggisi
+(
+ {Token.string ==~ "aaggisi.*"}
+ )
+:section -->
+  :section.Noun = {kind = "root", meaning = "August", string=:section.Token.string}
+
+
+Rule: rule4
+(
+ {Token.string ==~ "saqqi.*"}
+ )
+:section -->
+  :section.Verb = {kind = "root", underlyingForm = "saqqik", meaning = "appear, make appear, show to view, with suffixes magazine issue", string=:section.Token.string}
+
 
