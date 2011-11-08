@@ -10,7 +10,7 @@
  *    outputASName: 
  */
 Phase:   TransferPfromOriginalmarkupstoDefault
-Input: p
+Input: unicode
 Options: control = appelt
 
 
