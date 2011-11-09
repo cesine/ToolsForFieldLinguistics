@@ -1,5 +1,9 @@
 import java.util.HashMap
 
+//System.setProperty("file.encoding", "UTF-8");
+println("The system encoding is : "+System.properties['file.encoding']+" (If it is not UTF-8, this script will not work as intended) ");
+println "This should look like Inuktitut: ᐊᑐᖃᑦᑕᖅᓯᒪᔭᖏᓐᓂᒃ ᐅᖃᐅᓯᖃᕐᓂᖅ"
+
 /*
 Step 1: get the Tokens annotation set from Gate
 */
@@ -34,8 +38,8 @@ Step 3
 Loop through the words, adding it to the frequency map
 */
 for(wordObject in words){
-    //numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)
-    //if(numberToStopTheLoopToShowOnlyPartOfIt >100){ break; }   //(to only run part of the loop)
+    numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)
+    if(numberToStopTheLoopToShowOnlyPartOfIt >1000){ break; }   //(to only run part of the loop)
     
     //we just want the string of the word
     word = wordObject.getFeatures().get("string")
@@ -48,7 +52,7 @@ for(wordObject in words){
     For more info: Google: regular expressions groovy
     ( Could do anything that is only letters: [a-z,A-Z]* but this is a bad assumption for IPA or romanized arabic chat, or passamaquoddy where numbers are used to represent sounds
     */
-    if (word ==~ /.*[a-zA-Z].*/){
+    if (word ==~ /.*[ᐁ-ᙶa-zA-Z].*/){
         //its okay, so process it
         
         /*
@@ -67,7 +71,7 @@ for(wordObject in words){
 
 }//end for loop to go through all the words
 
-//print "\n\nAll Done. \n This is what the frequency map looks like\n"+ frequencyMap
+print "\n\nAll Done. \n This is what the frequency map looks like\n"+ frequencyMap
 
 /*
 Step 5
@@ -79,7 +83,7 @@ Print out the list by frequency (could use this to look for function vs content 
 Mac or Linux: /Users/username/Documents/ToolsForFieldLinguistics/src/com/fieldlinguist/
 Windows: C:/blah/blah/ToolsForFieldLinguistics/src/com/fieldlinguist/
 */
-def outpath = ""  //change this to the path of your repository
+def outpath = "/Users/gina/Documents/workspacests/ToolsForFieldLinguistics/src/com/fieldlinguist/"  //change this to the path of your repository
 new File(outpath).mkdir()
 
 def frequencyOrderFileOut = new FileWriter("${outpath}outputtxt/Words_function_vs_content_${documentTitle}.txt")

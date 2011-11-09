@@ -147,6 +147,7 @@ def  inukMagazineToUnicode(word){
     return word.replaceAll('!','1').replaceAll('@','2').replaceAll('#','3').replaceAll('[$]','4').replaceAll('%','5').replaceAll('&','7').replaceAll('[*]','8').replaceAll("[(]",'9').replaceAll("[)]",'0').replaceAll('G','(').replaceAll('H',')').replaceAll('¡','!').replaceAll('V','?').replaceAll('B','H')
 }
 def testSystemEncoding(){
+		System.setProperty("file.encoding", "UTF-8");
     println("The system encoding is : "+System.properties['file.encoding']+" (If it is not UTF-8, this script will not work as intended) ");
     println "This should look like Inuktitut: ᐊᑐᖃᑦᑕᖅᓯᒪᔭᖏᓐᓂᒃ ᐅᖃᐅᓯᖃᕐᓂᖅ"
     System.out.println "This should also look like Inuktitut: "+ inukMagazineToUnicode("n6rb6")

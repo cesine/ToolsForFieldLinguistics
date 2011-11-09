@@ -1,0 +1,3729 @@
+Phase:   TagContentAndFuntionalWords
+Input: Token
+Options: control = appelt
+
+
+Rule: aa0
+(
+ {Token.string == "de"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="24" string=:section.Token.string}
+
+Rule: aa1
+(
+ {Token.string == "amma"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="13" string=:section.Token.string}
+
+Rule: aa2
+(
+ {Token.string == "les"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="12" string=:section.Token.string}
+
+Rule: aa3
+(
+ {Token.string == "du"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="12" string=:section.Token.string}
+
+Rule: aa4
+(
+ {Token.string == "et"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="12" string=:section.Token.string}
+
+Rule: aa5
+(
+ {Token.string == "des"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="11" string=:section.Token.string}
+
+Rule: aa6
+(
+ {Token.string == "la"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="10" string=:section.Token.string}
+
+Rule: aa7
+(
+ {Token.string == "nunavut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="9" string=:section.Token.string}
+
+Rule: aa8
+(
+ {Token.string == "un"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="8" string=:section.Token.string}
+
+Rule: aa9
+(
+ {Token.string == "fox"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="7" string=:section.Token.string}
+
+Rule: aa10
+(
+ {Token.string == "the"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="7" string=:section.Token.string}
+
+Rule: aa11
+(
+ {Token.string == "au"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa12
+(
+ {Token.string == "sur"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa13
+(
+ {Token.string == "a"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa14
+(
+ {Token.string == "vie"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa15
+(
+ {Token.string == "terry"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa16
+(
+ {Token.string == "dans"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="6" string=:section.Token.string}
+
+Rule: aa17
+(
+ {Token.string == "program"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa18
+(
+ {Token.string == "pour"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa19
+(
+ {Token.string == "le"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa20
+(
+ {Token.string == "d"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa21
+(
+ {Token.string == "programme"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa22
+(
+ {Token.string == "s"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="5" string=:section.Token.string}
+
+Rule: aa23
+(
+ {Token.string == "l"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa24
+(
+ {Token.string == "il"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa25
+(
+ {Token.string == "n"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa26
+(
+ {Token.string == "ils"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa27
+(
+ {Token.string == "en"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa28
+(
+ {Token.string == "in"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa29
+(
+ {Token.string == "of"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="4" string=:section.Token.string}
+
+Rule: aa30
+(
+ {Token.string == "pigiursarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa31
+(
+ {Token.string == "nunalinni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa32
+(
+ {Token.string == "taakkua"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa33
+(
+ {Token.string == "w"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa34
+(
+ {Token.string == "pas"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa35
+(
+ {Token.string == "élèves"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa36
+(
+ {Token.string == "que"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa37
+(
+ {Token.string == "ce"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa38
+(
+ {Token.string == "leur"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa39
+(
+ {Token.string == "qui"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa40
+(
+ {Token.string == "scolaire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa41
+(
+ {Token.string == "avec"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa42
+(
+ {Token.string == "classe"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa43
+(
+ {Token.string == "sont"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa44
+(
+ {Token.string == "from"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa45
+(
+ {Token.string == "nick"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa46
+(
+ {Token.string == "ᓇᕿᐃᑕᕿᑭᓯ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa47
+(
+ {Token.string == "many"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa48
+(
+ {Token.string == "to"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa49
+(
+ {Token.string == "plusieurs"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="3" string=:section.Token.string}
+
+Rule: aa50
+(
+ {Token.string == "ilinniarnilirinirmut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa51
+(
+ {Token.string == "ilisaijiit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa52
+(
+ {Token.string == "kisiani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa53
+(
+ {Token.string == "nunavummi"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa54
+(
+ {Token.string == "groupe"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa55
+(
+ {Token.string == "année"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa56
+(
+ {Token.string == "aux"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa57
+(
+ {Token.string == "tous"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa58
+(
+ {Token.string == "par"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa59
+(
+ {Token.string == "école"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa60
+(
+ {Token.string == "nécessaires"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa61
+(
+ {Token.string == "organisations"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa62
+(
+ {Token.string == "fonds"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa63
+(
+ {Token.string == "chaque"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa64
+(
+ {Token.string == "spéciaux"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa65
+(
+ {Token.string == "risque"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa66
+(
+ {Token.string == "bien"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa67
+(
+ {Token.string == "sud"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa68
+(
+ {Token.string == "culture"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa69
+(
+ {Token.string == "qu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa70
+(
+ {Token.string == "faire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa71
+(
+ {Token.string == "fournir"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa72
+(
+ {Token.string == "adolescents"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa73
+(
+ {Token.string == "entre"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa74
+(
+ {Token.string == "une"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa75
+(
+ {Token.string == "est"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa76
+(
+ {Token.string == "plus"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa77
+(
+ {Token.string == "peuvent"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa78
+(
+ {Token.string == "pouvaient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa79
+(
+ {Token.string == "sociétés"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa80
+(
+ {Token.string == "sujet"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa81
+(
+ {Token.string == "persévérance"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa82
+(
+ {Token.string == "cycle"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa83
+(
+ {Token.string == "secondaire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa84
+(
+ {Token.string == "programmes"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa85
+(
+ {Token.string == "premier"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa86
+(
+ {Token.string == "ministère"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa87
+(
+ {Token.string == "enseignants"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa88
+(
+ {Token.string == "collectivités"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa89
+(
+ {Token.string == "teacher"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa90
+(
+ {Token.string == "and"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa91
+(
+ {Token.string == "was"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa92
+(
+ {Token.string == "are"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa93
+(
+ {Token.string == "teaching"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa94
+(
+ {Token.string == "i"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa95
+(
+ {Token.string == "iqaluit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa96
+(
+ {Token.string == "ᐃᓄᒃᑎᑐᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa97
+(
+ {Token.string == "inuktitut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa98
+(
+ {Token.string == "r"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa99
+(
+ {Token.string == "kimmirut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa100
+(
+ {Token.string == "baffin"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa101
+(
+ {Token.string == "annie"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa102
+(
+ {Token.string == "nauyuk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa103
+(
+ {Token.string == "makkunnirsanut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa104
+(
+ {Token.string == "arraagugasanni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa105
+(
+ {Token.string == "atuinnaujunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa106
+(
+ {Token.string == "nik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa107
+(
+ {Token.string == "tamainnik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa108
+(
+ {Token.string == "ukiurtartumi"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa109
+(
+ {Token.string == "arraagutamaat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa110
+(
+ {Token.string == "ilinniartut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="2" string=:section.Token.string}
+
+Rule: aa111
+(
+ {Token.string == "katujjiqatigiinginni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa112
+(
+ {Token.string == "inuit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa113
+(
+ {Token.string == "ikajurtaulutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa114
+(
+ {Token.string == "qallunaat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa115
+(
+ {Token.string == "uqalimaagiursarnikkullu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa116
+(
+ {Token.string == "titirariursarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa117
+(
+ {Token.string == "ilinnianartillugu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa118
+(
+ {Token.string == "ullutamaaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa119
+(
+ {Token.string == "immaqaa"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa120
+(
+ {Token.string == "ujaranniartinit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa121
+(
+ {Token.string == "ilinniarutiksanuk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa122
+(
+ {Token.string == "nunami"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa123
+(
+ {Token.string == "inuugasuaniqut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa124
+(
+ {Token.string == "sanagiursarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa125
+(
+ {Token.string == "ilisariaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa126
+(
+ {Token.string == "ajjigiingittunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa127
+(
+ {Token.string == "kiinaujartaartitaulutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa128
+(
+ {Token.string == "aturajartunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa129
+(
+ {Token.string == "kinnguumajammarialunnut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa130
+(
+ {Token.string == "ilisarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa131
+(
+ {Token.string == "tikiggarnanginnirsani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa132
+(
+ {Token.string == "ilisartut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa133
+(
+ {Token.string == "unuriaqaningit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa134
+(
+ {Token.string == "tusaumatitaunirsauqattarajarmata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa135
+(
+ {Token.string == "angajuqqaangujuutinut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa136
+(
+ {Token.string == "mikinirsani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa137
+(
+ {Token.string == "kinnguumatsillarinninginnik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa138
+(
+ {Token.string == "sunanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa139
+(
+ {Token.string == "qanulimaaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa140
+(
+ {Token.string == "akuttujuutialuungittukkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa141
+(
+ {Token.string == "uqaqatigijauvallutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa142
+(
+ {Token.string == "sulillarittukkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa143
+(
+ {Token.string == "parnarsiarsimanirsauqattalangavut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa144
+(
+ {Token.string == "sivuniani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa145
+(
+ {Token.string == "nunanganit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa146
+(
+ {Token.string == "nunalinnut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa147
+(
+ {Token.string == "ilaugasuaqattarnirsaukpata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa148
+(
+ {Token.string == "tukisigiaqqaartitaukata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa149
+(
+ {Token.string == "tamakkunangat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa150
+(
+ {Token.string == "sannginiqaqtitaujut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa151
+(
+ {Token.string == "iligutiqamangaata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa152
+(
+ {Token.string == "kajusitsiarsimajunit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa153
+(
+ {Token.string == "apiqqutiksaqaqpuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa154
+(
+ {Token.string == "isumaksarsiurutiksamik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa155
+(
+ {Token.string == "uukturautitsiavauvuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa156
+(
+ {Token.string == "amisualuummata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa157
+(
+ {Token.string == "uukturautitsiavait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa158
+(
+ {Token.string == "ilisaigutitsiavait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa159
+(
+ {Token.string == "piunirsanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa160
+(
+ {Token.string == "niruarunnariaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa161
+(
+ {Token.string == "inuusirminut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa162
+(
+ {Token.string == "aturniartaminik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa163
+(
+ {Token.string == "ikajurutiksaqaqpalluni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa164
+(
+ {Token.string == "ilinnianginnaqullugit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa165
+(
+ {Token.string == "ilinniakkanniqullugit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa166
+(
+ {Token.string == "naammanaangippata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa167
+(
+ {Token.string == "immikkuurtunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa168
+(
+ {Token.string == "makkuttunut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa169
+(
+ {Token.string == "ilisaigusituqanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa170
+(
+ {Token.string == "ilinniariaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa171
+(
+ {Token.string == "aturlutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa172
+(
+ {Token.string == "surusiit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa173
+(
+ {Token.string == "sapiliuqqatuinnaqunagit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa174
+(
+ {Token.string == "tamakkua"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa175
+(
+ {Token.string == "ilisaigusiksanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa176
+(
+ {Token.string == "ajjigijaungittunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa177
+(
+ {Token.string == "supposément"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa178
+(
+ {Token.string == "mal"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa179
+(
+ {Token.string == "cours"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa180
+(
+ {Token.string == "afférentes"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa181
+(
+ {Token.string == "exigences"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa182
+(
+ {Token.string == "ayant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa183
+(
+ {Token.string == "satisfait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa184
+(
+ {Token.string == "député"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa185
+(
+ {Token.string == "maire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa186
+(
+ {Token.string == "ou"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa187
+(
+ {Token.string == "édimbourg"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa188
+(
+ {Token.string == "remis"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa189
+(
+ {Token.string == "prix"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa190
+(
+ {Token.string == "duc"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa191
+(
+ {Token.string == "devant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa192
+(
+ {Token.string == "sorte"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa193
+(
+ {Token.string == "exposés"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa194
+(
+ {Token.string == "étaient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa195
+(
+ {Token.string == "nordiques"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa196
+(
+ {Token.string == "toujours"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa197
+(
+ {Token.string == "fournissaient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa198
+(
+ {Token.string == "cher"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa199
+(
+ {Token.string == "terrestres"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa200
+(
+ {Token.string == "coûtaient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa201
+(
+ {Token.string == "collectivité"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa202
+(
+ {Token.string == "cependant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa203
+(
+ {Token.string == "place"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa204
+(
+ {Token.string == "expéditions"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa205
+(
+ {Token.string == "fallait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa206
+(
+ {Token.string == "recueillir"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa207
+(
+ {Token.string == "donc"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa208
+(
+ {Token.string == "avait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa209
+(
+ {Token.string == "y"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa210
+(
+ {Token.string == "était"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa211
+(
+ {Token.string == "parfait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa212
+(
+ {Token.string == "sûr"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa213
+(
+ {Token.string == "tout"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa214
+(
+ {Token.string == "celle"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa215
+(
+ {Token.string == "inuite"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa216
+(
+ {Token.string == "comprendre"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa217
+(
+ {Token.string == "voulu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa218
+(
+ {Token.string == "tant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa219
+(
+ {Token.string == "provenant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa220
+(
+ {Token.string == "habiletés"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa221
+(
+ {Token.string == "nord"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa222
+(
+ {Token.string == "réelle"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa223
+(
+ {Token.string == "lien"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa224
+(
+ {Token.string == "leurs"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa225
+(
+ {Token.string == "études"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa226
+(
+ {Token.string == "compte"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa227
+(
+ {Token.string == "fin"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa228
+(
+ {Token.string == "expériences"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa229
+(
+ {Token.string == "myriade"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa230
+(
+ {Token.string == "établir"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa231
+(
+ {Token.string == "aidés"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa232
+(
+ {Token.string == "ont"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa233
+(
+ {Token.string == "mûrir"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa234
+(
+ {Token.string == "cette"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa235
+(
+ {Token.string == "expérience"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa236
+(
+ {Token.string == "tirées"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa237
+(
+ {Token.string == "vingt"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa238
+(
+ {Token.string == "ans"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa239
+(
+ {Token.string == "étalée"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa240
+(
+ {Token.string == "cinq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa241
+(
+ {Token.string == "existe"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa242
+(
+ {Token.string == "être"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa243
+(
+ {Token.string == "fondamentales"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa244
+(
+ {Token.string == "leçons"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa245
+(
+ {Token.string == "adopter"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa246
+(
+ {Token.string == "pendant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa247
+(
+ {Token.string == "croissance"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa248
+(
+ {Token.string == "environnement"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa249
+(
+ {Token.string == "nordique"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa250
+(
+ {Token.string == "effervescence"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa251
+(
+ {Token.string == "rapide"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa252
+(
+ {Token.string == "vivre"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa253
+(
+ {Token.string == "deux"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa254
+(
+ {Token.string == "choix"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa255
+(
+ {Token.string == "style"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa256
+(
+ {Token.string == "dispositions"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa257
+(
+ {Token.string == "financières"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa258
+(
+ {Token.string == "peut-être"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa259
+(
+ {Token.string == "différentes"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa260
+(
+ {Token.string == "aiderait"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa261
+(
+ {Token.string == "beaucoup"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa262
+(
+ {Token.string == "autres"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa263
+(
+ {Token.string == "très"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa264
+(
+ {Token.string == "pourraient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa265
+(
+ {Token.string == "inuites"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa266
+(
+ {Token.string == "minières"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa267
+(
+ {Token.string == "élaboré"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa268
+(
+ {Token.string == "axé"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa269
+(
+ {Token.string == "pratique"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa270
+(
+ {Token.string == "intéressant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa271
+(
+ {Token.string == "niveau"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa272
+(
+ {Token.string == "surtout"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa273
+(
+ {Token.string == "salle"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa274
+(
+ {Token.string == "utiliser"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa275
+(
+ {Token.string == "prêt"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa276
+(
+ {Token.string == "pédagogique"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa277
+(
+ {Token.string == "matériel"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa278
+(
+ {Token.string == "intègrent"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa279
+(
+ {Token.string == "communautaire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa280
+(
+ {Token.string == "mieux"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa281
+(
+ {Token.string == "orientés"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa282
+(
+ {Token.string == "autorités"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa283
+(
+ {Token.string == "principales"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa284
+(
+ {Token.string == "consultations"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa285
+(
+ {Token.string == "sincères"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa286
+(
+ {Token.string == "continues"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa287
+(
+ {Token.string == "part"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa288
+(
+ {Token.string == "rattrapage"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa289
+(
+ {Token.string == "prémétiers"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa290
+(
+ {Token.string == "techniques"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa291
+(
+ {Token.string == "dynamique"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa292
+(
+ {Token.string == "terrienne"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa293
+(
+ {Token.string == "venant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa294
+(
+ {Token.string == "efficaces"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa295
+(
+ {Token.string == "alphabétisme"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa296
+(
+ {Token.string == "aider"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa297
+(
+ {Token.string == "meilleure"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa298
+(
+ {Token.string == "prise"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa299
+(
+ {Token.string == "décisions"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa300
+(
+ {Token.string == "rétroactions"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa301
+(
+ {Token.string == "fourniraient"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa302
+(
+ {Token.string == "éducation"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa303
+(
+ {Token.string == "petites"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa304
+(
+ {Token.string == "nécessaire"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa305
+(
+ {Token.string == "réellement"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa306
+(
+ {Token.string == "isolées"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa307
+(
+ {Token.string == "salles"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa308
+(
+ {Token.string == "justifie"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa309
+(
+ {Token.string == "nombre"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa310
+(
+ {Token.string == "lorsque"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa311
+(
+ {Token.string == "communities"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa312
+(
+ {Token.string == "several"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa313
+(
+ {Token.string == "lived"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa314
+(
+ {Token.string == "who"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa315
+(
+ {Token.string == "ran"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa316
+(
+ {Token.string == "junior"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa317
+(
+ {Token.string == "high"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa318
+(
+ {Token.string == "one"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa319
+(
+ {Token.string == "just"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa320
+(
+ {Token.string == "them"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa321
+(
+ {Token.string == "but"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa322
+(
+ {Token.string == "question"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa323
+(
+ {Token.string == "comes"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa324
+(
+ {Token.string == "that"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa325
+(
+ {Token.string == "there"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa326
+(
+ {Token.string == "individual"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa327
+(
+ {Token.string == "examples"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa328
+(
+ {Token.string == "successful"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa329
+(
+ {Token.string == "programs"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa330
+(
+ {Token.string == "classroom"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa331
+(
+ {Token.string == "approaches"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa332
+(
+ {Token.string == "children"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa333
+(
+ {Token.string == "more"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa334
+(
+ {Token.string == "before"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa335
+(
+ {Token.string == "by"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa336
+(
+ {Token.string == "disenchanted"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa337
+(
+ {Token.string == "become"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa338
+(
+ {Token.string == "system"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa339
+(
+ {Token.string == "is"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa340
+(
+ {Token.string == "whether"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa341
+(
+ {Token.string == "mind"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa342
+(
+ {Token.string == "powers-that-be"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa343
+(
+ {Token.string == "will"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa344
+(
+ {Token.string == "educational"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa345
+(
+ {Token.string == "these"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa346
+(
+ {Token.string == "success"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa347
+(
+ {Token.string == "learn"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa348
+(
+ {Token.string == "facilitate"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa349
+(
+ {Token.string == "different"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa350
+(
+ {Token.string == "stories"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa351
+(
+ {Token.string == "près"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa352
+(
+ {Token.string == "close"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa353
+(
+ {Token.string == "up"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa354
+(
+ {Token.string == "qanittumi"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa355
+(
+ {Token.string == "ᖃᓂᑦᑐᒥ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa356
+(
+ {Token.string == "ᓇᐅᔪᒧᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa357
+(
+ {Token.string == "ᒥᕐᓱᕆᐅᕐᓴᕐᑎᑕᐅᔪᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa358
+(
+ {Token.string == "ᐃᑭᕐᖑᐊᓴᔭᒥᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa359
+(
+ {Token.string == "available"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa360
+(
+ {Token.string == "schools"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa361
+(
+ {Token.string == "manuals"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa362
+(
+ {Token.string == "resource"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa363
+(
+ {Token.string == "which"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa364
+(
+ {Token.string == "currently"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa365
+(
+ {Token.string == "wrote"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa366
+(
+ {Token.string == "he"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa367
+(
+ {Token.string == "t"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa368
+(
+ {Token.string == "e"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa369
+(
+ {Token.string == "ᐅᖅ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa370
+(
+ {Token.string == "annual"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa371
+(
+ {Token.string == "ᑭᒻᒥᕈᒻᒧᐊᕐᑐᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa372
+(
+ {Token.string == "ᕿᑭᕐᑖᓗᒻᒥ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa373
+(
+ {Token.string == "ᓯᑭᑑᒃᑯᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa374
+(
+ {Token.string == "ᐊᕐᕌᒍᑕᒫᕐᓯᐅᒻᒥᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa375
+(
+ {Token.string == "island"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa376
+(
+ {Token.string == "across"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa377
+(
+ {Token.string == "trip"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa378
+(
+ {Token.string == "snowmobile"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa379
+(
+ {Token.string == "class"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa380
+(
+ {Token.string == "kimmirummuartut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa381
+(
+ {Token.string == "voyage"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa382
+(
+ {Token.string == "arraagutamaarsiummik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa383
+(
+ {Token.string == "sikituukkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa384
+(
+ {Token.string == "qikirtaalummi"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa385
+(
+ {Token.string == "travers"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa386
+(
+ {Token.string == "annuel"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa387
+(
+ {Token.string == "motoneige"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa388
+(
+ {Token.string == "île"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa389
+(
+ {Token.string == "vers"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa390
+(
+ {Token.string == "lesson"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa391
+(
+ {Token.string == "with"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa392
+(
+ {Token.string == "duffle"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa393
+(
+ {Token.string == "sewing"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa394
+(
+ {Token.string == "ikirnguasajamik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa395
+(
+ {Token.string == "naujumut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa396
+(
+ {Token.string == "mirsuriursartitaujut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa397
+(
+ {Token.string == "aani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa398
+(
+ {Token.string == "couture"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa399
+(
+ {Token.string == "leçon"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa400
+(
+ {Token.string == "lainages"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa401
+(
+ {Token.string == "feu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa402
+(
+ {Token.string == "armes"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa403
+(
+ {Token.string == "relative"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa404
+(
+ {Token.string == "sécurité"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa405
+(
+ {Token.string == "certificats"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa406
+(
+ {Token.string == "acquisition"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa407
+(
+ {Token.string == "nunamiutalirijikkunnit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa408
+(
+ {Token.string == "tunijaujut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa409
+(
+ {Token.string == "ilitaqsigutaujunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa410
+(
+ {Token.string == "renouvelables"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa411
+(
+ {Token.string == "richesses"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa412
+(
+ {Token.string == "nunalinginni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa413
+(
+ {Token.string == "ilisaijiusimajuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa414
+(
+ {Token.string == "safety"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa415
+(
+ {Token.string == "certificates"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa416
+(
+ {Token.string == "renewable"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa417
+(
+ {Token.string == "resources"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa418
+(
+ {Token.string == "qukiutinik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa419
+(
+ {Token.string == "attarnartitsitailinirmut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa420
+(
+ {Token.string == "ᖁᑭᐅᑎᓂᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa421
+(
+ {Token.string == "ᐊᑦᑕᕐᓇᕐᑎᑦᓯᑕᐃᓕᓂᕐᒧᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa422
+(
+ {Token.string == "ᐃᓕᑕᖅᓯᒍᑕᐅᔪᓂᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa423
+(
+ {Token.string == "ᑐᓂᔭᐅᔪᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa424
+(
+ {Token.string == "ᓄᓇᒥᐅᑕᓕᕆᔨᒃᑯᓐᓂᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa425
+(
+ {Token.string == "earning"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa426
+(
+ {Token.string == "gun"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa427
+(
+ {Token.string == "pédagogiques"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa428
+(
+ {Token.string == "ressources"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa429
+(
+ {Token.string == "manuels"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa430
+(
+ {Token.string == "dont"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa431
+(
+ {Token.string == "disponibles"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa432
+(
+ {Token.string == "encore"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa433
+(
+ {Token.string == "écoles"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa434
+(
+ {Token.string == "dirigé"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa435
+(
+ {Token.string == "rédigé"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa436
+(
+ {Token.string == "vécu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa437
+(
+ {Token.string == "enseignant"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa438
+(
+ {Token.string == "ilisarvinginni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa439
+(
+ {Token.string == "titiraqsimajuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa440
+(
+ {Token.string == "taaksuminga"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa441
+(
+ {Token.string == "ni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa442
+(
+ {Token.string == "kajusititsilaurtut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa443
+(
+ {Token.string == "amisunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa444
+(
+ {Token.string == "ilisaijinut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa445
+(
+ {Token.string == "ikajuqutiksanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa446
+(
+ {Token.string == "iqalunni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa447
+(
+ {Token.string == "ukiuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa448
+(
+ {Token.string == "hiver"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa449
+(
+ {Token.string == "ukuninga"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa450
+(
+ {Token.string == "takuminartunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa451
+(
+ {Token.string == "uukturarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa452
+(
+ {Token.string == "pigiursautigijaugunnartunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa453
+(
+ {Token.string == "iliviujunnartillugu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa454
+(
+ {Token.string == "tallimanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa455
+(
+ {Token.string == "ilisartunut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa456
+(
+ {Token.string == "pilimmaksarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa457
+(
+ {Token.string == "ilisaigutiksaqatsiarluni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa458
+(
+ {Token.string == "piluartumik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa459
+(
+ {Token.string == "ikajurtummariugajarmat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa460
+(
+ {Token.string == "nuqqainnanginnirsaunikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa461
+(
+ {Token.string == "iliqqusinganut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa462
+(
+ {Token.string == "akaunaartunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa463
+(
+ {Token.string == "nunavulimaami"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa464
+(
+ {Token.string == "ilisautiqariaqaqput"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa465
+(
+ {Token.string == "piqqusirnik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa466
+(
+ {Token.string == "qallunaatitut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa467
+(
+ {Token.string == "inuttitut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa468
+(
+ {Token.string == "tukisiaqulugit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa469
+(
+ {Token.string == "tukisigiartitaugutigilaurmauk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa470
+(
+ {Token.string == "makkuttut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa471
+(
+ {Token.string == "piviksaqaqtitaulaurninga"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa472
+(
+ {Token.string == "ilinniarnikkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa473
+(
+ {Token.string == "akaujummariulaurmat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa474
+(
+ {Token.string == "ilinniartitaullutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa475
+(
+ {Token.string == "ikajurutausimajut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa476
+(
+ {Token.string == "taijaujut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa477
+(
+ {Token.string == "atuinnaugunnairmimmata"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa478
+(
+ {Token.string == "inuusirmut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa479
+(
+ {Token.string == "niruarutigijariaqamajjuk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa480
+(
+ {Token.string == "inuuviginiarluniuk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa481
+(
+ {Token.string == "piujunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa482
+(
+ {Token.string == "asijjirpallialirtillugu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa483
+(
+ {Token.string == "ullumi"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa484
+(
+ {Token.string == "silarjuaq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa485
+(
+ {Token.string == "sukkajualummik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa486
+(
+ {Token.string == "akitulaurpuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa487
+(
+ {Token.string == "parnaillugu"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa488
+(
+ {Token.string == "nunaliit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa489
+(
+ {Token.string == "aullakatanniq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa490
+(
+ {Token.string == "nunamut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa491
+(
+ {Token.string == "nuatsigiaqaqattalaurtut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa492
+(
+ {Token.string == "kiinaujanik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa493
+(
+ {Token.string == "inuuvigijattinni"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa494
+(
+ {Token.string == "tukisivallirutigilluniuk"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa495
+(
+ {Token.string == "taimanna"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa496
+(
+ {Token.string == "ilinniarunnaqattalaurput"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa497
+(
+ {Token.string == "silarjuami"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa498
+(
+ {Token.string == "ikajuqattarsimaniagut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa499
+(
+ {Token.string == "katujjiqatigiingujut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa500
+(
+ {Token.string == "taimanngat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa501
+(
+ {Token.string == "tuniuqqartaujunik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa502
+(
+ {Token.string == "awards"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa503
+(
+ {Token.string == "edinburgh"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa504
+(
+ {Token.string == "duke"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa505
+(
+ {Token.string == "taijaujumik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa506
+(
+ {Token.string == "ilitarijauqqalaurtuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa507
+(
+ {Token.string == "saangani"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa508
+(
+ {Token.string == "ilinniaqatilimaangita"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa509
+(
+ {Token.string == "kajusisimatigilirninginnik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa510
+(
+ {Token.string == "qanuq"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa511
+(
+ {Token.string == "takujunnartut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa512
+(
+ {Token.string == "qiturngangit"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa513
+(
+ {Token.string == "taimaimmat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa514
+(
+ {Token.string == "kiinaujartaqalaungimmat"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa515
+(
+ {Token.string == "tamamunga"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa516
+(
+ {Token.string == "ilaakkut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa517
+(
+ {Token.string == "atangirlutik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa518
+(
+ {Token.string == "pigganangittuapiusimangimmijut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa519
+(
+ {Token.string == "attarijauqattarsimajut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa520
+(
+ {Token.string == "alianai"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa521
+(
+ {Token.string == "maligaliurtinganut"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa522
+(
+ {Token.string == "ilitarsijaugutitaanginnik"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa523
+(
+ {Token.string == "ᐊᖓᔪᖅᑳᖑᔫᑎᓄᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa524
+(
+ {Token.string == "ᐃᓕᓐᓂᐊᕐᓂᓕᕆᓂᕐᒧᑦ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa525
+(
+ {Token.string == "ᓱᓇᓂᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa526
+(
+ {Token.string == "ᑐᓴᐅᒪᑎᑕᐅᓂᕐᓴᐅᖃᑦᑕᕋᔭᕐᒪᑕ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa527
+(
+ {Token.string == "ᑭᓐ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa528
+(
+ {Token.string == "ᒥᑭᓂᕐᓴᓂ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa529
+(
+ {Token.string == "ᒪᑦᓯᓪᓚᕆᓐᓂᖏᓐᓂᒃ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa530
+(
+ {Token.string == "ᑎᑭ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
+Rule: aa531
+(
+ {Token.string == "ᒐᕐᓇ"}
+ )
+:section -->
+  :section.Content = {kind = "Content", documentCount="1" string=:section.Token.string}
+
