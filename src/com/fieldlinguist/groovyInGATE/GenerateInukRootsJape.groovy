@@ -74,6 +74,52 @@ def rootHighlighter = new FileWriter( "${outpath}japegrammars/Inuktitut_Roots_Ge
 rootHighlighter.append '''
 /*
  * This jape grammar tags words in color code to see words with common roots
+ It ignores any word containing & (the lateral fricative) which we dont see in the romanized inuktitut from inuk magazine anyway. 
+ TODO try to find what this sound corresponds to in InukMagazine romanized and dont ignore these roots, instead, change the & into its equivalent.
+ 
+ 
+ Discarding this as junk: ::
+Discarding this as junk: :ai:
+Discarding this as junk: :aa:
+Discarding this as junk: :aar&uq:
+Discarding this as junk: :ai:
+Discarding this as junk: :aik&iq:
+Discarding this as junk: :ak&a:
+Discarding this as junk: :ak&u:
+Discarding this as junk: :ak&unaaq:
+Discarding this as junk: :apak&iq:
+Discarding this as junk: :ii:
+Discarding this as junk: :ik&i:
+Discarding this as junk: :ik&irvik:
+Discarding this as junk: :ikak&ak:
+Discarding this as junk: :ir&irpak:
+Discarding this as junk: :ir&u:
+Discarding this as junk: :is&uaq:
+Discarding this as junk: :is&uuraq:
+Discarding this as junk: :ju:
+Discarding this as junk: :kak&u:
+Discarding this as junk: :kalaa&&it:
+Discarding this as junk: :kallupi&&uk:
+Discarding this as junk: :kangiq&iniq:
+Discarding this as junk: :kangir&uk:
+Discarding this as junk: :kik&u:
+Discarding this as junk: :mak&ak:
+Discarding this as junk: :mik&i:
+Discarding this as junk: :mik&iaq:
+Discarding this as junk: :minaumik&iq:
+Discarding this as junk: :nir&ingu:
+Discarding this as junk: :pi:
+Discarding this as junk: :qak&i:
+Discarding this as junk: :qak&uttuq:
+Discarding this as junk: :qar&u:
+Discarding this as junk: :qat&apak:
+Discarding this as junk: :qimir&uk:
+Discarding this as junk: :su:
+Discarding this as junk: :tur&uaq:
+Discarding this as junk: :tur&uk:
+Discarding this as junk: :ui:
+Discarding this as junk: :ua:
+ 
  */
 Phase:   TagRoots
 Input: Token
