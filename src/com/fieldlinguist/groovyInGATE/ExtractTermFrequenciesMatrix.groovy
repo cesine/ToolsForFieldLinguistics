@@ -15,7 +15,9 @@ def path = "${outpath}/${title}_word_frequencies_matrix_by_document.html"
 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path),"UTF-8");
 
 def numberToStopTheLoopToShowOnlyPartOfIt = 0
-def filefrequencies = "IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
+def fileVocabSize = "IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
+def fileWordCount = "IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
+Integer wordCountPerFile=0
 def fileNumber = ""
 try {
   files = dir.listFiles().grep(~/.*txt$/)
@@ -29,7 +31,8 @@ try {
     
     def individualfilename = currentFile.toString().split(/[\\\/]/)[-1]
     fileNumber = individualfilename.replace("Words_to_look_for_suffixes_file:_home_gina_Documents_workspacests_NonPublicCorpora_gen_InukMagzine_InukMagazine","IM").replace("_preprocessed_html.txt","")
-    /*
+    wordCountPerFile=0
+		/*
      * Creates 1 file per file
      */
     try{
@@ -43,6 +46,7 @@ try {
             def items = line.split("\t ")
             def word = items[1]
             def frequency = items[0]
+						wordCountPerFile = wordCountPerFile + frequency.toInteger()
             /*
              *  If: the word isnt in the map, set its value to 1 because its the first occurrence
              *  Otherwise: increase its value because we just saw it again
@@ -56,17 +60,22 @@ try {
           } 
        }//end loop for lines:
        println "==end of file ${numberToStopTheLoopToShowOnlyPartOfIt} Lines=="
-       filefrequencies = filefrequencies.replace(fileNumber,numberToStopTheLoopToShowOnlyPartOfIt.toString())
+       fileVocabSize = fileVocabSize.replace(fileNumber,numberToStopTheLoopToShowOnlyPartOfIt.toString())
+			 fileWordCount = fileWordCount.replace(fileNumber,wordCountPerFile.toString())
     }catch(Exception ex) {
         println( "Successfully read ${numberToStopTheLoopToShowOnlyPartOfIt.toString()} lines, but there is a problem with line: "+ex.message)
-        filefrequencies = filefrequencies.replace(fileNumber,numberToStopTheLoopToShowOnlyPartOfIt.toString())
-    }
+        fileVocabSize = fileVocabSize.replace(fileNumber,numberToStopTheLoopToShowOnlyPartOfIt.toString())
+    		fileWordCount = fileWordCount.replace(fileNumber,wordCountPerFile.toString())
+		}
   }//end loop for files
 }catch (Exception ex) {
     println("Problem with file: "+ex.message)
 }
-println "Finished processing files, here is the total vocab items per file\n"+filefrequencies+"\n"
+println "Finished processing files, here is the total vocab items per file\n"+fileVocabSize+"\n"
+println "Finished processing files, here is the total word count per file\n"+fileWordCount+"\n"
 
+out.append "Total\tVocabSize\t"+fileVocabSize+"\n"
+out.append "Total\tWordCount\t"+fileWordCount+"\n"
 
 def count = 0;
 def totalWords = frequencyMap.size()
@@ -78,7 +87,7 @@ frequencyMap.entrySet().sort {
         The meat of this operation is in the "sort" function which is implemented in the Map class...
         we dont need to know how it works, just copy paste the code...
         */
-        anEntry,anotherEntry -> anotherEntry.value <=> anEntry.value
+        anEntry,anotherEntry -> anotherEntry.key.reverse() <=> anEntry.key.reverse()
     }.each{
          sortedItem ->
 
