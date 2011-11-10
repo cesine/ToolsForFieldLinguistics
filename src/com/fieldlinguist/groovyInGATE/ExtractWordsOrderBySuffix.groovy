@@ -3,21 +3,21 @@ import java.util.HashMap
 //System.setProperty("file.encoding", "UTF-8");
 println("The system encoding is : "+System.properties['file.encoding']+" (If it is not UTF-8, this script will not work as intended) ");
 println "This should look like Inuktitut: ᐊᑐᖃᑦᑕᖅᓯᒪᔭᖏᓐᓂᒃ ᐅᖃᐅᓯᖃᕐᓂᖅ"
-
+for (doc in docs){
 /*
 Step 1: get the Tokens annotation set from Gate
 */
-def defaultannots = docs[0].getAnnotations()
-AnnotationSet words = docs[0].annotations.get('Token')
-def documentTitle = docs[0].getSourceUrl().toString().replaceAll("[./ ]","_")
+def defaultannots = doc.getAnnotations()
+AnnotationSet words = doc.annotations.get('Token')
+def documentTitle = doc.getSourceUrl().toString().replaceAll("[./ ]","_")
 print documentTitle + "will be used in the output file names so that you know where the data came from"
 /*
 Assert that the words set has more than 0 elements (basically to make sure that the import worked)
 */
-assert(words.size()>0)
+//assert(words.size()>0)
 def totalWords=words.size()
 
-/*
+/*s
 Print the size of the word set, just for fun to see how many words we have to work with...
 */
 print "This is how many words we have "+ (words.size())
@@ -39,7 +39,7 @@ Loop through the words, adding it to the frequency map
 */
 for(wordObject in words){
     numberToStopTheLoopToShowOnlyPartOfIt ++                   //(to only run part of the loop)
-    if(numberToStopTheLoopToShowOnlyPartOfIt >1000){ break; }   //(to only run part of the loop)
+    //if(numberToStopTheLoopToShowOnlyPartOfIt >10){ break; }   //(to only run part of the loop)
     
     //we just want the string of the word
     word = wordObject.getFeatures().get("string")
@@ -66,12 +66,12 @@ for(wordObject in words){
         }
     }else{
         //good to print out to make sure your regular expression is discarding the right junk
-        print "\nDiscarding this as junk: "+word
+        print " Discarding this as junk: "+word
     }
 
 }//end for loop to go through all the words
 
-print "\n\nAll Done. \n This is what the frequency map looks like\n"+ frequencyMap
+//print "\n\nAll Done. \n This is what the frequency map looks like\n"+ frequencyMap
 
 /*
 Step 5
@@ -83,7 +83,7 @@ Print out the list by frequency (could use this to look for function vs content 
 Mac or Linux: /Users/username/Documents/ToolsForFieldLinguistics/src/com/fieldlinguist/
 Windows: C:/blah/blah/ToolsForFieldLinguistics/src/com/fieldlinguist/
 */
-def outpath = "/Users/gina/Documents/workspacests/ToolsForFieldLinguistics/src/com/fieldlinguist/"  //change this to the path of your repository
+def outpath = "/home/gina/Documents/workspacests/ToolsForFieldLinguistics/src/com/fieldlinguist/"  //change this to the path of your repository
 new File(outpath).mkdir()
 
 def frequencyOrderFileOut = new FileWriter("${outpath}outputtxt/Words_function_vs_content_${documentTitle}.txt")
@@ -185,10 +185,11 @@ backwardsWordsMap.entrySet().sort {
             In this case we print it out, but we are sure to reverse it when we print so that it comes out human-readable (instead of backwards)
             */
             rhymingOrderFileOut.append "${sortedItem.value}\t ${sortedItem.key.reverse()}\n"
-            print "${sortedItem.value}\t ${sortedItem.key.reverse()}\n"
+            //print "${sortedItem.value}\t ${sortedItem.key.reverse()}\n"
 
 }
 rhymingOrderFileOut.flush()
 rhymingOrderFileOut.close()
 
 print totalWords
+}
