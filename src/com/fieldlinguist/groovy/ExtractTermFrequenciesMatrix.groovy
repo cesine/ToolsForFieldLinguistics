@@ -74,8 +74,8 @@ try {
 println "Finished processing files, here is the total vocab items per file\n"+fileVocabSize+"\n"
 println "Finished processing files, here is the total word count per file\n"+fileWordCount+"\n"
 
-out.append "Total\tVocabSize\t"+fileVocabSize+"\n"
-out.append "Total\tWordCount\t"+fileWordCount+"\n"
+out.append "\tVocabSize\t\t"+fileVocabSize+"\n"
+out.append "\tWordCount\tTotal\t"+fileWordCount+"\n"
 
 def count = 0;
 def totalWords = frequencyMap.size()
