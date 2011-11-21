@@ -15,8 +15,10 @@ def path = "${outpath}/${title}_word_frequencies_matrix_by_document.html"
 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path),"UTF-8");
 
 def numberToStopTheLoopToShowOnlyPartOfIt = 0
-def fileVocabSize = "IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
-def fileWordCount = "IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
+def header ="IM77\tIM79\tIM80\tIM81\tIM82\tIM83\tIM84\tIM85\tIM86\tIM87\tIM88\tIM89\tIM90\tIM91\tIM95\tIM96\tIM97\tIM98\tIM99\tIM100\tIM101\tIM102\tIM103\tIM104"
+
+def fileVocabSize = header
+def fileWordCount = header
 Integer wordCountPerFile=0
 def fileNumber = ""
 try {
@@ -74,6 +76,7 @@ try {
 println "Finished processing files, here is the total vocab items per file\n"+fileVocabSize+"\n"
 println "Finished processing files, here is the total word count per file\n"+fileWordCount+"\n"
 
+out.append "\tFilenames\t\t"+header+"\n"
 out.append "\tVocabSize\t\t"+fileVocabSize+"\n"
 out.append "\tWordCount\tTotal\t"+fileWordCount+"\n"
 
