@@ -1,0 +1,36 @@
+{
+  "name": "AlgorithmsForResearchAssistants",
+  "description": "Algorithms for research assistants in data heavy labs",
+  "version": "0.1.0",
+  "homepage": "https://github.com/OpenSourceFieldlinguistics/AlgorithmsForResearchAssistants",
+  "author": {
+    "name": "info@fielddb.org",
+    "email": "info@fielddb.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OpenSourceFieldlinguistics/AlgorithmsForResearchAssistants.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenSourceFieldlinguistics/AlgorithmsForResearchAssistants/issues"
+  },
+  "licenses": [{
+    "type": "Apache 2.0"
+  }],
+  "main": "lib/AlgorithmsForResearchAssistants",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-jasmine-node": "~0.1.0",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt": "~0.4.2"
+  },
+  "keywords": []
+}
