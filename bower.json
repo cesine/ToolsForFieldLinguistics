@@ -1,0 +1,27 @@
+{
+  "name": "tools-for-field-linguistics",
+  "version": "0.1.0",
+  "homepage": "https://github.com/cesine/ToolsForFieldLinguistics",
+  "authors": [
+    "cesine <cesine@yahoo.com>",
+    "hisakonog <hisakonog@gmail.com>"
+  ],
+  "description": "A collection of scripts and recipes for fieldlinguistics",
+  "main": "dist/tools-for-field-linguistics.min.js",
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "src",
+    "docs",
+    "gen",
+    "livingRoomDataGameSeeds",
+    "samples",
+    "watchmes",
+    "lib"
+  ],
+  "dependencies": {
+  }
+}
