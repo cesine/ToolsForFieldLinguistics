@@ -61,7 +61,8 @@ Want to contribute? (advanced)
 1. Fork the repo
 2. Create a branch which describes your change (git checkout -b more_regex)
 3. Make your modifications
-4. Run the linter and tests (if you modified the javascript)
+4. Run the dev tools (linter and tests if you modified the javascript)
+ $ npm install
  $ grunt 
 5. Commit your changes (git commit -m "added some more regex to the text
 cleaner")
