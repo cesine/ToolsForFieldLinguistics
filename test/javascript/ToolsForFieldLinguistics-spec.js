@@ -1,6 +1,6 @@
 'use strict';
 
-var ToolsForFieldLinguistics = require('../lib/ToolsForFieldLinguistics.js');
+var ToolsForFieldLinguistics = require('../../src/javascript/ToolsForFieldLinguistics.js');
 /*
   ======== A Handy Little Jasmine Reference ========
 https://github.com/pivotal/jasmine/wiki/Matchers
@@ -42,7 +42,7 @@ https://github.com/pivotal/jasmine/wiki/Matchers
 
 */
 
-describe("lib/ToolsForFieldLinguistics", function() {
+describe("src/javascript/ToolsForFieldLinguistics.js", function() {
 
   it("should load", function() {
     expect(ToolsForFieldLinguistics.init()).toBe("init");

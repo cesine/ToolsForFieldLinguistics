@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/ToolsForFieldLinguistics.js'],
+        src: ['src/javascript/ToolsForFieldLinguistics.js'],
         dest: 'dist/<%= pkg.name %>.js'
       },
     },
@@ -47,19 +47,19 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: 'test/javascript/.jshintrc'
       },
       gruntfile: {
         src: 'Gruntfile.js'
       },
       lib: {
         options: {
-          jshintrc: 'lib/.jshintrc'
+          jshintrc: 'src/javascript/.jshintrc'
         },
-        src: ['lib/**/*.js']
+        src: ['src/javascript/*.js']
       },
       test: {
-        src: ['test/**/*.js']
+        src: ['test/javascript/**/*.js']
       },
     },
     watch: {
