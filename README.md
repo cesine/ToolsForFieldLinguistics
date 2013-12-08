@@ -42,14 +42,18 @@ Bocoup.utils.init(); // "init"
 https://github.com/cesine/ToolsForFieldLinguistics/tree/master/docs
 
 ## Examples
+For screencasts to see how you can use the code:
 https://github.com/cesine/ToolsForFieldLinguistics/tree/master/watchmes
+
+For sample code to see how you can use and re-use the code, see the specs and tests:
+https://github.com/cesine/ToolsForFieldLinguistics/tree/master/test
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. If you know how, add unit tests for any new or changed functionality. The project comes with automated linting and testing for your javascript code using [Grunt](http://gruntjs.com/).
 
 
-Contributing Examples
----------------------
+###Contributing Examples
 
 Want to contribute? (easy) 
 

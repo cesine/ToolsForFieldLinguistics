@@ -46,7 +46,8 @@
       ints.push(Math.floor(Math.random() * randomSize) + start);
     }
 
-    console.log("\tRandom n:" + n + " start:" + start + " end:" + end + " result:" + ints);
+    console.log("\tRandom n:" + n + " start:" + start + " end:" + end + " result:");
+    console.log(ints.length < 40 ? ints : "(too big)");
     return ints;
   };
 
@@ -71,16 +72,29 @@
     /* Truncate the array to only the requested size n */
     ints = ints.splice(0, n);
 
-    console.log("\tUnique n:" + n + " start:" + start + " end:" + end + " result:" + ints);
+    console.log("\tUnique n:" + n + " start:" + start + " end:" + end + " result:");
+    console.log(ints.length < 40 ? ints : "(too big)");
     return ints;
   };
 
   exports.measureRunTime = function(measureMe, args, runtimeHolder) {
     var start = Date.now();
     var result = measureMe.apply(this, args);
-    runtimeHolder = Date.now() - start;
-    console.log("Runtime: "+runtimeHolder);
+    runtimeHolder.runtime = Date.now() - start;
+    console.log("Runtime: " + runtimeHolder.runtime);
     return result;
+  };
+
+  exports.getUnique = function() {
+    var unique = {}, a = [];
+    for (var i = 0, l = this.length; i < l; ++i) {
+      if (unique.hasOwnProperty(this[i])) {
+        continue;
+      }
+      a.push(this[i]);
+      unique[this[i]] = 1;
+    }
+    return a;
   };
 
 }(typeof exports === 'object' && exports || this));
