@@ -32,15 +32,15 @@ module.exports = function(grunt) {
       },
     },
     jasmine_node: {
-      specNameMatcher: "spec",
-      projectRoot: "./",
+      specNameMatcher: 'spec',
+      projectRoot: './',
       requirejs: false,
       forceExit: true,
       isVerbose: true,
       showColors: true,
       jUnit: {
         report: true,
-        savePath: "./build/reports/jasmine/",
+        savePath: './build/reports/jasmine/',
         consolidate: true,
         useDotNotation: false
       }
@@ -62,6 +62,15 @@ module.exports = function(grunt) {
         src: ['test/javascript/**/*.js']
       },
     },
+    jsdoc: {
+      dist: {
+        jsdoc : 'node_modules/.bin/jsdoc',
+        src: ['src/javascript/**/*.js', 'test/javascript/**/*.js'],
+        options: {
+          destination: 'doc/javascript'
+        }
+      }
+    },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -82,10 +91,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jasmine-node');
+  grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
+  grunt.registerTask('docs', ['jsdoc']);
   grunt.registerTask('default', ['jshint', 'jasmine_node', 'concat', 'uglify']);
 
 };

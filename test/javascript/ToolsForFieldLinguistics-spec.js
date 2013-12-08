@@ -1,9 +1,10 @@
 'use strict';
 
 var ToolsForFieldLinguistics = require('../../src/javascript/ToolsForFieldLinguistics.js');
-/*
+/**
+ <pre>
   ======== A Handy Little Jasmine Reference ========
-https://github.com/pivotal/jasmine/wiki/Matchers
+  https://github.com/pivotal/jasmine/wiki/Matchers
 
   Spec matchers:
     expect(x).toEqual(y); compares objects or priApache 2.0ives x and y and passes if they are equivalent
@@ -39,9 +40,15 @@ https://github.com/pivotal/jasmine/wiki/Matchers
 
       });
     });
+</pre>
 
+* @requires ToolsForFieldLinguistics
+* @requires Jasmine
+* 
+* @example ToolsForFieldLinguistics
+* @module  ToolsForFieldLinguistics-specs
+* @extends  Jasmine.spec
 */
-
 describe("src/javascript/ToolsForFieldLinguistics.js", function() {
 
   it("should load", function() {
@@ -49,4 +56,3 @@ describe("src/javascript/ToolsForFieldLinguistics.js", function() {
   });
 
 });
-

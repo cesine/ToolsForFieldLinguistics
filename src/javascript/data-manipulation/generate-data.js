@@ -1,38 +1,59 @@
 /**
  * Utilities for generating (random) data for benchmarking and
- * exploring data
+ * exploring data.
  *
- * @param  Object exports this is the object which will recieve the exports of this file
+ *
+ * @module  GenerateData
+ * @extends {AnyObject}
+ * @tutorial  test/javascript/generate-data-spec.js
+ * @param   exports Object this is the object which will recieve the exports of this file
  */
 (function(exports) {
 
   'use strict';
 
-
   /**
    * Fisher–Yates shuffling is similar to randomly picking numbered tickets 
    * (combinatorics: distinguishable objects) out of a hat without 
-   * replacement until there are none left.
+   * replacement until there are none left. <p>
    *
-   * It was reduced to run in linear O(n) time by Durstenfeld 1964
-   
+   * It was reduced to run in linear O(n) time by Durstenfeld 1964 by looping through 
+   * the array just once O(n) and at each index, finding a random other index in the 
+   * array to swap places with.
+   *
+    <pre>
+    Pseudocode
     for i from n − 1 downto 1 do
        j ← random integer with 0 ≤ j ≤ i
        exchange a[j] and a[i]
+    </pre>
 
-   * @param  Array shuffleMe an array to be shuffled
+   * @param {Array} shuffleMe An array to be shuffled
+   * @return {this}           This, for chaining other operations.
    */
-  exports.durstenfeldShuffle = function durstenfeldShuffle(shuffleMe) {
+  exports.shuffle = function shuffle(shuffleMe) {
     for (var i = 0; i < shuffleMe.length; i++) {
       var j = Math.floor((Math.random() * i));
       var temp = shuffleMe[j];
       shuffleMe[j] = shuffleMe[i];
       shuffleMe[i] = temp;
     }
+    return this;
   };
 
-
-  exports.createArrayOfRandomIntegers = function(n, start, end, sameSequenceEveryTime) {
+  /**
+   * Create an array of random numbers can be used to create data which can be reused later for
+   * debugging sorting algorithms and improving the runtime of your data crunching. <p>
+   * 
+   * If you want to have unique integers, see createArrayOfRandomUniqueIntegers below.
+   *
+   *
+   * @param  {int} n     The size of the array to be creatd
+   * @param  {int} start An optional minimal value, otherwise assumed to be 0
+   * @param  {int} end   An optional maximal value, otherwise assumed to be n
+   * @return {Array}       An array of random unique integers
+   */
+  exports.createArrayOfRandomIntegers = function(n, start, end) {
     if (!n || n < 0) {
       throw "n Must be a positive integer indicating the size of the array to be created";
     }
@@ -52,7 +73,17 @@
   };
 
 
-  exports.createArrayOfRandomUniqueIntegers = function(n, start, end, sameSequenceEveryTime) {
+  /**
+   * Create an array of random unique numbers can be used to create data which can be reused later for
+   * debugging sorting algorithms and improving the runtime of your data crunching.
+   *
+   *
+   * @param  {int} n     The size of the array to be creatd
+   * @param  {int} start An optional minimal value, otherwise assumed to be 0
+   * @param  {int} end   An optional maximal value, otherwise assumed to be n
+   * @return {Array}       An array of random unique integers
+   */
+  exports.createArrayOfRandomUniqueIntegers = function(n, start, end) {
     if (!n || n < 0) {
       throw "n Must be a positive integer indicating the size of the array to be created";
     }
@@ -67,7 +98,7 @@
     }
 
     /* Suffle the array */
-    this.durstenfeldShuffle(ints);
+    this.shuffle(ints);
 
     /* Truncate the array to only the requested size n */
     ints = ints.splice(0, n);
@@ -79,19 +110,21 @@
 
   /**
    * This is an interesting approach to a unique problem. If you need to
-   * sort a dense set of random integers who are only unique (or you dont
+   * sort a dense set of random integers who are only unique (or you don't
    * mind if you only get unique one back) then you can think of the integers
    * not as an array of integers, but more like a bitmap where 0 if the integer
-   * is not present, and 1 if it is present. In this way the datastruture causes the data to
+   * is not present, and 1 if it is present. <p>
+   * 
+   * In this way the datastruture causes the data to
    * be sorted. What is interesting with this approach is that it shows how a
-   * datastructure can be leveraged to reduce runtime.
+   * datastructure can be leveraged to reduce runtime.<p>
    *
    * References: Bently 1986
    *
-   * @param  Array sortMe an array of random integers
-   * @param  int minValue an optional smallest value in the input array, otherwise assumed to be 0
-   * @param  int maxValue an optional largest value in the input array, otherwise assumed to be the size of sortMe
-   * @return Array        a sorted array of unique integers which were in sortMe
+   * @param {Array} sortMe    An array of random integers
+   * @param {int}   minValue  An optional smallest value in the input array, otherwise assumed to be 0
+   * @param {int}  maxValue   An optional largest value in the input array, otherwise assumed to be the size of sortMe
+   * @return {Array}          A sorted array of unique integers which were in sortMe
    */
   exports.sortRandomUniqueIntegers = function(sortMe, minValue, maxValue) {
     if (!sortMe) {
