@@ -4,6 +4,10 @@ var generateData = require('../../src/javascript/data-manipulation/generate-data
 
 describe("Generating data...", function() {
 
+  beforeEach(function() {
+    console.log("--------------------------------------------------");
+  });
+
   it("should be able to measure the runtime of a function", function() {
     var measureMeExponetiallySlow = function(max, dataHolder) {
       console.log("\tmeasureMeExponetiallySlow max:" + max);
@@ -88,17 +92,81 @@ describe("Generating data...", function() {
     expect(uniqueOnly.length === resultSmallWithEnd.length).toBe(true);
   });
 
-  it("should create a file between 0 and 27,000 unique integers in random order", function() {
-    var n = 27000;
-    var medium = generateData.createArrayOfRandomUniqueIntegers(n);
-    console.log(medium);
+  it("should sort random unique signed integers", function() {
+    var n = 200;
+    var min = -100;
+    var max = 200;
+    var start = Date.now();
+    var medium = generateData.createArrayOfRandomUniqueIntegers(n, min, max);
+    console.log("Runtime for generating " + n + " unique signed integers: ", Date.now() - start);
     expect(medium.length).toBe(n);
+
+    start = Date.now();
+    var sortedMedium = generateData.sortRandomUniqueIntegers(medium, min, max);
+    console.log("Runtime for sorting " + n + " unique signed integers: ", Date.now() - start);
+
+    expect(sortedMedium.length).toBe(n);
   });
 
-  it("should sort 0 and 27,000 unique random integers in using less than 16000 bits", function() {
-    expect(true).toBe(true);
+  it("should sort 0 and 27,000 random unique integers", function() {
+    var n = 27000;
+    var start = Date.now();
+    var medium = generateData.createArrayOfRandomUniqueIntegers(n, 0, n);
+    console.log("Runtime for generating " + n + " unique integers: ", Date.now() - start);
+    expect(medium.length).toBe(n);
+    start = Date.now();
+    var sortedMedium = generateData.sortRandomUniqueIntegers(medium, 0, n);
+    console.log("Runtime for sorting " + n + " unique integers: ", Date.now() - start);
+
+    expect(sortedMedium.length).toBe(n);
   });
 
+  it("should sort random unique integers in linear time", function() {
+    var n = 1000000;
+    var linearFactor = 2;
+    var medium = generateData.createArrayOfRandomUniqueIntegers(n, 0, n);
+    var start = Date.now();
+    var sortedMedium = generateData.sortRandomUniqueIntegers(medium, 0, n);
+    var runtime1 = Date.now() - start;
+    expect(sortedMedium.length).toBe(n);
+
+    var n2 = n * linearFactor;
+    start = Date.now();
+    var large = generateData.createArrayOfRandomUniqueIntegers(n2, 0, n2);
+    var sortedLarge = generateData.sortRandomUniqueIntegers(large, 0, n2);
+    var runtime2 = Date.now() - start;
+    expect(sortedLarge.length).toBe(n2);
+    expect(runtime2).toBeGreaterThan(0);
+
+    var n3 = n2 * linearFactor;
+    start = Date.now();
+    var xLarge = generateData.createArrayOfRandomUniqueIntegers(n3, 0, n3);
+    var sortedXLarge = generateData.sortRandomUniqueIntegers(xLarge, 0, n3);
+    var runtime3 = Date.now() - start;
+    expect(sortedXLarge.length).toBe(n3);
+
+    console.log("Runtime for sorting " + n + " unique integers: ", runtime1);
+    console.log("Runtime for sorting " + n2 + " unique integers: ", runtime2);
+    console.log("Runtime for sorting " + n3 + " unique integers: ", runtime3);
+
+    if (runtime1 === 0) {
+      runtime1 = 0.1;
+    }
+    if (runtime2 === 0) {
+      runtime2 = 0.1;
+    }
+    var firstFactor = runtime2 / runtime1;
+    var secondFactor = runtime3 / runtime2;
+    var factorDifference = secondFactor - firstFactor;
+    console.log("Expected factor: ~" + linearFactor);
+    console.log("Factor in first leap: " + firstFactor + " factor in second leap: " + secondFactor + " velocity: " + factorDifference);
+    var acceptableVariance = 1;
+    expect(factorDifference).toBeLessThan(acceptableVariance);
+
+    var exponentialTime = linearFactor * linearFactor;
+    expect(firstFactor).toBeLessThan(exponentialTime);
+    expect(secondFactor).toBeLessThan(exponentialTime);
+  });
 
 
 });
