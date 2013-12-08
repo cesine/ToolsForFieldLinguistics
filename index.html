@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Toolsforfieldlinguistics by cesine</title>
+    <title>ToolsForFieldLinguistics by cesine</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
   <body>
 
       <header>
-        <h1>Toolsforfieldlinguistics</h1>
+        <h1>ToolsForFieldLinguistics</h1>
         <p>A collection of scripts and recipes for fieldlinguistics and RAs in data heavy labs</p>
       </header>
 
@@ -26,10 +26,7 @@
 
         <a href="https://github.com/cesine/ToolsForFieldLinguistics" class="button fork"><strong>View On GitHub</strong></a>
         <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/cesine/ToolsForFieldLinguistics/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/cesine/ToolsForFieldLinguistics/tarball/master" class="button">TAR</a></li>
+          
           </ul>
         </div>
       </div><!-- end banner -->
@@ -39,40 +36,149 @@
         <ul></ul>
       </nav>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="toolsforfieldlinguistics" class="anchor" href="#toolsforfieldlinguistics"><span class="octicon octicon-link"></span></a>ToolsForFieldLinguistics</h1>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>This is a collection of scripts and recipes for fieldlinguistics and RAs in data heavy labs. The examples in this project were used for a few workshops at McGill and Concordia Universities as well as self paced tutorials for fieldlinguistics RAs.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>One of the biggest challenge of working as an RA isn't necessarily learning the language of the scripts you use, but rather how you can build maintainable scripts that future RAs can also use and maintain. Building scripts that are user friendly and get the job done quickly and correctly actually has only a little to do with programming languages or "Computer Science." The keyword you need is "Software Engineering." If you want to augment your RA tasks with coursework, don't take a course in beginning programming; you will spend a lot of time on small details that are already easy for you to grasp if you have taken courses in Syntax and Semantics. Instead, take a course in Software Engineering, or follow slides and screencasts about "Behavior Driven Testing" on YouTube if your university wont permit non-majors to take SOEN courses. If you approach your RAship not as a task of learning the syntax of a programming language, but rather as the aquiring sociolinguistics of software developers, you will have better luck and have more fun building tools for your lab, and of course you will also learn the syntax and vocabulary of various dialects of programming languages too.</p>
+
+<p>Most of the User Interface (UI) code in this project is in Javascript, so you can use colors and animations to have fun with your tool building... Other tasks are written in other languages (python, groovy, perl, java, C++, C, bash, praat) depending on what is often a popular language for that sort of data crunching.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+<p>
+The first step is most likely to fork this project, and download the code to your computer and start exploring either by language (src folder), or by task (test folder). However, if you already have a task at hand and you know the  recipe is in this project, you can simply include the production version of the recipes in your project. (<a href="#in-the-browser">See below</a>) </p>
+
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="in-the-browser" class="anchor" href="#in-the-browser"><span class="octicon octicon-link"></span></a>Play/practice with the code</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<ol>
+<li><a href="https://github.com/cesine/ToolsForFieldLinguistics/fork" target="_blank">Fork the repo</a> <a href="https://github.com/cesine/ToolsForFieldLinguistics/blob/master/watchmes/git_forking.swf?raw=true" target="_blank">[WATCHME]</a></li>
+<li><a href="https://help.github.com/articles/fork-a-repo" target="_blank">Download the repo to your computer</a> <a href="https://github.com/cesine/ToolsForFieldLinguistics/blob/master/watchmes/git_forking.swf?raw=true" target="_blank">[WATCHME]</a></li>
+<li>Run the dev tools (linter and tests so you can see what is available in the javascript recipes)<br/>
+  <code>
+$ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
+<li>Make your modifications (you can look at the FieldDB milestones for <a href="https://github.com/OpenSourceFieldlinguistics/FieldDB/issues/milestones" target="_blank">ideas of what can be done</a>, or the <a href="#documentation">docs</a> and <a href="#examples">examples</a> below.) <a href="http://www.youtube.com/watch?v=y4zO7JHkFMU&list=PL76F66AB2C69D769B" target="_blank">(YouTube Playlist)</a></li>
+<li>Commit your changes <a href="https://github.com/cesine/ToolsForFieldLinguistics/blob/master/watchmes/git_forking.swf?raw=true" target="_blank">[WATCHME]</a><br/> 
+  <code>$ git commit -m "added some more regex to the text cleaner"</code></li>
+<li>Push to your GitHub <a href="https://github.com/cesine/ToolsForFieldLinguistics/blob/master/watchmes/git_forking.swf?raw=true" target="_blank">[WATCHME]</a><br/> 
+  <code>$ git push origin master</code></li>
+</ol>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="in-the-browser" class="anchor" href="#in-the-browser"><span class="octicon octicon-link"></span></a>Using the code in a browser</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Download the <a href="https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.min.js">production version</a> or the <a href="https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.js">development version</a> <br/> (or use bower <code>$ bower install tools-for-field-linguistics</code>).</p>
+
+<p>In your web page:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>In your code, you can attach ToolsForFieldLinguistics's methods to any object.</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Bocoup</span><span class="p">.</span><span class="nx">utils</span><span class="p">;</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nx">Bocoup</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+
+
+<h3>
+<a name="on-the-server" class="anchor" href="#on-the-server"><span class="octicon octicon-link"></span></a>Using the code on a server</h3>
+
+<p>Install the module with: <code>$ npm install tools-for-field-linguistics</code></p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">ToolsForFieldLinguistics</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'ToolsForFieldLinguistics'</span><span class="p">);</span>
+<span class="nx">ToolsForFieldLinguistics</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
+</pre></div>
+
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p><a href="https://github.com/cesine/ToolsForFieldLinguistics/tree/master/test/javascript/generate-data-spec.js">Tests and specs</a>
+ (short for tests which are written as "it should do x" specifications) are a popular and pragmatic way in BDD/TDD (Behaviour/Test driven development) to document code by making docs that are concrete and always up-to-date, and compile.</p>
+
+<p><a href="docs/javascript/module-GenerateData.html">JSDocs</a> can show you how to use the javascript examples, if you like looking at formal docs.</p>
+
+<p><a href="https://github.com/cesine/ToolsForFieldLinguistics/tree/master/docs">Slides</a> can give you the big picture and ease you into the project's raison d'etre in a more academic context.</p>
+
+
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>Screencasts:
+<a href="https://github.com/cesine/ToolsForFieldLinguistics/tree/master/watchmes">see the WATCHMEs</a></p>
+
+<p>Tutorials and quizes:  
+<a href="https://github.com/cesine/ToolsForFieldLinguistics/tree/master/test/javascript/generate-data-spec.js">see the specs and tests</a></p>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>While playing with the code you probably found something that you wanted to modify or add. If you want, GitHub makes it very easy to "code socially" so that others like you can find your modifications and build upon them too.<p>
+
+<h3>
+<a name="contributing-examples" class="anchor" href="#contributing-examples"><span class="octicon octicon-link"></span></a>Contributing Examples</h3>
+
+<p>Want to contribute? (easy for new GitHub users) </p>
+
+<ol>
+<li>Click on Edit on any of the code recipe pages on GitHub</li>
+<li>Edit the code, and commit your changes saying what you changed (eg "added some more regex to the text cleaner"). GitHub will create an Issue for you which asks us to bring in your changes</li>
+
+</ol><p>Want to contribute? (advanced for GitHub users)</p>
+<ol>
+<li><a href="https://github.com/cesine/ToolsForFieldLinguistics/fork" target="_blank">Fork the repo</a> if you haven't already</li>
+<li>Create a branch which describes your change <br/> 
+  <code>$ git checkout -b more_regex</code></li>
+<li>Make your modifications</li>
+<li>Run the dev tools (linter and tests if you modified the javascript)<br/>
+  <code>
+$ npm install && grunt </code></li>
+<li>Commit your changes <br/> 
+  <code>$ git commit -m "added some more regex to the text cleaner"</code></li>
+<li>Push to the branch <br/> 
+  <code>$ git push origin more_regex</code></li>
+<li><a href="https://github.com/cesine/ToolsForFieldLinguistics/compare/" target="_blank">Create a Pull Request</a> (adding more details if necessary)</li>
+</ol><h2>
+<a name="javascript-syntax-highlighting-using-sublime" class="anchor" href="#javascript-syntax-highlighting-using-sublime"><span class="octicon octicon-link"></span></a>JavaScript Syntax highlighting using Sublime</h2>
+
+<ul>
+<li><a href="https://help.github.com/articles/fork-a-repo" target="_blank">Download the source code</a></li>
+<li>Open the entire folder</li>
+<li>Install jsbeautifier package</li>
+</ul><h2>
+<a name="groovy-syntax-highlighting-using-eclipse" class="anchor" href="#groovy-syntax-highlighting-using-eclipse"><span class="octicon octicon-link"></span></a>Groovy Syntax highlighting using Eclipse</h2>
+
+<ul>
+<li><a href="https://help.github.com/articles/fork-a-repo" target="_blank">Download the source code</a></li>
+<li>Create a Groovy project and import the source files</li>
+</ul>
+</article>
 
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>Copyright (c) 2010-2013 <a href="https://github.com/cesine" target="_blank" class="user-mention">@cesine</a>, <a href="https://github.com/hisakonog" target="_blank" class="user-mention">@hisakonog</a> and <a href="https://github.com/OpenSourceFieldlinguistics?tab=members" target="_blank">others<br/>
+Licensed under the Apache 2.0 license.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
       <footer>
-        <p>Project maintained by <a href="https://github.com/cesine">cesine</a></p>
+        <p>Project maintained mostly by <a href="https://github.com/cesine">cesine</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>

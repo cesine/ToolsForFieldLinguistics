@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: GenerateData</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Module: GenerateData</h1>
+    
+    
+
+
+
+<section>
+    
+<header>
+    <h2>
+    GenerateData
+    </h2>
+    
+</header>  
+
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+            <div class="description">Utilities for generating (random) data for benchmarking and
+exploring data.</div>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="generate-data.js.html">src/javascript/data-manipulation/generate-data.js</a>, <a href="generate-data.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+    
+    
+    <dt class="tag-tutorial">Tutorials:</dt>
+    <dd class="tag-tutorial">
+        <ul>
+            <li><em class="disabled">Tutorial: test/javascript/generate-data-spec.js</em></li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+    
+    </div>
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li>AnyObject</li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="createArrayOfRandomIntegers"><span class="type-signature">&lt;static> </span>createArrayOfRandomIntegers<span class="signature">(n, start, end)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Create an array of random numbers can be used to create data which can be reused later for
+debugging sorting algorithms and improving the runtime of your data crunching. <p>
+
+If you want to have unique integers, see createArrayOfRandomUniqueIntegers below.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The size of the array to be creatd</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional minimal value, otherwise assumed to be 0</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional maximal value, otherwise assumed to be n</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="generate-data.js.html">src/javascript/data-manipulation/generate-data.js</a>, <a href="generate-data.js.html#line56">line 56</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    An array of random unique integers
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="createArrayOfRandomUniqueIntegers"><span class="type-signature">&lt;static> </span>createArrayOfRandomUniqueIntegers<span class="signature">(n, start, end)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Create an array of random unique numbers can be used to create data which can be reused later for
+debugging sorting algorithms and improving the runtime of your data crunching.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The size of the array to be creatd</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional minimal value, otherwise assumed to be 0</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional maximal value, otherwise assumed to be n</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="generate-data.js.html">src/javascript/data-manipulation/generate-data.js</a>, <a href="generate-data.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    An array of random unique integers
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="shuffle"><span class="type-signature">&lt;static> </span>shuffle<span class="signature">(shuffleMe)</span><span class="type-signature"> &rarr; {this}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Fisher–Yates shuffling is similar to randomly picking numbered tickets 
+(combinatorics: distinguishable objects) out of a hat without 
+replacement until there are none left. <p>
+
+It was reduced to run in linear O(n) time by Durstenfeld 1964 by looping through 
+the array just once O(n) and at each index, finding a random other index in the 
+array to swap places with.
+
+    <pre>
+    Pseudocode
+    for i from n − 1 downto 1 do
+       j ← random integer with 0 ≤ j ≤ i
+       exchange a[j] and a[i]
+    </pre>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>shuffleMe</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An array to be shuffled</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="generate-data.js.html">src/javascript/data-manipulation/generate-data.js</a>, <a href="generate-data.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    This, for chaining other operations.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">this</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="sortRandomUniqueIntegers"><span class="type-signature">&lt;static> </span>sortRandomUniqueIntegers<span class="signature">(sortMe, minValue, maxValue)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This is an interesting approach to a unique problem. If you need to
+sort a dense set of random integers who are only unique (or you don't
+mind if you only get unique one back) then you can think of the integers
+not as an array of integers, but more like a bitmap where 0 if the integer
+is not present, and 1 if it is present. <p>
+
+In this way the datastruture causes the data to
+be sorted. What is interesting with this approach is that it shows how a
+datastructure can be leveraged to reduce runtime.<p>
+
+References: Bently 1986
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>sortMe</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An array of random integers</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>minValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional smallest value in the input array, otherwise assumed to be 0</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>maxValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">An optional largest value in the input array, otherwise assumed to be the size of sortMe</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="generate-data.js.html">src/javascript/data-manipulation/generate-data.js</a>, <a href="generate-data.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A sorted array of unique integers which were in sortMe
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+</article>
+
+</section>  
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-GenerateData.html">GenerateData</a></li><li><a href="module-GenerateData-specs.html">GenerateData-specs</a></li><li><a href="module-ToolsForFieldLinguistics.html">ToolsForFieldLinguistics</a></li><li><a href="module-ToolsForFieldLinguistics-specs.html">ToolsForFieldLinguistics-specs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#curry">curry</a></li><li><a href="global.html#kmp">kmp</a></li><li><a href="global.html#topological_sort">topological_sort</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a> on Sun Dec 08 2013 12:57:19 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
