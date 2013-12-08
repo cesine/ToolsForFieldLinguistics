@@ -1,6 +1,6 @@
 # ToolsForFieldLinguistics
 
-A collection of scripts and recipes for fieldlinguistics
+A collection of scripts and recipes for fieldlinguistics and RAs in data heavy labs
 
 ## Getting Started
 ### On the server
