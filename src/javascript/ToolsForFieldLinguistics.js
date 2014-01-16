@@ -7,19 +7,19 @@
  * Copyright (c) 2013 cesine
  * Licensed under the Apache 2.0 license.
  *
- * @module 			ToolsForFieldLinguistics
- * @tutorial  		test/javascript/ToolsForFieldLinguistics-spec.js
- * @requires 		GenerateData
+ * @module          ToolsForFieldLinguistics
+ * @tutorial        test/javascript/ToolsForFieldLinguistics-spec.js
+ * @requires        GenerateData
  */
-var GenerateData = require("data-manipulation");
+var GenerateData = require("./data-manipulation/generate-data");
 
 (function(exports) {
 
-	'use strict';
+    'use strict';
 
-	exports.init = function() {
-		return 'init';
-	};
-	exports.GenerateData = GenerateData;
+    exports.init = function() {
+        return 'init';
+    };
+    exports.GenerateData = GenerateData;
 
 }(typeof exports === 'object' && exports || this));
