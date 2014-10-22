@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/cesine/ToolsForFieldLinguistics.svg)](https://travis-ci.org/cesine/ToolsForFieldLinguistics)
+
+
 # ToolsForFieldLinguistics
 
 A collection of scripts and recipes for fieldlinguistics and RAs in data heavy labs
