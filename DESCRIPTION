@@ -12,7 +12,8 @@ Depends:
     methods
 Imports:
     digest,
-    crayon
+    crayon,
+    kernlab
 Suggests:
     devtools
 License: Apache 2.0 + file LICENSE
