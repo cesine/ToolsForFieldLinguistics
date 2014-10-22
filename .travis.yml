@@ -15,7 +15,7 @@ before_install:
 install:
   - ./travis-tool.sh install_deps
 
-script: ./travis-tool.sh run_tests
+script: cd test/ && Rscript run_tests.R
 
 on_failure:
   - ./travis-tool.sh dump_logs
