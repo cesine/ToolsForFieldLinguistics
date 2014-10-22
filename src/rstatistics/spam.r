@@ -45,7 +45,7 @@ usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters <- function(x){
 	return(prediction)
 }
 
-table(usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters(smallSpam$caplitalAve), smallSpam$type)
+table(usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters(smallSpam$capitalAve), smallSpam$type)
 
 # Create another random sample
 smallSpam <- spam[sample(dim(spam)[1], size=10),]
@@ -56,8 +56,8 @@ plot(smallSpam$capitalAve,col=spamLabel)
 spamLabel <- (smallSpam$type=="spam")*1 +3
 plot(smallSpam$capitalAve,col=spamLabel)
 
-predicted <- usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters(smallSpam$capitalAve)
-table(predicted, smallSpam$type)
+predicitonBasedOnOverfittedAveOfCapitalLetters <- usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters(smallSpam$capitalAve)
+table(predicitonBasedOnOverfittedAveOfCapitalLetters, smallSpam$type)
 
 # Create a more general 'classifer' which does not try to overfit the sample
 usingOnlyAverageOfCapitalLetters <- function(x){
@@ -67,8 +67,8 @@ usingOnlyAverageOfCapitalLetters <- function(x){
 	return(prediction)
 }
 
-predicted2 <-usingOnlyAverageOfCapitalLetters(smallSpam$capitalAve)
-table(predicted2, smallSpam$type)
+predictionBasedOnAverageOfCapitalLetters <- usingOnlyAverageOfCapitalLetters(smallSpam$capitalAve)
+table(predictionBasedOnAverageOfCapitalLetters, smallSpam$type)
 
 sum(usingAnOverfittedRuleBasedOnOnlyAverageOfCapitalLetters(spam$capitalAve)==spam$type)
 sum(usingOnlyAverageOfCapitalLetters(spam$capitalAve)==spam$type)
@@ -77,7 +77,7 @@ sum(usingOnlyAverageOfCapitalLetters(spam$capitalAve)==spam$type)
 # Compare the prediction results for the three rules 
 # 
 # Using only the feature 'your'
-table(prediction,spam$type)/length(spam$type)
+table(predictionBasedOnOnlyYour,spam$type)/length(spam$type)
 	# prediction   nonspam      spam
 	#    nonspam 0.4590306 0.1017170
 	#    spam    0.1469246 0.2923278
