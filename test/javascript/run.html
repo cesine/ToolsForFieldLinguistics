@@ -3,15 +3,16 @@
 <head>
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link  href="../../node_modules/montage-testing/reporter/style.css" rel="stylesheet" type="text/css" >
+  <link rel="shortcut icon" type="image/png" href="bower_components/jasmine/images/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="bower_components/jasmine/lib/jasmine-core/jasmine.css">
 </head>
 <body>
 	<!-- using jasmine for commonjs modules for both node and browser via montage testing which bundles require and browerify via mr-->
-    <script src="../../node_modules/montage-testing/support/jasmine.js"></script>
-    <script src="../../node_modules/montage-testing/support/js-beautify/beautify.js"></script>
-    <script src="../../node_modules/montage-testing/reporter/trivial-html.js"></script>
-    <script src="../../node_modules/montage-testing/jasmine-additions.js" ></script>
 
-    <script src="../../node_modules/montage/montage.js" data-package="../.." data-module="test/javascript/all"></script>
+	<script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+	<script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+	<script type="text/javascript" src="bower_components/jasmine/lib/jasmine-core/boot.js"></script>
+
+    <script src="explore-data/search-matrix-spec.js"></script>
 </body>
 </html>
