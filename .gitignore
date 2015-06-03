@@ -53,6 +53,7 @@ target
 *.tar
 #*.zip
 node_modules
+bower_components
 
 # Logs and databases #
 ######################
