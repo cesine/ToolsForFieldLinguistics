@@ -1,12 +1,17 @@
 describe("Searching a matrix (table) of data...", function() {
-
+	var tooSlowSeconds = 30;
 	var debug = function() {
+		return;
 		console.log(arguments);
 	};
 
 	var fillMatrix = function(rows, columns, matrixHolder, placeholder) {
 		debug("fillMatrix " + rows + " " + columns, matrixHolder, placeholder);
+		var checkForLongOperations = Date.now();
 
+		if (columns === undefined) {
+			columns = rows;
+		}
 		var errors = "";
 		if (rows <= 0) {
 			errors = errors + "Cannot create matrix with negative or zero (" + rows + ") height.";
@@ -23,10 +28,17 @@ describe("Searching a matrix (table) of data...", function() {
 		matrixHolder = matrixHolder || [];
 		placeholder = placeholder || "X";
 
-		for (i = rows - 1; i >= 0; i--) {
+		for (i = 0; i < rows; i++) {
 			debug("  Row " + i);
 			matrixHolder[i] = matrixHolder[i] || [];
-			for (j = columns - 1; j >= 0; j--) {
+			for (j = 0; j < columns; j++) {
+				if (i % 100 === 0 && j % 100 === 0) {
+					if ((Date.now() - checkForLongOperations) / 1000 > tooSlowSeconds) {
+						throw new Error("Operation is running too slow: " + (Date.now() - checkForLongOperations) / 1000 + " seconds for " + rows + "BY" + columns);
+					} else {
+						debug("Still running " + j, (Date.now() - checkForLongOperations) / 1000);
+					}
+				}
 				debug("    Column " + i);
 				matrixHolder[i][j] = placeholder;
 			}
@@ -49,7 +61,7 @@ describe("Searching a matrix (table) of data...", function() {
 		linebreak = linebreak || "\n";
 		for (i = 0; i < matrixHolder.length; i++) {
 			row = "";
-			for (j =0; j < matrixHolder[i].length; j++) {
+			for (j = 0; j < matrixHolder[i].length; j++) {
 				row = row + matrixHolder[i][j];
 			}
 			visual = (visual ? (visual + linebreak) : "") + row;
@@ -67,7 +79,7 @@ describe("Searching a matrix (table) of data...", function() {
 	describe("construction", function() {
 
 		it("should accept any NxN matrix", function() {
-			var matrix = fillMatrix(2, 2);
+			var matrix = fillMatrix(2);
 
 			expect(matrix.length).toEqual(2);
 			expect(matrix[0].length).toEqual(2);
@@ -119,7 +131,10 @@ describe("Searching a matrix (table) of data...", function() {
 		});
 
 		it("should print from the top-left to the bottom-right", function() {
-			expect(visualizeMatrix([["a", "b", "c"], ["1", "2", "3"]])).toEqual("abc\n123");
+			expect(visualizeMatrix([
+				["a", "b", "c"],
+				["1", "2", "3"]
+			])).toEqual("abc\n123");
 		});
 
 		it("should survive invalid input", function() {
@@ -131,17 +146,57 @@ describe("Searching a matrix (table) of data...", function() {
 		});
 
 		it("should survive incomplete input", function() {
-			expect(visualizeMatrix([["t","o"],["b"],["l","o","n","g"]])).toEqual("to\nb\nlong");
+			expect(visualizeMatrix([
+				["t", "o"],
+				["b"],
+				["l", "o", "n", "g"]
+			])).toEqual("to\nb\nlong");
 		});
 
 	});
 
-	it("should run in finite time", function() {
-		expect(true).toBeTruthy();
-	});
+	describe("performance", function() {
 
-	it("should run in better than N*M time", function() {
-		expect(true).toBeTruthy();
+		xit("should run in finite time", function() {
+			try {
+				fillMatrix(Infinity);
+				expect(false).toEqual("run out of time");
+			} catch (e) {
+				expect(e.message).toBeDefined();
+				expect(e.message).toContain("Operation is running too slow:");
+			}
+		});
+
+		it("should run in better than N*M time", function() {
+			var startTime;
+			var samples = [];
+			var multiple = 1.5;
+			var size = 500;
+			var k;
+
+			var matrix = []; // without assignment to go faster
+			for (k = 1; k < 5; k++) {
+				startTime = Date.now();
+				fillMatrix(size * k, size * k, matrix);
+				samples.push((Date.now() - startTime) );
+			}
+
+			console.log(samples);
+
+			expect(samples[0]).toBeGreaterThan(0);
+			expect(samples[1]).toBeGreaterThan(0);
+			expect(samples[2]).toBeGreaterThan(0);
+			expect(samples[3]).toBeGreaterThan(0);
+
+			expect(samples[1]).toBeGreaterThan(samples[0]);
+			expect(samples[2]).toBeGreaterThan(samples[1]);
+			expect(samples[3]).toBeGreaterThan(samples[2]);
+
+			expect(samples[1]).toBeLessThan(samples[0] * samples[0]);
+			expect(samples[2]).toBeLessThan(samples[1] * samples[1]);
+			expect(samples[3]).toBeLessThan(samples[2] * samples[2]);
+		});
+
 	});
 
 });
