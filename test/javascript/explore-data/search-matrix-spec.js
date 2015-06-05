@@ -5,11 +5,11 @@ describe("Searching a matrix (table) of data...", function() {
 		console.log(arguments);
 	};
 
-	var fillMatrix = function(rows, columns, matrixHolder, placeholder, randomCharacter) {
+	var fillMatrix = function(rows, columns, matrixHolder, placeholder, randomCharacters) {
 		debug("fillMatrix " + rows + " " + columns, matrixHolder, placeholder);
 		var checkForLongOperations = Date.now();
 
-		if (columns === undefined) {
+		if (columns === undefined || columns === null) {
 			columns = rows;
 		}
 		var errors = "";
@@ -25,16 +25,24 @@ describe("Searching a matrix (table) of data...", function() {
 
 		var i;
 		var j;
+		var custom;
+		var randomCharacter;
+
 		matrixHolder = matrixHolder || [];
 		placeholder = placeholder || "X";
-		if (randomCharacter) {
-			if (typeof randomCharacter === "string") {
-				randomCharacter = {
-					character: randomCharacter
+		if (randomCharacters) {
+			if (typeof randomCharacters === "string") {
+				randomCharacters = {
+					character: randomCharacters
 				};
-				randomCharacter.row = Math.floor(Math.random() * rows);
-				randomCharacter.column = Math.floor(Math.random() * columns);
+				randomCharacters.row = Math.floor(Math.random() * rows);
+				randomCharacters.column = Math.floor(Math.random() * columns);
 			}
+			if (Object.prototype.toString.call(randomCharacters) !== "[object Array]") {
+				randomCharacters = [randomCharacters];
+			}
+		} else {
+			randomCharacters = [];
 		}
 
 		for (i = 0; i < rows; i++) {
@@ -49,12 +57,15 @@ describe("Searching a matrix (table) of data...", function() {
 					}
 				}
 				matrixHolder[i][j] = placeholder;
-				if (randomCharacter && randomCharacter.column === j) {
-					if (randomCharacter && randomCharacter.row === i) {
-						matrixHolder[i][j] = randomCharacter.character;
+				for (custom = 0; custom < randomCharacters.length; custom++) {
+					randomCharacter = randomCharacters[custom];
+					if (randomCharacter && randomCharacter.column === j) {
+						if (randomCharacter && randomCharacter.row === i) {
+							matrixHolder[i][j] = randomCharacter.character;
+						}
 					}
 				}
-				debug("    Column " + i);
+				debug("  Column " + i);
 			}
 		}
 
@@ -85,6 +96,60 @@ describe("Searching a matrix (table) of data...", function() {
 		return visual;
 	};
 
+	var findInMatrix = function(matrix, findCharacter, exaustive) {
+		var i;
+		var j;
+		var matches = [];
+
+		for (i = 0; i < matrix.length; i++) {
+			debug("  Row " + i);
+			for (j = 0; j < matrix[0].length; j++) {
+				debug("    Column " + j);
+				if (matrix[i][j] === findCharacter) {
+					matches.push({
+						character: matrix[i][j],
+						row: i,
+						column: j
+					});
+				}
+			}
+		}
+		if (exaustive) {
+			return matches[0] ? matches : null;
+		}
+		return matches[0] ? matches[0] : null;
+	};
+
+	var tracePath = function(matrix, findCharacter, fromCharacter, exaustive) {
+		var location = findInMatrix(matrix, findCharacter, exaustive);
+		if (!location) {
+			return;
+		}
+		if (fromCharacter) {
+			if (typeof fromCharacter === "string") {
+				fromCharacter = findInMatrix(matrix, fromCharacter, exaustive);
+			}
+		} else {
+			fromCharacter = {
+				row: 0,
+				column: 0,
+				character: matrix[0][0]
+			};
+		}
+
+		var path = [];
+		var i;
+		var j;
+
+		for (i = fromCharacter.row; i < location.row; i++) {
+			path.push("DOWN");
+		}
+		for (j = fromCharacter.column; j < location.column; j++) {
+			path.push("RIGHT");
+		}
+
+		return path;
+	};
 
 	beforeEach(function() {
 		console.log("--------------------------------------------------");
@@ -181,6 +246,66 @@ describe("Searching a matrix (table) of data...", function() {
 				["b"],
 				["l", "o", "n", "g"]
 			])).toEqual("to\nb\nlong");
+		});
+
+	});
+
+	describe("search", function() {
+
+		it("should be able to find a matching element in finite time", function() {
+			var characterToSearchFor = "P";
+			var matrix = fillMatrix(10, null, null, "X", {
+				character: characterToSearchFor,
+				row: 9,
+				column: 7
+			});
+			console.log(matrix);
+			expect(matrix).toBeDefined();
+
+			var locationOfCharacter = findInMatrix(matrix, characterToSearchFor);
+			expect(locationOfCharacter).toBeDefined();
+			expect(locationOfCharacter.character).toEqual(characterToSearchFor);
+			expect(locationOfCharacter.row).toEqual(9);
+			expect(locationOfCharacter.column).toEqual(7);
+
+		});
+
+	});
+
+
+	describe("path", function() {
+
+		it("should be able to find a the shortest path to an element in finite time", function() {
+			var characterToSearchFor = "P";
+			var path = tracePath(fillMatrix(10, null, null, "X", {
+				character: characterToSearchFor,
+				row: 9,
+				column: 7
+			}), characterToSearchFor);
+
+			expect(path).toBeDefined();
+			expect(path.length).toEqual(16);
+
+		});
+
+		it("should be able to find a the shortest path between two elements in finite time", function() {
+			var characterToSearchFor = "P";
+			var characterToSearchFrom = "M";
+			var matrix = fillMatrix(10, null, null, ".", [{
+				character: characterToSearchFor,
+				row: 9,
+				column: 7
+			}, {
+				character: characterToSearchFrom,
+				row: 2,
+				column: 0
+			}]);
+
+			var path = tracePath(matrix, characterToSearchFor, characterToSearchFrom);
+
+			expect(path).toBeDefined();
+			expect(path.length).toEqual(14);
+
 		});
 
 	});
