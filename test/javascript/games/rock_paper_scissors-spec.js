@@ -71,6 +71,13 @@ describe("rock paper scissors game", function() {
 		it("should decide paper beats rock ", function() {
 			expect(game.compare("paper", "rock")).toEqual("paper wins");
 		});
+		it("should decide paper beats rock ", function() {
+			expect(game.compare("rock", "paper")).toEqual("paper wins");
+		});
+
+		it("should decide paper beats rock ", function() {
+			expect(game.compare("paper", "scissors")).toEqual("scissors wins");
+		});
 
 		it("should decide scissors beats paper", function() {
 			expect(game.compare("scissors", "paper")).toEqual("scissors wins");
@@ -78,6 +85,9 @@ describe("rock paper scissors game", function() {
 
 		it("should decide rock beats scissors ", function() {
 			expect(game.compare("rock", "scissors")).toEqual("rock wins");
+		});
+		it("should decide rock beats scissors ", function() {
+			expect(game.compare("scissors", "rock")).toEqual("rock wins");
 		});
 
 		it("should decide rock ties rock ", function() {
