@@ -5,7 +5,7 @@ describe("Searching a matrix (table) of data...", function() {
 		console.log(arguments);
 	};
 
-	var fillMatrix = function(rows, columns, matrixHolder, placeholder) {
+	var fillMatrix = function(rows, columns, matrixHolder, placeholder, randomCharacter) {
 		debug("fillMatrix " + rows + " " + columns, matrixHolder, placeholder);
 		var checkForLongOperations = Date.now();
 
@@ -27,20 +27,34 @@ describe("Searching a matrix (table) of data...", function() {
 		var j;
 		matrixHolder = matrixHolder || [];
 		placeholder = placeholder || "X";
+		if (randomCharacter) {
+			if (typeof randomCharacter === "string") {
+				randomCharacter = {
+					character: randomCharacter
+				};
+				randomCharacter.row = Math.floor(Math.random() * rows);
+				randomCharacter.column = Math.floor(Math.random() * columns);
+			}
+		}
 
 		for (i = 0; i < rows; i++) {
 			debug("  Row " + i);
 			matrixHolder[i] = matrixHolder[i] || [];
 			for (j = 0; j < columns; j++) {
-				if (i % 100 === 0 && j % 100 === 0) {
+				if (j % 100 === 0 && i % 100 === 0) {
 					if ((Date.now() - checkForLongOperations) / 1000 > tooSlowSeconds) {
 						throw new Error("Operation is running too slow: " + (Date.now() - checkForLongOperations) / 1000 + " seconds for " + rows + "BY" + columns);
 					} else {
 						debug("Still running " + j, (Date.now() - checkForLongOperations) / 1000);
 					}
 				}
-				debug("    Column " + i);
 				matrixHolder[i][j] = placeholder;
+				if (randomCharacter && randomCharacter.column === j) {
+					if (randomCharacter && randomCharacter.row === i) {
+						matrixHolder[i][j] = randomCharacter.character;
+					}
+				}
+				debug("    Column " + i);
 			}
 		}
 
@@ -117,6 +131,22 @@ describe("Searching a matrix (table) of data...", function() {
 			}
 		});
 
+	});
+
+	describe("contents", function() {
+
+		it("should be able to put a custom placeholder any matrix", function() {
+			expect(visualizeMatrix(fillMatrix(2, 2, null, "0"))).toEqual("00\n00");
+		});
+
+		it("should be able to put a random character in any matrix", function() {
+			expect(visualizeMatrix(fillMatrix(2, 2, null, "0", "p"))).not.toEqual("00\n00");
+			expect(visualizeMatrix(fillMatrix(4, 5, null, ".", {
+				character: "∆",
+				row: 3,
+				column: 1
+			}))).toEqual('.....\n.....\n.....\n.∆...');
+		});
 
 	});
 
@@ -170,7 +200,6 @@ describe("Searching a matrix (table) of data...", function() {
 		it("should run in better than N*M time", function() {
 			var startTime;
 			var samples = [];
-			var multiple = 1.5;
 			var size = 500;
 			var k;
 
@@ -178,7 +207,7 @@ describe("Searching a matrix (table) of data...", function() {
 			for (k = 1; k < 5; k++) {
 				startTime = Date.now();
 				fillMatrix(size * k, size * k, matrix);
-				samples.push((Date.now() - startTime) );
+				samples.push((Date.now() - startTime));
 			}
 
 			console.log(samples);
