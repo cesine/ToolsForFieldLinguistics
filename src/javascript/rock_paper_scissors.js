@@ -1,7 +1,9 @@
+/* globals prompt */
+
 /**
- * This is a Class which you can call "new RockPaperScissorsGame()" and 
+ * This is a Class which you can call "new RockPaperScissorsGame()" and
  * it will return an instance of the game which you can run.
- * 
+ *
  * @return {[type]}
  */
 var RockPaperScissorsGame = function() {
@@ -22,22 +24,32 @@ var RockPaperScissorsGame = function() {
   this.compare = function(choice1, choice2) {
     if (choice1 === choice2) {
       return "The result is a tie!";
-    } else if (choice1 === "rock")
+
+    } else if (choice1 === "rock") {
+
       if (choice2 === "scissors") {
         return "rock wins";
       } else {
         return "paper wins";
-      } else if (choice1 === "paper")
+      }
+
+    } else if (choice1 === "paper") {
+
       if (choice2 === "rock") {
         return "paper wins";
       } else {
-        "scissors wins";
-      } else if (choice1 === "scissors")
+        return "scissors wins";
+      }
+
+    } else if (choice1 === "scissors") {
+
       if (choice2 === "rock") {
         return "rock wins";
       } else {
-        return "scissors wins"
+        return "scissors wins";
       }
+
+    }
   };
 
   return this;
