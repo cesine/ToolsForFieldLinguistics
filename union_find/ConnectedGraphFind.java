@@ -41,7 +41,7 @@ public class ConnectedGraphFind {
       return false;
     }
 
-    return id[p] == id[q];
+    return root(p) == root(q);
   }
 
   /**
