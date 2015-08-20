@@ -23,6 +23,19 @@ public class ConnectedGraphFind {
     }
   }
 
+  /**
+   * Find the root (parent) of a given node
+   * 
+   * @param  {[type]} int i             [description]
+   * @return {[type]}     [description]
+   */
+  private int root(int i) {
+    while (i != id[i] /* if the parent is the same as the sought item, then we are done. */ ) {
+      i = id[i];
+    }
+    return i;
+  }
+
   public boolean connected(int p, int q) {
     if (id == null || id.length < p || id.length < q) {
       return false;
