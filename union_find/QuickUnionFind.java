@@ -1,3 +1,11 @@
+/**
+ * O end behaviour:
+ *
+ * - Initialize = N
+ * - Modify nodes = N
+ * - Query = 1
+ * 
+ */
 public class QuickUnionFind {
 
   private int[] id;
@@ -19,7 +27,7 @@ public class QuickUnionFind {
     if (id == null || id.length < p || id.length < q) {
       return false;
     }
-    
+
     return id[p] == id[q];
   }
 
@@ -27,9 +35,9 @@ public class QuickUnionFind {
    * This requires a loop through all the elements in the graph
    * which is not good if the size of the graph is large. 
    * 
-   * @param  {[type]} int p             [description]
-   * @param  {[type]} int q             [description]
-   * @return {[type]}     [description]
+   * @param  {int} p             a node to connect
+   * @param  {int} q             another node to connect
+   * @return {int}     false if it refuses to run the operation
    */
   public boolean union(int p, int q) {
     if (id == null || id.length < p || id.length < q) {
