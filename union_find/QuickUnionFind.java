@@ -1,8 +1,14 @@
 public class QuickUnionFind {
 
   private int[] id;
+  public static boolean protectUserFromThemSelves = true;
 
   public QuickUnionFind(int N) {
+    if (protectUserFromThemSelves && N > 9999) {
+      System.out.println("WARNING: This algorithm should not be used on large data sets.");
+      return;
+    }
+
     id = new int[N];
     for (int i = 0; i < N; i++) {
       id[i] = i;
@@ -10,6 +16,10 @@ public class QuickUnionFind {
   }
 
   public boolean connected(int p, int q) {
+    if (id == null || id.length < p || id.length < q) {
+      return false;
+    }
+    
     return id[p] == id[q];
   }
 
@@ -22,10 +32,14 @@ public class QuickUnionFind {
    * @return {[type]}     [description]
    */
   public boolean union(int p, int q) {
+    if (id == null || id.length < p || id.length < q) {
+      return false;
+    }
+
     int pid = id[p];
     int qid = id[q];
 
-    if (id != null && id.length > 9999){
+    if (protectUserFromThemSelves && id != null && id.length > 9999) {
       System.out.println("WARNING: This algorithm should not be used on large data sets.");
       return false;
     }
