@@ -6,12 +6,12 @@
  * - Query = 1
  * 
  */
-public class QuickUnionFind {
+public class ConnectedGraphFind {
 
   private int[] id;
   public static boolean protectUserFromThemSelves = true;
 
-  public QuickUnionFind(int N) {
+  public ConnectedGraphFind(int N) {
     if (protectUserFromThemSelves && N > 9999) {
       System.out.println("WARNING: This algorithm should not be used on large data sets.");
       return;
