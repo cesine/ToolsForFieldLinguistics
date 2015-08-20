@@ -7,6 +7,13 @@ public class ConnectedGraphFindTest {
     System.out.println("  Created world defaultSize: " + defaultSize + " : " + world);
   }
 
+  public static void itShouldBeAbleToTraceTheRootOfANode() {
+    ConnectedGraphFind world = new ConnectedGraphFind(defaultSize);
+    int one = world.root(1);
+    assert one == 1;
+    System.out.println("  Is 1 the root/parent of itself? " + one + " " + world);
+  }
+
   public static void itShouldKnowIfTwoNodesAreConnected() {
     ConnectedGraphFind world = new ConnectedGraphFind(defaultSize);
     boolean connected = world.connected(1, 3);
@@ -48,13 +55,13 @@ public class ConnectedGraphFindTest {
 
     world.union(2, 3);
     System.out.println("  Should have 1, 2 and 3 be the same " + world);
-
   }
 
   public static void main(String[] args) {
     System.out.println("\nRunning specs: ");
 
     itShouldConstruct();
+    itShouldBeAbleToTraceTheRootOfANode();
     itShouldKnowIfTwoNodesAreConnected();
 
     // itShouldThrowOutOfMemoryError();

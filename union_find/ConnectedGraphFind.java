@@ -29,7 +29,7 @@ public class ConnectedGraphFind {
    * @param  {[type]} int i             [description]
    * @return {[type]}     [description]
    */
-  private int root(int i) {
+  public int root(int i) {
     while (i != id[i] /* if the parent is the same as the sought item, then we are done. */ ) {
       i = id[i];
     }
