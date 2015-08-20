@@ -1,4 +1,5 @@
 public class QuickUnionFind {
+  
   private int[] id;
 
   public QuickUnionFind(int N) {
@@ -6,6 +7,10 @@ public class QuickUnionFind {
     for (int i = 0; i < N; i++) {
       id[i] = i;
     }
+  }
+
+  public boolean connected(int p, int q) {
+    return id[p] == id[q];
   }
 
   public String toString() {
@@ -19,7 +24,7 @@ public class QuickUnionFind {
       }
       contents += id[i];
     }
-    return contents+ "]";
+    return contents + "]";
   }
 
 }
