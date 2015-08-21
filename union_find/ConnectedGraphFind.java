@@ -2,13 +2,13 @@
  * O end behaviour:
  *
  * - Initialize = N
- * - Modify nodes = N
- * - Query = 1
+ * - Modify nodes = N 
+ * - Query = N (worst case if tree is tall)
  * 
  */
 public class ConnectedGraphFind {
 
-  private int[] id;
+  private int[] representation;
   public static boolean protectUserFromThemSelves = true;
 
   public ConnectedGraphFind(int N) {
@@ -17,9 +17,9 @@ public class ConnectedGraphFind {
       return;
     }
 
-    id = new int[N];
+    representation = new int[N];
     for (int i = 0; i < N; i++) {
-      id[i] = i;
+      representation[i] = i;
     }
   }
 
@@ -30,18 +30,18 @@ public class ConnectedGraphFind {
    * @return {[type]}     [description]
    */
   public int root(int node) {
-    if (id == null || id.length < node) {
+    if (representation == null || representation.length < node) {
       return -1;
     }
 
-    while (node != id[node] /* if the parent is the same as the sought item, then we are done. */ ) {
-      node = id[node];
+    while (node != representation[node] /* if the parent is the same as the sought item, then we are done. */ ) {
+      node = representation[node];
     }
     return node;
   }
 
   public boolean connected(int p, int q) {
-    if (id == null || id.length < p || id.length < q) {
+    if (representation == null || representation.length < p || representation.length < q) {
       return false;
     }
 
@@ -56,27 +56,27 @@ public class ConnectedGraphFind {
    * @return {int}     false if it refuses to run the operation
    */
   public boolean union(int p, int q) {
-    if (id == null || id.length < p || id.length < q) {
+    if (representation == null || representation.length < p || representation.length < q) {
       return false;
     }
 
     int i = root(p);
     int j = root(q);
 
-    id[i] = j;
+    representation[i] = j;
     return true;
   }
 
   public String toString() {
-    if (id == null || id.length == 0) {
+    if (representation == null || representation.length == 0) {
       return "";
     }
     String contents = "[";
-    for (int i = 0; i < id.length; i++) {
+    for (int i = 0; i < representation.length; i++) {
       if (i > 0) {
         contents += "|";
       }
-      contents += id[i];
+      contents += representation[i];
     }
     return contents + "]";
   }
