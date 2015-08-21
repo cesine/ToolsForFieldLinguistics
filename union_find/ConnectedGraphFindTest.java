@@ -77,6 +77,8 @@ public class ConnectedGraphFindTest {
   }
 
   public static void itShouldPartiallyRepresentTheGraphParentNodes() {
+    System.out.println("  Derivation example");
+
     ConnectedGraphFind world = new ConnectedGraphFind(10);
     assert world.toString().equals("[0|1|2|3|4|5|6|7|8|9]");
 
@@ -109,6 +111,26 @@ public class ConnectedGraphFindTest {
     assert world.toString().equals("[0|0|0|3|9|4|8|9|8|8]");
   }
 
+  public static void itShouldAvoidTallTrees() {
+    System.out.println("  Avoid tall trees derivation example");
+    ConnectedGraphFind world = new ConnectedGraphFind(10);
+    assert world.toString().equals("[0|1|2|3|4|5|6|7|8|9]");
+
+    world.union(4, 3);
+    world.union(3, 8);
+    world.union(6, 5);
+    world.union(9, 4);
+    world.union(2, 1);
+    world.union(5, 0);
+    world.union(7, 2);
+    world.union(6, 1);
+    world.union(7, 3);
+    System.out.println("  " + world);
+    // assert(!world.toString().equals("[1|8|1|8|3|0|5|1|8|8]"));
+    // assert world.toString().equals("[6|2|6|4|6|6|6|2|4|4]");
+
+  }
+
   public static void main(String[] args) {
     System.out.println("\nRunning specs: ");
 
@@ -124,6 +146,7 @@ public class ConnectedGraphFindTest {
     itShouldComplainIfYouRunUnionOnALargeDataSet();
 
     itShouldPartiallyRepresentTheGraphParentNodes();
+    itShouldAvoidTallTrees();
 
     System.out.println("Done\n");
   }
