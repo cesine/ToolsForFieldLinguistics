@@ -4,7 +4,8 @@
   "homepage": "https://github.com/cesine/ToolsForFieldLinguistics",
   "authors": [
     "cesine <cesine@yahoo.com>",
-    "hisakonog <hisakonog@gmail.com>"
+    "hisakonog <hisakonog@gmail.com>",
+    "vronvali <vronvali@gmail.com>"
   ],
   "description": "A collection of scripts and recipes for fieldlinguistics",
   "main": "dist/tools-for-field-linguistics.min.js",

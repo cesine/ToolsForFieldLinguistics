@@ -90,5 +90,5 @@ Groovy Syntax highlighting using Eclipse
 
 
 ## License
-Copyright (c) 2010-2013 cesine, hisakonog
+Copyright (c) 2010-2015 cesine, hisakonog, vronvali
 Licensed under the Apache 2.0 license.
