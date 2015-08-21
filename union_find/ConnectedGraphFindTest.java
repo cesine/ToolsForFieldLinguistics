@@ -92,16 +92,20 @@ public class ConnectedGraphFindTest {
     assert world.toString().equals("[0|0|0|3|4|4|6|7|8|9]");
     world.union(4, 9);
     System.out.println("  " + world);
+    assert(!world.toString().equals("[0|0|0|3|9|9|6|7|8|9]"));
     assert world.toString().equals("[0|0|0|3|9|4|6|7|8|9]");
     world.union(7, 5);
     System.out.println("  " + world);
-    assert !world.toString().equals("[0|0|0|3|9|4|6|5|8|9]");
+    assert(!world.toString().equals("[0|0|0|3|9|4|6|5|8|9]"));
+    assert(!world.toString().equals("[0|0|0|3|9|9|6|9|8|9]"));
     assert world.toString().equals("[0|0|0|3|9|4|6|9|8|9]");
     world.union(6, 8);
     System.out.println("  " + world);
+    assert(!world.toString().equals("[0|0|0|3|9|9|8|9|8|9]"));
     assert world.toString().equals("[0|0|0|3|9|4|8|9|8|9]");
     world.union(9, 8);
     System.out.println("  " + world);
+    assert(!world.toString().equals("[0|0|0|3|8|8|8|8|8|8]"));
     assert world.toString().equals("[0|0|0|3|9|4|8|9|8|8]");
   }
 
