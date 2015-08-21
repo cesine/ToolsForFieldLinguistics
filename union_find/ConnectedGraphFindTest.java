@@ -15,6 +15,13 @@ public class ConnectedGraphFindTest {
     System.out.println("  Is 1 the root/parent of itself? " + one + " " + world);
   }
 
+  public static void itShouldConnectNodes() {
+    ConnectedGraphFind world = new ConnectedGraphFind(defaultSize);
+    world.union(1, 3);
+    System.out.println("  1 and 3 have the same root? " + world);
+    assert world.toString().equals("[0|3|2|3]");
+  }
+
   public static void itShouldKnowIfTwoNodesAreConnected() {
     ConnectedGraphFind world = new ConnectedGraphFind(defaultSize);
     world.union(1, 3);
@@ -95,20 +102,25 @@ public class ConnectedGraphFindTest {
     world.union(4, 9);
     System.out.println("  " + world);
     assert(!world.toString().equals("[0|0|0|3|9|9|6|7|8|9]"));
-    assert world.toString().equals("[0|0|0|3|9|4|6|7|8|9]");
+    assert(!world.toString().equals("[0|0|0|3|9|4|6|7|8|9]"));
+    assert world.toString().equals("[0|0|0|3|4|4|6|7|8|4]");
     world.union(7, 5);
     System.out.println("  " + world);
     assert(!world.toString().equals("[0|0|0|3|9|4|6|5|8|9]"));
     assert(!world.toString().equals("[0|0|0|3|9|9|6|9|8|9]"));
-    assert world.toString().equals("[0|0|0|3|9|4|6|9|8|9]");
+    assert(!world.toString().equals("[0|0|0|3|9|4|6|9|8|9]"));
+    assert world.toString().equals("[0|0|0|3|4|4|6|4|8|4]");
     world.union(6, 8);
     System.out.println("  " + world);
     assert(!world.toString().equals("[0|0|0|3|9|9|8|9|8|9]"));
-    assert world.toString().equals("[0|0|0|3|9|4|8|9|8|9]");
+    assert(!world.toString().equals("[0|0|0|3|9|4|8|9|8|9]"));
+    assert world.toString().equals("[0|0|0|3|4|4|8|4|8|4]");
     world.union(9, 8);
     System.out.println("  " + world);
     assert(!world.toString().equals("[0|0|0|3|8|8|8|8|8|8]"));
-    assert world.toString().equals("[0|0|0|3|9|4|8|9|8|8]");
+    assert(!world.toString().equals("[0|0|0|3|9|4|8|9|8|8]"));
+    assert(!world.toString().equals("[0|0|0|3|4|4|8|4|8|4]"));
+    assert world.toString().equals("[0|0|0|3|4|4|8|4|4|4]");
   }
 
   public static void itShouldAvoidTallTrees() {
@@ -126,9 +138,11 @@ public class ConnectedGraphFindTest {
     world.union(6, 1);
     world.union(7, 3);
     System.out.println("  " + world);
-    // assert(!world.toString().equals("[1|8|1|8|3|0|5|1|8|8]"));
-    // assert world.toString().equals("[6|2|6|4|6|6|6|2|4|4]");
-
+    assert(!world.toString().equals("[1|8|1|8|3|0|5|1|8|8]"));
+    String lessThanEqualsUnion = "[6|2|6|4|6|6|6|2|4|4]";
+    assert(!world.toString().equals(lessThanEqualsUnion));
+    String greaterThanEqualsUnion = "[5|1|1|1|3|1|5|1|3|3]";
+    assert world.toString().equals(greaterThanEqualsUnion);
   }
 
   public static void main(String[] args) {
@@ -137,6 +151,8 @@ public class ConnectedGraphFindTest {
 
     itShouldConstruct();
     itShouldBeAbleToTraceTheRootOfANode();
+
+    itShouldConnectNodes();
 
     itShouldKnowIfTwoNodesAreConnected();
     itShouldKnowIfTwoNodesAreTransitivelyConnected();
