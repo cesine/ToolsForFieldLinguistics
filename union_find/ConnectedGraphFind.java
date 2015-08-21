@@ -36,6 +36,7 @@ public class ConnectedGraphFind {
     return i;
   }
 
+
   public boolean connected(int p, int q) {
     if (id == null || id.length < p || id.length < q) {
       return false;
@@ -45,8 +46,7 @@ public class ConnectedGraphFind {
   }
 
   /**
-   * This requires a loop through all the elements in the graph
-   * which is not good if the size of the graph is large. 
+   * This runs in logN time
    * 
    * @param  {int} p             a node to connect
    * @param  {int} q             another node to connect
@@ -57,18 +57,10 @@ public class ConnectedGraphFind {
       return false;
     }
 
-    int pid = id[p];
-    int qid = id[q];
+    int i = root(p);
+    int j = root(q);
 
-    if (protectUserFromThemSelves && id != null && id.length > 9999) {
-      System.out.println("WARNING: This algorithm should not be used on large data sets.");
-      return false;
-    }
-    for (int i = 0; i < id.length; i++) {
-      if (id[i] == pid) {
-        id[i] = qid;
-      }
-    }
+    id[i] = j;
     return true;
   }
 
