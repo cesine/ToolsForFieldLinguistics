@@ -30,12 +30,15 @@ public class ConnectedGraphFind {
    * @return {[type]}     [description]
    */
   public int root(int node) {
+    if (id == null || id.length < node) {
+      return -1;
+    }
+
     while (node != id[node] /* if the parent is the same as the sought item, then we are done. */ ) {
       node = id[node];
     }
     return node;
   }
-
 
   public boolean connected(int p, int q) {
     if (id == null || id.length < p || id.length < q) {
