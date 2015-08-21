@@ -36,9 +36,9 @@ describe("Generating data...", function() {
     var resultOfExpSlow = generateData.measureRunTime(measureMeExponetiallySlow, [max, dataHolder], runtimeHolder);
     // console.log(JSON.stringify(dataHolder));
 
-    /* If it was unmeasureably fast, try again with 10 times more data */
+    /* If it was unmeasureably fast, try again with twice as much data */
     if (runtimeHolder.runtime === 0) {
-      max = max * 10;
+      max = max * 2;
       resultOfExpSlow = generateData.measureRunTime(measureMeExponetiallySlow, [max, dataHolder], runtimeHolder);
     }
     expect(resultOfExpSlow.length > 0).toBe(true);
@@ -175,6 +175,9 @@ describe("Generating data...", function() {
     var exponentialTime = linearFactor * linearFactor;
     expect(firstFactor).toBeLessThan(exponentialTime);
     expect(secondFactor).toBeLessThan(exponentialTime);
+    var exponent = Math.log2(runtime2/runtime1);
+    console.log(exponent);
+    expect(Math.round(exponent)).toEqual(2);
   });
 
 
