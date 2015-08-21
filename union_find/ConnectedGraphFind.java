@@ -15,7 +15,7 @@ public class ConnectedGraphFind {
 
   public ConnectedGraphFind(int N) {
     if (protectUserFromThemSelves && N > 9999) {
-      System.out.println("    WARNING: This algorithm should not be used on large data sets.");
+      System.out.println("    WARNING: This algorithm should not be used on data sets larger than ~1.79e8 on heap space of 2GB");
       return;
     }
 
@@ -39,7 +39,7 @@ public class ConnectedGraphFind {
     }
 
     while (node != representation[node] /* if the parent is the same as the sought item, then we are done. */ ) {
-      System.out.println("    node: " + node + " parent: " + representation[node]);
+      // System.out.println("    node: " + node + " parent: " + representation[node]);
       node = representation[node];
     }
     return node;
@@ -75,8 +75,8 @@ public class ConnectedGraphFind {
     if (i == j) {
       return true;
     }
-    System.out.println("    p " + p + " root: " + i + " " + " size  " + sz[i]);
-    System.out.println("    q " + q + " root: " + j + " " + " size  " + sz[j]);
+    // System.out.println("    p " + p + " root: " + i + " " + " size  " + sz[i]);
+    // System.out.println("    q " + q + " root: " + j + " " + " size  " + sz[j]);
 
     if (sz[i] > sz[j]) {
       representation[j] = i;

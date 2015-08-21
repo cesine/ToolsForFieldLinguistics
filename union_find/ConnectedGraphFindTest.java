@@ -69,9 +69,14 @@ public class ConnectedGraphFindTest {
   public static void itShouldThrowOutOfMemoryError() {
     ConnectedGraphFind.protectUserFromThemSelves = false;
     assert ConnectedGraphFind.protectUserFromThemSelves == false;
-    ConnectedGraphFind world = new ConnectedGraphFind(999999999);
-    System.out.println("  Should have thrown an error. ");
-    assert world.toString().equals("[0|1|2|3]");
+
+    ConnectedGraphFind world = new ConnectedGraphFind((int) 1.79e8);
+    System.out.println("  Should thow an error at initialization of two arrays. ");
+
+    world = new ConnectedGraphFind((int) 3.58e8);
+    System.out.println("  Should throw an error at initialization of only one array. ");
+
+    assert world.toString().equals("");
     ConnectedGraphFind.protectUserFromThemSelves = true;
   }
 
