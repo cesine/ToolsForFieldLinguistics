@@ -2,9 +2,11 @@
  * O end behaviour:
  *
  * - Initialize = N
- * - Modify nodes = log N (find roots of each node)
- * - Query = log N  (because trees are ballanced)
- * 
+ * - Modify nodes = log* N or ~linear (has to find roots of each node, and "compress paths")
+ * - Query = log* N or ~linear (because trees are ballanced and minimal depth)
+ *
+ *
+ * log* N (basically <5)
  */
 public class ConnectedGraphFind {
 
@@ -39,7 +41,11 @@ public class ConnectedGraphFind {
     }
 
     while (node != representation[node] /* if the parent is the same as the sought item, then we are done. */ ) {
-      // System.out.println("    node: " + node + " parent: " + representation[node]);
+      System.out.println("    node: " + node + " parent: " + representation[node] + " grandparent: " + representation[representation[node]]);
+      
+      // Might as well flaten the tree to make every other node point to the grandparent
+      representation[node] = representation[representation[node]];
+
       node = representation[node];
     }
     return node;
@@ -75,8 +81,8 @@ public class ConnectedGraphFind {
     if (i == j) {
       return true;
     }
-    // System.out.println("    p " + p + " root: " + i + " " + " size  " + sz[i]);
-    // System.out.println("    q " + q + " root: " + j + " " + " size  " + sz[j]);
+    System.out.println("    p " + p + " root: " + i + " " + " size  " + sz[i]);
+    System.out.println("    q " + q + " root: " + j + " " + " size  " + sz[j]);
 
     if (sz[i] > sz[j]) {
       representation[j] = i;
