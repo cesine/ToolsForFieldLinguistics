@@ -22,12 +22,26 @@ public class TrieTest {
     assert vocab.toString().equals("");
   }
 
+  public static void itShouldBeAbleToFindIndexOfACharacterInASet(){
+    int found = Trie.findCharSetIndex('მ');
+    assert found == 3;
+
+    found = Trie.findCharSetIndex('a');
+    assert found == -1;
+
+    found = Trie.findCharSetIndex(Trie.charset[Trie.charset.length-1]);
+    assert found == Trie.charset.length-1;
+  }
+
   public static void main(String[] args) {
     System.out.println("\nRunning specs: ");
 
     itShouldConstruct();
     itShouldConstructWithArrayOfWords();
 
+    itShouldBeAbleToFindIndexOfACharacterInASet();
+
     System.out.println("Done\n");
   }
+
 }

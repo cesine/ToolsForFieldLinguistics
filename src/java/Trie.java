@@ -1,7 +1,6 @@
-
 public class Trie implements Lexicon {
 
-  private char[] charset = {
+  public static char[] charset = {
     'ბ', 'თ', 'ს', 'მ', 'შ', 'ჯ', 'ა', 'ი', 'უ', 'ო'
   };
   private Trie[] children = new Trie[charset.length];
@@ -18,6 +17,9 @@ public class Trie implements Lexicon {
 
   @Override
   public boolean add(String word) {
+    char first = word.charAt(0);
+    int index = findCharSetIndex(first);
+
     return false;
   }
 
@@ -43,6 +45,15 @@ public class Trie implements Lexicon {
 
   public String toString() {
     return "";
+  }
+
+  public static int findCharSetIndex(char character) {
+    for (int i = 0; i < charset.length; i++) {
+      if (charset[i] == character) {
+        return i;
+      }
+    }
+    return -1;
   }
 
 }
