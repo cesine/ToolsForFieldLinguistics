@@ -7,22 +7,26 @@ public class Trie implements Lexicon {
   private Trie[] children = new Trie[charset.length];
   private int numberOfBranches = 0;
   private boolean isFreeMorpheme = false;
+  private int size = 0;
   String value = "";
+
   public Trie() {
     // System.out.println("Constructing");
   }
 
   public Trie(String[] words) {
     for (int i = 0; i < words.length; i++) {
-      // System.out.println("Word: ");
-      add(words[i]);
+      boolean added = add(words[i]);
+      if (added) {
+        this.size++;
+      }
+      // System.out.println("Words: " + this.size + " out of " + words.length);
     }
   }
 
   @Override
   public boolean add(String word) {
-    char first = word.charAt(0);
-    int index = findCharSetIndex(first);
+    int index = findCharSetIndex(word.charAt(0));
     if (index < 0) {
       System.out.println("You requested a word which is outside the character set which this Lexicon supports :(\n\t" + word);
       return false;
@@ -30,7 +34,6 @@ public class Trie implements Lexicon {
 
     // System.out.println("Adding: " + word);
     Trie child = children[index];
-
     // If there is no Trie at that index yet, then add one.
     if (child == null) {
       child = new Trie();
@@ -45,6 +48,7 @@ public class Trie implements Lexicon {
         return false;
       }
       child.isFreeMorpheme = true;
+      // System.out.println("Added. ");
       return true;
     } else {
       // recurse
@@ -59,7 +63,8 @@ public class Trie implements Lexicon {
 
   @Override
   public boolean contains(String word) {
-    return false;
+    Trie terminalNode = getTerminalNode(word);
+    return terminalNode != null && terminalNode.isFreeMorpheme;
   }
 
   @Override
@@ -72,6 +77,26 @@ public class Trie implements Lexicon {
     return new Object();
   }
 
+  /**
+   * Takes the time which is the length of the word
+   * 
+   * @param  {[type]} String word          [description]
+   * @return {[type]}        [description]
+   */
+  public Trie getTerminalNode(String word) {
+    Trie node = this;
+    for (int i = 0; i < word.length(); i++) {
+      int index = findCharSetIndex(word.charAt(i));
+      Trie child = node.children[index];
+      if (child == null) {
+        System.out.println("Word " + word + " doesnt exist past char " + i + ": " + word.charAt(i));
+        return null;
+      }
+      node = child;
+    }
+    return node;
+  }
+
   public String longestBranch(int level, String word) {
     String longestWord = "";
     for (int i = 0; i < charset.length; i++) {
@@ -79,7 +104,7 @@ public class Trie implements Lexicon {
         word = "";
       }
       if (children[i] != null) {
-        word +=  value;
+        word += value;
         System.out.println(level + ": Looking at " + value);
         if (children[i].isFreeMorpheme) {
           word = word + "" + children[i].value;
@@ -106,9 +131,10 @@ public class Trie implements Lexicon {
   /** 
    * ***** Printing functions *********
    */
-  
+
   public String toString() {
-    return toString(0, 0);
+    return this.size + "";
+    // return toString(0, 0);
   }
 
 
@@ -177,7 +203,7 @@ public class Trie implements Lexicon {
     asString += thisRowBranches + "\n";
     return asString;
   }
-  
+
 
   private static String pad(int padding) {
     String spaces = "";
@@ -193,7 +219,10 @@ public class Trie implements Lexicon {
   public static int findCharSetIndex(char character) {
     for (int i = 0; i < charset.length; i++) {
       if (charset[i] == character) {
+        // System.out.println(" " + charset[i] + " =" + character);
         return i;
+      } else {
+        // System.out.println(charset[i] + " !" + character);
       }
     }
     return -1;

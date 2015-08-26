@@ -61,6 +61,16 @@ public class TrieTest {
     assert found == Trie.charset.length - 1;
   }
 
+  public static void itShouldFindIfAWordIsInTheLexicon() {
+    Trie vocab = new Trie(defaultVocab);
+    Trie terminalNode = vocab.getTerminalNode("ბათუმ");
+    System.out.println("  Vocab : " + vocab + "\n");
+
+    assert terminalNode != null;
+    System.out.println("  ბათუმ : ends in " + terminalNode.value + "\n");
+    assert "მ".equals(terminalNode.value);
+  }
+
   public static void itShouldBeAbleToFindTheLongestWord() {
     Trie vocab = new Trie();
     String longest = vocab.longestBranch(0, null);
@@ -91,7 +101,8 @@ public class TrieTest {
 
     // itShouldBeAbleToFindIndexOfACharacterInASet();
 
-    itShouldBeAbleToFindTheLongestWord();
+    itShouldFindIfAWordIsInTheLexicon();
+    // itShouldBeAbleToFindTheLongestWord();
 
     System.out.println("Done\n");
   }
