@@ -1,36 +1,47 @@
 
-public class Trie implements Lexicon{
+public class Trie implements Lexicon {
+
+  private char[] charset = {
+    'ბ', 'თ', 'ს', 'მ', 'შ', 'ჯ', 'ა', 'ი', 'უ', 'ო'
+  };
+  private Trie[] children = new Trie[charset.length];
 
   public Trie() {
     System.out.println("Constructing");
   }
 
+  public Trie(String[] words) {
+    for (int i = 0; i < words.length; i++) {
+      add(words[i]);
+    }
+  }
+
   @Override
-  public boolean add(String word){
+  public boolean add(String word) {
     return false;
   }
 
   @Override
-  public boolean remove(String word){
+  public boolean remove(String word) {
     return false;
   }
 
   @Override
-  public boolean contains(String word){
+  public boolean contains(String word) {
     return false;
   }
 
   @Override
-  public boolean isPrefix(String prefix){
+  public boolean isPrefix(String prefix) {
     return false;
   }
 
   @Override
-  public Object find(String word){
+  public Object find(String word) {
     return new Object();
   }
 
-  public String toString(){
+  public String toString() {
     return "";
   }
 
