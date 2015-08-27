@@ -52,36 +52,32 @@ public class BinaryArithmetic {
       result[i] = 0;
     }
 
-    //itterate using a window of relevant info
-    int previousResult = 0;
+    //keep track of the carry
+    int carry = 0;
     for (int current = maxLength - 1; current >= 0; current--) {
-      int previous = current - 1;
-      if (previous < -1) {
-        break;
-      }
       System.out.println("Working on " + current);
       char acurrent = a.charAt(current);
       char bcurrent = b.charAt(current);
 
       System.out.println("Sum of " + acurrent + " + " + bcurrent + " =");
-      int sum = addChar(acurrent, bcurrent) + previousResult;
+      int sum = addChar(acurrent, bcurrent) + carry;
       System.out.println("     = " + sum);
       if (sum == 3) {
         result[current] = 1;
-        previousResult = 1;
-        System.out.println(" Carrying further " + previousResult);
+        carry = 1;
+        System.out.println(" Carrying further " + carry);
       } else if (sum == 2) {
         result[current] = 0;
-        previousResult = 1;
-        System.out.println(" Carrying " + previousResult);
+        carry = 1;
+        System.out.println(" Carrying " + carry);
       } else {
         result[current] = sum;
-        previousResult = 0;
+        carry = 0;
       }
     }
 
     String asString = "";
-    if (previousResult == 1) {
+    if (carry == 1) {
       asString += "1";
     }
     for (int i = 0; i < maxLength; i++) {
