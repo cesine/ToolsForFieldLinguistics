@@ -1,13 +1,13 @@
 public class BinaryArithmeticTest {
 
-  public static void itShouldBeAbleToAddBinaryStrings() {
+  public static void itShouldBeAbleToAddBinaryStrings() throws Exception {
     String result = BinaryArithmetic.addBinaryStrings("0", "0");
-    System.out.println(" Added strings 0 and 0 :" + result+ ":");
+    System.out.println(" Added strings 0 and 0 :" + result + ":");
     assert result != null;
     assert "0".equals(result);
 
     result = BinaryArithmetic.addBinaryStrings("0000", "0");
-    System.out.println(" should pad the result to the size of the input :" + result+ ":");
+    System.out.println(" should pad the result to the size of the input :" + result + ":");
     assert "0000".equals(result);
   }
 
@@ -30,7 +30,7 @@ public class BinaryArithmeticTest {
       assert result == 0;
       assert false;
     } catch (Exception e) {
-      System.out.println("   should throw an exception " );
+      System.out.println("   should throw an exception ");
       assert true;
     }
   }
@@ -39,11 +39,11 @@ public class BinaryArithmeticTest {
     System.out.println("\nRunning specs for BinaryArithmetic: ");
 
 
-    itShouldBeAbleToAddBinaryStrings();
     try {
+      itShouldBeAbleToAddBinaryStrings();
       itShouldBeAbleToAddChar();
     } catch (Exception e) {
-      System.out.println("Unexpected error in itShouldBeAbleToAddChar.");
+      System.out.println("Unexpected error in itShouldBeAbleToAddChar."+ e);
     }
 
     System.out.println("\nDone \n\n");

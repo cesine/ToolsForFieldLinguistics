@@ -9,36 +9,45 @@ public class BinaryArithmetic {
    * minimal time is going to be max length of one of the string 
    * x2 because of initialization and conversion to string
    */
-  static String addBinaryStrings(String a, String b) {
-    int maxLength = Math.max(a.length(), b.length());
-    int[] result = new int[maxLength + 1]; // initialize? 
+  static String addBinaryStrings(String a, String b) throws Exception {
+    int alength = a.length();
+    int blength = b.length();
 
+    int maxLength = Math.max(alength, blength);
+    int[] result = new int[maxLength + 1]; // initialize? 
+    System.out.println("Adding to a max length of " + maxLength);
     for (int i = 0; i < maxLength; i++) {
       result[i] = 0;
     }
-    int previousResult = 0; //itterate using a window of relevant info
-    //   for (int previous = maxLength -2; previous >= 0; previous-2){
-    //     int current = previous +1;
 
-    //     char acurrent = '0';
-    //     char bcurrent = '0';
+    //itterate using a window of relevant info
+    int previousResult = 0;
+    for (int current = maxLength - 1; current >= 0; current--) {
+      int previous = current - 1;
+      if (previous < 0) {
+        break; // todo handle remainder at the front of result string
+      }
+      System.out.println("Working on " + previous + " and " + current);
+      char acurrent = '0';
+      char bcurrent = '0';
 
-    //     if (a.length < current){
-    //       acurrent = a.charAt(current);
-    //     }
-    //     if (b.length < current){
-    //       bcurrent = b.charAt(current);
-    //     }
-    //     int sum = addChar(acurrent, bcurrent);
-
-    //     if (sum > 2) {
-    //       result[current] = '1';
-    //      previousResult = addChar( (char) previous + '1';
-    //     } if (sum == 1) {
-    //       result[current] = '1';
-    //     } else if (){
-    //       result[current] = '0';
-    //     }
+      if (alength > current) {
+        acurrent = a.charAt(current);
+      }
+      if (blength > current) {
+        bcurrent = b.charAt(current);
+      }
+      System.out.println("Sum of " + acurrent + " + " + bcurrent + " =");
+      int sum = addChar(acurrent, bcurrent);
+      System.out.println("     = " + sum);
+      // if (sum > 2) {
+      //   result[current] = '1';
+      //  previousResult = addChar( (char) previous + '1';
+      // } if (sum == 1) {
+      //   result[current] = '1';
+      // } else if (){
+      //   result[current] = '0';
+    }
 
     //     previousResult = current;
     // Convert array of ints into its string value
