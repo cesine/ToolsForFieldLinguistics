@@ -24,8 +24,8 @@ public class BinaryArithmetic {
     int previousResult = 0;
     for (int current = maxLength - 1; current >= 0; current--) {
       int previous = current - 1;
-      if (previous < 0) {
-        break; // todo handle remainder at the front of result string
+      if (previous < -1) {
+        break;
       }
       System.out.println("Working on " + previous + " and " + current);
       char acurrent = '0';
@@ -40,13 +40,12 @@ public class BinaryArithmetic {
       System.out.println("Sum of " + acurrent + " + " + bcurrent + " =");
       int sum = addChar(acurrent, bcurrent);
       System.out.println("     = " + sum);
-      // if (sum > 2) {
-      //   result[current] = '1';
-      //  previousResult = addChar( (char) previous + '1';
-      // } if (sum == 1) {
-      //   result[current] = '1';
-      // } else if (){
-      //   result[current] = '0';
+      if (sum > 2) {
+        // result[current] = '1';
+        // previousResult = addChar((char) previous, '1');
+      } else {
+        result[current] = sum;
+      }
     }
 
     //     previousResult = current;
