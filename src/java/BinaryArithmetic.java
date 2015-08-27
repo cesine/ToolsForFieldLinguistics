@@ -8,6 +8,9 @@ public class BinaryArithmetic {
     int maxLength = Math.max(a.length(), b.length());
     char[] result = new char[maxLength]; // initialize? 
 
+    for (int i = 0; i < maxLength; i++) {
+      result[i] = '0';
+    }
     //   int previousResult = 0; //itterate using a window of relevant info
     //   for (int previous = maxLength -2; previous >= 0; previous-2){
     //     int current = previous +1;

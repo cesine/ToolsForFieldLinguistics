@@ -4,7 +4,7 @@ public class BinaryArithmeticTest {
     String result = BinaryArithmetic.addBinaryStrings("0", "0");
     System.out.println(" Added strings 0 and 0 :" + result+ ":");
     assert result != null;
-    assert "".equals(result);
+    assert "0".equals(result);
   }
 
   public static void itShouldBeAbleToAddChar() throws Exception {
