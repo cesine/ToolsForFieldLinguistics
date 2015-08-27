@@ -18,7 +18,7 @@ public class BinarySearchTree {
     if (x == null) {
       return 0;
     } else {
-      return x.childrenCount;
+      return x.childrenCount + 1;
     }
   }
 
@@ -60,7 +60,26 @@ public class BinarySearchTree {
   }
 
   public Node remove(Node node) {
-    return null;
+    if (this.root == null) {
+      return null;
+    }
+    Node removed = this.root.remove(node);
+    if (removed == this.root) {
+      if (this.root.getLeft() != null) {
+        this.root = this.root.getLeft();
+        this.root.childrenCount = removed.childrenCount - 1;
+      } else if (this.root.getRight() != null) {
+        this.root = this.root.getRight();
+        this.root.childrenCount = removed.childrenCount - 1;
+      } else {
+        this.root = null;
+      }
+      System.out.println(" removed the root who had " + removed.childrenCount + " children");
+      // removed.left = null;
+      // removed.right = null;
+      removed.childrenCount = 0;
+    }
+    return removed;
   }
 
   public int getHeight() {
@@ -125,7 +144,6 @@ public class BinarySearchTree {
         if (this.left == null) {
           this.left = node;
           System.out.println("  Added `" + node.key + "` left of `" + this.key + "` ");
-          this.childrenCount++;
         } else {
           this.left.add(node);
         }
@@ -133,14 +151,18 @@ public class BinarySearchTree {
         if (this.right == null) {
           this.right = node;
           System.out.println("  Added  `" + this.key + "`'s right `" + node.key + "`");
-          this.childrenCount++;
         } else {
           this.right.add(node);
         }
       }
+      this.childrenCount++;
       return true;
     }
 
+    public Node find(String key) {
+      return find(new Node(key, null));
+    }
+    
     public Node find(Node node) {
       if (node == null) {
         return null;
@@ -168,6 +190,53 @@ public class BinarySearchTree {
         }
       }
 
+      return null;
+    }
+
+    public Node remove(Node node) {
+      if (node == null || node.key == null) {
+        return null;
+      }
+      Node removed;
+      if (node.key.equals(this.key)) {
+        return this;
+      }
+      if (this.left != null) {
+        removed = this.left.remove(node);
+        if (removed == this.left) {
+          if (this.left.getLeft() != null) {
+            System.out.println("   Replacing my (" + this.key + ") left: " + this.left.getKey() + " with its left: " + this.left.getLeft().getKey());
+            this.left = this.left.getLeft();
+            this.left.childrenCount = removed.childrenCount - 1;
+          }
+          if (this.left.getRight() != null) {
+            System.out.println("   Replacing my (" + this.key + ") left: " + this.left.getKey() + " with its right: " + this.left.getRight().getKey());
+            this.left = this.left.getRight();
+            this.left.childrenCount = removed.childrenCount - 1;
+          }
+          // removed.left = null;
+          // removed.right = null;
+          childrenCount--;
+          return removed;
+        }
+      }
+      if (this.right != null) {
+        removed = this.right.remove(node);
+        if (removed == this.right) {
+          if (this.right.getLeft() != null) {
+            System.out.println("   Replacing my (" + this.key + ") right: " + this.right.getKey() + " with its left: " + this.right.getLeft().getKey());
+            this.right = this.right.getLeft();
+          }
+          if (this.right.getRight() != null) {
+            System.out.println("   Replacing my (" + this.key + ") right: " + this.right.getKey() + " with its right: " + this.right.getRight().getKey());
+            this.right = this.right.getRight();
+          }
+          // removed.left = null;
+          // removed.right = null;
+          childrenCount--;
+          return removed;
+        }
+      }
       return null;
     }
 
