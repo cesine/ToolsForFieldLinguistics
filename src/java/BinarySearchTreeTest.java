@@ -30,7 +30,7 @@ public class BinarySearchTreeTest {
 
     int height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 1;
+    assert height == 2;
 
 
     tree.add("m", null);
@@ -43,7 +43,7 @@ public class BinarySearchTreeTest {
 
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 2;
+    assert height == 3;
 
 
     tree.add("q", null);
@@ -56,7 +56,7 @@ public class BinarySearchTreeTest {
 
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 2;
+    assert height == 3;
   }
 
   public static void itShouldAddNodesInUnballencedOrder() {
@@ -78,7 +78,7 @@ public class BinarySearchTreeTest {
 
     int height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 2;
+    assert height == 3;
   }
 
   public static void itShouldAddNodesInMixedOrder() {
@@ -109,7 +109,7 @@ public class BinarySearchTreeTest {
 
     int height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 4;
+    assert height == 5;
 
     // add full tree on the bottom
     tree.add("p", null);
@@ -117,25 +117,25 @@ public class BinarySearchTreeTest {
     tree.add("r", null);
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 5;
+    assert height == 6;
 
     tree.add("m", null);
     tree.add("o", null);
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 6;
+    assert height == 7;
 
     tree.add("q", null);
     tree.add("s", null);
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 6;
+    assert height == 7;
 
     // add on branch on top
     tree.add("b", null);
     height = tree.getHeight();
     System.out.println("Tree height: " + height);
-    assert height == 6;
+    assert height == 7;
   }
 
   public static void itShouldFindNodes() {
@@ -195,38 +195,57 @@ public class BinarySearchTreeTest {
     tree.add("s", null);
 
     System.out.println("  Created ballenced tree size " + tree.size());
-    // assert tree.getHeight() == 2;
+    assert tree.size() == 7;
+    assert tree.getHeight() == 3;
 
     BinarySearchTree.Node found = tree.getRoot().getRight().find("s");
-    System.out.println("  Establishing that child of node to be removed exists: "+ found.getKey());
+    System.out.println("  Establishing that child of node to be removed exists: " + found.getKey());
 
     removed = tree.remove("r");
     System.out.println("  Removed " + removed.getKey());
     assert "r".equals(removed.getKey());
-    // assert removed.getLeft() == null;
-    // assert removed.getRight() == null;
+    assert removed.getLeft() == null;
+    assert removed.getRight() == null;
     System.out.println("  removed intermediate node of ballenced tree, new size " + tree.size());
-    // assert tree.getHeight() == 2;
+    assert tree.size() == 6;
+    assert tree.getHeight() == 3;
 
+    System.out.println("Root " + tree.getRoot().getKey());
+    //level 0
     assert "p".equals(tree.getRoot().getKey());
 
+    //level 1
     assert "n".equals(tree.getRoot().getLeft().getKey());
+    assert "q".equals(tree.getRoot().getRight().getKey());
+    
+    //level 2
     assert "m".equals(tree.getRoot().getLeft().getLeft().getKey());
     assert "o".equals(tree.getRoot().getLeft().getRight().getKey());
-
-    assert "q".equals(tree.getRoot().getRight().getKey());
     assert tree.getRoot().getRight().getLeft() == null;
-    System.out.println("  Looking for s under q's replacement ");
-    assert tree.getRoot().getRight().getRight() != null;
     assert "s".equals(tree.getRoot().getRight().getRight().getKey());
 
+    System.out.println("\n  What happens when you remove a root of non-empty tree? " + tree.size());
+    removed = tree.remove("p");
+    System.out.println("  Removed  new root of unbalenced tree " + removed.getKey()+", new size " + tree.size());
+    assert "p".equals(removed.getKey());
+    assert removed.getLeft() == null;
+    assert removed.getRight() == null;
 
-    // removed = tree.remove("p");
-    // System.out.println("  Removed " + removed.getKey());
-    // assert "p".equals(removed.getKey());
-    // assert removed.getLeft() == null;
-    // assert removed.getRight() == null;
-    // // assert tree.getHeight() == 2;
+    //level 0
+    assert "n".equals(tree.getRoot().getKey());
+    
+    //level 1
+    assert "m".equals(tree.getRoot().getLeft().getKey());
+    assert "o".equals(tree.getRoot().getRight().getKey());
+
+    //level 2
+    assert "q".equals(tree.getRoot().getRight().getRight().getKey());
+
+    //level 3
+    assert "s".equals(tree.getRoot().getRight().getRight().getRight().getKey());
+
+    assert tree.size() == 5;
+    assert tree.getHeight() == 4;
 
     // System.out.println("  removed root of ballenced tree, new size " + tree.size() + ", new root: " + tree.getRoot().getKey());
 
@@ -238,11 +257,11 @@ public class BinarySearchTreeTest {
     itShouldConstruct();
     itShouldCreateNodes();
 
-    // itShouldFindNodes();
+    itShouldFindNodes();
     itShouldRemoveNodes();
-    // itShouldAddNodesInBallencedOrder();
-    // itShouldAddNodesInUnballencedOrder();
-    // itShouldAddNodesInMixedOrder();
+    itShouldAddNodesInBallencedOrder();
+    itShouldAddNodesInUnballencedOrder();
+    itShouldAddNodesInMixedOrder();
 
     System.out.println("\nDone \n\n");
   }

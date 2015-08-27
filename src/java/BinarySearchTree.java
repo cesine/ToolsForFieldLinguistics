@@ -65,19 +65,29 @@ public class BinarySearchTree {
     }
     Node removed = this.root.remove(node);
     if (removed == this.root) {
-      if (this.root.getLeft() != null) {
-        this.root = this.root.getLeft();
-        this.root.childrenCount = removed.childrenCount - 1;
-      } else if (this.root.getRight() != null) {
-        this.root = this.root.getRight();
-        this.root.childrenCount = removed.childrenCount - 1;
-      } else {
-        this.root = null;
-      }
+      // Handle the case where the root was lost.
       System.out.println(" removed the root who had " + removed.childrenCount + " children");
-      // removed.left = null;
-      // removed.right = null;
-      removed.childrenCount = 0;
+      this.root = null;
+      if (removed.getLeft() != null) {
+        removed.getLeft().childrenCount++;
+        System.out.println(" The new root will be the left branch size " + removed.getLeft().childrenCount);
+        this.root = removed.getLeft();
+        this.root.depth--;
+      }
+      if (removed.getRight() != null) {
+        if (this.root == null) {
+          removed.getLeft().childrenCount++;
+          System.out.println(" The new root will be the right branch size " + removed.getLeft().childrenCount);
+          this.root = removed.getRight();
+          this.root.depth--;
+        } else {
+          System.out.println(" Adding right branch back");
+          this.root.add(removed.getRight());
+        }
+      }
+      removed.left = null;
+      removed.right = null;
+      // removed.childrenCount = 0;
     }
     return removed;
   }
@@ -86,7 +96,7 @@ public class BinarySearchTree {
     if (root == null) {
       return 0;
     }
-    return root.getHeight();
+    return root.getHeight() + 1;
   }
 
   public Node getRoot() {
@@ -162,7 +172,7 @@ public class BinarySearchTree {
     public Node find(String key) {
       return find(new Node(key, null));
     }
-    
+
     public Node find(Node node) {
       if (node == null) {
         return null;
@@ -197,45 +207,48 @@ public class BinarySearchTree {
       if (node == null || node.key == null) {
         return null;
       }
-      Node removed;
+      Node removed = null;
+      System.out.println("Removing " + node.getKey());
       if (node.key.equals(this.key)) {
         return this;
       }
       if (this.left != null) {
         removed = this.left.remove(node);
-        if (removed == this.left) {
-          if (this.left.getLeft() != null) {
-            System.out.println("   Replacing my (" + this.key + ") left: " + this.left.getKey() + " with its left: " + this.left.getLeft().getKey());
-            this.left = this.left.getLeft();
-            this.left.childrenCount = removed.childrenCount - 1;
-          }
-          if (this.left.getRight() != null) {
-            System.out.println("   Replacing my (" + this.key + ") left: " + this.left.getKey() + " with its right: " + this.left.getRight().getKey());
-            this.left = this.left.getRight();
-            this.left.childrenCount = removed.childrenCount - 1;
-          }
-          // removed.left = null;
-          // removed.right = null;
-          childrenCount--;
-          return removed;
+        if (removed != null) {
+          System.out.println("emptying my left");
+          this.childrenCount -= removed.childrenCount;
+          this.left = null;
         }
       }
-      if (this.right != null) {
+      if (removed == null && this.right != null) {
         removed = this.right.remove(node);
-        if (removed == this.right) {
-          if (this.right.getLeft() != null) {
-            System.out.println("   Replacing my (" + this.key + ") right: " + this.right.getKey() + " with its left: " + this.right.getLeft().getKey());
-            this.right = this.right.getLeft();
-          }
-          if (this.right.getRight() != null) {
-            System.out.println("   Replacing my (" + this.key + ") right: " + this.right.getKey() + " with its right: " + this.right.getRight().getKey());
-            this.right = this.right.getRight();
-          }
-          // removed.left = null;
-          // removed.right = null;
-          childrenCount--;
-          return removed;
+        if (removed != null) {
+          System.out.println("emptying my right");
+          this.childrenCount -= removed.childrenCount;
+          this.right = null;
         }
+      }
+      if (removed != null) {
+        if (removed.getLeft() != null) {
+          Node leftTree = removed.getLeft();
+          leftTree.depth = 0;
+          removed.left = null;
+          System.out.println("   Adding my (" + this.key + ") child " + removed.getKey() + " left children: " + leftTree.getKey());
+          this.add(leftTree);
+          // removedchildrenCount = removed.childrenCount - 1;
+        }
+        if (removed.getRight() != null) {
+          Node rightTree = removed.getRight();
+          rightTree.depth = 0;
+          removed.right = null;
+          System.out.println("   Adding my (" + this.key + ") child " + removed.getKey() + " right children: " + rightTree.getKey());
+          this.add(rightTree);
+          // removedchildrenCount = removed.childrenCount - 1;
+        }
+        // removed.left = null;
+        // removed.right = null;
+        childrenCount--;
+        return removed;
       }
       return null;
     }
@@ -244,12 +257,12 @@ public class BinarySearchTree {
       int leftHeight = 0;
       int rightHeight = 0;
       if (left != null) {
-        System.out.println("  deeper");
+        System.out.println(this.depth + "  ldeeper" + key);
         left.depth = this.depth + 1;
         leftHeight = left.getHeight();
       }
       if (right != null) {
-        System.out.println("  deeper");
+        System.out.println(this.depth + "  rdeeper" + key);
         right.depth = this.depth + 1;
         rightHeight = right.getHeight();
       }
