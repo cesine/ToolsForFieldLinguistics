@@ -1,17 +1,18 @@
-// // "101" "010" -> "111"
+import java.util.Arrays;
 
+// // "101" "010" -> "111"
 // // "101" "011" -> "1000"
 
 public class BinaryArithmetic {
 
   static String addBinaryStrings(String a, String b) {
     int maxLength = Math.max(a.length(), b.length());
-    char[] result = new char[maxLength]; // initialize? 
+    int[] result = new int[maxLength]; // initialize? 
 
     for (int i = 0; i < maxLength; i++) {
-      result[i] = '0';
+      result[i] = 0;
     }
-    //   int previousResult = 0; //itterate using a window of relevant info
+    int previousResult = 0; //itterate using a window of relevant info
     //   for (int previous = maxLength -2; previous >= 0; previous-2){
     //     int current = previous +1;
 
@@ -37,7 +38,7 @@ public class BinaryArithmetic {
 
 
     //     previousResult = current;
-    return String.valueOf(result);
+    return Arrays.toString(result);
   }
 
   static int addChar(char a, char b) throws Exception {
