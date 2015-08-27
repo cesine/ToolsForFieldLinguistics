@@ -10,6 +10,12 @@ public class BinaryArithmetic {
    * x2 because of initialization and conversion to string
    */
   static String addBinaryStrings(String a, String b) throws Exception {
+    if (a == null) {
+      a = "0";
+    }
+    if (b == null) {
+      b = "0";
+    }
     int alength = a.length();
     int blength = b.length();
 

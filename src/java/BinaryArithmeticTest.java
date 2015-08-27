@@ -17,6 +17,10 @@ public class BinaryArithmeticTest {
     result = BinaryArithmetic.addBinaryStrings("", "");
     System.out.println(" should pad the result to the size of the input :" + result + ":");
     assert "0".equals(result);
+
+    result = BinaryArithmetic.addBinaryStrings(null, "");
+    System.out.println(" should pad the result to the size of the input :" + result + ":");
+    assert "0".equals(result);
   }
 
   public static void itShouldBeAbleToAddBinaryStringsWhichRequireNoCarrying() throws Exception {
