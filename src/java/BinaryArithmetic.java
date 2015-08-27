@@ -5,8 +5,8 @@
 public class BinaryArithmetic {
 
   static String addBinaryStrings(String a, String b) {
-    //   int maxLength = Math.max(a.length, b.length);
-    //   char[] result = char[maxLength]; // initialize? 
+    int maxLength = Math.max(a.length(), b.length());
+    char[] result = new char[maxLength]; // initialize? 
 
     //   int previousResult = 0; //itterate using a window of relevant info
     //   for (int previous = maxLength -2; previous >= 0; previous-2){
@@ -34,8 +34,7 @@ public class BinaryArithmetic {
 
 
     //     previousResult = current;
-    //   }
-    return "";
+    return String.valueOf(result);
   }
 
   static int addChar(char a, char b) throws Exception {

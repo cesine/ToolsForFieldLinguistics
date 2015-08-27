@@ -2,10 +2,10 @@ public class BinaryArithmeticTest {
 
   public static void itShouldBeAbleToAddBinaryStrings() {
     String result = BinaryArithmetic.addBinaryStrings("0", "0");
-    System.out.println(" Added strings 0 and 0: " + result);
+    System.out.println(" Added strings 0 and 0 :" + result+ ":");
     assert result != null;
+    assert "".equals(result);
   }
-
 
   public static void itShouldBeAbleToAddChar() throws Exception {
     int result = BinaryArithmetic.addChar('0', '0');
