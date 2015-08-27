@@ -17,9 +17,12 @@ public class BinaryArithmeticTest {
     assert "111".equals(result);
   }
 
-
   public static void itShouldBeAbleToAddBinaryStringsWhichRequireCarrying() throws Exception {
     String result = BinaryArithmetic.addBinaryStrings("101", "011");
+    System.out.println(" Added strings 101 and 011 :" + result + ":");
+    assert "1000".equals(result);
+
+    result = BinaryArithmetic.addBinaryStrings("111", "1");
     System.out.println(" Added strings 101 and 011 :" + result + ":");
     assert "1000".equals(result);
   }
@@ -51,14 +54,13 @@ public class BinaryArithmeticTest {
   public static void main(String[] args) {
     System.out.println("\nRunning specs for BinaryArithmetic: ");
 
-
     try {
       itShouldBeAbleToAddBinaryStrings();
       itShouldBeAbleToAddChar();
       itShouldBeAbleToAddBinaryStringsWhichRequireNoCarrying();
       itShouldBeAbleToAddBinaryStringsWhichRequireCarrying();
     } catch (Exception e) {
-      System.out.println("Unexpected error in itShouldBeAbleToAddChar."+ e);
+      System.out.println("Unexpected error in itShouldBeAbleToAddChar." + e);
     }
 
     System.out.println("\nDone \n\n");

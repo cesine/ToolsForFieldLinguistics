@@ -13,9 +13,21 @@ public class BinaryArithmetic {
     int alength = a.length();
     int blength = b.length();
 
-    int maxLength = Math.max(alength, blength) + 1;
+    int maxLength = Math.max(alength, blength);
+
     int[] result = new int[maxLength]; // initialize? 
-    System.out.println("Adding to a max length of " + maxLength);
+
+    System.out.println("Padding inputs to a max length of " + maxLength);
+    for (int i = 0; i < maxLength - alength; i++) {
+      a = "0" + a;
+    }
+    for (int i = 0; i < maxLength - blength; i++) {
+      b = "0" + b;
+    }
+    System.out.println("  padded a:" + a);
+    System.out.println("  padded b:" + b);
+
+    // Initialize the results
     for (int i = 0; i < maxLength; i++) {
       result[i] = 0;
     }
@@ -27,16 +39,10 @@ public class BinaryArithmetic {
       if (previous < -1) {
         break;
       }
-      System.out.println("Working on " + previous + " and " + current);
-      char acurrent = '0';
-      char bcurrent = '0';
+      System.out.println("Working on " + current);
+      char acurrent = a.charAt(current);
+      char bcurrent = b.charAt(current);
 
-      if (alength > current) {
-        acurrent = a.charAt(current);
-      }
-      if (blength > current) {
-        bcurrent = b.charAt(current);
-      }
       System.out.println("Sum of " + acurrent + " + " + bcurrent + " =");
       int sum = addChar(acurrent, bcurrent) + previousResult;
       System.out.println("     = " + sum);
@@ -61,9 +67,6 @@ public class BinaryArithmetic {
       asString += "1";
     }
     for (int i = 0; i < maxLength; i++) {
-      if (i == maxLength - 1 && result[i] == 0) {
-        continue;
-      }
       asString += result[i];
     }
     return asString;
