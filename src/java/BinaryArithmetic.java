@@ -5,9 +5,13 @@ import java.util.Arrays;
 
 public class BinaryArithmetic {
 
+  /**
+   * minimal time is going to be max length of one of the string 
+   * x2 because of initialization and conversion to string
+   */
   static String addBinaryStrings(String a, String b) {
     int maxLength = Math.max(a.length(), b.length());
-    int[] result = new int[maxLength]; // initialize? 
+    int[] result = new int[maxLength + 1]; // initialize? 
 
     for (int i = 0; i < maxLength; i++) {
       result[i] = 0;
@@ -36,9 +40,13 @@ public class BinaryArithmetic {
     //       result[current] = '0';
     //     }
 
-
     //     previousResult = current;
-    return Arrays.toString(result);
+    // Convert array of ints into its string value
+    String asString = "";
+    for (int i = 0; i < maxLength; i++) {
+      asString += result[i];
+    }
+    return asString;
   }
 
   static int addChar(char a, char b) throws Exception {
