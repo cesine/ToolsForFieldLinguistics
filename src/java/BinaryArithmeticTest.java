@@ -35,8 +35,12 @@ public class BinaryArithmeticTest {
     assert "1000".equals(result);
 
     result = BinaryArithmetic.addBinaryStrings("111", "1");
-    System.out.println(" Added strings 101 and 011 :" + result + ":");
+    System.out.println(" Added strings 111 and 1 :" + result + ":");
     assert "1000".equals(result);
+
+     result = BinaryArithmetic.addBinaryStrings("111", "11");
+    System.out.println(" Added strings 111 and 11 :" + result + ":");
+    assert "1010".equals(result);
   }
 
   public static void itShouldBeAbleToAddChar() throws Exception {
