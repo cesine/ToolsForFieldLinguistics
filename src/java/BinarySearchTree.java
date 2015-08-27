@@ -1,5 +1,18 @@
 import java.util.*;
 
+/**
+ * O end behaviour:
+ *
+ * - Initialize = C
+ * - Size = C
+ * - isEmpty = C
+ * 
+ * - Height = Log N (worst case is N if its a straight tree)
+ * - Add = Log N  (worst case is N if its a straight tree)
+ * - Remove = Log N (worst case is 2N if its a straight tree and it needs to be rebuilt on the bottom?)
+ * - Query/Find/Modify key = Log N (worst case is N if its a straight tree)
+ *
+ */
 public class BinarySearchTree {
   private Node root;
 
@@ -10,6 +23,11 @@ public class BinarySearchTree {
     return size(root) == 0;
   }
 
+  /**
+   * Getting the size looks up the count of children of the node. 
+   * O (1)
+   * @return {[type]} [description]
+   */
   public int size() {
     return size(root);
   }
@@ -18,7 +36,7 @@ public class BinarySearchTree {
     if (x == null) {
       return 0;
     } else {
-      return x.childrenCount + 1;
+      return x.size + 1;
     }
   }
 
@@ -66,18 +84,18 @@ public class BinarySearchTree {
     Node removed = this.root.remove(node);
     if (removed == this.root) {
       // Handle the case where the root was lost.
-      System.out.println(" removed the root who had " + removed.childrenCount + " children");
+      System.out.println(" removed the root who had " + removed.size + " children");
       this.root = null;
       if (removed.getLeft() != null) {
-        removed.getLeft().childrenCount++;
-        System.out.println(" The new root will be the left branch size " + removed.getLeft().childrenCount);
+        removed.getLeft().size++;
+        System.out.println(" The new root will be the left branch size " + removed.getLeft().size);
         this.root = removed.getLeft();
         this.root.depth--;
       }
       if (removed.getRight() != null) {
         if (this.root == null) {
-          removed.getLeft().childrenCount++;
-          System.out.println(" The new root will be the right branch size " + removed.getLeft().childrenCount);
+          removed.getLeft().size++;
+          System.out.println(" The new root will be the right branch size " + removed.getLeft().size);
           this.root = removed.getRight();
           this.root.depth--;
         } else {
@@ -87,7 +105,7 @@ public class BinarySearchTree {
       }
       removed.left = null;
       removed.right = null;
-      // removed.childrenCount = 0;
+      // removed.size = 0;
     }
     return removed;
   }
@@ -109,30 +127,30 @@ public class BinarySearchTree {
     private Object value;
     private Node left;
     private Node right;
-    private int childrenCount;
+    private int size;
     private int depth;
 
     public Node() {
       this.key = "";
       this.value = new Object();
-      this.childrenCount = 0;
+      this.size = 0;
     }
 
     public Node(String key) {
       this.key = key;
-      this.childrenCount = 0;
+      this.size = 0;
     }
 
     public Node(String key, Object value) {
       this.key = key;
       this.value = value;
-      this.childrenCount = 0;
+      this.size = 0;
     }
 
     public Node(String key, Object value, int N) {
       this.key = key;
       this.value = value;
-      this.childrenCount = N;
+      this.size = N;
     }
 
     public int compareTo(Node anotherNode) {
@@ -165,7 +183,7 @@ public class BinarySearchTree {
           this.right.add(node);
         }
       }
-      this.childrenCount++;
+      this.size++;
       return true;
     }
 
@@ -216,7 +234,7 @@ public class BinarySearchTree {
         removed = this.left.remove(node);
         if (removed != null) {
           System.out.println("emptying my left");
-          this.childrenCount -= removed.childrenCount;
+          this.size -= removed.size;
           this.left = null;
         }
       }
@@ -224,7 +242,7 @@ public class BinarySearchTree {
         removed = this.right.remove(node);
         if (removed != null) {
           System.out.println("emptying my right");
-          this.childrenCount -= removed.childrenCount;
+          this.size -= removed.size;
           this.right = null;
         }
       }
@@ -235,7 +253,7 @@ public class BinarySearchTree {
           removed.left = null;
           System.out.println("   Adding my (" + this.key + ") child " + removed.getKey() + " left children: " + leftTree.getKey());
           this.add(leftTree);
-          // removedchildrenCount = removed.childrenCount - 1;
+          // removedsize = removed.size - 1;
         }
         if (removed.getRight() != null) {
           Node rightTree = removed.getRight();
@@ -243,11 +261,11 @@ public class BinarySearchTree {
           removed.right = null;
           System.out.println("   Adding my (" + this.key + ") child " + removed.getKey() + " right children: " + rightTree.getKey());
           this.add(rightTree);
-          // removedchildrenCount = removed.childrenCount - 1;
+          // removedsize = removed.size - 1;
         }
         // removed.left = null;
         // removed.right = null;
-        childrenCount--;
+        size--;
         return removed;
       }
       return null;
