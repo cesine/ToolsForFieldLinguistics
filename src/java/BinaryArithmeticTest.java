@@ -5,6 +5,11 @@ public class BinaryArithmeticTest {
     System.out.println(" Added strings 0 and 0 :" + result+ ":");
     assert result != null;
     assert "0".equals(result);
+
+
+    result = BinaryArithmetic.addBinaryStrings("0000", "0");
+    System.out.println(" should pad the result to the size of the input :" + result+ ":");
+    assert "0000".equals(result);
   }
 
   public static void itShouldBeAbleToAddChar() throws Exception {
