@@ -13,8 +13,8 @@ public class BinaryArithmetic {
     int alength = a.length();
     int blength = b.length();
 
-    int maxLength = Math.max(alength, blength);
-    int[] result = new int[maxLength + 1]; // initialize? 
+    int maxLength = Math.max(alength, blength) + 1;
+    int[] result = new int[maxLength]; // initialize? 
     System.out.println("Adding to a max length of " + maxLength);
     for (int i = 0; i < maxLength; i++) {
       result[i] = 0;
@@ -38,20 +38,32 @@ public class BinaryArithmetic {
         bcurrent = b.charAt(current);
       }
       System.out.println("Sum of " + acurrent + " + " + bcurrent + " =");
-      int sum = addChar(acurrent, bcurrent);
+      int sum = addChar(acurrent, bcurrent) + previousResult;
       System.out.println("     = " + sum);
-      if (sum > 2) {
-        // result[current] = '1';
-        // previousResult = addChar((char) previous, '1');
+      if (sum == 3) {
+        result[current] = 1;
+        previousResult = 1;
+        System.out.println(" Carrying further " + previousResult);
+      } else if (sum == 2) {
+        result[current] = 0;
+        previousResult = 1;
+        System.out.println(" Carrying " + previousResult);
       } else {
         result[current] = sum;
+        previousResult = 0;
       }
     }
 
     //     previousResult = current;
     // Convert array of ints into its string value
     String asString = "";
+    if (previousResult == 1) {
+      asString += "1";
+    }
     for (int i = 0; i < maxLength; i++) {
+      if (i == maxLength - 1 && result[i] == 0) {
+        continue;
+      }
       asString += result[i];
     }
     return asString;
