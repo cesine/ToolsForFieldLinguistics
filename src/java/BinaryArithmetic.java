@@ -14,7 +14,9 @@ public class BinaryArithmetic {
     int blength = b.length();
 
     int maxLength = Math.max(alength, blength);
-
+    if (maxLength == 0) {
+      return "0";
+    }
     int[] result = new int[maxLength]; // initialize? 
 
     System.out.println("Padding inputs to a max length of " + maxLength);

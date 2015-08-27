@@ -9,6 +9,14 @@ public class BinaryArithmeticTest {
     result = BinaryArithmetic.addBinaryStrings("0000", "0");
     System.out.println(" should pad the result to the size of the input :" + result + ":");
     assert "0000".equals(result);
+
+    result = BinaryArithmetic.addBinaryStrings("", "0");
+    System.out.println(" should pad the result to the size of the input :" + result + ":");
+    assert "0".equals(result);
+
+    result = BinaryArithmetic.addBinaryStrings("", "");
+    System.out.println(" should pad the result to the size of the input :" + result + ":");
+    assert "0".equals(result);
   }
 
   public static void itShouldBeAbleToAddBinaryStringsWhichRequireNoCarrying() throws Exception {
