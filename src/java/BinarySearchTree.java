@@ -3,7 +3,6 @@ import java.util.*;
 public class BinarySearchTree {
   private Node root;
 
-
   public BinarySearchTree() {
 
   }
@@ -42,6 +41,14 @@ public class BinarySearchTree {
     return root.add(node);
   }
 
+
+  public int getHeight() {
+    if (root == null) {
+      return 0;
+    }
+    return root.getHeight();
+  }
+
   public Node getRoot() {
     return root;
   }
@@ -53,6 +60,7 @@ public class BinarySearchTree {
     private Node left;
     private Node right;
     private int childrenCount;
+    private int depth;
 
     public Node() {
       this.key = "";
@@ -102,6 +110,21 @@ public class BinarySearchTree {
         }
       }
       return true;
+    }
+    public int getHeight() {
+      int leftHeight = 0;
+      int rightHeight = 0;
+      if (left != null) {
+        System.out.println("  deeper");
+        left.depth = this.depth + 1;
+        leftHeight = left.getHeight();
+      }
+      if (right != null) {
+        System.out.println("  deeper");
+        right.depth = this.depth + 1;
+        rightHeight = right.getHeight();
+      }
+      return Math.max(this.depth, Math.max(leftHeight, rightHeight));
     }
 
     public String getKey() {
