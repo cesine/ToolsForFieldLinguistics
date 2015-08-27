@@ -1,13 +1,25 @@
 import java.util.Arrays;
 
-// // "101" "010" -> "111"
-// // "101" "011" -> "1000"
-
+/** 
+ *
+ * Location https://coderpad.io/WGT7MX76 
+ * 
+ * Example showing how to work with two arrays which need
+ * to be aligned at their ends (not starts), and where the 
+ * result of the current might affect the next.
+ *
+ * Useful for:
+ *  - binary arithmetic ("101" "010" -> "111" OR "101" "011" -> "1000")
+ *  - iterating through arrays of json where the following item might affect the result of the previous (a carry behavior)
+ */
 public class BinaryArithmetic {
 
   /**
    * minimal time is going to be max length of one of the string 
-   * x2 because of initialization and conversion to string
+   * x3 because of 
+   *  - initialization and 
+   *  - actual computation loop
+   *  - conversion to string
    */
   static String addBinaryStrings(String a, String b) throws Exception {
     if (a == null) {
@@ -68,8 +80,6 @@ public class BinaryArithmetic {
       }
     }
 
-    //     previousResult = current;
-    // Convert array of ints into its string value
     String asString = "";
     if (previousResult == 1) {
       asString += "1";
@@ -95,15 +105,4 @@ public class BinaryArithmetic {
     return 0;
   }
 
-
-
-  // // something(current, positionofcarry){
-
-  // //   if(pofsitionofcarry!= null){
-  // //     done
-  // //   }
-  // //   something(positionofcarry, psotionofcarry--)
-
-  // // }
-  // 
 }
