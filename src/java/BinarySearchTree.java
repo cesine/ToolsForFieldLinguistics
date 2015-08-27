@@ -22,11 +22,14 @@ public class BinarySearchTree {
     }
   }
 
+  public boolean add(String key) {
+    return add(key, null);
+  }
+
   public boolean add(String key, Object value) {
     Node node = new Node(key, value);
     return add(node);
   }
-
 
   public boolean add(String key, Object value, int childCount) {
     Node node = new Node(key, value, childCount);
@@ -41,6 +44,24 @@ public class BinarySearchTree {
     return root.add(node);
   }
 
+  public Node find(String key) {
+    return find(new Node(key, null));
+  }
+
+  public Node find(Node node) {
+    if (this.root == null) {
+      return null;
+    }
+    return this.root.find(node);
+  }
+
+  public Node remove(String key) {
+    return remove(new Node(key, null));
+  }
+
+  public Node remove(Node node) {
+    return null;
+  }
 
   public int getHeight() {
     if (root == null) {
@@ -68,6 +89,11 @@ public class BinarySearchTree {
       this.childrenCount = 0;
     }
 
+    public Node(String key) {
+      this.key = key;
+      this.childrenCount = 0;
+    }
+
     public Node(String key, Object value) {
       this.key = key;
       this.value = value;
@@ -89,6 +115,9 @@ public class BinarySearchTree {
     }
 
     public boolean add(Node node) {
+      if (node == null || node.key == null) {
+        return false;
+      }
       int compared = this.compareTo(node);
       if (compared == 0) {
         this.value = node.value;
@@ -111,6 +140,37 @@ public class BinarySearchTree {
       }
       return true;
     }
+
+    public Node find(Node node) {
+      if (node == null) {
+        return null;
+      }
+
+      Node found;
+      if (this.key == node.key) {
+        return this;
+      }
+
+      if (this.left != null) {
+        System.out.println("  ldeeper");
+
+        found = this.left.find(node);
+        if (found != null) {
+          return found;
+        }
+      }
+
+      if (this.right != null) {
+        System.out.println("  rdeeper");
+        found = this.right.find(node);
+        if (found != null) {
+          return found;
+        }
+      }
+
+      return null;
+    }
+
     public int getHeight() {
       int leftHeight = 0;
       int rightHeight = 0;

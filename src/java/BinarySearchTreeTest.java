@@ -84,7 +84,7 @@ public class BinarySearchTreeTest {
   public static void itShouldAddNodesInMixedOrder() {
     System.out.println("\nitShouldAddNodesInMixedOrder ");
     BinarySearchTree tree = new BinarySearchTree();
-    
+
     // create a long branch
     tree.add("a", null);
     System.out.println("Root: " + tree.getRoot().getKey());
@@ -138,15 +138,56 @@ public class BinarySearchTreeTest {
     assert height == 6;
   }
 
+  public static void itShouldFindNodes() {
+    System.out.println("\nitShouldFindNodes ");
+    BinarySearchTree tree = new BinarySearchTree();
+    BinarySearchTree.Node node = new BinarySearchTree.Node("one");
+
+    BinarySearchTree.Node found = tree.find(node);
+    assert found == null;
+
+    tree.add(node);
+    assert tree.getRoot() == node;
+    found = tree.find(node);
+    assert found != null;
+    System.out.println(" Found via node: "+ found.getKey());
+
+    found = null;
+    found = tree.find("one");
+    assert found != null;
+    System.out.println(" Found via key: "+ found.getKey());
+
+    tree.add("left deeper");
+    found = tree.find("left deeper");
+    assert found != null;
+    System.out.println(" Found left deeper key: "+ found.getKey());
+
+    found = null;
+    tree.add("right deeper");
+    found = tree.find("right deeper");
+    assert found != null;
+    System.out.println(" Found right deeper key: "+ found.getKey());
+  }
+
+  public static void itShouldRemoveNodes() {
+    System.out.println("\nitShouldRemoveNodes ");
+    BinarySearchTree tree = new BinarySearchTree();
+    BinarySearchTree.Node node = new BinarySearchTree.Node();
+
+    BinarySearchTree.Node removed = tree.remove(node);
+    // assert removed != null;
+  }
+
   public static void main(String[] args) {
     System.out.println("\nRunning specs for BinarySearchTree: ");
 
     itShouldConstruct();
     itShouldCreateNodes();
 
-    itShouldAddNodesInBallencedOrder();
-    itShouldAddNodesInUnballencedOrder();
-    itShouldAddNodesInMixedOrder();
+    itShouldFindNodes();
+    // itShouldAddNodesInBallencedOrder();
+    // itShouldAddNodesInUnballencedOrder();
+    // itShouldAddNodesInMixedOrder();
 
     System.out.println("\nDone \n\n");
   }
