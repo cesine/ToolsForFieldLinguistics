@@ -38,20 +38,18 @@ public class BinaryArithmetic {
     return "";
   }
 
-  static int addChar(char a, char b) {
-    //    if (a == '0' && b == '0') {
-    //       return 0;
-    //     } else if (a == '0' && b == '1' || a == '1' && b == '0'){
-    //       return 1;
-    //     } else if (a == '1' && b == '1') {
-    //       return 2;
-    //     }
-    // }
-    //                               // testing if can run java in here to run tests
-    // public static int testAddChar(){
-    //   int result = addChar('0', '1');
-    //   assert result == 1;
-    //   System.out.println(result);
+  static int addChar(char a, char b) throws Exception {
+    if ((a != '0' && a != '1') || (b != '0' && b != '1')) {
+      throw new Exception("Invalid input, use 0 or 1");
+    }
+
+    if (a == '0' && b == '0') {
+      return 0;
+    } else if (a == '0' && b == '1' || a == '1' && b == '0') {
+      return 1;
+    } else if (a == '1' && b == '1') {
+      return 2;
+    }
     return 0;
   }
 
