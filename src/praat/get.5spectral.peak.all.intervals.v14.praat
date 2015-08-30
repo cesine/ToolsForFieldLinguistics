@@ -3,7 +3,7 @@
 # TextGrid files must be .textgrid
 #
 # This script is distributed under the GNU General Public License.
-# Gina Cook April 24 2006
+# Gina April 24 2006
 
 # directory format should be like:  targets\wav\
 

@@ -4,7 +4,7 @@
 #
 # This script is distributed under the GNU General Public License.
 # Copyright Mietta Lennes 13.3.2002
-# Edited by Gina Cook
+# Edited by Gina
 # v4 changed graph labels
 # v5 relativized version of 4 using f1 plotted against f2-f1
 # v6 changed formant tracking method per male and female
