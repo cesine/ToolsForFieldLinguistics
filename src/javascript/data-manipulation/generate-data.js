@@ -12,13 +12,18 @@
 
   "use strict";
 
+  var debug = function() {
+    // console.log(arguments);
+    return;
+  };
+
   /**
-   * Fisher–Yates shuffling is similar to randomly picking numbered tickets 
-   * (combinatorics: distinguishable objects) out of a hat without 
+   * Fisher–Yates shuffling is similar to randomly picking numbered tickets
+   * (combinatorics: distinguishable objects) out of a hat without
    * replacement until there are none left. <p>
    *
-   * It was reduced to run in linear O(n) time by Durstenfeld 1964 by looping through 
-   * the array just once O(n) and at each index, finding a random other index in the 
+   * It was reduced to run in linear O(n) time by Durstenfeld 1964 by looping through
+   * the array just once O(n) and at each index, finding a random other index in the
    * array to swap places with.
    *
     <pre>
@@ -44,7 +49,7 @@
   /**
    * Create an array of random numbers can be used to create data which can be reused later for
    * debugging sorting algorithms and improving the runtime of your data crunching. <p>
-   * 
+   *
    * If you want to have unique integers, see createArrayOfRandomUniqueIntegers below.
    *
    *
@@ -67,8 +72,8 @@
       ints.push(Math.floor(Math.random() * randomSize) + start);
     }
 
-    console.log("\tRandom n:" + n + " start:" + start + " end:" + end + " result:");
-    console.log("\t" + ints.length < 40 ? ints : "(too big)");
+    debug("\tRandom n:" + n + " start:" + start + " end:" + end + " result:");
+    debug("\t" + ints.length < 40 ? ints : "(too big)");
     return ints;
   };
 
@@ -103,8 +108,8 @@
     /* Truncate the array to only the requested size n */
     ints = ints.splice(0, n);
 
-    console.log("\tUnique n:" + n + " start:" + start + " end:" + end + " result:");
-    console.log("\t" + ints.length < 40 ? ints : "(too big)");
+    debug("\tUnique n:" + n + " start:" + start + " end:" + end + " result:");
+    debug("\t" + ints.length < 40 ? ints : "(too big)");
     return ints;
   };
 
@@ -114,7 +119,7 @@
    * mind if you only get unique one back) then you can think of the integers
    * not as an array of integers, but more like a bitmap where 0 if the integer
    * is not present, and 1 if it is present. <p>
-   * 
+   *
    * In this way the datastruture causes the data to
    * be sorted. What is interesting with this approach is that it shows how a
    * datastructure can be leveraged to reduce runtime.<p>
@@ -134,7 +139,7 @@
       return sortMe;
     }
 
-    /* assume the highest value is provided, or is the size of the array to be sorted 
+    /* assume the highest value is provided, or is the size of the array to be sorted
      * TOOD maybe pickup the min and max from step 2 since this is javascript?
      */
     maxValue = maxValue || sortMe.length;
@@ -159,21 +164,21 @@
     for (var i = 0, l = sortMe.length; i < l; i++) {
       bitMap[sortMe[i]] = 1;
     }
-    // console.log(bitMap);
+    // debug(bitMap);
 
     var result = [];
     var sparsityMeasure = 0;
 
     /* Step 3: convert the bitmap back into an array of integers */
-    for (var i = minValue; i <= maxValue; i++) {
-      if (bitMap[i] === 1) {
-        result.push(i);
-        // console.log(i);
+    for (var j = minValue; j <= maxValue; j++) {
+      if (bitMap[j] === 1) {
+        result.push(j);
+        // debug(i);
         sparsityMeasure++;
       }
     }
     var range = maxValue - minValue;
-    console.log("\tSort n:" + sortMe.length + " start:" + minValue + " end:" + maxValue + " Sparsity: " + sparsityMeasure / range * 100);
+    debug("\tSort n:" + sortMe.length + " start:" + minValue + " end:" + maxValue + " Sparsity: " + sparsityMeasure / range * 100);
     return result;
   };
 
@@ -181,7 +186,7 @@
     var start = Date.now();
     var result = measureMe.apply(this, args);
     runtimeHolder.runtime = Date.now() - start;
-    console.log("Runtime: " + runtimeHolder.runtime);
+    debug("Runtime: " + runtimeHolder.runtime);
     return result;
   };
 

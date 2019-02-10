@@ -1,8 +1,8 @@
 describe("Searching a matrix (table) of data...", function() {
   var tooSlowSeconds = 30;
   var debug = function() {
+    // console.log(arguments);
     return;
-    console.log(arguments);
   };
 
   var fillMatrix = function(rows, columns, matrixHolder, placeholder, randomCharacters) {
@@ -152,7 +152,7 @@ describe("Searching a matrix (table) of data...", function() {
   };
 
   beforeEach(function() {
-    console.log("--------------------------------------------------");
+    debug("--------------------------------------------------");
   });
 
   describe("construction", function() {
@@ -259,7 +259,7 @@ describe("Searching a matrix (table) of data...", function() {
         row: 9,
         column: 7
       });
-      console.log(matrix);
+      debug(matrix);
       expect(matrix).toBeDefined();
 
       var locationOfCharacter = findInMatrix(matrix, characterToSearchFor);
@@ -335,7 +335,7 @@ describe("Searching a matrix (table) of data...", function() {
         samples.push((Date.now() - startTime));
       }
 
-      console.log(samples);
+      debug(samples);
 
       expect(samples[0]).toBeGreaterThan(0);
       expect(samples[1]).toBeGreaterThan(0);

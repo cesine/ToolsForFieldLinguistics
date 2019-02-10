@@ -19,6 +19,7 @@ var RockPaperScissorsGame = function() {
     } else {
       computerChoice = "scissors";
     }
+    // eslint-disable-next-line no-console
     console.log("Computer: " + computerChoice);
     this.compare(userChoice, computerChoice);
   };
