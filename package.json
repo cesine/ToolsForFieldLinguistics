@@ -7,6 +7,11 @@
     "name": "cesine",
     "email": "cesine@yahoo.com"
   },
+  "authors": [
+    "cesine <cesine@yahoo.com>",
+    "hisakonog <hisakonog@gmail.com>",
+    "vronvali <vronvali@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/cesine/ToolsForFieldLinguistics.git"
@@ -25,18 +30,16 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
-    "test": "grunt nodeunit"
+    "dist": "browserify src/javascript/ToolsForFieldLinguistics.js -o dist/tools-for-field-linguistics.js",
+    "docs": "rm -rf docs/javascript; jsdoc  ./src/javascript/*.js ./src/javascript/connectedgraph/*.js ./src/javascript/data-manipulation/*.js -d ./docs/javascript",
+    "lint": "eslint src/javascript test/javascript",
+    "test": "jasmine 'test/javascript/**/**/*spec.js'"
   },
   "devDependencies": {
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-jasmine-node": "~0.1.0",
-    "montage-testing": "~0.2.0",
-    "montage": "~0.13.8",
-    "grunt-contrib-watch": "~0.4.0",
-    "grunt": "~0.4.2",
-    "grunt-jsdoc": "~0.4.2"
+    "browserify": "^16.2.3",
+    "eslint": "^5.13.0",
+    "jasmine": "^3.3.1",
+    "jsdoc": "^3.5.5"
   },
   "keywords": [],
   "dependencies": {}

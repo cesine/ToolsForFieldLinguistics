@@ -1,25 +1,30 @@
-'use strict';
+"use strict";
 
 /**
  * GenerateData specs for testing the generation of random data, including uniqueness sorting shuffling and runtime.
  *
  * @requires GenerateData
  * @requires Jasmine
- * 
+ *
  * @example  GenerateData
  * @module  GenerateData-specs
  */
-var generateData = require('../../src/javascript/data-manipulation/generate-data.js');
+var generateData = require("../../src/javascript/data-manipulation/generate-data.js");
+
+var debug = function() {
+  // console.log(arguments);
+  return;
+};
 
 describe("Generating data...", function() {
 
   beforeEach(function() {
-    console.log("--------------------------------------------------");
+    // console.log("--------------------------------------------------");
   });
 
   it("should be able to measure the runtime of a function", function() {
     var measureMeExponetiallySlow = function(max, dataHolder) {
-      console.log("\tmeasureMeExponetiallySlow max:" + max);
+      debug("\tmeasureMeExponetiallySlow max:" + max);
       for (var i = 0; i <= max; i++) {
         dataHolder[i] = [];
         for (var j = 0; j < max; j++) {
@@ -107,12 +112,12 @@ describe("Generating data...", function() {
     var max = 200;
     var start = Date.now();
     var medium = generateData.createArrayOfRandomUniqueIntegers(n, min, max);
-    console.log("Runtime for generating " + n + " unique signed integers: ", Date.now() - start);
+    debug("Runtime for generating " + n + " unique signed integers: ", Date.now() - start);
     expect(medium.length).toBe(n);
 
     start = Date.now();
     var sortedMedium = generateData.sortRandomUniqueIntegers(medium, min, max);
-    console.log("Runtime for sorting " + n + " unique signed integers: ", Date.now() - start);
+    debug("Runtime for sorting " + n + " unique signed integers: ", Date.now() - start);
 
     expect(sortedMedium.length).toBe(n);
   });
@@ -121,11 +126,11 @@ describe("Generating data...", function() {
     var n = 27000;
     var start = Date.now();
     var medium = generateData.createArrayOfRandomUniqueIntegers(n, 0, n);
-    console.log("Runtime for generating " + n + " unique integers: ", Date.now() - start);
+    debug("Runtime for generating " + n + " unique integers: ", Date.now() - start);
     expect(medium.length).toBe(n);
     start = Date.now();
     var sortedMedium = generateData.sortRandomUniqueIntegers(medium, 0, n);
-    console.log("Runtime for sorting " + n + " unique integers: ", Date.now() - start);
+    debug("Runtime for sorting " + n + " unique integers: ", Date.now() - start);
 
     expect(sortedMedium.length).toBe(n);
   });
@@ -154,9 +159,9 @@ describe("Generating data...", function() {
     var runtime3 = Date.now() - start;
     expect(sortedXLarge.length).toBe(n3);
 
-    console.log("Runtime for sorting " + n + " unique integers: ", runtime1);
-    console.log("Runtime for sorting " + n2 + " unique integers: ", runtime2);
-    console.log("Runtime for sorting " + n3 + " unique integers: ", runtime3);
+    debug("Runtime for sorting " + n + " unique integers: ", runtime1);
+    debug("Runtime for sorting " + n2 + " unique integers: ", runtime2);
+    debug("Runtime for sorting " + n3 + " unique integers: ", runtime3);
 
     if (runtime1 === 0) {
       runtime1 = 0.1;
@@ -167,8 +172,8 @@ describe("Generating data...", function() {
     var firstFactor = runtime2 / runtime1;
     var secondFactor = runtime3 / runtime2;
     var factorDifference = secondFactor - firstFactor;
-    console.log("Expected factor: ~" + linearFactor);
-    console.log("Factor in first leap: " + firstFactor + " factor in second leap: " + secondFactor + " velocity: " + factorDifference);
+    debug("Expected factor: ~" + linearFactor);
+    debug("Factor in first leap: " + firstFactor + " factor in second leap: " + secondFactor + " velocity: " + factorDifference);
     var acceptableVariance = 1;
     expect(factorDifference).toBeLessThan(acceptableVariance);
 
@@ -176,7 +181,7 @@ describe("Generating data...", function() {
     expect(firstFactor).toBeLessThan(exponentialTime);
     expect(secondFactor).toBeLessThan(exponentialTime);
     var exponent = Math.log2(runtime2/runtime1);
-    console.log(exponent);
+    debug(exponent);
     expect(Math.round(exponent)).toEqual(2);
   });
 

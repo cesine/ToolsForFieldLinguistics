@@ -45,6 +45,7 @@ target
 *.exe
 *.o
 *.so
+docs/javascript
 
 # Packages #
 ############

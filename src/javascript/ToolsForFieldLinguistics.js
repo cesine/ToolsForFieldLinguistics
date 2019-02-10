@@ -4,7 +4,7 @@
  *
  * https://github.com/cesine/ToolsForFieldLinguistics
  *
- * Copyright (c) 2013 cesine
+ * Copyright (c) 2010-2019 cesine
  * Licensed under the Apache 2.0 license.
  *
  * @module          ToolsForFieldLinguistics
@@ -15,11 +15,11 @@ var GenerateData = require("./data-manipulation/generate-data");
 
 (function(exports) {
 
-    'use strict';
+  "use strict";
 
-    exports.init = function() {
-        return 'init';
-    };
-    exports.GenerateData = GenerateData;
+  exports.init = function() {
+    return "init";
+  };
+  exports.GenerateData = GenerateData;
 
-}(typeof exports === 'object' && exports || this));
+}(typeof exports === "object" && exports || this));

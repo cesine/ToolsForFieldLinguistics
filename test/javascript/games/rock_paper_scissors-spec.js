@@ -1,4 +1,9 @@
-/* globals RockPaperScissorsGame */
+var Game;
+if (typeof window === "undefined") {
+  Game = require("../../../src/javascript/rock_paper_scissors").RockPaperScissorsGame;
+} else {
+  Game = window.exports.RockPaperScissorsGame;
+}
 
 /**
  <pre>
@@ -50,57 +55,57 @@
 */
 describe("rock paper scissors game", function() {
 
-	it("should load ", function() {
-		var game = new RockPaperScissorsGame();
-		expect(game).toBeDefined();
-	});
+  it("should load ", function() {
+    var game = new Game();
+    expect(game).toBeDefined();
+  });
 
-	it("should run ", function() {
-		var game = new RockPaperScissorsGame();
-		expect(game.run).toBeDefined();
-	});
+  it("should run ", function() {
+    var game = new Game();
+    expect(game.run).toBeDefined();
+  });
 
-	it("should compare choices ", function() {
-		var game = new RockPaperScissorsGame();
-		expect(game.compare).toBeDefined();
-	});
+  it("should compare choices ", function() {
+    var game = new Game();
+    expect(game.compare).toBeDefined();
+  });
 
-	describe("compare", function() {
-		var game = new RockPaperScissorsGame();
+  describe("compare", function() {
+    var game = new Game();
 
-		it("should decide paper beats rock ", function() {
-			expect(game.compare("paper", "rock")).toEqual("paper wins");
-		});
-		it("should decide paper beats rock ", function() {
-			expect(game.compare("rock", "paper")).toEqual("paper wins");
-		});
+    it("should decide paper beats rock ", function() {
+      expect(game.compare("paper", "rock")).toEqual("paper wins");
+    });
+    it("should decide paper beats rock ", function() {
+      expect(game.compare("rock", "paper")).toEqual("paper wins");
+    });
 
-		it("should decide paper beats rock ", function() {
-			expect(game.compare("paper", "scissors")).toEqual("scissors wins");
-		});
+    it("should decide paper beats rock ", function() {
+      expect(game.compare("paper", "scissors")).toEqual("scissors wins");
+    });
 
-		it("should decide scissors beats paper", function() {
-			expect(game.compare("scissors", "paper")).toEqual("scissors wins");
-		});
+    it("should decide scissors beats paper", function() {
+      expect(game.compare("scissors", "paper")).toEqual("scissors wins");
+    });
 
-		it("should decide rock beats scissors ", function() {
-			expect(game.compare("rock", "scissors")).toEqual("rock wins");
-		});
-		it("should decide rock beats scissors ", function() {
-			expect(game.compare("scissors", "rock")).toEqual("rock wins");
-		});
+    it("should decide rock beats scissors ", function() {
+      expect(game.compare("rock", "scissors")).toEqual("rock wins");
+    });
+    it("should decide rock beats scissors ", function() {
+      expect(game.compare("scissors", "rock")).toEqual("rock wins");
+    });
 
-		it("should decide rock ties rock ", function() {
-			expect(game.compare("rock","rock")).toEqual("The result is a tie!");
-		});
+    it("should decide rock ties rock ", function() {
+      expect(game.compare("rock","rock")).toEqual("The result is a tie!");
+    });
 
-		it("should decide scissors ties scissors ", function() {
-			expect(game.compare("scissors", "scissors")).toEqual("The result is a tie!");
-		});
+    it("should decide scissors ties scissors ", function() {
+      expect(game.compare("scissors", "scissors")).toEqual("The result is a tie!");
+    });
 
-		it("should decide paper ties paper ", function() {
-			expect(game.compare("paper","paper")).toEqual("The result is a tie!");
-		});
-	});
+    it("should decide paper ties paper ", function() {
+      expect(game.compare("paper","paper")).toEqual("The result is a tie!");
+    });
+  });
 
 });

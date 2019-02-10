@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var ToolsForFieldLinguistics = require('../../src/javascript/ToolsForFieldLinguistics.js');
+var ToolsForFieldLinguistics = require("../../src/javascript/ToolsForFieldLinguistics.js");
 /**
  <pre>
   ======== A Handy Little Jasmine Reference ========
