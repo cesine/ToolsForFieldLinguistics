@@ -10,15 +10,15 @@
  * without breaking, with as few drops as possible.
  */
 var debug = function() {
-  console.log(arguments);
+  // console.log(arguments);
   return;
 };
 
-var Game = function(options = {}) {
-  this.topFloor = typeof options.topFloor === 'number' ? options.topFloor : 100;
-  this.eggs = typeof options.eggs === 'number' ? options.eggs : 2;
+var Game = function(options) {
+  this.topFloor = (options && typeof options.topFloor === "number") ? options.topFloor : 100;
+  this.eggs = (options && typeof options.eggs === "number") ? options.eggs : 2;
   this.itterations = 0;
-  this.floorWhereEggBreaks = typeof options.floorWhereEggBreaks === 'number' ? options.floorWhereEggBreaks : Math.ceil(Math.random() * this.topFloor);
+  this.floorWhereEggBreaks = (options && typeof options.floorWhereEggBreaks === "number") ? options.floorWhereEggBreaks : Math.ceil(Math.random() * this.topFloor);
   return this;
 };
 
@@ -57,33 +57,30 @@ var Game = function(options = {}) {
  */
 var findMaxSafeFloor = function(game) {
   game.multiplier = Math.ceil(Math.sqrt(game.topFloor));
-  var firstRound = 0;
+  var multiplier = game.multiplier * (game.eggs - 1);
+  var currentFloor = 0;
 
-  for (var i = game.multiplier; i < game.topFloor; i += game.multiplier) {
-    console.log('Dropping at ', i);
-    game.itterations += 1;
+  while (game.eggs && multiplier) {
+    debug("Series: " + multiplier);
+    for (var i = currentFloor + multiplier; i <= game.topFloor; i += multiplier) {
+      debug(" Dropping at ", i);
+      game.itterations += 1;
 
-    if (game.floorWhereEggBreaks <= i) {
-      console.log('  Shplat ' + game.eggs + ' break at ', i, game.floorWhereEggBreaks);
+      if (game.floorWhereEggBreaks <= i) {
+        debug("  Shplat egg " + game.eggs + " broke at " + i + " (" + game.floorWhereEggBreaks + ")");
 
-      game.eggs -= 1;
-      firstRound = i - game.multiplier;
-      break;
+        game.eggs -= 1;
+        currentFloor = i - multiplier;
+        if (game.eggs === 0) {
+          debug(" I found the safe floor " + (i - multiplier) + " in " + game.itterations + " itterations.");
+          return i - multiplier;
+        }
+
+        multiplier = game.eggs === 1 ? 1 : Math.ceil(game.multiplier / (game.eggs - 1));
+        break;
+      }
+      debug("  Egg didnt break");
     }
-    console.log('  Egg didnt break at ', i);
-  }
-
-  for (var j = firstRound + 1; j <= game.topFloor; j += 1) {
-    console.log('Dropping at ', j);
-    game.itterations += 1;
-
-    if (game.floorWhereEggBreaks <= j) {
-      console.log('  Shplat ' + game.eggs + ' at  ', j, game.floorWhereEggBreaks);
-
-      game.eggs -= 1;
-      return j - 1;
-    }
-    console.log('  Egg didnt break at ', j);
   }
 
   return game.topFloor;
@@ -138,7 +135,7 @@ describe("Not Quite Binary Search", function() {
       var floorsWhereEggBreaks = games.map(function(game) {
         return game.floorWhereEggBreaks;
       });
-      debug('random floorsWhereEggBreaks', floorsWhereEggBreaks);
+      debug("random floorsWhereEggBreaks", floorsWhereEggBreaks);
       expect(floorsWhereEggBreaks).toContain(1);
       expect(floorsWhereEggBreaks).toContain(2);
       expect(floorsWhereEggBreaks).not.toContain(0);
@@ -160,13 +157,47 @@ describe("Not Quite Binary Search", function() {
   });
 
   describe("search", function() {
-    it("should be able to find max safe flore in finite time", function() {
+    it("should be able to find max safe floor in finite time", function() {
       var game = new Game();
 
       var safeFloor = findMaxSafeFloor(game);
       expect(safeFloor).toEqual(game.floorWhereEggBreaks - 1);
+      expect(game.itterations).toBeLessThan(20);
+    });
 
-      // expect(game.itterations).toEqual(game.floorWhereEggBreaks-1);
+    it("should be able to find max safe floor if ^3", function() {
+      var game = new Game({
+        eggs: 2,
+        topFloor: 100,
+        floorWhereEggBreaks: 100
+      });
+
+      var safeFloor = findMaxSafeFloor(game);
+      expect(safeFloor).toEqual(game.floorWhereEggBreaks - 1);
+      expect(game.itterations).toEqual(20);
+    });
+
+    it("should be able to find max safe floor if 3 eggs", function() {
+      var game = new Game({
+        eggs: 3,
+        topFloor: 64,
+        floorWhereEggBreaks: 17
+      });
+
+      var safeFloor = findMaxSafeFloor(game);
+      expect(safeFloor).toEqual(game.floorWhereEggBreaks - 1);
+      expect(game.itterations).toEqual(4);
+    });
+
+    it("should be able to find max safe floor if 3 eggs", function() {
+      var game = new Game({
+        eggs: 3,
+        topFloor: 64,
+      });
+
+      var safeFloor = findMaxSafeFloor(game);
+      expect(safeFloor).toEqual(game.floorWhereEggBreaks - 1);
+      expect(game.itterations).toBeLessThan(14);
     });
   });
 
