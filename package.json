@@ -1,0 +1,46 @@
+{
+  "name": "tools-for-field-linguistics",
+  "description": "A collection of scripts and recipes for fieldlinguistics",
+  "version": "0.1.0",
+  "homepage": "https://github.com/cesine/ToolsForFieldLinguistics",
+  "author": {
+    "name": "cesine",
+    "email": "cesine@yahoo.com"
+  },
+  "authors": [
+    "cesine <cesine@yahoo.com>",
+    "hisakonog <hisakonog@gmail.com>",
+    "vronvali <vronvali@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cesine/ToolsForFieldLinguistics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cesine/ToolsForFieldLinguistics/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "main": "lib/ToolsForFieldLinguistics",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "dist": "browserify src/javascript/ToolsForFieldLinguistics.js -o dist/tools-for-field-linguistics.js",
+    "docs": "rm -rf docs/javascript; jsdoc  ./src/javascript/*.js ./src/javascript/connectedgraph/*.js ./src/javascript/data-manipulation/*.js -d ./docs/javascript",
+    "lint": "eslint src/javascript test/javascript",
+    "test": "jasmine 'test/javascript/**/**/*spec.js'"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "eslint": "^5.13.0",
+    "jasmine": "^3.3.1",
+    "jsdoc": "^3.5.5"
+  },
+  "keywords": [],
+  "dependencies": {}
+}

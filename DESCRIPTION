@@ -1,0 +1,21 @@
+Package: toolsforfieldlinguistics
+Version: 0.0.0
+Title: ToolsForFieldLinguistics
+Description: A collection of scripts and recipes for fieldlinguistics and RAs in data heavy labs.
+Authors@R: as.person(c(
+    "cesine <cesine@yahoo.com> [aut, cre]",
+    "RStudio [cph]"))
+URL: https://github.com/cesine/ToolsForFieldLinguistics
+BugReports: https://github.com/cesine/ToolsForFieldLinguistics/issues
+Depends:
+    R (>= 3.1.0),
+    methods
+Imports:
+    digest,
+    crayon,
+    kernlab
+Suggests:
+    devtools
+License: Apache 2.0 + file LICENSE
+Collate:
+    'spam.r'

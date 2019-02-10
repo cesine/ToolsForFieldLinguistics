@@ -1,0 +1,15 @@
+/*
+ * This jape grammar  shows how to find minimal pairs (if the text has a phonological orthography) 
+ */
+Phase:   FindMinimalSets
+Input: Token
+Options: control = appelt
+
+Rule: minimalpair
+(
+ {Token.string ==~ "b.t"}
+ )
+:section -->
+  :section.MinimalPair = {	kind = "phonology", 
+  							string = :section.Token.string}
+

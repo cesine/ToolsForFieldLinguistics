@@ -1,0 +1,21 @@
+File type = "ooTextFile"
+Object class = "Strings"
+
+numberOfStrings = 16 
+strings []: 
+    strings [1] = "Blue" 
+    strings [2] = "Teal" 
+    strings [3] = "Magenta" 
+    strings [4] = "Black" 
+    strings [5] = "Red" 
+    strings [6] = "Maroon" 
+    strings [7] = "Green" 
+    strings [8] = "Yellow" 
+    strings [9] = "Cyan" 
+    strings [10] = "Red" 
+    strings [11] = "Blue" 
+    strings [12] = "Lime" 
+    strings [13] = "Grey" 
+    strings [14] = "Green" 
+    strings [15] = "Red" 
+    strings [16] = "Purple" 

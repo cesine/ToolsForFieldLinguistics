@@ -1,0 +1,24 @@
+/*
+ * This jape grammar tags oblique nominals in context by finding words which end in .*ay (many of them will be obliques)
+ * goal: first pass high recall, low precision
+ */
+Phase:   TagObliqueNominalsInUrdu
+Input: Token
+Options: control = appelt
+
+
+Rule: oblique
+(
+ {Token.string ==~ ".*ay"}
+ )
+:section -->
+  :section.Nominal = {	kind = "suffix", 
+		 				string = :section.Token.string}
+
+Rule: child
+(
+ {Token.string ==~ "lark.*"}
+ )
+:section -->
+  :section.MinimalPair = {kind = "morphology", meaning = "child", string=:section.Token.string}
+

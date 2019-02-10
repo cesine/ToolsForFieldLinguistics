@@ -1,0 +1,21 @@
+File type = "ooTextFile"
+Object class = "Strings"
+
+numberOfStrings = 16 
+strings []: 
+    strings [1] = "i" 
+    strings [2] = "I" 
+    strings [3] = "y" 
+    strings [4] = "Y" 
+    strings [5] = "e" 
+    strings [6] = "E" 
+    strings [7] = "\oe" 
+    strings [8] = "\OE" 
+    strings [9] = "\ae" 
+    strings [10] = "a" 
+    strings [11] = "A" 
+    strings [12] = "\sw" 
+    strings [13] = "U" 
+    strings [14] = "u" 
+    strings [15] = "O" 
+    strings [16] = "o" 

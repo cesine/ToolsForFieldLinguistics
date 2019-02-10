@@ -1,0 +1,7 @@
+//Main for ignoring data outside of the html p tag. this is useful for websites if you want to work on sentences, and not just words. Or if you want to work on natural data and not tables of contents or lists.
+//this muliphase jape doesnt work yet because the first jape needs to ahve different settings for its input annotation set
+
+MultiPhase: OnlyUseDataInParagraphs
+Phases:
+TransferPfromOriginalmarkupstoDefault
+IgnoreDataOutsideofPs

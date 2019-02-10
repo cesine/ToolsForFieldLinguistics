@@ -1,0 +1,1006 @@
+Phase:   TagContentAndFuntionalWords
+Input: Token
+Options: control = appelt
+
+
+Rule: aa0
+(
+ {Token.string == "suyupi"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="18" string=:section.Token.string}
+
+Rule: aa1
+(
+ {Token.string == "qhichwa"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="16" string=:section.Token.string}
+
+Rule: aa2
+(
+ {Token.string == "rimaq"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="5" string=:section.Token.string}
+
+Rule: aa3
+(
+ {Token.string == "piruw"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="5" string=:section.Token.string}
+
+Rule: aa4
+(
+ {Token.string == "lliw"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="5" string=:section.Token.string}
+
+Rule: aa5
+(
+ {Token.string == "runa"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="5" string=:section.Token.string}
+
+Rule: aa6
+(
+ {Token.string == "huk"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="5" string=:section.Token.string}
+
+Rule: aa7
+(
+ {Token.string == "suyupiqa"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="4" string=:section.Token.string}
+
+Rule: aa8
+(
+ {Token.string == "runakuna"}
+ )
+:section -->
+  :section.FunctionalVery = {kind = "FunctionalVery", documentCount="4" string=:section.Token.string}
+
+Rule: aa9
+(
+ {Token.string == "ikwadur"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="3" string=:section.Token.string}
+
+Rule: aa10
+(
+ {Token.string == "mama"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="3" string=:section.Token.string}
+
+Rule: aa11
+(
+ {Token.string == "arhintina"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="3" string=:section.Token.string}
+
+Rule: aa12
+(
+ {Token.string == "buliwya"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa13
+(
+ {Token.string == "kawsan"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa14
+(
+ {Token.string == "chuqiyapu"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa15
+(
+ {Token.string == "hukkunapas"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa16
+(
+ {Token.string == "kallawaya"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa17
+(
+ {Token.string == "rimanku"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa18
+(
+ {Token.string == "tiyanku"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa19
+(
+ {Token.string == "qusqu"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa20
+(
+ {Token.string == "runakunaqa"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa21
+(
+ {Token.string == "k"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa22
+(
+ {Token.string == "manaraq"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa23
+(
+ {Token.string == "kaptinpas"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa24
+(
+ {Token.string == "chay"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa25
+(
+ {Token.string == "kichwa"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa26
+(
+ {Token.string == "nisqa"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa27
+(
+ {Token.string == "warmi"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa28
+(
+ {Token.string == "ch"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa29
+(
+ {Token.string == "pruwinsyapi"}
+ )
+:section -->
+  :section.Functional = {kind = "Functional", documentCount="2" string=:section.Token.string}
+
+Rule: aa30
+(
+ {Token.string == "chuqichaka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa31
+(
+ {Token.string == "quchapampa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa32
+(
+ {Token.string == "uru-"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa33
+(
+ {Token.string == "uru"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa34
+(
+ {Token.string == "p"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa35
+(
+ {Token.string == "utuqsi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa36
+(
+ {Token.string == "santa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa37
+(
+ {Token.string == "kruspipas"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa38
+(
+ {Token.string == "antanka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa39
+(
+ {Token.string == "mirq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa40
+(
+ {Token.string == "amaya"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa41
+(
+ {Token.string == "simitam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa42
+(
+ {Token.string == "apaykachana"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa43
+(
+ {Token.string == "apulu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa44
+(
+ {Token.string == "ariqipa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa45
+(
+ {Token.string == "punu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa46
+(
+ {Token.string == "lima"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa47
+(
+ {Token.string == "kashamarka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa48
+(
+ {Token.string == "pasqu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa49
+(
+ {Token.string == "hunin"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa50
+(
+ {Token.string == "wanuku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa51
+(
+ {Token.string == "anqash"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa52
+(
+ {Token.string == "wankawillka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa53
+(
+ {Token.string == "apurimaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa54
+(
+ {Token.string == "ayakuchu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa55
+(
+ {Token.string == "karqanku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa56
+(
+ {Token.string == "watayuq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa57
+(
+ {Token.string == "aswan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa58
+(
+ {Token.string == "kuraq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa59
+(
+ {Token.string == "ima"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa60
+(
+ {Token.string == "watapi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa61
+(
+ {Token.string == "pikunachus"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa62
+(
+ {Token.string == "kawsarqan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa63
+(
+ {Token.string == "runakunam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa64
+(
+ {Token.string == "simita"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa65
+(
+ {Token.string == "nisqaqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa66
+(
+ {Token.string == "kulumbya"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa67
+(
+ {Token.string == "llaqtakunapi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa68
+(
+ {Token.string == "tiyaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa69
+(
+ {Token.string == "chili"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa70
+(
+ {Token.string == "awpaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa71
+(
+ {Token.string == "llaqtakunamantam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa72
+(
+ {Token.string == "achka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa73
+(
+ {Token.string == "chankakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa74
+(
+ {Token.string == "paqarin"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa75
+(
+ {Token.string == "wankakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa76
+(
+ {Token.string == "ahinataq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa77
+(
+ {Token.string == "inkakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa78
+(
+ {Token.string == "kallawayakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa79
+(
+ {Token.string == "anakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa80
+(
+ {Token.string == "qanchikuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa81
+(
+ {Token.string == "ka"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa82
+(
+ {Token.string == "qullakuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa83
+(
+ {Token.string == "arikuna"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa84
+(
+ {Token.string == "hukkunamantapas"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa85
+(
+ {Token.string == "llaqta"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa86
+(
+ {Token.string == "pusaqkunam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa87
+(
+ {Token.string == "llaqtapaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa88
+(
+ {Token.string == "hina"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa89
+(
+ {Token.string == "manam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa90
+(
+ {Token.string == "piruwpiqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa91
+(
+ {Token.string == "rimapuykunku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa92
+(
+ {Token.string == "tantanakuyninchu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa93
+(
+ {Token.string == "runakunapaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa94
+(
+ {Token.string == "kan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa95
+(
+ {Token.string == "llaqtapitaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa96
+(
+ {Token.string == "ecuarunari"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa97
+(
+ {Token.string == "tantanakuymi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa98
+(
+ {Token.string == "runakunata"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa99
+(
+ {Token.string == "rikuchiykun"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa100
+(
+ {Token.string == "ecuarunari-qa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa101
+(
+ {Token.string == "hatun"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa102
+(
+ {Token.string == "conaie"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa103
+(
+ {Token.string == "sutiyuq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa104
+(
+ {Token.string == "indihina"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa105
+(
+ {Token.string == "rikuchiykuq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa106
+(
+ {Token.string == "llaqtakunata"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa107
+(
+ {Token.string == "wankurisqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa108
+(
+ {Token.string == "tantanakuypim"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa109
+(
+ {Token.string == "buliwyapiqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa110
+(
+ {Token.string == "yaqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa111
+(
+ {Token.string == "ministiryupiqa"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa112
+(
+ {Token.string == "yachay"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa113
+(
+ {Token.string == "am"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa114
+(
+ {Token.string == "tantanakuyninku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa115
+(
+ {Token.string == "siminkuta"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa116
+(
+ {Token.string == "kaqllatam"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa117
+(
+ {Token.string == "michiq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa118
+(
+ {Token.string == "kachkan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa119
+(
+ {Token.string == "kunayninku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa120
+(
+ {Token.string == "llama"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa121
+(
+ {Token.string == "cenaq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa122
+(
+ {Token.string == "astawan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa123
+(
+ {Token.string == "jujui"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa124
+(
+ {Token.string == "huhuy"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa125
+(
+ {Token.string == "santiago"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa126
+(
+ {Token.string == "del"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa127
+(
+ {Token.string == "estero"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa128
+(
+ {Token.string == "itimanta"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa129
+(
+ {Token.string == "buliwyamanta"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa130
+(
+ {Token.string == "urin"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa131
+(
+ {Token.string == "kunchuku"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa132
+(
+ {Token.string == "llaqtamanta"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa133
+(
+ {Token.string == "waq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa134
+(
+ {Token.string == "suyukunapi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa135
+(
+ {Token.string == "markapi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa136
+(
+ {Token.string == "chimpurasu"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa137
+(
+ {Token.string == "llaqtayuq"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa138
+(
+ {Token.string == "alawsi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa139
+(
+ {Token.string == "qusqupi"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa140
+(
+ {Token.string == "allpaqawan"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa141
+(
+ {Token.string == "kankus"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+
+Rule: aa142
+(
+ {Token.string == "wamra"}
+ )
+:section -->
+  :section.Frequent = {kind = "Frequent", documentCount="1" string=:section.Token.string}
+

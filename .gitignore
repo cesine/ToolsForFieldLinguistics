@@ -1,12 +1,18 @@
+# Build/IDE temp files #
+#############
 .project
 .settings
 .classpath
-
-# compiled files
 bin
 gen/srt
 build
+.RData
 
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
 # Big files #
 #############
@@ -39,6 +45,7 @@ target
 *.exe
 *.o
 *.so
+docs/javascript
 
 # Packages #
 ############
@@ -49,10 +56,13 @@ target
 *.gz
 *.iso
 *.jar
+*.war
+*.ear
 *.rar
 *.tar
 #*.zip
 node_modules
+bower_components
 
 # Logs and databases #
 ######################
@@ -62,6 +72,7 @@ node_modules
 
 # OS generated files #
 ######################
+.DS_Store
 .DS_Store?
 ehthumbs.db
 Icon?
