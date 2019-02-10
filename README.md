@@ -7,23 +7,22 @@ A collection of scripts and recipes for fieldlinguistics and RAs in data heavy l
 
 ## Getting Started
 ### On the server
-Install the module with: `npm install tools-for-field-linguistics`
+Install the module with: `npm install git://github.com/cesine/ToolsForFieldLinguistics.git`
 
 ```javascript
-var ToolsForFieldLinguistics = require('ToolsForFieldLinguistics');
-ToolsForFieldLinguistics.init(); // "init"
+var ToolsForFieldLinguistics = require('tools-for-field-linguistics');
+console.log(ToolsForFieldLinguistics);
 ```
 
 ### In the browser
-Download the [production version][min] or the [development version][max] or use bower `bower install tools-for-field-linguistics`.
+Download the [development version][max].
 
-[min]: https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.min.js
 [max]: https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.js
 
 In your web page:
 
 ```html
-<script src="dist/tools-for-field-linguistics.min.js"></script>
+<script src="dist/tools-for-field-linguistics.js"></script>
 <script>
 init(); // "init"
 </script>
@@ -33,11 +32,11 @@ In your code, you can attach ToolsForFieldLinguistics's methods to any object.
 
 ```html
 <script>
-var exports = Bocoup.utils;
+var exports = Stuff.utils;
 </script>
-<script src="dist/tools-for-field-linguistics.min.js"></script>
+<script src="dist/tools-for-field-linguistics.js"></script>
 <script>
-Bocoup.utils.init(); // "init"
+Stuff.utils.init(); // "init"
 </script>
 ```
 
@@ -53,12 +52,12 @@ https://github.com/cesine/ToolsForFieldLinguistics/tree/master/test
 
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. If you know how, add unit tests for any new or changed functionality. The project comes with automated linting and testing for your javascript code using [Grunt](http://gruntjs.com/).
+In lieu of a formal styleguide, take care to maintain the existing coding style. If you know how, add unit tests for any new or changed functionality. The project comes with automated linting and testing for your javascript code using [NPM Scripts](https://docs.npmjs.com/misc/scripts).
 
 
 ###Contributing Examples
 
-Want to contribute? (easy) 
+Want to contribute? (easy)
 
 1. Click on Edit on any of the pages on GitHub
 3. Edit the code, and commit your changes saying what you changed (git commit -m "added some more regex to the text cleaner"). GitHub will create an Issue for you which asks us to bring in your changes
@@ -70,7 +69,8 @@ Want to contribute? (advanced)
 3. Make your modifications
 4. Run the dev tools (linter and tests if you modified the javascript)
  $ npm install
- $ grunt 
+ $ npm run lint
+ $ npm test
 5. Commit your changes (git commit -m "added some more regex to the text
 cleaner")
 6. Push to the branch (git push origin more_regex)
@@ -90,5 +90,5 @@ Groovy Syntax highlighting using Eclipse
 
 
 ## License
-Copyright (c) 2010-2015 cesine, hisakonog, vronvali
+Copyright (c) 2010-2019 cesine, hisakonog, vronvali
 Licensed under the Apache 2.0 license.
