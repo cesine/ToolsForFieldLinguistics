@@ -54,3 +54,5 @@ var RockPaperScissorsGame = function() {
 
   return this;
 };
+
+exports.RockPaperScissorsGame = RockPaperScissorsGame;

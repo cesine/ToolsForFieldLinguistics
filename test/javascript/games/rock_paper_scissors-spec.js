@@ -1,4 +1,10 @@
-/* globals RockPaperScissorsGame */
+var Game;
+if (typeof window === 'undefined') {
+  Game = require("../../../src/javascript/rock_paper_scissors").RockPaperScissorsGame;
+  console.log('Game', Game.toString);
+} else {
+  Game = window.exports.RockPaperScissorsGame
+}
 
 /**
  <pre>
@@ -51,22 +57,22 @@
 describe("rock paper scissors game", function() {
 
 	it("should load ", function() {
-		var game = new RockPaperScissorsGame();
+		var game = new Game();
 		expect(game).toBeDefined();
 	});
 
 	it("should run ", function() {
-		var game = new RockPaperScissorsGame();
+		var game = new Game();
 		expect(game.run).toBeDefined();
 	});
 
 	it("should compare choices ", function() {
-		var game = new RockPaperScissorsGame();
+		var game = new Game();
 		expect(game.compare).toBeDefined();
 	});
 
 	describe("compare", function() {
-		var game = new RockPaperScissorsGame();
+		var game = new Game();
 
 		it("should decide paper beats rock ", function() {
 			expect(game.compare("paper", "rock")).toEqual("paper wins");
