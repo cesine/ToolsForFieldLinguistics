@@ -7,6 +7,11 @@
     "name": "cesine",
     "email": "cesine@yahoo.com"
   },
+  "authors": [
+    "cesine <cesine@yahoo.com>",
+    "hisakonog <hisakonog@gmail.com>",
+    "vronvali <vronvali@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/cesine/ToolsForFieldLinguistics.git"
@@ -25,9 +30,11 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
+    "lint": "eslint src/javascript test/javascript",
     "test": "jasmine 'test/javascript/**/**/*spec.js'"
   },
   "devDependencies": {
+    "eslint": "^5.13.0",
     "jasmine": "^3.3.1"
   },
   "keywords": [],
