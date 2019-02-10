@@ -30,12 +30,14 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
+    "docs": "rm -rf docs/javascript; jsdoc  ./src/javascript/*.js ./src/javascript/connectedgraph/*.js ./src/javascript/data-manipulation/*.js -d ./docs/javascript",
     "lint": "eslint src/javascript test/javascript",
     "test": "jasmine 'test/javascript/**/**/*spec.js'"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
-    "jasmine": "^3.3.1"
+    "jasmine": "^3.3.1",
+    "jsdoc": "^3.5.5"
   },
   "keywords": [],
   "dependencies": {}

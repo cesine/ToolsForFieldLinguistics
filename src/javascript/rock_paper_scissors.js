@@ -4,7 +4,9 @@
  * This is a Class which you can call "new RockPaperScissorsGame()" and
  * it will return an instance of the game which you can run.
  *
- * @return {[type]}
+ * @module          RockPaperScissorsGame
+ * @tutorial        test/javascript/games/rock_paper_scissors-spec.js
+ * @return {Game} Construct a rock paper scissors game
  */
 var RockPaperScissorsGame = function() {
   this.run = function() {
