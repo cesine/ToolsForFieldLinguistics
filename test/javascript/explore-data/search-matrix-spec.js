@@ -210,7 +210,7 @@ describe("Searching a matrix (table) of data...", function() {
         character: "∆",
         row: 3,
         column: 1
-      }))).toEqual('.....\n.....\n.....\n.∆...');
+      }))).toEqual(".....\n.....\n.....\n.∆...");
     });
 
   });

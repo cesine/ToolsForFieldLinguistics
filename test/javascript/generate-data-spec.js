@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * GenerateData specs for testing the generation of random data, including uniqueness sorting shuffling and runtime.
@@ -9,7 +9,7 @@
  * @example  GenerateData
  * @module  GenerateData-specs
  */
-var generateData = require('../../src/javascript/data-manipulation/generate-data.js');
+var generateData = require("../../src/javascript/data-manipulation/generate-data.js");
 
 describe("Generating data...", function() {
 

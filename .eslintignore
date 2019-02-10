@@ -2,4 +2,5 @@ src/javascript/connectedgraph
 src/javascript/flot/
 src/javascript/jqplot
 src/javascript/jquery
-src/tabletobarpielinegraphs
+src/javascript/tabletobarpielinegraphs
+src/javascript/stackedbargraph

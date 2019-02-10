@@ -10,7 +10,7 @@
  */
 (function(exports) {
 
-  'use strict';
+  "use strict";
 
   /**
    * Fisher–Yates shuffling is similar to randomly picking numbered tickets 
@@ -197,4 +197,4 @@
     return a;
   };
 
-}(typeof exports === 'object' && exports || this));
+}(typeof exports === "object" && exports || this));
