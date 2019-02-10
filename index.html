@@ -26,7 +26,7 @@
 
         <a href="https://github.com/cesine/ToolsForFieldLinguistics" class="button fork"><strong>View On GitHub</strong></a>
         <div class="downloads">
-          
+
           </ul>
         </div>
       </div><!-- end banner -->
@@ -60,22 +60,22 @@ The first step is most likely to fork this project, and download the code to you
 <li><a href="https://help.github.com/articles/fork-a-repo" target="_blank">Download the repo to your computer</a> <a href="watchmes/4git_forking.html" target="_blank">[WATCHME]</a></li>
 <li>Run the dev tools (linter and tests so you can see what is available in the javascript recipes)<br/>
   <code>
-$ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
+$ cd ToolsForFieldLinguistics && npm install && npm run lint && npm test </code></li>
 <li>Make your modifications (you can look at the FieldDB milestones for <a href="https://github.com/OpenSourceFieldlinguistics/FieldDB/issues/milestones" target="_blank">ideas of what can be done</a>, or the <a href="#documentation">docs</a> and <a href="#examples">examples</a> below.) <a href="http://www.youtube.com/watch?v=y4zO7JHkFMU&list=PL76F66AB2C69D769B" target="_blank">(YouTube Playlist)</a></li>
-<li>Commit your changes <a href="watchmes/5git_making_changes_in_a_fork.html" target="_blank">[WATCHME]</a><br/> 
+<li>Commit your changes <a href="watchmes/5git_making_changes_in_a_fork.html" target="_blank">[WATCHME]</a><br/>
   <code>$ git commit -m "added some more regex to the text cleaner"</code></li>
-<li>Push to your GitHub <a href="watchmes" target="_blank">[WATCHME]</a><br/> 
+<li>Push to your GitHub <a href="watchmes" target="_blank">[WATCHME]</a><br/>
   <code>$ git push origin master</code></li>
 </ol>
 
 <h3>
 <a name="in-the-browser" class="anchor" href="#in-the-browser"><span class="octicon octicon-link"></span></a>Using the code in a browser</h3>
 
-<p>Download the <a href="https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.min.js">production version</a> or the <a href="https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.js">development version</a> <br/> (or use bower <code>$ bower install tools-for-field-linguistics</code>).</p>
+<p>Download the <a href="https://raw.github.com/cesine/ToolsForFieldLinguistics/master/dist/tools-for-field-linguistics.js">development version</a> </p>
 
 <p>In your web page:</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
 <span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
 <span class="nt">&lt;/script&gt;</span>
@@ -84,11 +84,11 @@ $ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
 <p>In your code, you can attach ToolsForFieldLinguistics's methods to any object.</p>
 
 <div class="highlight highlight-html"><pre><span class="nt">&lt;script&gt;</span>
-<span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Bocoup</span><span class="p">.</span><span class="nx">utils</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Stuff</span><span class="p">.</span><span class="nx">utils</span><span class="p">;</span>
 <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/tools-for-field-linguistics.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
-<span class="nx">Bocoup</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
+<span class="nx">Stuff</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
@@ -97,7 +97,7 @@ $ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
 <h3>
 <a name="on-the-server" class="anchor" href="#on-the-server"><span class="octicon octicon-link"></span></a>Using the code on a server</h3>
 
-<p>Install the module with: <code>$ npm install tools-for-field-linguistics</code></p>
+<p>Install the module with: <code>$ npm install git://github.com/cesine/ToolsForFieldLinguistics.git</code></p>
 
 <div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">ToolsForFieldLinguistics</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'ToolsForFieldLinguistics'</span><span class="p">);</span>
 <span class="nx">ToolsForFieldLinguistics</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span> <span class="c1">// "init"</span>
@@ -121,7 +121,7 @@ $ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
 <h2>
 <a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
 
-<p>Tutorials and quizes:  
+<p>Tutorials and quizes:
 <a href="https://github.com/cesine/ToolsForFieldLinguistics/tree/master/test/javascript/generate-data-spec.js">see the specs and tests</a>. You can read the spec, and try to write the code your self which would make that spec pass.</p>
 
 <p>We also have some screencasts from the 2011 workshop:
@@ -145,15 +145,15 @@ $ cd ToolsForFieldLinguistics && npm install && grunt </code></li>
 </ol><p>Want to contribute? (advanced for GitHub users)</p>
 <ol>
 <li><a href="https://github.com/cesine/ToolsForFieldLinguistics/fork" target="_blank">Fork the repo</a> if you haven't already</li>
-<li>Create a branch which describes your change <br/> 
+<li>Create a branch which describes your change <br/>
   <code>$ git checkout -b more_regex</code></li>
 <li>Make your modifications</li>
 <li>Run the dev tools (linter and tests if you modified the javascript)<br/>
   <code>
-$ npm install && grunt </code></li>
-<li>Commit your changes <br/> 
+$ npm install && npm run lint && npm test </code></li>
+<li>Commit your changes <br/>
   <code>$ git commit -m "added some more regex to the text cleaner"</code></li>
-<li>Push to the branch <br/> 
+<li>Push to the branch <br/>
   <code>$ git push origin more_regex</code></li>
 <li><a href="https://github.com/cesine/ToolsForFieldLinguistics/compare/" target="_blank">Create a Pull Request</a> (adding more details if necessary) <a href="watchmes/6git_tell_someone_that_you_made_useful_changes.html" target="_blank">[WATCHME]</a></li>
 </ol><h2>
@@ -176,7 +176,7 @@ $ npm install && grunt </code></li>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
 
-<p>Copyright (c) 2010-2013 <a href="https://github.com/cesine" target="_blank" class="user-mention">@cesine</a>, <a href="https://github.com/hisakonog" target="_blank" class="user-mention">@hisakonog</a> and <a href="https://github.com/OpenSourceFieldlinguistics?tab=members" target="_blank">others<br/>
+<p>Copyright (c) 2010-2019 <a href="https://github.com/cesine" target="_blank" class="user-mention">@cesine</a>, <a href="https://github.com/hisakonog" target="_blank" class="user-mention">@hisakonog</a> and <a href="https://github.com/OpenSourceFieldlinguistics?tab=members" target="_blank">others<br/>
 Licensed under the Apache 2.0 license.</p>
 
       </section>
@@ -186,6 +186,6 @@ Licensed under the Apache 2.0 license.</p>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
   </body>
 </html>
