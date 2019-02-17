@@ -10,7 +10,7 @@
  * without breaking, with as few drops as possible.
  */
 var debug = function() {
-  // console.log(arguments);
+  console.log(arguments);
   return;
 };
 
@@ -165,7 +165,18 @@ describe("Not Quite Binary Search", function() {
       expect(game.itterations).toBeLessThan(20);
     });
 
-    it("should be able to find max safe floor if ^3", function() {
+    it("should be able to find max safe floor if safe floor is top floor", function() {
+      var game = new Game({
+        topFloor: 20,
+        floorWhereEggBreaks: 21,
+      });
+
+      var safeFloor = findMaxSafeFloor(game);
+      expect(safeFloor).toEqual(20);
+      expect(game.itterations).toEqual(1);
+    });
+
+    xit("should be able to find max safe floor if ^3", function() {
       var game = new Game({
         eggs: 2,
         topFloor: 100,
@@ -177,7 +188,7 @@ describe("Not Quite Binary Search", function() {
       expect(game.itterations).toEqual(20);
     });
 
-    it("should be able to find max safe floor if 3 eggs", function() {
+    xit("should be able to find max safe floor if 3 eggs", function() {
       var game = new Game({
         eggs: 3,
         topFloor: 64,
@@ -189,7 +200,7 @@ describe("Not Quite Binary Search", function() {
       expect(game.itterations).toEqual(4);
     });
 
-    it("should be able to find max safe floor if 3 eggs", function() {
+    xit("should be able to find max safe floor if 3 eggs", function() {
       var game = new Game({
         eggs: 3,
         topFloor: 64,
@@ -202,20 +213,26 @@ describe("Not Quite Binary Search", function() {
   });
 
   describe("performance", function() {
-    it("should run in better than N time", function() {
+    xit("should run in better than N time", function() {
+      var game;
+      var matrix = [];
       var startTime;
       var samples = [];
-      var size = 500;
+      var size = 100;
       var k;
 
-      var matrix = [];
-      for (k = 1; k < 5; k++) {
+      for (k = 0; k <= size; k++) {
         startTime = Date.now();
-        matrix[k] = new Game(k);
-        samples.push((Date.now() - startTime));
+        game = new Game({ topFloor: k });
+        console.log('game start', game);
+        game.safeFloor = findMaxSafeFloor(game);
+        console.log('game end', game);
+
+        matrix[k] = game;
+        samples[k] = Date.now() - startTime;
       }
 
-      debug(samples);
+      console.log(samples);
     });
   });
 });
