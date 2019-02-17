@@ -1,7 +1,5 @@
 const expect = require('expect.js');
-const {
-  multiplyAll
-} = require('../src/problems');
+const multiplyAll = require('../src/problems');
 
 describe('Fun challenges', () => {
   it('should test expectations', () => {
