@@ -81,6 +81,37 @@ function productExceptSelfLinear(numbers) {
   });
 }
 
+/**
+ * Divide and concur, normal multiplication is n^2
+ *
+ * @param  {Number} x  Value to multiply
+ * @param  {Number} y  Value to multiply
+ * @return {Number}    Product
+ */
+function bruteForceMultiplication(x, y) {
+  var yDigits = y.toString().split("");
+  var productOfEachDigit = [];
+  debug("bruteForceMultiplication x: " + x + " y: " + y);
+
+  // N
+  productOfEachDigit = yDigits.map(function(digit, i) {
+    var value = x * digit;
+    var tens = "";
+    for (var j = yDigits.length - i - 1; j > 0; j--) {
+      tens += "0";
+    }
+    var result = parseInt(value + tens, 10);
+    debug(" multipling by " + digit + " and tens " + tens + " is " + result);
+    return result;
+  });
+
+  // N
+  return productOfEachDigit.reduce(function(acc, curr) {
+    debug(" adding " + curr);
+    return acc + curr;
+  }, 0);
+}
+
 describe("Accumulation", function() {
   it("should return [24, 12, 8, 6]", function() {
     var result = productExceptSelfLinear([1, 2, 3, 4]);
@@ -104,5 +135,27 @@ describe("Accumulation", function() {
     expect(productExceptSelfUsingNestedLoops([9, 22, 8, 1, 0])).toEqual(result);
     expect(productExceptSelfUsingNestedMap([9, 22, 8, 1, 0])).toEqual(result);
     expect(productExceptSelfUsingNestedReduce([9, 22, 8, 1, 0])).toEqual(result);
+  });
+
+  it("should be correct", function() {
+    var result = bruteForceMultiplication(111, 22);
+    expect(result).toEqual(2442);
+  });
+
+  it("should support 0", function() {
+    var result = bruteForceMultiplication(111, 0);
+    expect(result).toEqual(0);
+    expect(bruteForceMultiplication(0, 111)).toEqual(0);
+  });
+
+  it("should support 1", function() {
+    var result = bruteForceMultiplication(111, 1);
+    expect(result).toEqual(111);
+    expect(bruteForceMultiplication(1, 111)).toEqual(111);
+  });
+
+  it("should support arbitrary numbers", function() {
+    var result = bruteForceMultiplication(823, 9234);
+    expect(result).toEqual(7599582);
   });
 });
