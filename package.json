@@ -33,7 +33,7 @@
     "dist": "browserify src/javascript/ToolsForFieldLinguistics.js -o dist/tools-for-field-linguistics.js",
     "docs": "rm -rf docs/javascript; jsdoc  ./src/javascript/*.js ./src/javascript/connectedgraph/*.js ./src/javascript/data-manipulation/*.js -d ./docs/javascript",
     "lint": "eslint src/javascript test/javascript",
-    "test": "jasmine 'test/javascript/explore-data/not-quite-binary-search.spec.js'"
+    "test": "jasmine 'test/javascript/**/**/*spec.js'"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
