@@ -221,17 +221,17 @@ describe("Not Quite Binary Search", function() {
   describe("performance", function() {
     it("should run in better than N time", function() {
       var game;
-      var matrix = [];
+      var games = [];
       var startTime =  Date.now();
       var samples = [];
-      var size = 100;
+      var size = 500;
       var k;
 
       for (k = 0; k <= size; k++) {
         game = new Game({ topFloor: k });
         game.safeFloor = findMaxSafeFloor(game);
 
-        matrix[k] = game;
+        games[k] = game;
         samples[k] = Date.now() - startTime;
       }
 
