@@ -63,6 +63,8 @@ docs/javascript
 #*.zip
 node_modules
 bower_components
+pacakge-lock.json
+yarn.lock
 
 # Logs and databases #
 ######################
