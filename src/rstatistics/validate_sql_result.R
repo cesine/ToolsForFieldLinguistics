@@ -1,9 +1,10 @@
 #!/usr/bin/env Rscript
 
 # =====================================================================
-# R SQL Data Quality Auditor & Validator
+# R SQL Data Quality Auditor & Validator (Advanced Version)
 # Performs automated column classification, join key audits,
-# value coalescing warnings, ANOVA group checks, and plot generation.
+# value coalescing warnings, collinearity checks, ANOVA/MANOVA group checks,
+# K-Means customer persona discovery, and PCA visualization dashboards.
 #
 # Usage: Rscript src/rstatistics/validate_sql_result.R <path_to_csv>
 # =====================================================================
@@ -32,6 +33,8 @@ if (!file.exists(csv_path)) {
 suppressPackageStartupMessages(library(stats))
 suppressPackageStartupMessages(library(graphics))
 suppressPackageStartupMessages(library(grDevices))
+suppressPackageStartupMessages(library(cluster))
+suppressPackageStartupMessages(library(car))
 
 cat(sprintf("========================================================================\n"))
 cat(sprintf("R SQL DATA QUALITY AUDITOR - SUMMARY REPORT FOR: %s\n", basename(csv_path)))
@@ -64,7 +67,7 @@ for (col_name in colnames(data)) {
   is_float <- is_num && !is_all_int
   
   if (is_num) {
-    # It is a float (e.g. account balance), OR it is an integer that is not acting as a unique ID
+    # It is a float (e.g. balance), OR it is an integer that is not acting as a unique ID
     if (is_float || (n_unique > 1 && n_unique < n_rows * 0.95)) {
       numeric_cols <- c(numeric_cols, col_name)
     }
@@ -90,12 +93,38 @@ for (col_name in colnames(data)) {
   }
 }
 
+# --- Dynamic Discretization (Histogram Quantile Binning) ---
+# For numeric columns with high variance, bin them into Low, Medium, High categories.
+binned_cols <- c()
+for (num_col in numeric_cols) {
+  col_data <- data[[num_col]]
+  n_unique <- length(unique(col_data))
+  
+  if (n_unique > 10) {
+    quantiles <- quantile(col_data, probs = c(0, 0.33, 0.67, 1), na.rm = TRUE)
+    if (length(unique(quantiles)) < 4) {
+      # Fallback to range cuts if quantiles overlap (highly coalesced numeric column)
+      breaks <- seq(min(col_data, na.rm = TRUE), max(col_data, na.rm = TRUE), length.out = 4)
+    } else {
+      breaks <- quantiles
+    }
+    
+    bin_name <- paste0(num_col, "_BIN")
+    data[[bin_name]] <- cut(col_data, breaks = breaks, include.lowest = TRUE, labels = c("Low", "Medium", "High"))
+    categorical_cols <- c(categorical_cols, bin_name)
+    binned_cols <- c(binned_cols, bin_name)
+  }
+}
+
 cat("--- Column Classifications ---\n")
 cat(sprintf("Numeric Candidates:     %s\n", paste(numeric_cols, collapse = ", ")))
 cat(sprintf("Categorical Candidates: %s\n", paste(categorical_cols, collapse = ", ")))
+if (length(binned_cols) > 0) {
+  cat(sprintf("  - Dynamically Binned:  %s\n", paste(binned_cols, collapse = ", ")))
+}
 cat(sprintf("Candidate Join Keys:    %s\n\n", paste(candidate_keys, collapse = ", ")))
 
-# 2. Join Key Validation (Halucination & Cartesian Guard)
+# 2. Join Key Validation (Hallucination & Cartesian Guard)
 cat("--- Join Key Audit ---\n")
 if (length(candidate_keys) == 0) {
   cat("No candidate join keys discovered.\n\n")
@@ -130,6 +159,9 @@ if (length(candidate_keys) == 0) {
 cat("--- Value Coalescing & Mode Collapse Audit ---\n")
 coalesce_warnings <- 0
 for (col_name in colnames(data)) {
+  # Exclude binned columns from mode collapse warnings
+  if (grepl("_BIN$", col_name)) next
+  
   col_data <- data[[col_name]]
   n_unique <- length(unique(col_data))
   
@@ -163,42 +195,118 @@ if (coalesce_warnings == 0) {
   cat("\n")
 }
 
-# 4. ANOVA Audit (Data Replication Check)
-cat("--- ANOVA Audit (Replication Check) ---\n")
+# 4. Multicollinearity Audit (SQL Join & Math Bug Guard)
+cat("--- Multicollinearity Audit ---\n")
+collinearity_detected <- FALSE
+if (length(numeric_cols) >= 2) {
+  # Calculate pairwise correlations
+  cor_matrix <- cor(data[numeric_cols], use = "pairwise.complete.obs")
+  for (i in 1:(length(numeric_cols)-1)) {
+    for (j in (i+1):length(numeric_cols)) {
+      c_val <- cor_matrix[i, j]
+      if (!is.na(c_val) && abs(c_val) >= 0.999) {
+        cat(sprintf("[FAIL] Multicollinearity bug detected between '%s' and '%s'! (Correlation = %.4f)\n", 
+                    numeric_cols[i], numeric_cols[j], c_val))
+        cat("       - DANGER: Perfectly correlated numeric columns indicate duplicate joins or redundant SQL computations.\n")
+        collinearity_detected <- TRUE
+      }
+    }
+  }
+}
+if (!collinearity_detected) {
+  cat("[PASS] No severe multicollinearity or redundant numeric columns detected.\n\n")
+} else {
+  cat("\n")
+}
+
+# 5. ANOVA & MANOVA Audit (Multivariate Quality Check)
+cat("--- ANOVA & MANOVA Audit (Replication Check) ---\n")
 anova_tested <- FALSE
+manova_tested <- FALSE
+
+# Fit MANOVA if multiple numeric outcomes exist
+if (length(numeric_cols) >= 2 && length(categorical_cols) > 0) {
+  for (cat_col in categorical_cols) {
+    # Skip checking a binned column against its own parent numeric variable (will yield trivial p-value = 0)
+    is_self_bin <- FALSE
+    for (num_col in numeric_cols) {
+      if (cat_col == paste0(num_col, "_BIN")) {
+        is_self_bin <- TRUE
+        break
+      }
+    }
+    if (is_self_bin) next
+    
+    group_counts <- table(data[[cat_col]])
+    if (length(group_counts) >= 2 && min(group_counts) >= 2) {
+      Y <- as.matrix(data[numeric_cols])
+      group <- factor(data[[cat_col]])
+      
+      fit <- tryCatch({
+        manova(Y ~ group)
+      }, error = function(e) { NULL })
+      
+      if (!is.null(fit)) {
+        manova_tested <- TRUE
+        s_fit <- tryCatch({
+          summary(fit, test = "Pillai")
+        }, error = function(e) { NULL })
+        
+        if (!is.null(s_fit)) {
+          pval <- s_fit$stats["group", "Pr(>F)"]
+          fval <- s_fit$stats["group", "approx F"]
+          pillai <- s_fit$stats["group", "Pillai"]
+          
+          if (!is.na(pval) && pval > 0.999 && (is.na(fval) || fval < 1e-4)) {
+            cat(sprintf("[FAIL] MANOVA anomaly on numeric variables grouped by '%s'!\n", cat_col))
+            cat(sprintf("       - p-value:     %.6f (identical multivariate distributions)\n", pval))
+            cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(fval), 0, fval)))
+            cat(sprintf("       - DANGER: Combined numeric metrics are perfectly replicated across categories. Check for a cross-join or incorrect merge!\n"))
+          } else {
+            cat(sprintf("[PASS] MANOVA on numeric metrics grouped by '%s':\n", cat_col))
+            cat(sprintf("       - Pillai Trace: %.4f\n", pillai))
+            cat(sprintf("       - F-statistic:  %.4f\n", ifelse(is.na(fval), 0, fval)))
+            cat(sprintf("       - p-value:      %.6f\n", pval))
+            if (pval < 0.05) {
+              cat(sprintf("       - Result: Group differences in multivariate means are statistically significant.\n"))
+            } else {
+              cat(sprintf("       - Result: No statistically significant differences, variance is naturally distributed.\n"))
+            }
+          }
+        } else {
+          cat(sprintf("[WARNING] MANOVA could not be computed for '%s' due to rank-deficient residuals (small sample or high collinearity).\n", cat_col))
+        }
+      }
+    }
+  }
+}
+
+# Run individual ANOVAs
 if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
   for (num in numeric_cols) {
     for (cat in categorical_cols) {
-      # Ensure categorical column has at least 2 categories and numeric has enough values
+      # Skip checking self-bin relationships
+      if (cat == paste0(num, "_BIN")) next
+      
       group_counts <- table(data[[cat]])
       if (length(group_counts) >= 2 && min(group_counts) >= 2) {
-        # Run ANOVA
         fit <- aov(data[[num]] ~ factor(data[[cat]]))
         aov_summary <- summary(fit)
         
-        # Extract F-statistic and p-value
         f_val <- aov_summary[[1]]["factor(data[[cat]])", "F value"]
         p_val <- aov_summary[[1]]["factor(data[[cat]])", "Pr(>F)"]
         
         if (!is.null(p_val) && !is.na(p_val)) {
           anova_tested <- TRUE
-          # Check for anomaly (identical means across groups, p-value ~ 1.0)
-          # A p-value of exactly 1.0 or very close to it (e.g. > 0.999) with F close to 0
-          # is highly unnatural and suggests the same values were cloned across groups.
           if (p_val > 0.999 && (is.na(f_val) || f_val < 1e-4)) {
             cat(sprintf("[FAIL] ANOVA anomaly on '%s' grouped by '%s'!\n", num, cat))
             cat(sprintf("       - p-value:     %.6f (identical group distributions)\n", p_val))
             cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(f_val), 0, f_val)))
-            cat(sprintf("       - DANGER: This indicates the numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
+            cat(sprintf("       - DANGER: Numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
           } else {
             cat(sprintf("[PASS] ANOVA for '%s' grouped by '%s':\n", num, cat))
             cat(sprintf("       - p-value:     %.6f\n", p_val))
             cat(sprintf("       - F-statistic: %.4f\n", ifelse(is.na(f_val), 0, f_val)))
-            if (p_val < 0.05) {
-              cat(sprintf("       - Result: Group means are statistically significant (healthy distribution variance).\n"))
-            } else {
-              cat(sprintf("       - Result: No statistically significant difference in means, but variance is naturally distributed.\n"))
-            }
           }
         }
       }
@@ -206,35 +314,112 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
   }
 }
 
-if (!anova_tested) {
-  cat("No suitable numeric-categorical pairs found for ANOVA testing.\n\n")
+if (!anova_tested && !manova_tested) {
+  cat("No suitable numeric-categorical pairs found for ANOVA/MANOVA testing.\n\n")
 } else {
   cat("\n")
 }
 
-# 5. Visualization Generation
+# 6. K-Means Persona Discovery
+cat("--- K-Means Persona Discovery ---\n")
+kmeans_run <- FALSE
+if (length(numeric_cols) >= 2) {
+  # Scale numeric variables
+  scaled_data <- scale(data[numeric_cols])
+  scaled_data[is.nan(scaled_data)] <- 0
+  
+  # Heuristic for cluster counts:
+  # Action Item: Programmatic Elbow / Silhouette optimization
+  k_centers <- 3
+  
+  km_fit <- tryCatch({
+    kmeans(scaled_data, centers = k_centers, nstart = 25)
+  }, error = function(e) { NULL })
+  
+  if (!is.null(km_fit)) {
+    kmeans_run <- TRUE
+    data$KMeans_Cluster <- as.factor(km_fit$cluster)
+    cat(sprintf("[SUCCESS] Discovered %d customer order personas using K-Means.\n", k_centers))
+    cl_tbl <- table(data$KMeans_Cluster)
+    for (cl_id in names(cl_tbl)) {
+      cat(sprintf("          - Persona Cluster %s: %d orders (%.2f%%)\n", 
+                  cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id] / n_rows))
+    }
+    cat("\n")
+  }
+} else {
+  cat("Insufficient numeric columns for K-Means clustering.\n\n")
+}
+
+# 7. Visualization Dashboard
 file_base <- tools::file_path_sans_ext(basename(csv_path))
 dir.create("gen", showWarnings = FALSE)
 plot_file <- file.path("gen", paste0(file_base, "_validation_plot.png"))
 cat("--- Visualizations ---\n")
-if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
-  # Choose the first numeric and first categorical column to plot
+
+if (kmeans_run && length(numeric_cols) >= 2) {
+  png(plot_file, width = 1000, height = 800)
+  # Set up a 2x2 grid layout
+  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  par(mar = c(6, 5, 4, 3))
+  
+  # Panel 1: PCA Cluster Scatterplot (PC1 vs PC2)
+  pca_fit <- prcomp(scaled_data)
+  var_exp <- round(100 * pca_fit$sdev^2 / sum(pca_fit$sdev^2), 1)
+  
+  plot(pca_fit$x[,1], pca_fit$x[,2],
+       col = rainbow(k_centers)[as.numeric(data$KMeans_Cluster)],
+       pch = 19, cex = 1.2,
+       main = "Customer Personas (PCA Cluster Space)",
+       xlab = paste0("PC1 (", var_exp[1], "% variance)"),
+       ylab = paste0("PC2 (", var_exp[2], "% variance)"))
+  grid()
+  legend("topright", legend = paste("Persona", 1:k_centers),
+         col = rainbow(k_centers), pch = 19, cex = 0.8)
+  
+  # Panel 2: Correlation Heatmap of Numeric Variables
+  cor_mat <- cor(data[numeric_cols], use = "pairwise.complete.obs")
+  cor_mat[is.na(cor_mat)] <- 0
+  
+  image(1:length(numeric_cols), 1:length(numeric_cols), cor_mat,
+        col = colorRampPalette(c("blue", "white", "red"))(20),
+        zlim = c(-1, 1),
+        axes = FALSE, xlab = "", ylab = "",
+        main = "Feature Correlation Matrix")
+  axis(1, at = 1:length(numeric_cols), labels = numeric_cols, las = 2, cex.axis = 0.7)
+  axis(2, at = 1:length(numeric_cols), labels = numeric_cols, las = 2, cex.axis = 0.7)
+  box()
+  
+  # Panel 3: Persona Cluster Count Barplot
+  cl_counts <- table(data$KMeans_Cluster)
+  barplot(cl_counts,
+          main = "Persona Cluster Sizes",
+          xlab = "Persona ID", ylab = "Number of Orders",
+          col = "lightgreen", border = "white")
+  
+  # Panel 4: Boxplot of O_TOTALPRICE by Persona Cluster
+  boxplot(data[[numeric_cols[1]]] ~ data$KMeans_Cluster,
+          main = paste(numeric_cols[1], "by Persona"),
+          xlab = "Persona ID", ylab = numeric_cols[1],
+          col = rainbow(k_centers), las = 1)
+  
+  dev.off()
+  cat(sprintf("[SAVED] PCA Persona Dashboard saved to '%s'.\n\n", plot_file))
+} else if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
+  # Fallback to single Boxplot dashboard
   num_plot <- numeric_cols[1]
   cat_plot <- categorical_cols[1]
   
   png(plot_file, width = 1000, height = 800)
-  # Set up a 2x2 grid layout
   layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
   par(mar = c(6, 4, 4, 2))
   
-  # Panel 1: Boxplot with Jittered Data Points (Dependent vs Independent)
   boxplot(data[[num_plot]] ~ factor(data[[cat_plot]]),
           main = paste("Boxplot of", num_plot, "by", cat_plot),
           xlab = cat_plot,
           ylab = num_plot,
           col = rainbow(length(unique(data[[cat_plot]]))),
           las = 2)
-  # Overlay stripchart jittered points
   stripchart(data[[num_plot]] ~ factor(data[[cat_plot]]),
              vertical = TRUE,
              method = "jitter",
@@ -243,14 +428,12 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
              col = "darkgray",
              add = TRUE)
              
-  # Panel 2: Histogram of Dependent Variable (C_ACCTBAL)
   hist(data[[num_plot]],
        main = paste("Histogram of", num_plot, "(Dependent)"),
        xlab = num_plot,
        col = "lightblue",
        border = "white")
        
-  # Panel 3: Bar Plot of Independent Variable (C_MKTSEGMENT)
   cat_counts <- table(data[[cat_plot]])
   barplot(cat_counts,
           main = paste("Counts of", cat_plot, "(Independent)"),
@@ -260,7 +443,6 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
           border = "white",
           las = 2)
           
-  # Panel 4: Normal Q-Q Plot of Dependent Variable
   qqnorm(data[[num_plot]],
          main = paste("Normal Q-Q Plot of", num_plot),
          col = "darkblue",
@@ -269,22 +451,8 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
   
   dev.off()
   cat(sprintf("[SAVED] Distribution dashboard of '%s' by '%s' saved to '%s'.\n\n", num_plot, cat_plot, plot_file))
-} else if (length(numeric_cols) >= 2) {
-  # Plot the first two numeric columns against each other
-  num1 <- numeric_cols[1]
-  num2 <- numeric_cols[2]
-  
-  png(plot_file, width = 800, height = 600)
-  plot(data[[num1]], data[[num2]],
-       main = paste("Relationship between", num1, "and", num2),
-       xlab = num1,
-       ylab = num2,
-       pch = 19,
-       col = "darkblue")
-  dev.off()
-  cat(sprintf("[SAVED] Scatterplot of '%s' vs '%s' saved to '%s'.\n\n", num1, num2, plot_file))
 } else {
-  cat("Insufficient numeric or categorical columns to generate boxplots or scatterplots.\n\n")
+  cat("Insufficient numeric or categorical columns to generate dashboards.\n\n")
 }
 
 cat("========================================================================\n")

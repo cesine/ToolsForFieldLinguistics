@@ -36,8 +36,7 @@ echo "Warehouse: $SNOWFLAKE_WAREHOUSE"
 echo "Database: $SNOWFLAKE_DATABASE"
 echo "Schema: $SNOWFLAKE_SCHEMA"
 
-# Execute query using snow CLI with CSV formatting
-# Uses O_ORDERDATE as the partition pruning key for the cheapest query execution
+# Execute query using snow CLI loading SQL from file
 "$SNOW_EXEC" sql \
   --format CSV \
   --temporary-connection \
@@ -47,18 +46,6 @@ echo "Schema: $SNOWFLAKE_SCHEMA"
   --warehouse "$SNOWFLAKE_WAREHOUSE" \
   --database "$SNOWFLAKE_DATABASE" \
   --schema "$SNOWFLAKE_SCHEMA" \
-  --query "
-SELECT 
-  O_ORDERKEY,
-  O_CUSTKEY,
-  O_ORDERSTATUS,
-  O_TOTALPRICE,
-  O_ORDERDATE,
-  O_ORDERPRIORITY,
-  O_CLERK
-FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERS
-WHERE O_ORDERDATE = '1998-08-01'
-LIMIT 5000;
-" > "$OUTPUT_FILE"
+  -f "src/sql/snowflake/customer_personas_query.sql" > "$OUTPUT_FILE"
 
 echo "Success! Snowflake query results saved to $OUTPUT_FILE"

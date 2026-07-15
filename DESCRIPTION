@@ -14,7 +14,9 @@ Imports:
     digest,
     crayon,
     kernlab,
-    testthat
+    testthat,
+    car,
+    cluster
 License: Apache 2.0 + file LICENSE
 Collate:
     'spam.r'
