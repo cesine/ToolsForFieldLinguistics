@@ -32,6 +32,7 @@ ORDER BY START_TIME DESC;
 
 -- Query 2: Identify queries with local/remote spillage in the last 24 hours
 -- This helps identify queries that are running out of memory (often due to huge joins/Cartesian products).
+-- NOTE: We use QUERY_HISTORY_BY_USER(USER_NAME => CURRENT_USER()) to strictly limit analysis to your own queries.
 SELECT 
   QUERY_ID,
   QUERY_TEXT,
@@ -40,7 +41,7 @@ SELECT
   TOTAL_ELAPSED_TIME / 1000.0 as elapsed_seconds,
   BYTES_SPILLED_TO_LOCAL_STORAGE / 1024.0 / 1024.0 as spilled_local_mb,
   BYTES_SPILLED_TO_REMOTE_STORAGE / 1024.0 / 1024.0 as spilled_remote_mb
-FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER())
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(USER_NAME => CURRENT_USER()))
 WHERE START_TIME >= DATEADD('day', -1, CURRENT_TIMESTAMP())
   AND (BYTES_SPILLED_TO_LOCAL_STORAGE > 0 OR BYTES_SPILLED_TO_REMOTE_STORAGE > 0)
 ORDER BY (BYTES_SPILLED_TO_LOCAL_STORAGE + BYTES_SPILLED_TO_REMOTE_STORAGE) DESC
