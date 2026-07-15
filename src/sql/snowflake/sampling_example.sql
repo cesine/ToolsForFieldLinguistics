@@ -3,6 +3,14 @@
 -- Use these patterns to pull a representative sample of data locally 
 -- for validation and testing before running queries on full datasets.
 --
+-- REFERENCE DATASET (TPC-H Benchmark):
+-- This query references the standard Snowflake TPC-H sample dataset:
+-- https://docs.snowflake.com/en/user-guide/sample-data-tpch
+--
+-- To set up this shared database in your Snowflake account:
+--   CREATE DATABASE SNOWFLAKE_SAMPLE_DATA FROM SHARE SFC_SAMPLES.SAMPLE_DATA;
+--   GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE_SAMPLE_DATA TO ROLE PUBLIC;
+--
 -- OUTPUT CONVENTION:
 -- Export the query output as a CSV file to the project's local 'gen/' 
 -- directory (e.g. 'gen/snowflake_sample.csv') so that the R validation 

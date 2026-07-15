@@ -4,6 +4,14 @@
 -- 1. Key Uniqueness (preventing Cartesian product row amplification)
 -- 2. Null Keys (avoiding lost records)
 -- 3. Overlap / Mismatch rate (checking if keys actually match between tables)
+--
+-- REFERENCE DATASET (TPC-H Benchmark):
+-- This query references the standard Snowflake TPC-H sample dataset:
+-- https://docs.snowflake.com/en/user-guide/sample-data-tpch
+--
+-- To set up this shared database in your Snowflake account:
+--   CREATE DATABASE SNOWFLAKE_SAMPLE_DATA FROM SHARE SFC_SAMPLES.SAMPLE_DATA;
+--   GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE_SAMPLE_DATA TO ROLE PUBLIC;
 -- =====================================================================
 
 -- Table A: CUSTOMER (proposed join key: C_CUSTKEY)
