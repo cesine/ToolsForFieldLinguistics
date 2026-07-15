@@ -2,6 +2,11 @@
 -- Snowflake SQL Sampling Examples
 -- Use these patterns to pull a representative sample of data locally 
 -- for validation and testing before running queries on full datasets.
+--
+-- OUTPUT CONVENTION:
+-- Export the query output as a CSV file to the project's local 'gen/' 
+-- directory (e.g. 'gen/snowflake_sample.csv') so that the R validation 
+-- scripts can easily locate and audit the results.
 -- =====================================================================
 
 -- Pattern 1: Date Partition Filtering with Limit (Cheapest & Recommended)
