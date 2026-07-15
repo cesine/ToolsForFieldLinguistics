@@ -13,9 +13,7 @@ Depends:
 Imports:
     digest,
     crayon,
-    kernlab
-Suggests:
-    devtools,
+    kernlab,
     testthat
 License: Apache 2.0 + file LICENSE
 Collate:
