@@ -1,17 +1,18 @@
-source("../../src/rstatistics/spam.r")
+library(testthat)
+source(if (file.exists("src/rstatistics/spam.r")) "src/rstatistics/spam.r" else "../../src/rstatistics/spam.r")
 
 debug <- FALSE
 
 test_that("test demoSimpleSpamClassifiers loads", {
   print("test demoSimpleSpamClassifiers loads")
-  expect_that(class(demoSimpleSpamClassifiers), equals("function"))
+  expect_equal(class(demoSimpleSpamClassifiers), "function")
   })
 
 
 test_that("test demoSimpleSpamClassifiers returns a confusion matrix", {
   print("test demoSimpleSpamClassifiers returns a confusion matrix")
 
-  # expect_that(class(demoSimpleSpamClassifiers), equals("function"))
+  # expect_equal(class(demoSimpleSpamClassifiers), "function")
   
   x <- demoSimpleSpamClassifiers(debug)
   if(debug) {
@@ -23,6 +24,6 @@ test_that("test demoSimpleSpamClassifiers returns a confusion matrix", {
   if(debug) {
     print(paste(expectedAccuracy, " is ", accuracy))
   }
-  expect_that(accuracy, is_equivalent_to(expectedAccuracy))
-  expect_that(x["accuracy"], is_equivalent_to(0.7513584))
+  expect_equivalent(accuracy, expectedAccuracy)
+  expect_equivalent(x["accuracy"], 0.7513584)
 })

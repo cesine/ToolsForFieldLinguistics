@@ -1,3 +1,4 @@
+library(testthat)
 
 #testthat tests
 # expect_that(object, condition, info = NULL, label = NULL)
@@ -14,15 +15,15 @@
 # takes_less_than: Does the expression take less than a specified number of seconds to run?
 
 test_that("test factorial", {
-  expect_that(1 ^ 1, equals(1))
-  expect_that(2 ^ 2, equals(4))
+  expect_equal(1 ^ 1, 1)
+  expect_equal(2 ^ 2, 4)
   
-  expect_that(2 + 2 == 4, is_true())
-  expect_that(2 == 1, is_false())
+  expect_true(2 + 2 == 4)
+  expect_false(2 == 1)
   
-  expect_that(1, is_a('numeric'))
+  expect_type(1, 'double')
   
-  expect_that(print('Hello World!'), prints_text('Hello World!'))
+  expect_output(print('Hello World!'), 'Hello World!')
   
-  expect_that(log('a'), throws_error())
+  expect_error(log('a'))
 })
