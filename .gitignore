@@ -84,3 +84,6 @@ Thumbs.db
 # Linux generated files #
 #########################
 *~
+
+# SQL validation plots
+gen/*_validation_plot.png

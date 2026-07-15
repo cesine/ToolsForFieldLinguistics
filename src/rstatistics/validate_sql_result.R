@@ -213,7 +213,9 @@ if (!anova_tested) {
 }
 
 # 5. Visualization Generation
-plot_file <- "sql_validation_plot.png"
+file_base <- tools::file_path_sans_ext(basename(csv_path))
+dir.create("gen", showWarnings = FALSE)
+plot_file <- file.path("gen", paste0(file_base, "_validation_plot.png"))
 cat("--- Visualizations ---\n")
 if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
   # Choose the first numeric and first categorical column to plot
