@@ -7,7 +7,7 @@ This file is used to collect all word frequencies from a set of files.
 testSystemEncoding()
 def frequencyMap = [:]
   
-String corpora = "/Users/gina/Downloads/CorpusInuktitut/"
+String corpora = "~/Downloads/CorpusInuktitut/"
 def dir = new File(corpora+'wordfrequencies/')
 def title="InuktitutMagzine"
 def outpath = corpora+"gen/"

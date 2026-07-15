@@ -7,11 +7,11 @@ nallparticipants <- "(n=12)"
 
 
 #read in data
-aublog <- read.table("/Users/gina/Documents/aublog/results/resultsboxplotformat.csv", header=TRUE, sep="," )
-aublogall <- read.table("/Users/gina/Documents/aublog/results/results.csv", header=TRUE, sep="," )
+aublog <- read.table("~/Documents/aublog/results/resultsboxplotformat.csv", header=TRUE, sep="," )
+aublogall <- read.table("~/Documents/aublog/results/results.csv", header=TRUE, sep="," )
 
 # histogram for all lab participant aritculation rate
-pdf("/Users/gina/Documents/aublog/results/histogramalllab.pdf",width=6,height=6,paper='special')
+pdf("~/Documents/aublog/results/histogramalllab.pdf",width=6,height=6,paper='special')
 x <- aublogall$artirate
 title <-paste(labparticipantslabel,nallparticipants, sep = " ", collapse = NULL)
 h<-hist(x, breaks=10, col="red", xlab=articulationlabel, yaxt="n",
@@ -24,7 +24,7 @@ dev.off()
 
 #Box plot comparing articulation rate in the two blog drafts
 # http://www.statmethods.net/graphs/boxplot.html
-pdf("/Users/gina/Documents/aublog/results/boxplotusablelab.pdf",width=6,height=6,paper='special')
+pdf("~/Documents/aublog/results/boxplotusablelab.pdf",width=6,height=6,paper='special')
 title <-paste(labparticipantslabel,nusableparticipants,"p = 0.2662", sep = " ", collapse = NULL)
 boxplot(artirate~draft,data=aublog, notch=TRUE, col=(c("red","darkgreen")), main=title,  xlab="(Insignificant Tendency for faster syllable timing in second Blog Draft)", ylab=articulationlabel)
 dev.off()
@@ -35,7 +35,7 @@ dev.off()
 
 
 #Compaire groups via kernal density
-pdf("/Users/gina/Documents/aublog/results/densityusablelab.pdf",width=6,height=6,paper='special')
+pdf("~/Documents/aublog/results/densityusablelab.pdf",width=6,height=6,paper='special')
 title <-paste(labparticipantslabel,"density distribution",nusableparticipants, sep = " ", collapse = NULL)
 sm.density.compare(aublog$artirate, aublog$draft, xlab=articulationlabel) 
 title(main=title)
@@ -50,8 +50,8 @@ dev.off()
 
 
 #skeptoid histogram
-skeptoid <- read.table("/Users/gina/Documents/aublog/results/praatresultsskeptoid.csv", header=TRUE, sep="," )
-pdf("/Users/gina/Documents/aublog/results/histogrambloggingpodcasters.pdf",width=6,height=6,paper='special')
+skeptoid <- read.table("~/Documents/aublog/results/praatresultsskeptoid.csv", header=TRUE, sep="," )
+pdf("~/Documents/aublog/results/histogrambloggingpodcasters.pdf",width=6,height=6,paper='special')
 x <- skeptoid$artirate
 title <-paste(bloggingpodcasterslabel,"(n=47)", sep = " ", collapse = NULL)
 h<-hist(x, breaks=10, col="red", xlab=articulationlabel, yaxt="n",
@@ -66,7 +66,7 @@ dev.off()
 
 
 #Paired t-test insignificant (too small sample size and too much variance): test Hypothesis1 that draft1 has slower articulation rate than draft2
-aublogttest <- read.table("/Users/gina/Documents/aublog/results/resultsttestarticulationrate.csv", header=TRUE, sep="," )
+aublogttest <- read.table("~/Documents/aublog/results/resultsttestarticulationrate.csv", header=TRUE, sep="," )
 
 t.test(aublogttest$draft1,aublogttest$draft2,paired=TRUE, alt="less")
 

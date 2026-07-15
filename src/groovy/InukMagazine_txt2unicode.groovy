@@ -63,7 +63,7 @@ Notes:
 testSystemEncoding()
 
 try {
-  String NonPublicCorpora = "/Users/gina/Documents/workspacests/NonPublicCorpora/"
+  String NonPublicCorpora = "~/Documents/workspacests/NonPublicCorpora/"
   def inukMagazinesDir = new File(NonPublicCorpora+'magazines/InukMagazine/')
   files = inukMagazinesDir.listFiles().grep(~/.*txt$/)
   
