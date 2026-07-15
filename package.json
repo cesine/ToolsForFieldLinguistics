@@ -35,7 +35,8 @@
     "lint": "eslint src/javascript test/javascript",
     "test": "jasmine --seed=111 --reporter=jasmine-spec-reporter 'test/javascript/**/**/*spec.js' ",
     "setup:r": "Rscript -e \"options(renv.consent = TRUE); if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos = 'https://cloud.r-project.org'); renv::restore()\"",
-    "test:r": "Rscript -e \"testthat::test_dir('test/rstatistics', reporter = 'Summary')\""
+    "test:r": "Rscript -e \"testthat::test_dir('test/rstatistics', reporter = 'Summary')\"",
+    "validate:sql": "Rscript src/rstatistics/validate_sql_result.R"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
