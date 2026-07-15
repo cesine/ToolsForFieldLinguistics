@@ -38,7 +38,9 @@ echo "Schema: $SNOWFLAKE_SCHEMA"
 
 # Execute query using snow CLI with CSV formatting
 # Uses O_ORDERDATE as the partition pruning key for the cheapest query execution
-"$SNOW_EXEC" --format CSV sql \
+"$SNOW_EXEC" sql \
+  --format CSV \
+  --temporary-connection \
   --account "$SNOWFLAKE_ACCOUNT" \
   --user "$SNOWFLAKE_USER" \
   --password "$SNOWFLAKE_PASSWORD" \
@@ -52,6 +54,7 @@ SELECT
   O_ORDERSTATUS,
   O_TOTALPRICE,
   O_ORDERDATE,
+  O_ORDERPRIORITY,
   O_CLERK
 FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERS
 WHERE O_ORDERDATE = '1998-08-01'
