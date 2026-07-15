@@ -222,17 +222,53 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
   num_plot <- numeric_cols[1]
   cat_plot <- categorical_cols[1]
   
-  png(plot_file, width = 800, height = 600)
-  # Set layout margins to prevent category labels from getting cut off
-  par(mar = c(8, 4, 4, 2))
+  png(plot_file, width = 1000, height = 800)
+  # Set up a 2x2 grid layout
+  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  par(mar = c(6, 4, 4, 2))
+  
+  # Panel 1: Boxplot with Jittered Data Points (Dependent vs Independent)
   boxplot(data[[num_plot]] ~ factor(data[[cat_plot]]),
-          main = paste("Distribution of", num_plot, "by", cat_plot),
+          main = paste("Boxplot of", num_plot, "by", cat_plot),
           xlab = cat_plot,
           ylab = num_plot,
           col = rainbow(length(unique(data[[cat_plot]]))),
-          las = 2) # rotate category labels if long
+          las = 2)
+  # Overlay stripchart jittered points
+  stripchart(data[[num_plot]] ~ factor(data[[cat_plot]]),
+             vertical = TRUE,
+             method = "jitter",
+             jitter = 0.15,
+             pch = 19,
+             col = "darkgray",
+             add = TRUE)
+             
+  # Panel 2: Histogram of Dependent Variable (C_ACCTBAL)
+  hist(data[[num_plot]],
+       main = paste("Histogram of", num_plot, "(Dependent)"),
+       xlab = num_plot,
+       col = "lightblue",
+       border = "white")
+       
+  # Panel 3: Bar Plot of Independent Variable (C_MKTSEGMENT)
+  cat_counts <- table(data[[cat_plot]])
+  barplot(cat_counts,
+          main = paste("Counts of", cat_plot, "(Independent)"),
+          xlab = cat_plot,
+          ylab = "Frequency",
+          col = "lightgreen",
+          border = "white",
+          las = 2)
+          
+  # Panel 4: Normal Q-Q Plot of Dependent Variable
+  qqnorm(data[[num_plot]],
+         main = paste("Normal Q-Q Plot of", num_plot),
+         col = "darkblue",
+         pch = 19)
+  qqline(data[[num_plot]], col = "red", lwd = 2)
+  
   dev.off()
-  cat(sprintf("[SAVED] Boxplot of '%s' by '%s' saved to '%s'.\n\n", num_plot, cat_plot, plot_file))
+  cat(sprintf("[SAVED] Distribution dashboard of '%s' by '%s' saved to '%s'.\n\n", num_plot, cat_plot, plot_file))
 } else if (length(numeric_cols) >= 2) {
   # Plot the first two numeric columns against each other
   num1 <- numeric_cols[1]
