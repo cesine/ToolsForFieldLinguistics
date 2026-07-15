@@ -88,6 +88,4 @@ Thumbs.db
 # SQL validation outputs (ignore gen/ contents by default, except standard test files)
 gen/*
 !gen/customer_orders_happy.csv
-!gen/customer_orders_happy_validation_plot.png
 !gen/customer_orders_sad.csv
-!gen/customer_orders_sad_validation_plot.png
