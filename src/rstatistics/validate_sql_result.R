@@ -10,12 +10,19 @@
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) {
-  cat("Error: Please provide the path to the CSV file to validate.\n")
-  cat("Usage: Rscript src/rstatistics/validate_sql_result.R <path_to_csv>\n")
-  quit(status = 1)
+  default_path <- "gen/tpch_customer_good.csv"
+  if (file.exists(default_path)) {
+    cat(sprintf("No input file specified. Defaulting to: %s\n\n", default_path))
+    csv_path <- default_path
+  } else {
+    cat("Error: Please provide the path to the CSV file to validate.\n")
+    cat("Usage: Rscript src/rstatistics/validate_sql_result.R <path_to_csv>\n")
+    quit(status = 1)
+  }
+} else {
+  csv_path <- args[1]
 }
 
-csv_path <- args[1]
 if (!file.exists(csv_path)) {
   cat(sprintf("Error: File '%s' not found.\n", csv_path))
   quit(status = 1)
