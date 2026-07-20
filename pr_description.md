@@ -1,14 +1,14 @@
 # Pull Request Description: Advanced SQL Quality Auditor, MANOVA/ANOVA Validation, and K-Means Persona Dashboard
 
 ## Overview of Changes
-This PR introduces robust database validation tools, multivariate statistical quality gates, and automated research report generation to ensure query integrity and profile customer behavior datasets. 
+This PR introduces database validation templates, multivariate statistical checks, and automated research report generation to evaluate query output integrity and group customer behavior datasets. 
 
 ### 1. SQL Querying & Retrieval (`src/sql/snowflake/`)
 * **[customer_personas_query.sql](file:///Users/gchiodo/gitgina/ToolsForFieldLinguistics/src/sql/snowflake/customer_personas_query.sql)**: Added a multi-table query that joins customer segments, locations, regions, and aggregates lineitem transaction metrics (total prices, delays, counts, and discounts).
 * **[fetch_snowflake_data.sh](file:///Users/gchiodo/gitgina/ToolsForFieldLinguistics/src/sql/snowflake/fetch_snowflake_data.sh)**: Updated the retrieval pipeline to feed SQL directly from the `.sql` template files using `snow sql -f` with temporary connection credentials.
 
 ### 2. Multivariate R Data Quality Auditor (`src/rstatistics/validate_sql_result.R`)
-Upgraded the R validator with advanced testing capabilities using R packages `car` and `cluster`:
+Upgraded the R validator with automated statistical tests using R packages `car` and `cluster`:
 * **Dynamic Quantile Binning**: Bins high-variance numeric columns into `Low`, `Medium`, and `High` groups to test their categorical influence on behavior.
 * **Multicollinearity Checks**: Computes pairwise correlation matrices. Flags any correlation $\ge 0.999$ as a collinearity bug (typically indicating redundant mathematical logic or duplicate table joins).
 * **MANOVA & ANOVA Audits**: Evaluates joint outcomes across categories (using Pillai's trace). Flags cross-join anomalies (where $p$-value = 1.0, signifying cloned row replication). Fits are wrapped in `tryCatch` to handle rank-deficient residual covariance matrices gracefully on small datasets.
@@ -17,7 +17,7 @@ Upgraded the R validator with advanced testing capabilities using R packages `ca
   * **Log-Transformation**: Applies natural log-transformations `log(RT + 1)` to address the characteristic positive skewness of delay metrics, satisfying normal assumptions for parametric ANOVA modeling.
 * **K-Means Persona Discovery**: Clusters normalized transactional features into $k=3$ distinct behavioral profiles.
 * **Visualization Engine**: Generates a 2x2 dashboard containing PCA cluster spacing, correlation heatmaps, persona sizes, and metric boxplots.
-* **Scientific Lab Report Generator**: Auto-generates a comprehensive Markdown report (`gen/<file>_audit_report.md`) detailing the experiment's abstract, introduction, methodology, results, and discussion.
+* **Scientific Lab Report Generator**: Auto-generates a Markdown report (`gen/<file>_audit_report.md`) detailing the experiment's abstract, introduction, methodology, results, and discussion.
 
 ### 3. Appendix Reference Scripts
 Added and referenced two client-side diagnostic scripts to control for behavioral latencies:
