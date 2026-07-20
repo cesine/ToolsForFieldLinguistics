@@ -5,12 +5,15 @@ All communications, documentation, pull request descriptions, and reports genera
 
 ## Guardrails
 1. **No Subjective Adjectives**: Do not use marketing-style or opinionated adjectives to describe code, systems, or statistical results.
-   * **Prohibited**: *robust, elegant, advanced, comprehensive, spectacular, beautiful, sophisticated, state-of-the-art.*
-   * **Allowed**: *automated, template-based, parameterized, statistical, quantitative.*
+   * *Prohibited*: *robust, elegant, advanced, comprehensive, spectacular, beautiful, sophisticated, state-of-the-art.*
+   * *Allowed*: *automated, template-based, parameterized, statistical, quantitative.*
 2. **State Verifiable Facts Only**: Limit descriptions to exact implementation mechanics, file modifications, libraries used, and statistical test results.
 3. **Report Quantitative Metrics Factually**: When reporting on data audits, output raw numerical figures (e.g. sample size $N$, degrees of freedom, Pillai trace, F-statistic, $p$-value, correlation coefficient) and their strict statistical interpretations without value judgments.
 4. **Factual Suggestions**: Suggest SQL fixes or data preprocessing methods based strictly on logical necessity or cited references (e.g. log-transforming skewed variables to satisfy normality assumptions).
+5. **Cite Primary Sources**: When describing technical capabilities, algorithms, or API functionalities, always cite primary sources. These include:
+   * **Official Documentation**: Links or exact references to the official API specification or library documentation (e.g., Snowflake, R package car, etc.).
+   * **Academic Publications**: Links or citations of original peer-reviewed papers (e.g. from Google Scholar, Nature, PubMed) to support statistical methodologies (e.g., Nature s41598-024-58300-7 for reaction time skewed distributions).
 
 ## Examples
-* **Opinionated (Prohibited)**: *"This PR adds a robust R validation script to generate beautiful and comprehensive PCA dashboards."*
-* **Factual (Allowed)**: *"This PR adds an R validation script that calculates ANOVA/MANOVA statistics and saves a 2x2 PCA cluster dashboard plot to the gen/ directory."*
+* **Uncited Claim (Prohibited)**: *"We applied a log-transform because it is standard practice to normalize skewed response times."*
+* **Cited Factual Claim (Allowed)**: *"We applied a natural log-transformation `log(RT + 1)` on delay metrics to address positive skewness, satisfying normality assumptions for parametric ANOVA/MANOVA as recommended in Nature Scientific Reports (s41598-024-58300-7)."*
