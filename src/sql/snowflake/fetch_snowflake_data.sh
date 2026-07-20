@@ -3,6 +3,18 @@
 # Snowflake Query Executor
 # Fetch sample TPC-H orders data using the date-partitioned query
 # and save the results locally to gen/customer_orders_happy.csv.
+#
+# Setup Instructions:
+# 1. Install the Snowflake CLI (snow):
+#    https://docs.snowflake.com/en/developer-guide/snowflake-cli/installation/installation
+#    (Typically installed at /Users/gchiodo/.local/bin/snow or available on PATH)
+# 2. Configure credentials in your ~/.env file:
+#    SNOWFLAKE_ACCOUNT="xdwsima-gp91834"
+#    SNOWFLAKE_USER="<your_username>"
+#    SNOWFLAKE_PASSWORD="<your_password>"
+#    SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+#    SNOWFLAKE_DATABASE="SNOWFLAKE_SAMPLE_DATA"
+#    SNOWFLAKE_SCHEMA="TPCH_SF1"
 # =====================================================================
 set -e
 
