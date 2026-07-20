@@ -5,10 +5,13 @@
 # and save the results locally to gen/customer_orders_happy.csv.
 #
 # Setup Instructions:
-# 1. Install the Snowflake CLI (snow):
+# 1. Sign up for a Snowflake Self-Service On-Demand (Free Trial) account.
+#    Accept the terms to activate the sample datasets (e.g. SNOWFLAKE_SAMPLE_DATA).
+#    Identify your account identifier from your Snowflake URL (e.g. "xdwsima-gp91834").
+# 2. Install the Snowflake CLI (snow):
 #    https://docs.snowflake.com/en/developer-guide/snowflake-cli/installation/installation
 #    (Typically installed at /Users/gchiodo/.local/bin/snow or available on PATH)
-# 2. Configure credentials in your ~/.env file:
+# 3. Configure credentials in your ~/.env file:
 #    SNOWFLAKE_ACCOUNT="xdwsima-gp91834"
 #    SNOWFLAKE_USER="<your_username>"
 #    SNOWFLAKE_PASSWORD="<your_password>"
