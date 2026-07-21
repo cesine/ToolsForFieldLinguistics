@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 15:11:47.248162
+**Report Generated on:** 2026-07-21 15:13:42.66883
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -107,8 +107,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 7 | 70.00% |
-| **Cluster 2** | 3 | 30.00% |
+| **Cluster 1** | 3 | 30.00% |
+| **Cluster 2** | 7 | 70.00% |
 
 
 #### Behavioral Profiles (Cluster Feature Means)
@@ -116,8 +116,8 @@ To characterize the discovered personas in terms of the original variables, the 
 
 | Cluster | O_ORDERKEY | O_CUSTKEY | O_TOTALPRICE | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT |
 |---|---|---|---|---|---|---|---|
-| **Cluster 1** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
-| **Cluster 2** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
+| **Cluster 1** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
+| **Cluster 2** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -166,7 +166,7 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Fix ANOVA Replication on 'ITEM_COUNT' by 'C_REGION'**: Check your SQL join logic. This indicates matching values are replicated across categories.
 
 ### Methodological Discussion on Skewness
-As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
+As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
 
 ## References
 1. University of Sheffield. (n.d.). *Science lab reports*. University of Sheffield 301 Academic Skills. https://www.sheffield.ac.uk/301/study-skills/writing/academic/lab-reports
