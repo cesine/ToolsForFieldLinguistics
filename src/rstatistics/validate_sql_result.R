@@ -687,7 +687,7 @@ report_lines <- c(
   "",
   "### Statistical Hypothesis Testing",
   "#### MANOVA Group Factor Outcomes",
-  "We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance#Pillai's_trace) to test for overall group differences across continuous variables:",
+  "We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://www.statisticshowto.com/pillais-trace/) to test for overall group differences across continuous variables:",
   "",
   if (length(manova_report_lines) == 0) "No MANOVA tests could be computed." else manova_report_lines,
   "",

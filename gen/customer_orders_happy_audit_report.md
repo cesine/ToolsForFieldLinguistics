@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-21 07:57:36.715117
+**Report Generated on:** 2026-07-21 08:15:35.662201
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -70,7 +70,7 @@ Following standard methodologies for reaction time outcomes (Nature Scientific R
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
-We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance#Pillai's_trace) to test for overall group differences across continuous variables:
+We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://www.statisticshowto.com/pillais-trace/) to test for overall group differences across continuous variables:
 
 - **Group Factor 'O_ORDERPRIORITY'**:
   - Pillai's Trace: `0.0382`

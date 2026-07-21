@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_sad
 
-**Report Generated on:** 2026-07-21 07:57:42.74129
+**Report Generated on:** 2026-07-21 08:15:36.75237
 **Source Dataset:** `customer_orders_sad.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -66,7 +66,7 @@ We define a mixed multivariate design incorporating:
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
-We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance#Pillai's_trace) to test for overall group differences across continuous variables:
+We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://www.statisticshowto.com/pillais-trace/) to test for overall group differences across continuous variables:
 
 No MANOVA tests could be computed.
 
@@ -99,9 +99,9 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 5 | 50.00% |
-| **Cluster 2** | 3 | 30.00% |
-| **Cluster 3** | 2 | 20.00% |
+| **Cluster 1** | 3 | 30.00% |
+| **Cluster 2** | 2 | 20.00% |
+| **Cluster 3** | 5 | 50.00% |
 
 
 ## 4. Visualizations Dashboard
