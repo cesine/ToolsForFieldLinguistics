@@ -10,13 +10,13 @@ All communications, documentation, pull request descriptions, and reports genera
 2. **State Verifiable Facts Only**: Limit descriptions to exact implementation mechanics, file modifications, libraries used, and statistical test results.
 3. **Report Quantitative Metrics Factually**: When reporting on data audits, output raw numerical figures (e.g. sample size $N$, degrees of freedom, Pillai trace, F-statistic, $p$-value, correlation coefficient) and their strict statistical interpretations without value judgments.
 4. **Factual Suggestions**: Suggest SQL fixes or data preprocessing methods based strictly on logical necessity or cited references (e.g. log-transforming skewed variables to satisfy normality assumptions).
-5. **Cite Primary Sources**: When describing technical capabilities, algorithms, or API functionalities, always cite primary sources. These include:
+5. **Cite Primary Sources (APA 7th Edition)**: When describing technical capabilities, algorithms, or API functionalities, always cite primary sources using strict APA 7th edition formatting (both in-text and in reference lists). These include:
    * **Official Documentation**: Links or exact references to the official API specification or library documentation (e.g., Snowflake, R package car, etc.).
-   * **Academic Publications**: Links or citations of original peer-reviewed papers (e.g. from Google Scholar, Nature, PubMed) to support statistical methodologies (e.g., Nature s41598-024-58300-7 for reaction time skewed distributions).
+   * **Academic Publications**: Links or citations of original peer-reviewed papers (e.g., from Google Scholar, Nature, PubMed) to support statistical methodologies (e.g., McConnell et al., 2024 for response time controls).
 6. **Descriptive Figure and Graphic Callouts**: Do not use uninformative or purely mechanical phrases to describe figure generation or saving (e.g. *"visualization was saved to disk"*). Instead, use active and informative academic callouts to introduce figures (e.g. *"Figure 1 presents..."*, *"The relationship is illustrated in Figure 1..."*), explaining what the figure contains and what the reader should look for.
 
 ## Examples
 * **Uncited Claim (Prohibited)**: *"We applied a log-transform because it is standard practice to normalize skewed response times."*
-* **Cited Factual Claim (Allowed)**: *"We applied a natural log-transformation `log(RT + 1)` on delay metrics to address positive skewness, satisfying normality assumptions for parametric ANOVA/MANOVA as recommended in Nature Scientific Reports (s41598-024-58300-7)."*
+* **Cited Factual Claim (Allowed)**: *"We applied a natural log-transformation `log(RT + 1)` on delay metrics to address positive skewness, satisfying normality assumptions for parametric ANOVA/MANOVA as recommended in McConnell et al. (2024)."*
 * **Mechanical Graphic Phrasing (Prohibited)**: *"The correlation heatmap plot was saved to the disk."*
 * **Descriptive Graphic Callout (Allowed)**: *"Figure 1 presents the correlation heatmap, illustrating pairwise correlations between all transaction metrics."*
