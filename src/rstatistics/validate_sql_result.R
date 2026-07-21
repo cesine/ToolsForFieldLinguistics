@@ -66,7 +66,7 @@ if (n_rows == 0) {
 # Initialize variables for report generation
 report_findings <- c()
 report_suggestions <- c()
-report_grade <- "PASS 🟢"
+report_grade <- "COMPLIANT 🟢"
 manova_report_lines <- c()
 anova_report_lines <- c()
 
@@ -202,24 +202,24 @@ if (length(candidate_keys) == 0) {
     dup_rate <- if (length(non_null_data) > 0) n_duplicates / length(non_null_data) else 0
     
     if (n_duplicates > 0) {
-      cat(sprintf("[FAIL] Key '%s' contains duplicates!\n", key))
+      cat(sprintf("[ANOMALY] Key '%s' contains duplicates!\n", key))
       cat(sprintf("       - Duplicate Count: %d rows (%.2f%%)\n", n_duplicates, dup_rate * 100))
-      cat(sprintf("       - DANGER: Joining on this key will cause a Cartesian product (row duplication)!\n"))
+      cat(sprintf("       - CRITICAL ANOMALY: Joining on this key will cause a Cartesian product (row duplication)!\n"))
       
-      report_findings <- c(report_findings, sprintf("- **FAIL: Duplicate Join Key in '%s'**: Unique rate is %.2f%%. Joining on this column will cause a Cartesian product multiplication (row duplication).", key, (1 - dup_rate)*100))
+      report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: Duplicate Join Key in '%s'**: Unique rate is %.2f%%. Joining on this column will cause a Cartesian product multiplication (row duplication).", key, (1 - dup_rate)*100))
       report_suggestions <- c(report_suggestions, sprintf("- **Fix duplicate join key '%s'**: Ensure you are joining on a unique primary key. If you are joining a detail table, aggregate it first (e.g. in a subquery or CTE) before joining.", key))
-      report_grade <- "DANGER / FAIL 🔴"
+      report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
     } else if (null_rate > 0.05) {
       cat(sprintf("[WARNING] Key '%s' contains a high number of nulls!\n", key))
       cat(sprintf("          - Null Count: %d rows (%.2f%%)\n", n_null, null_rate * 100))
       
       report_findings <- c(report_findings, sprintf("- **WARNING: High Null Rate in Key '%s'**: Null rate is %.2f%%. Joining on this column will drop these records unless you use an outer join.", key, null_rate * 100))
       report_suggestions <- c(report_suggestions, sprintf("- **Key Nulls in '%s'**: Check if nulls are expected. Use `COALESCE` or default values if you need to preserve these rows in an inner join.", key))
-      if (report_grade != "DANGER / FAIL 🔴") {
-        report_grade <- "WARNING 🟡"
+      if (report_grade != "CRITICAL ANOMALY DETECTED 🔴") {
+        report_grade <- "MINOR ANOMALY DETECTED 🟡"
       }
     } else {
-      cat(sprintf("[PASS] Key '%s' is clean.\n", key))
+      cat(sprintf("[COMPLIANT] Key '%s' is clean.\n", key))
       cat(sprintf("       - Unique Rate: 100.00%%\n"))
       cat(sprintf("       - Null Rate:   %.2f%%\n", null_rate * 100))
     }
@@ -245,8 +245,8 @@ for (col_name in colnames(data)) {
     
     report_findings <- c(report_findings, sprintf("- **WARNING: Constant Column '%s'**: 100%% of rows contain the value '%s'.", col_name, mode_val))
     report_suggestions <- c(report_suggestions, sprintf("- **Constant Column '%s'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.", col_name))
-    if (report_grade != "DANGER / FAIL 🔴") {
-      report_grade <- "WARNING 🟡"
+    if (report_grade != "CRITICAL ANOMALY DETECTED 🔴") {
+      report_grade <- "MINOR ANOMALY DETECTED 🟡"
     }
   } else if (n_unique >= 2 && n_unique < n_rows * 0.95) {
     freq_tbl <- table(col_data, useNA = "no")
@@ -266,15 +266,15 @@ for (col_name in colnames(data)) {
         
         report_findings <- c(report_findings, sprintf("- **WARNING: Highly Collapsed Column '%s'**: %.2f%% of rows contain the value '%s'.", col_name, max_rate * 100, mode_val))
         report_suggestions <- c(report_suggestions, sprintf("- **Collapsed Column '%s'**: Verify if this massive skew is natural in your business logic or is caused by a faulty join.", col_name))
-        if (report_grade != "DANGER / FAIL 🔴") {
-          report_grade <- "WARNING 🟡"
+        if (report_grade != "CRITICAL ANOMALY DETECTED 🔴") {
+          report_grade <- "MINOR ANOMALY DETECTED 🟡"
         }
       }
     }
   }
 }
 if (coalesce_warnings == 0) {
-  cat("[PASS] No severe value coalescing or mode collapse detected.\n\n")
+  cat("[COMPLIANT] No severe value coalescing or mode collapse detected.\n\n")
 } else {
   cat("\n")
 }
@@ -302,15 +302,15 @@ if (length(categorical_cols) > 0) {
         
         report_findings <- c(report_findings, sprintf("- **WARNING: Suspicious Uniformity on '%s'**: Category counts are highly uniform (Coefficient of Variation = %.4f). This suggests the dataset is synthetic or has been artificially balanced.", col_name, cv))
         report_suggestions <- c(report_suggestions, sprintf("- **Investigate Uniformity on '%s'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.", col_name))
-        if (report_grade != "DANGER / FAIL 🔴") {
-          report_grade <- "WARNING 🟡"
+        if (report_grade != "CRITICAL ANOMALY DETECTED 🔴") {
+          report_grade <- "MINOR ANOMALY DETECTED 🟡"
         }
       }
     }
   }
 }
 if (uniformity_warnings == 0) {
-  cat("[PASS] No artificial category uniformity detected.\n\n")
+  cat("[COMPLIANT] No artificial category uniformity detected.\n\n")
 } else {
   cat("\n")
 }
@@ -325,20 +325,20 @@ if (length(numeric_cols) >= 2) {
     for (j in (i+1):length(numeric_cols)) {
       c_val <- cor_matrix[i, j]
       if (!is.na(c_val) && abs(c_val) >= 0.999) {
-        cat(sprintf("[FAIL] Multicollinearity bug detected between '%s' and '%s'! (Correlation = %.4f)\n", 
+        cat(sprintf("[ANOMALY] Multicollinearity bug detected between '%s' and '%s'! (Correlation = %.4f)\n", 
                     numeric_cols[i], numeric_cols[j], c_val))
-        cat("       - DANGER: Perfectly correlated numeric columns indicate duplicate joins or redundant SQL computations.\n")
+        cat("       - CRITICAL ANOMALY: Perfectly correlated numeric columns indicate duplicate joins or redundant SQL computations.\n")
         collinearity_detected <- TRUE
         
-        report_findings <- c(report_findings, sprintf("- **FAIL: Multicollinearity between '%s' and '%s'**: Correlation coefficient is %.4f.", numeric_cols[i], numeric_cols[j], c_val))
+        report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: Multicollinearity between '%s' and '%s'**: Correlation coefficient is %.4f.", numeric_cols[i], numeric_cols[j], c_val))
         report_suggestions <- c(report_suggestions, sprintf("- **Remove Collinearity between '%s' and '%s'**: Review your SQL query to ensure you did not join the same table twice or select the same column multiple times under different aliases.", numeric_cols[i], numeric_cols[j]))
-        report_grade <- "DANGER / FAIL 🔴"
+        report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
       }
     }
   }
 }
 if (!collinearity_detected) {
-  cat("[PASS] No severe multicollinearity or redundant numeric columns detected.\n\n")
+  cat("[COMPLIANT] No severe multicollinearity or redundant numeric columns detected.\n\n")
 } else {
   cat("\n")
 }
@@ -392,16 +392,16 @@ if (length(numeric_cols) >= 2 && length(categorical_cols) > 0) {
                                    "")
           
           if (!is.na(pval) && pval > 0.999 && (is.na(fval) || fval < 1e-4)) {
-            cat(sprintf("[FAIL] MANOVA anomaly on numeric variables grouped by '%s'!\n", cat_col))
+            cat(sprintf("[ANOMALY] MANOVA anomaly on numeric variables grouped by '%s'!\n", cat_col))
             cat(sprintf("       - p-value:     %.6f (identical multivariate distributions)\n", pval))
             cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(fval), 0, fval)))
-            cat(sprintf("       - DANGER: Combined numeric metrics are perfectly replicated across categories. Check for a cross-join or incorrect merge!\n"))
+            cat(sprintf("       - CRITICAL ANOMALY: Combined numeric metrics are perfectly replicated across categories. Check for a cross-join or incorrect merge!\n"))
             
-            report_findings <- c(report_findings, sprintf("- **FAIL: MANOVA Replication Anomaly grouped by '%s'**: Pillai Trace = %.4f, F-statistic = %.4f, p-value = %.6f. The multivariate groups are identical.", cat_col, pillai, ifelse(is.na(fval), 0, fval), pval))
+            report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: MANOVA Replication Anomaly grouped by '%s'**: Pillai Trace = %.4f, F-statistic = %.4f, p-value = %.6f. The multivariate groups are identical.", cat_col, pillai, ifelse(is.na(fval), 0, fval), pval))
             report_suggestions <- c(report_suggestions, sprintf("- **Fix MANOVA Replication on '%s'**: Check for a missing join condition (cross join) that copies customer/order metrics across categories.", cat_col))
-            report_grade <- "DANGER / FAIL 🔴"
+            report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
           } else {
-            cat(sprintf("[PASS] MANOVA on numeric metrics grouped by '%s':\n", cat_col))
+            cat(sprintf("[COMPLIANT] MANOVA on numeric metrics grouped by '%s':\n", cat_col))
             cat(sprintf("       - Pillai Trace: %.4f\n", pillai))
             cat(sprintf("       - F-statistic:  %.4f\n", ifelse(is.na(fval), 0, fval)))
             cat(sprintf("       - p-value:      %.6f\n", pval))
@@ -438,16 +438,16 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
         if (!is.null(p_val) && !is.na(p_val)) {
           anova_tested <- TRUE
           if (p_val > 0.999 && (is.na(f_val) || f_val < 1e-4)) {
-            cat(sprintf("[FAIL] ANOVA anomaly on '%s' grouped by '%s'!\n", num, cat))
+            cat(sprintf("[ANOMALY] ANOVA anomaly on '%s' grouped by '%s'!\n", num, cat))
             cat(sprintf("       - p-value:     %.6f (identical group distributions)\n", p_val))
             cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(f_val), 0, f_val)))
-            cat(sprintf("       - DANGER: Numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
+            cat(sprintf("       - CRITICAL ANOMALY: Numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
             
-            report_findings <- c(report_findings, sprintf("- **FAIL: ANOVA Replication Anomaly on '%s' by '%s'**: p-value = %.6f (F-statistic = %.6f). The values are perfectly cloned across categories.", num, cat, p_val, ifelse(is.na(f_val), 0, f_val)))
+            report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: ANOVA Replication Anomaly on '%s' by '%s'**: p-value = %.6f (F-statistic = %.6f). The values are perfectly cloned across categories.", num, cat, p_val, ifelse(is.na(f_val), 0, f_val)))
             report_suggestions <- c(report_suggestions, sprintf("- **Fix ANOVA Replication on '%s' by '%s'**: Check your SQL join logic. This indicates matching values are replicated across categories.", num, cat))
-            report_grade <- "DANGER / FAIL 🔴"
+            report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
           } else {
-            cat(sprintf("[PASS] ANOVA for '%s' grouped by '%s':\n", num, cat))
+            cat(sprintf("[COMPLIANT] ANOVA for '%s' grouped by '%s':\n", num, cat))
             cat(sprintf("       - p-value:     %.6f\n", p_val))
             cat(sprintf("       - F-statistic: %.4f\n", ifelse(is.na(f_val), 0, f_val)))
             

@@ -1,13 +1,13 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 15:15:16.708597
+**Report Generated on:** 2026-07-21 15:17:53.773077
 **Source Dataset:** `customer_orders_nominal.csv`
-**Auditor Classification Status:** DANGER / FAIL 🔴
+**Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the SQL database query results comprising 618 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the SQL database query results comprising 618 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **CRITICAL ANOMALY DETECTED 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
@@ -68,7 +68,7 @@ Following standard methodologies for reaction time outcomes (McConnell et al., 2
 ## 3. Results
 
 ### Data Quality and SQL Integrity Audits
-- **FAIL: Duplicate Join Key in 'O_CUSTKEY'**: Unique rate is 99.51%. Joining on this column will cause a Cartesian product multiplication (row duplication).
+- **CRITICAL ANOMALY: Duplicate Join Key in 'O_CUSTKEY'**: Unique rate is 99.51%. Joining on this column will cause a Cartesian product multiplication (row duplication).
 - **WARNING: Constant Column 'O_ORDERSTATUS'**: 100% of rows contain the value 'O'.
 - **WARNING: Constant Column 'O_ORDERDATE'**: 100% of rows contain the value '1998-08-01'.
 - **WARNING: Suspicious Uniformity on 'C_REGION'**: Category counts are highly uniform (Coefficient of Variation = 0.0474). This suggests the dataset is synthetic or has been artificially balanced.

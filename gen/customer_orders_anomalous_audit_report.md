@@ -1,13 +1,13 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 15:15:17.616861
+**Report Generated on:** 2026-07-21 15:17:54.754408
 **Source Dataset:** `customer_orders_anomalous.csv`
-**Auditor Classification Status:** DANGER / FAIL 🔴
+**Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the SQL database query results comprising 10 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the SQL database query results comprising 10 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **CRITICAL ANOMALY DETECTED 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
@@ -51,8 +51,8 @@ We define a mixed multivariate design incorporating:
 ## 3. Results
 
 ### Data Quality and SQL Integrity Audits
-- **FAIL: Duplicate Join Key in 'O_ORDERKEY'**: Unique rate is 80.00%. Joining on this column will cause a Cartesian product multiplication (row duplication).
-- **FAIL: Duplicate Join Key in 'O_CUSTKEY'**: Unique rate is 30.00%. Joining on this column will cause a Cartesian product multiplication (row duplication).
+- **CRITICAL ANOMALY: Duplicate Join Key in 'O_ORDERKEY'**: Unique rate is 80.00%. Joining on this column will cause a Cartesian product multiplication (row duplication).
+- **CRITICAL ANOMALY: Duplicate Join Key in 'O_CUSTKEY'**: Unique rate is 30.00%. Joining on this column will cause a Cartesian product multiplication (row duplication).
 - **WARNING: Constant Column 'O_ORDERSTATUS'**: 100% of rows contain the value 'O'.
 - **WARNING: Constant Column 'O_ORDERDATE'**: 100% of rows contain the value '1998-08-01'.
 - **WARNING: Constant Column 'O_ORDERPRIORITY'**: 100% of rows contain the value '3-MEDIUM'.
@@ -60,13 +60,13 @@ We define a mixed multivariate design incorporating:
 - **WARNING: Constant Column 'C_ACCTBAL'**: 100% of rows contain the value '5000'.
 - **WARNING: Constant Column 'AVG_DISCOUNT'**: 100% of rows contain the value '0.05'.
 - **WARNING: Constant Column 'MAX_SHIP_DELAY'**: 100% of rows contain the value '30'.
-- **FAIL: Multicollinearity between 'O_TOTALPRICE' and 'TOTAL_QUANTITY'**: Correlation coefficient is 1.0000.
-- **FAIL: Multicollinearity between 'O_TOTALPRICE' and 'TOTAL_DISCOUNT_VALUE'**: Correlation coefficient is 1.0000.
-- **FAIL: Multicollinearity between 'TOTAL_QUANTITY' and 'TOTAL_DISCOUNT_VALUE'**: Correlation coefficient is 1.0000.
-- **FAIL: ANOVA Replication Anomaly on 'O_TOTALPRICE' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
-- **FAIL: ANOVA Replication Anomaly on 'TOTAL_QUANTITY' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
-- **FAIL: ANOVA Replication Anomaly on 'TOTAL_DISCOUNT_VALUE' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
-- **FAIL: ANOVA Replication Anomaly on 'ITEM_COUNT' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
+- **CRITICAL ANOMALY: Multicollinearity between 'O_TOTALPRICE' and 'TOTAL_QUANTITY'**: Correlation coefficient is 1.0000.
+- **CRITICAL ANOMALY: Multicollinearity between 'O_TOTALPRICE' and 'TOTAL_DISCOUNT_VALUE'**: Correlation coefficient is 1.0000.
+- **CRITICAL ANOMALY: Multicollinearity between 'TOTAL_QUANTITY' and 'TOTAL_DISCOUNT_VALUE'**: Correlation coefficient is 1.0000.
+- **CRITICAL ANOMALY: ANOVA Replication Anomaly on 'O_TOTALPRICE' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
+- **CRITICAL ANOMALY: ANOVA Replication Anomaly on 'TOTAL_QUANTITY' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
+- **CRITICAL ANOMALY: ANOVA Replication Anomaly on 'TOTAL_DISCOUNT_VALUE' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
+- **CRITICAL ANOMALY: ANOVA Replication Anomaly on 'ITEM_COUNT' by 'C_REGION'**: p-value = 1.000000 (F-statistic = 0.000000). The values are perfectly cloned across categories.
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
@@ -107,8 +107,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 3 | 30.00% |
-| **Cluster 2** | 7 | 70.00% |
+| **Cluster 1** | 7 | 70.00% |
+| **Cluster 2** | 3 | 30.00% |
 
 
 #### Behavioral Profiles (Cluster Feature Means)
@@ -116,8 +116,8 @@ To characterize the discovered personas in terms of the original variables, the 
 
 | Cluster | O_ORDERKEY | O_CUSTKEY | O_TOTALPRICE | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT |
 |---|---|---|---|---|---|---|---|
-| **Cluster 1** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
-| **Cluster 2** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
+| **Cluster 1** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
+| **Cluster 2** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
