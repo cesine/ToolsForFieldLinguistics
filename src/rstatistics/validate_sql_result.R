@@ -93,11 +93,11 @@ for (col_name in colnames(data)) {
   
   # Check if categorical (moderate cardinality, and has group replication)
   is_char_or_factor <- is.character(col_data) || is.factor(col_data)
-  is_low_card_int <- is_all_int && n_unique >= 2 && n_unique <= 5
+  is_low_card_int <- is_all_int && n_unique >= 1 && n_unique <= 5
   
-  if ((is_char_or_factor || is_low_card_int) && n_unique >= 2 && n_unique <= 15) {
+  if ((is_char_or_factor || is_low_card_int) && n_unique >= 1 && n_unique <= 15) {
     # Ensure there is replication (not a unique name or ID column)
-    if (n_unique < n_rows * 0.90) {
+    if (n_unique < n_rows * 0.90 || n_rows == 1) {
       categorical_cols <- c(categorical_cols, col_name)
     }
   }
