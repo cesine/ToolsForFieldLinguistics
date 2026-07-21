@@ -2,7 +2,7 @@
 # =====================================================================
 # Snowflake Query Executor
 # Fetch sample TPC-H orders data using the date-partitioned query
-# and save the results locally to gen/customer_orders_happy.csv.
+# and save the results locally to gen/customer_orders_nominal.csv.
 #
 # Setup Instructions:
 # 1. Sign up for a Snowflake Self-Service On-Demand (Free Trial) account.
@@ -23,7 +23,7 @@ set -e
 
 # Resolve paths
 ENV_FILE="$HOME/.env"
-OUTPUT_FILE="gen/customer_orders_happy.csv"
+OUTPUT_FILE="gen/customer_orders_nominal.csv"
 SNOW_EXEC="/Users/gchiodo/.local/bin/snow"
 
 # Load environment variables from ~/.env if it exists

@@ -1,7 +1,7 @@
-# Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
+# Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 09:13:09.339771
-**Source Dataset:** `customer_orders_happy.csv`
+**Report Generated on:** 2026-07-21 09:25:12.296878
+**Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
 ---
@@ -40,7 +40,7 @@ The demographic distribution of the sample is detailed below:
 
 Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
 
-![Figure 3: Independent Variable Sample Size Distributions](customer_orders_happy_independent_distributions.png)
+![Figure 3: Independent Variable Sample Size Distributions](customer_orders_nominal_independent_distributions.png)
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
@@ -127,7 +127,7 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 
 Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
 
-![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_happy_scatterplots.png)
+![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_nominal_scatterplots.png)
 
 ### Customer Persona Profiles (K-Means)
 We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
@@ -142,7 +142,7 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 ## 4. Visualizations Dashboard
 Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
 
-![Figure 1: PCA Persona Dashboard](customer_orders_happy_validation_plot.png)
+![Figure 1: PCA Persona Dashboard](customer_orders_nominal_validation_plot.png)
 
 ### Interpretation of Figure 1:
 1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.

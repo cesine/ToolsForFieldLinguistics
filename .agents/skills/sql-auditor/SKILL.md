@@ -22,10 +22,10 @@ To fetch the live date-filtered customer personas dataset:
 ```bash
 npm run fetch:sql
 ```
-This runs `src/sql/snowflake/fetch_snowflake_data.sh`, which loads the query from `src/sql/snowflake/customer_personas_query.sql` and writes the output to `gen/customer_orders_happy.csv`.
+This runs `src/sql/snowflake/fetch_snowflake_data.sh`, which loads the query from `src/sql/snowflake/customer_personas_query.sql` and writes the output to `gen/customer_orders_nominal.csv`.
 
 ### 2. Audit Execution
-To audit the default happy path dataset and generate the visualization dashboard and Markdown report:
+To audit the default nominal dataset and generate the visualization dashboard and Markdown report:
 ```bash
 npm run validate:sql
 ```

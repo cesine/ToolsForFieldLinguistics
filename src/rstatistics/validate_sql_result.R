@@ -22,7 +22,7 @@ get_skewness <- function(x) {
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) {
-  default_path <- "gen/customer_orders_happy.csv"
+  default_path <- "gen/customer_orders_nominal.csv"
   if (file.exists(default_path)) {
     cat(sprintf("No input file specified. Defaulting to: %s\n\n", default_path))
     csv_path <- default_path
