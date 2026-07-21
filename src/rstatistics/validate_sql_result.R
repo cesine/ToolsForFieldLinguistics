@@ -568,6 +568,50 @@ if (kmeans_run && length(numeric_cols) >= 2) {
   cat("Insufficient numeric or categorical columns to generate dashboards.\n\n")
 }
 
+# 8. Pairwise Scatterplots with Line of Best Fit
+required_cols <- c("TOTAL_QUANTITY", "O_TOTALPRICE", "TOTAL_DISCOUNT_VALUE", "ITEM_COUNT")
+if (all(required_cols %in% colnames(data))) {
+  scatter_file <- file.path("gen", paste0(file_base, "_scatterplots.png"))
+  png(scatter_file, width = 1000, height = 800)
+  # Set up a 2x2 grid layout
+  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  par(mar = c(5, 5, 4, 2))
+  
+  # Helper function to plot scatter with abline
+  plot_scatter_fit <- function(x, y, xlab, ylab, title, color) {
+    plot(x, y, col = color, pch = 19, cex = 1.2,
+         main = title, xlab = xlab, ylab = ylab)
+    grid()
+    fit <- lm(y ~ x)
+    if (!any(is.na(coef(fit)))) {
+      abline(fit, col = "red", lwd = 3)
+    }
+  }
+  
+  # Panel 1: Total Price vs Quantity
+  plot_scatter_fit(data$TOTAL_QUANTITY, data$O_TOTALPRICE, 
+                   "Total Quantity", "Total Price ($)", 
+                   "Total Price vs Quantity", "#1f77b4")
+                   
+  # Panel 2: Total Price vs Discount Value
+  plot_scatter_fit(data$TOTAL_DISCOUNT_VALUE, data$O_TOTALPRICE, 
+                   "Total Discount Value ($)", "Total Price ($)", 
+                   "Total Price vs Discount Value", "#2ca02c")
+                   
+  # Panel 3: Total Price vs Item Count
+  plot_scatter_fit(data$ITEM_COUNT, data$O_TOTALPRICE, 
+                   "Item Count", "Total Price ($)", 
+                   "Total Price vs Item Count", "#9467bd")
+                   
+  # Panel 4: Discount Value vs Quantity
+  plot_scatter_fit(data$TOTAL_QUANTITY, data$TOTAL_DISCOUNT_VALUE, 
+                   "Total Quantity", "Total Discount Value ($)", 
+                   "Discount Value vs Quantity", "#ff7f0e")
+                   
+  dev.off()
+  cat(sprintf("[SAVED] Pairwise Scatterplots saved to '%s'.\n\n", scatter_file))
+}
+
 # --- 8. Markdown Scientific Report Generation ---
 report_file <- file.path("gen", paste0(file_base, "_audit_report.md"))
 
