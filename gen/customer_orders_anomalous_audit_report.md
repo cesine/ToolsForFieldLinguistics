@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 16:50:15.377051
+**Report Generated on:** 2026-07-21 17:19:10.236117
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 

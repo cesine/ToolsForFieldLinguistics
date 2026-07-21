@@ -756,7 +756,7 @@ if (kmeans_run && length(numeric_cols) >= 2) {
        col = "lightblue",
        border = "white")
        
-  cat_counts <- table(data[[cat_plot]])
+  cat_counts <- sort(table(data[[cat_plot]]), decreasing = TRUE)
   barplot(cat_counts,
           main = paste("Counts of", cat_plot, "(Independent)"),
           xlab = cat_plot,
@@ -850,7 +850,7 @@ if (length(categorical_cols) > 0) {
   bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow", "aquamarine", "lavender")
   for (i in 1:num_plots) {
     col_name <- categorical_cols[i]
-    tbl <- table(data[[col_name]], useNA = "no")
+    tbl <- sort(table(data[[col_name]], useNA = "no"), decreasing = TRUE)
     color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
     if (length(tbl) > 0) {
       barplot(tbl,
