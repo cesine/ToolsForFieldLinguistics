@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_sad
 
-**Report Generated on:** 2026-07-21 08:51:35.533726
+**Report Generated on:** 2026-07-21 09:01:40.642488
 **Source Dataset:** `customer_orders_sad.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -94,14 +94,18 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_DISCOUNT_VALUE'**: F = `8435254214760480104677130633216.0000`, p = `2.958678e-77`
 - **Significant variation in 'ITEM_COUNT' grouped by 'ITEM_COUNT'**: F = `8435254214760480104677130633216.0000`, p = `2.958678e-77`
 
+Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
+
+![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_sad_scatterplots.png)
+
 ### Customer Persona Profiles (K-Means)
 We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 2 | 20.00% |
-| **Cluster 2** | 5 | 50.00% |
-| **Cluster 3** | 3 | 30.00% |
+| **Cluster 1** | 5 | 50.00% |
+| **Cluster 2** | 3 | 30.00% |
+| **Cluster 3** | 2 | 20.00% |
 
 
 ## 4. Visualizations Dashboard

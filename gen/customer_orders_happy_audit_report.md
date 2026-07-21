@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-21 08:51:34.457166
+**Report Generated on:** 2026-07-21 09:01:39.554541
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -121,13 +121,17 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `49.7741`, p = `9.621240e-21`
 - **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `463.7476`, p = `5.717854e-123`
 
+Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
+
+![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_happy_scatterplots.png)
+
 ### Customer Persona Profiles (K-Means)
 We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 202 | 32.69% |
-| **Cluster 2** | 170 | 27.51% |
+| **Cluster 1** | 170 | 27.51% |
+| **Cluster 2** | 202 | 32.69% |
 | **Cluster 3** | 246 | 39.81% |
 
 
