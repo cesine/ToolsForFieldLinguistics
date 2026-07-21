@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 15:06:42.696259
+**Report Generated on:** 2026-07-21 15:11:47.248162
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -128,15 +128,15 @@ Figure 1 presents the 2x2 data quality and customer persona visualization dashbo
 ### Principal Component Loadings (Feature Contributions)
 To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:
 
-| Metric | PC1 Loading | PC2 Loading |
-|---|---|---|
-| `O_ORDERKEY` | `0.2092` | `-0.6695` |
-| `O_CUSTKEY` | `0.1788` | `-0.6904` |
-| `O_TOTALPRICE` | `-0.4811` | `-0.1357` |
-| `TOTAL_QUANTITY` | `-0.4811` | `-0.1357` |
-| `AVG_DISCOUNT` | `0.0000` | `-0.0000` |
-| `TOTAL_DISCOUNT_VALUE` | `-0.4811` | `-0.1357` |
-| `ITEM_COUNT` | `-0.4794` | `-0.1410` |
+| Metric | PC1 Loading | PC2 Loading | Influence Strength (PC1 & PC2) |
+|---|---|---|---|
+| `O_CUSTKEY` | `0.1788` | `-0.6904` | `0.7132` |
+| `O_ORDERKEY` | `0.2092` | `-0.6695` | `0.7014` |
+| `O_TOTALPRICE` | `-0.4811` | `-0.1357` | `0.4999` |
+| `TOTAL_QUANTITY` | `-0.4811` | `-0.1357` | `0.4999` |
+| `TOTAL_DISCOUNT_VALUE` | `-0.4811` | `-0.1357` | `0.4999` |
+| `ITEM_COUNT` | `-0.4794` | `-0.1410` | `0.4997` |
+| `AVG_DISCOUNT` | `0.0000` | `-0.0000` | `0.0000` |
 
 
 ### Interpretation of Figure 1:

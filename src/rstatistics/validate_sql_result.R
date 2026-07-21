@@ -809,11 +809,29 @@ if (kmeans_run) {
 # PCA Loadings table
 pca_table <- ""
 if (kmeans_run && !is.null(pca_fit)) {
-  pca_table <- "| Metric | PC1 Loading | PC2 Loading |\n|---|---|---|\n"
-  for (row_name in rownames(pca_fit$rotation)) {
-    val1 <- pca_fit$rotation[row_name, 1]
-    val2 <- if (ncol(pca_fit$rotation) >= 2) pca_fit$rotation[row_name, 2] else 0.0
-    pca_table <- paste0(pca_table, sprintf("| `%s` | `%.4f` | `%.4f` |\n", row_name, val1, val2))
+  pca_table <- "| Metric | PC1 Loading | PC2 Loading | Influence Strength (PC1 & PC2) |\n|---|---|---|---|\n"
+  
+  # Calculate vector magnitude (strength) of loadings across PC1 and PC2
+  pc2_vals <- if (ncol(pca_fit$rotation) >= 2) pca_fit$rotation[, 2] else rep(0.0, nrow(pca_fit$rotation))
+  strengths <- sqrt(pca_fit$rotation[, 1]^2 + pc2_vals^2)
+  
+  loadings_df <- data.frame(
+    Metric = rownames(pca_fit$rotation),
+    PC1 = pca_fit$rotation[, 1],
+    PC2 = pc2_vals,
+    Strength = strengths,
+    stringsAsFactors = FALSE
+  )
+  
+  # Sort in descending order of influence strength
+  loadings_df <- loadings_df[order(-loadings_df$Strength), ]
+  
+  for (i in 1:nrow(loadings_df)) {
+    pca_table <- paste0(pca_table, sprintf("| `%s` | `%.4f` | `%.4f` | `%.4f` |\n", 
+                                           loadings_df$Metric[i], 
+                                           loadings_df$PC1[i], 
+                                           loadings_df$PC2[i], 
+                                           loadings_df$Strength[i]))
   }
 }
 
