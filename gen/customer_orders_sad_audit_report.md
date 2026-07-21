@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_sad
 
-**Report Generated on:** 2026-07-21 08:15:36.75237
+**Report Generated on:** 2026-07-21 08:28:26.993906
 **Source Dataset:** `customer_orders_sad.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -105,11 +105,11 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 
 ## 4. Visualizations Dashboard
-A 2x2 data quality and persona visualization dashboard was saved to disk:
+Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
 
-![PCA Persona Dashboard](customer_orders_sad_validation_plot.png)
+![Figure 1: PCA Persona Dashboard](customer_orders_sad_validation_plot.png)
 
-### Interpretation of Plots:
+### Interpretation of Figure 1:
 1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
 2. **Correlation Heatmap**: Pairwise correlations between metrics. Strong colors indicate potential redundant attributes or duplicate join bugs.
 3. **Persona Cluster Sizes**: Frequency counts across the discovered personas.
