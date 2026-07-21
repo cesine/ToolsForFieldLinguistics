@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 16:42:36.187709
+**Report Generated on:** 2026-07-21 16:50:15.377051
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
@@ -31,7 +31,6 @@ The demographic distribution of the sample is detailed below:
 | **O_TOTALPRICE** | 120000 | 2 | 20.00% |
 | **O_TOTALPRICE** | 150000 | 2 | 20.00% |
 | **O_TOTALPRICE** | 2e+05 | 2 | 20.00% |
-| **O_ORDERDATE** | 1998-08-01 | 10 | 100.00% |
 | **O_ORDERPRIORITY** | 3-MEDIUM | 10 | 100.00% |
 | **C_MKTSEGMENT** | AUTOMOBILE | 10 | 100.00% |
 | **C_ACCTBAL** | 5000 | 10 | 100.00% |
@@ -70,8 +69,8 @@ To profile user choice dynamics, click patterns, and decision hesitation (Pongra
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
-* **Independent Variables (Factors)**: `C_MKTSEGMENT` (Market Segment), `C_REGION` (Geographic region), and `O_ORDERPRIORITY` (Order priority).
-* **Dependent Variables (Metrics)**: `O_TOTALPRICE` (total price), `C_ACCTBAL` (account balance), `TOTAL_QUANTITY` (quantity ordered), `AVG_DISCOUNT` (average discount), `TOTAL_DISCOUNT_VALUE` (total discount value), `ITEM_COUNT` (lineitem count), and `MAX_SHIP_DELAY` (shipping latency).
+* **Independent Variables (Factors)**: `O_CUSTKEY`, `O_ORDERSTATUS`, `O_TOTALPRICE`, `O_ORDERPRIORITY`, `C_MKTSEGMENT`, `C_ACCTBAL`, `C_REGION`, `TOTAL_QUANTITY`, `TOTAL_DISCOUNT_VALUE`, `ITEM_COUNT`, `MAX_SHIP_DELAY`
+* **Dependent Variables (Metrics)**: `O_ORDERKEY`, `O_CUSTKEY`, `O_TOTALPRICE`, `TOTAL_QUANTITY`, `AVG_DISCOUNT`, `TOTAL_DISCOUNT_VALUE`, `ITEM_COUNT`
 
 
 
@@ -134,8 +133,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 7 | 70.00% |
-| **Cluster 2** | 3 | 30.00% |
+| **Cluster 1** | 3 | 30.00% |
+| **Cluster 2** | 7 | 70.00% |
 
 
 #### Population Profiles (Cluster Feature Means)
@@ -143,8 +142,8 @@ To characterize the discovered customer order personas in terms of the original 
 
 | Cluster | O_ORDERKEY | O_CUSTKEY | O_TOTALPRICE | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT |
 |---|---|---|---|---|---|---|---|
-| **Cluster 1** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
-| **Cluster 2** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
+| **Cluster 1** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
+| **Cluster 2** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics

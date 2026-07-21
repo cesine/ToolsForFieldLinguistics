@@ -191,7 +191,7 @@ rt_log_skew <- list()
 for (col_name in numeric_cols) {
   is_rt <- grepl("(delay|time|latency|duration|rt|lag)$", col_name, ignore.case = TRUE)
   if (is_rt) {
-    col_data <- data[[col_name]]
+    col_data <- full_data[[col_name]]
     rt_cols <- c(rt_cols, col_name)
     rt_original_skew[[col_name]] <- get_skewness(col_data)
     
@@ -207,15 +207,15 @@ for (col_name in numeric_cols) {
     
     # Create log-transformed variable to correct positive skewness
     log_col_name <- paste0(col_name, "_LOG")
-    data[[log_col_name]] <- log(col_data + 1)
+    full_data[[log_col_name]] <- log(col_data + 1)
     
     # Filter outliers in the transformed variable
     if (removed_count > 0) {
       outlier_idx <- which(col_data < lower_lim | col_data > upper_lim)
-      data[[log_col_name]][outlier_idx] <- NA
+      full_data[[log_col_name]][outlier_idx] <- NA
     }
     
-    rt_log_skew[[col_name]] <- get_skewness(data[[log_col_name]])
+    rt_log_skew[[col_name]] <- get_skewness(full_data[[log_col_name]])
   }
 }
 
@@ -229,7 +229,7 @@ for (rt_col in rt_cols) {
 # For numeric columns with high variance, bin them into Low, Medium, High categories.
 binned_cols <- c()
 for (num_col in numeric_cols) {
-  col_data <- data[[num_col]]
+  col_data <- full_data[[num_col]]
   n_unique <- length(unique(col_data))
   
   if (n_unique > 10) {
@@ -242,11 +242,38 @@ for (num_col in numeric_cols) {
     }
     
     bin_name <- paste0(num_col, "_BIN")
-    data[[bin_name]] <- cut(col_data, breaks = breaks, include.lowest = TRUE, labels = c("Low", "Medium", "High"))
+    full_data[[bin_name]] <- cut(col_data, breaks = breaks, include.lowest = TRUE, labels = c("Low", "Medium", "High"))
     categorical_cols <- c(categorical_cols, bin_name)
     binned_cols <- c(binned_cols, bin_name)
   }
 }
+
+# --- Dynamic Categorical Lumping ---
+# For character/factor columns with high cardinality (e.g. tree species),
+# we lump the less frequent values into an "Other" category to create a collapsed version.
+for (col_name in colnames(full_data)) {
+  col_data <- full_data[[col_name]]
+  n_unique <- length(unique(col_data))
+  is_char_or_factor <- is.character(col_data) || is.factor(col_data)
+  
+  if (is_char_or_factor && n_unique > 15 && n_unique <= 200 && n_unique < n_rows * 0.90) {
+    tbl <- sort(table(col_data, useNA = "no"), decreasing = TRUE)
+    if (length(tbl) > 0) {
+      top_levels <- names(tbl)[1:min(9, length(tbl))]
+      lumped_name <- paste0(col_name, "_LUMPED")
+      
+      lumped_data <- as.character(col_data)
+      lumped_data[!is.na(lumped_data) & !(lumped_data %in% top_levels)] <- "Other"
+      
+      full_data[[lumped_name]] <- as.factor(lumped_data)
+      categorical_cols <- c(categorical_cols, lumped_name)
+      binned_cols <- c(binned_cols, lumped_name)
+      cat(sprintf("Lumped high-cardinality column '%s' (%d categories) into '%s' (top %d + 'Other').\n", 
+                  col_name, n_unique, lumped_name, length(top_levels)))
+    }
+  }
+}
+data <- full_data
 
 cat("--- Column Classifications ---\n")
 cat(sprintf("Numeric Candidates:     %s\n", paste(numeric_cols, collapse = ", ")))
