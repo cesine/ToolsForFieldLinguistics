@@ -259,7 +259,18 @@ for (col_name in colnames(full_data)) {
   if (is_char_or_factor && n_unique > 15 && n_unique <= 200 && n_unique < n_rows * 0.90) {
     tbl <- sort(table(col_data, useNA = "no"), decreasing = TRUE)
     if (length(tbl) > 0) {
-      top_levels <- names(tbl)[1:min(9, length(tbl))]
+      proportions <- as.numeric(tbl) / sum(tbl)
+      cum_prop <- cumsum(proportions)
+      
+      # Keep categories until we cover at least 85% of the data,
+      # or reach a maximum cap of 15 categories to ensure model stability.
+      # Always keep at least 5 categories if available.
+      keep_indices <- which(cum_prop <= 0.85)
+      n_keep <- length(keep_indices) + 1 # Include the category that pushes cumulative over 85%
+      if (n_keep < 5) n_keep <- min(5, length(tbl))
+      if (n_keep > 15) n_keep <- 15
+      
+      top_levels <- names(tbl)[1:n_keep]
       lumped_name <- paste0(col_name, "_LUMPED")
       
       lumped_data <- as.character(col_data)
@@ -268,8 +279,8 @@ for (col_name in colnames(full_data)) {
       full_data[[lumped_name]] <- as.factor(lumped_data)
       categorical_cols <- c(categorical_cols, lumped_name)
       binned_cols <- c(binned_cols, lumped_name)
-      cat(sprintf("Lumped high-cardinality column '%s' (%d categories) into '%s' (top %d + 'Other').\n", 
-                  col_name, n_unique, lumped_name, length(top_levels)))
+      cat(sprintf("Lumped high-cardinality column '%s' (%d categories) into '%s' (top %d representing %.1f%% of data + 'Other').\n", 
+                  col_name, n_unique, lumped_name, length(top_levels), 100 * cum_prop[length(top_levels)]))
     }
   }
 }
