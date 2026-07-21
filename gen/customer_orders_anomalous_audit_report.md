@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 11:24:51.621011
+**Report Generated on:** 2026-07-21 14:18:09.569592
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -32,7 +32,7 @@ Figure 3 presents the sample size distributions across each independent categori
 ![Figure 3: Independent Variable Sample Size Distributions](customer_orders_anomalous_independent_distributions.png)
 
 ### Apparatus and Setup
-Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
+Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`; Transaction Processing Performance Council [TPC], 2014) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
 
 ### Hardware Acceleration Controls
 As highlighted in the methodological considerations for online response-time behavioral studies (McConnell et al., 2024), differences in browser hardware configuration and rendering pipelines (e.g. software rasterizer vs. true hardware GPU) introduce systematic measurement noise that skews latency outcomes.
@@ -107,9 +107,9 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 3 | 30.00% |
-| **Cluster 2** | 2 | 20.00% |
-| **Cluster 3** | 5 | 50.00% |
+| **Cluster 1** | 2 | 20.00% |
+| **Cluster 2** | 5 | 50.00% |
+| **Cluster 3** | 3 | 30.00% |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -151,6 +151,7 @@ As detailed in the references, response-time metrics are typically right-skewed 
 2. Saul, S. (n.d.). *Guidelines for controlled experiment reports*. University of Calgary Department of Computer Science. https://pages.cpsc.ucalgary.ca/~saul/hci_topics/assignments/controlled_expt/ass1_reports.html
 3. McConnell, P. A., Finetto, C., & Heise, K.-F. (2024). Methodological considerations for behavioral studies relying on response time outcomes through online crowdsourcing platforms. *Scientific Reports*, *14*(1), Article 7719. https://doi.org/10.1038/s41598-024-58300-7
 4. Pongratz, H., & Schoemann, M. (2026). A large-scale dataset of choice and response-time data in intertemporal choice. *Scientific Data*, *13*, Article 150. https://doi.org/10.1038/s41597-026-06947-4
+5. Transaction Processing Performance Council. (2014). *TPC Benchmark H: Standard specification* (Revision 2.17.1). https://www.tpc.org/tpc_documents_current_versions/pdf/tpc-h_v2.17.1.pdf
 
 ---
 
