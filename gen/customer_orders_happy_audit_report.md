@@ -1,13 +1,13 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-20 08:35:41.032875
+**Report Generated on:** 2026-07-21 07:57:36.715117
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the SQL database query results comprising 618 samples and 14 features. Using Multivariate Analysis of Variance (MANOVA), K-Means clustering, and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the SQL database query results comprising 618 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
@@ -57,7 +57,7 @@ We define a mixed multivariate design incorporating:
 Following standard methodologies for reaction time outcomes (Nature Scientific Reports, s41598-024-58300-7):
 1. **Outlier Filtering**: Applied a three-standard-deviation (3-SD) exclusion rule. Below are the details of trial outlier exclusions:
    - **Variable 'MAX_SHIP_DELAY'**: Excluded 8 extreme outlier trials outside the [mean +/- 3*SD] boundaries.
-2. **Log-Transformation**: Because response-time variables display severe positive skewness, we applied a **natural log-transformation** (`log(X + 1)`) to stabilize variance and satisfy the normality assumptions of ANOVA and MANOVA tests. Skewness was corrected as follows:
+2. **Log-Transformation**: Because response-time variables display severe positive skewness, we applied a **natural log-transformation** (`log(X + 1)`) to stabilize variance and satisfy the [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) of [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) and [MANOVA](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) tests. Skewness was corrected as follows:
    - **'MAX_SHIP_DELAY'** original skewness: `-1.2678` | log-transformed skewness: `-2.0682`
 
 
@@ -70,7 +70,7 @@ Following standard methodologies for reaction time outcomes (Nature Scientific R
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
-We executed multivariate analysis of variance (MANOVA) using Pillai's trace to test for overall group differences across continuous variables:
+We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance#Pillai's_trace) to test for overall group differences across continuous variables:
 
 - **Group Factor 'O_ORDERPRIORITY'**:
   - Pillai's Trace: `0.0382`
@@ -94,7 +94,7 @@ We executed multivariate analysis of variance (MANOVA) using Pillai's trace to t
 
 
 #### ANOVA Outputs (Significant Univariate Groupings)
-We evaluated individual univariate Analysis of Variance (ANOVA) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
+We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
 
 - **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `1279.3364`, p = `7.058921e-220`
 - **Significant variation in 'O_TOTALPRICE' grouped by 'AVG_DISCOUNT_BIN'**: F = `14.2000`, p = `9.357620e-07`
@@ -122,7 +122,7 @@ We evaluated individual univariate Analysis of Variance (ANOVA) models for each 
 - **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `463.7476`, p = `5.717854e-123`
 
 ### Customer Persona Profiles (K-Means)
-We standardized the numeric metrics and fitted a K-Means clustering algorithm ($k=3$) to identify behavioral personas:
+We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
@@ -137,7 +137,7 @@ A 2x2 data quality and persona visualization dashboard was saved to disk:
 ![PCA Persona Dashboard](customer_orders_happy_validation_plot.png)
 
 ### Interpretation of Plots:
-1. **PCA Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
+1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
 2. **Correlation Heatmap**: Pairwise correlations between metrics. Strong colors indicate potential redundant attributes or duplicate join bugs.
 3. **Persona Cluster Sizes**: Frequency counts across the discovered personas.
 4. **Boxplot of Total Price**: Shows the distribution of the primary outcome metric across the clusters.
@@ -150,7 +150,7 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Constant Column 'O_ORDERDATE'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.
 
 ### Methodological Discussion on Skewness
-As detailed in the references, response-time metrics are typically right-skewed and violating normality assumptions in raw ANOVA leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
+As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
 
 ## References
 1. **Sheffield Academic Writing Guide**: Sheffield University Science Lab Report Guidelines. [Reference Link](https://sheffield.ac.uk/study-skills/writing/academic/lab-reports)

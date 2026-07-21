@@ -1,13 +1,13 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_sad
 
-**Report Generated on:** 2026-07-15 19:38:00.668291
+**Report Generated on:** 2026-07-21 07:57:42.74129
 **Source Dataset:** `customer_orders_sad.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the SQL database query results comprising 10 samples and 14 features. Using Multivariate Analysis of Variance (MANOVA), K-Means clustering, and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the SQL database query results comprising 10 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **DANGER / FAIL 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
@@ -29,6 +29,13 @@ The demographic distribution of the sample is detailed below:
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
+
+### Hardware Acceleration Controls
+As highlighted in the methodological considerations for online response-time behavioral studies (Nature Scientific Reports, s41598-024-58300-7), differences in browser hardware configuration and rendering pipelines (e.g. software rasterizer vs. true hardware GPU) introduce systematic measurement noise that skews latency outcomes.
+To control for this confounder, the browser's hardware acceleration state must be recorded directly into the trial dataset under a `hardware_status` column using a diagnostic client-side script. The implementation of this client check is provided in Appendix A.
+
+### Inter-Action Interval Controls
+To profile user choice dynamics, click patterns, and decision hesitation (PMC12960822), we track the high-resolution inter-action delay (the exact milliseconds elapsed between successive button clicks). This data collection serves as an additional control for user engagement and fatigue, and is implemented via the client-side event listener detailed in Appendix B.
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
@@ -59,12 +66,12 @@ We define a mixed multivariate design incorporating:
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
-We executed multivariate analysis of variance (MANOVA) using Pillai's trace to test for overall group differences across continuous variables:
+We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance#Pillai's_trace) to test for overall group differences across continuous variables:
 
 No MANOVA tests could be computed.
 
 #### ANOVA Outputs (Significant Univariate Groupings)
-We evaluated individual univariate Analysis of Variance (ANOVA) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
+We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
 
 - **Significant variation in 'O_ORDERKEY' grouped by 'O_CUSTKEY'**: F = `31.0333`, p = `3.314388e-04`
 - **Significant variation in 'O_ORDERKEY' grouped by 'C_REGION'**: F = `24.8889`, p = `1.067567e-03`
@@ -88,13 +95,13 @@ We evaluated individual univariate Analysis of Variance (ANOVA) models for each 
 - **Significant variation in 'ITEM_COUNT' grouped by 'ITEM_COUNT'**: F = `8435254214760480104677130633216.0000`, p = `2.958678e-77`
 
 ### Customer Persona Profiles (K-Means)
-We standardized the numeric metrics and fitted a K-Means clustering algorithm ($k=3$) to identify behavioral personas:
+We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 2 | 20.00% |
-| **Cluster 2** | 5 | 50.00% |
-| **Cluster 3** | 3 | 30.00% |
+| **Cluster 1** | 5 | 50.00% |
+| **Cluster 2** | 3 | 30.00% |
+| **Cluster 3** | 2 | 20.00% |
 
 
 ## 4. Visualizations Dashboard
@@ -103,7 +110,7 @@ A 2x2 data quality and persona visualization dashboard was saved to disk:
 ![PCA Persona Dashboard](customer_orders_sad_validation_plot.png)
 
 ### Interpretation of Plots:
-1. **PCA Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
+1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
 2. **Correlation Heatmap**: Pairwise correlations between metrics. Strong colors indicate potential redundant attributes or duplicate join bugs.
 3. **Persona Cluster Sizes**: Frequency counts across the discovered personas.
 4. **Boxplot of Total Price**: Shows the distribution of the primary outcome metric across the clusters.
@@ -129,10 +136,55 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Fix ANOVA Replication on 'ITEM_COUNT' by 'C_REGION'**: Check your SQL join logic. This indicates matching values are replicated across categories.
 
 ### Methodological Discussion on Skewness
-As detailed in the references, response-time metrics are typically right-skewed and violating normality assumptions in raw ANOVA leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
+As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
 
 ## References
 1. **Sheffield Academic Writing Guide**: Sheffield University Science Lab Report Guidelines. [Reference Link](https://sheffield.ac.uk/study-skills/writing/academic/lab-reports)
 2. **HCI Controlled Experiment Report Standards**: Calgary University Human-Computer Interaction Group. [Reference Link](https://cspages.ucalgary.ca/~saul/hci_topics/assignments/controlled_expt/ass1_reports.html)
 3. **Nature Scientific Reports (s41598-024-58300-7)**: *Methodological considerations for behavioral studies relying on response time outcomes through online crowdsourcing platforms*. Nature, 2024.
 4. **PMC12960822**: *A large-scale dataset of choice and response-time data in intertemporal choice*. PubMed Central, 2024.
+
+---
+
+## Appendix A: Client-Side Hardware Acceleration Detection Script
+Below is the JavaScript routine to determine if the browser environment uses hardware GPU acceleration or falls back to software rendering (e.g. SwiftShader), which should be appended to trial collections to log the `hardware_status` column:
+
+```javascript
+function checkHardwareAcceleration() {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return "disabled_or_unsupported";
+    
+    // Check if the browser is using a software rasterizer (fallback) instead of a true GPU
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (debugInfo) {
+        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        if (renderer.toLowerCase().includes('swiftshader') || renderer.toLowerCase().includes('software')) {
+            return "disabled_software_fallback"; 
+        }
+    }
+    return "enabled_hardware_gpu";
+}
+// Add this output directly to your trial dataset under a `hardware_status` column
+```
+
+---
+
+## Appendix B: Client-Side Inter-Action Delay Detection Script
+Below is the JavaScript routine to measure high-resolution inter-action delay (the exact milliseconds elapsed between successive button clicks), which can be captured and logged as user latency profiles:
+
+```javascript
+let lastActionTime = performance.now(); // High-resolution millisecond timestamp
+
+document.querySelectorAll('.experiment-button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        let currentActionTime = performance.now();
+        let interActionDelay = currentActionTime - lastActionTime; // The exact gap between actions
+        
+        // Push this directly to your local data stream or into GA4 Custom Dimensions
+        console.log(`Time since last user action: ${interActionDelay}ms`);
+        
+        lastActionTime = currentActionTime; // Reset baseline for next click
+    });
+});
+```
