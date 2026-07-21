@@ -90,3 +90,4 @@ gen/*
 !gen/customer_orders_happy.csv
 !gen/customer_orders_sad.csv
 !gen/*_audit_report.md
+!gen/*_validation_plot.png
