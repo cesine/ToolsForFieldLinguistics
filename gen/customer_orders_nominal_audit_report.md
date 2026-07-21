@@ -1,42 +1,61 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 15:17:53.773077
+**Report Generated on:** 2026-07-21 16:45:50.372212
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the SQL database query results comprising 618 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **CRITICAL ANOMALY DETECTED 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the database query results comprising 618 samples and 14 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying customer order personas. Our findings show that the dataset has a classification status of **CRITICAL ANOMALY DETECTED 🔴**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
-* **Null Hypothesis ($H_0$)**: Customer transaction metrics (such as order price, item quantity, average discount, and account balances) are homogeneous and do not vary significantly across market segments, geographic regions, or order priorities.
-* **Alternative Hypothesis ($H_1$)**: Customer transaction metrics show statistically significant variations across these categorical dimensions, indicating distinct behavioral sub-populations.
+* **Null Hypothesis ($H_0$)**: The physical and spatial parameters of the observed orders (such as O_TOTALPRICE, C_ACCTBAL, TOTAL_QUANTITY, AVG_DISCOUNT) are homogeneous and do not vary significantly across categorical groupings.
+* **Alternative Hypothesis ($H_1$)**: The physical and spatial parameters of the observed orders show statistically significant variations across these categorical dimensions, indicating distinct sub-populations.
 
 ## 2. Experimental Methodology
 
 ### Participants (Dataset Description)
-The 'participants' in this study consist of the customer orders fetched from the database.
+The 'participants' (observed entities) in this study consist of the orders fetched from the database.
 The demographic distribution of the sample is detailed below:
 
 | Category Variable | Group Level | Sample Size (N) | Percentage (%) |
 |---|---|---|---|
-| **Region** | AFRICA | 125 | 20.23% |
-| **Region** | AMERICA | 117 | 18.93% |
-| **Region** | ASIA | 130 | 21.04% |
-| **Region** | EUROPE | 118 | 19.09% |
-| **Region** | MIDDLE EAST | 128 | 20.71% |
-| **Market Segment** | AUTOMOBILE | 127 | 20.55% |
-| **Market Segment** | BUILDING | 120 | 19.42% |
-| **Market Segment** | FURNITURE | 117 | 18.93% |
-| **Market Segment** | HOUSEHOLD | 111 | 17.96% |
-| **Market Segment** | MACHINERY | 143 | 23.14% |
-| **Order Priority** | 1-URGENT | 131 | 21.20% |
-| **Order Priority** | 2-HIGH | 140 | 22.65% |
-| **Order Priority** | 3-MEDIUM | 111 | 17.96% |
-| **Order Priority** | 4-NOT SPECIFIED | 133 | 21.52% |
-| **Order Priority** | 5-LOW | 103 | 16.67% |
+| **O_ORDERSTATUS** | O | 618 | 100.00% |
+| **O_ORDERPRIORITY** | 2-HIGH | 140 | 22.65% |
+| **O_ORDERPRIORITY** | 4-NOT SPECIFIED | 133 | 21.52% |
+| **O_ORDERPRIORITY** | 1-URGENT | 131 | 21.20% |
+| **O_ORDERPRIORITY** | 3-MEDIUM | 111 | 17.96% |
+| **O_ORDERPRIORITY** | 5-LOW | 103 | 16.67% |
+| **C_MKTSEGMENT** | MACHINERY | 143 | 23.14% |
+| **C_MKTSEGMENT** | AUTOMOBILE | 127 | 20.55% |
+| **C_MKTSEGMENT** | BUILDING | 120 | 19.42% |
+| **C_MKTSEGMENT** | FURNITURE | 117 | 18.93% |
+| **C_MKTSEGMENT** | HOUSEHOLD | 111 | 17.96% |
+| **C_REGION** | ASIA | 130 | 21.04% |
+| **C_REGION** | MIDDLE EAST | 128 | 20.71% |
+| **C_REGION** | AFRICA | 125 | 20.23% |
+| **C_REGION** | EUROPE | 118 | 19.09% |
+| **C_REGION** | AMERICA | 117 | 18.93% |
+| **O_TOTALPRICE_BIN** | Medium | 210 | 33.98% |
+| **O_TOTALPRICE_BIN** | Low | 204 | 33.01% |
+| **O_TOTALPRICE_BIN** | High | 204 | 33.01% |
+| **C_ACCTBAL_BIN** | Medium | 210 | 33.98% |
+| **C_ACCTBAL_BIN** | Low | 204 | 33.01% |
+| **C_ACCTBAL_BIN** | High | 204 | 33.01% |
+| **TOTAL_QUANTITY_BIN** | Medium | 209 | 33.82% |
+| **TOTAL_QUANTITY_BIN** | Low | 206 | 33.33% |
+| **TOTAL_QUANTITY_BIN** | High | 203 | 32.85% |
+| **AVG_DISCOUNT_BIN** | Low | 209 | 33.82% |
+| **AVG_DISCOUNT_BIN** | Medium | 205 | 33.17% |
+| **AVG_DISCOUNT_BIN** | High | 204 | 33.01% |
+| **TOTAL_DISCOUNT_VALUE_BIN** | Medium | 210 | 33.98% |
+| **TOTAL_DISCOUNT_VALUE_BIN** | Low | 204 | 33.01% |
+| **TOTAL_DISCOUNT_VALUE_BIN** | High | 204 | 33.01% |
+| **MAX_SHIP_DELAY_LOG_BIN** | Medium | 258 | 41.75% |
+| **MAX_SHIP_DELAY_LOG_BIN** | Low | 203 | 32.85% |
+| **MAX_SHIP_DELAY_LOG_BIN** | High | 149 | 24.11% |
 
 Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
 
@@ -54,8 +73,8 @@ To profile user choice dynamics, click patterns, and decision hesitation (Pongra
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
-* **Independent Variables (Factors)**: `C_MKTSEGMENT` (Market Segment), `C_REGION` (Geographic region), and `O_ORDERPRIORITY` (Order priority).
-* **Dependent Variables (Metrics)**: `O_TOTALPRICE` (total price), `C_ACCTBAL` (account balance), `TOTAL_QUANTITY` (quantity ordered), `AVG_DISCOUNT` (average discount), `TOTAL_DISCOUNT_VALUE` (total discount value), `ITEM_COUNT` (lineitem count), and `MAX_SHIP_DELAY` (shipping latency).
+* **Independent Variables (Factors)**: `O_ORDERSTATUS`, `O_ORDERPRIORITY`, `C_MKTSEGMENT`, `C_REGION`, `O_TOTALPRICE_BIN`, `C_ACCTBAL_BIN`, `TOTAL_QUANTITY_BIN`, `AVG_DISCOUNT_BIN`, `TOTAL_DISCOUNT_VALUE_BIN`, `MAX_SHIP_DELAY_LOG_BIN`
+* **Dependent Variables (Metrics)**: `O_TOTALPRICE`, `C_ACCTBAL`, `TOTAL_QUANTITY`, `AVG_DISCOUNT`, `TOTAL_DISCOUNT_VALUE`, `ITEM_COUNT`, `MAX_SHIP_DELAY_LOG`
 
 ### Response-Time Preprocessing (Methodological Standards)
 Following standard methodologies for reaction time outcomes (McConnell et al., 2024):
@@ -85,58 +104,58 @@ We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.or
 - **Group Factor 'O_ORDERPRIORITY'**:
   - Pillai's Trace: `0.0382`
   - Approximate F:  `0.8289`
-  - p-value:        `7.218206e-01` (Not Significant)
+  - p-value:        `0.7218` (Not Significant)
 
 - **Group Factor 'C_MKTSEGMENT'**:
   - Pillai's Trace: `0.0509`
   - Approximate F:  `1.1079`
-  - p-value:        `3.175126e-01` (Not Significant)
+  - p-value:        `0.3175` (Not Significant)
 
 - **Group Factor 'C_REGION'**:
   - Pillai's Trace: `0.0254`
   - Approximate F:  `0.5488`
-  - p-value:        `9.739013e-01` (Not Significant)
+  - p-value:        `0.9739` (Not Significant)
 
 - **Group Factor 'MAX_SHIP_DELAY_LOG_BIN'**:
   - Pillai's Trace: `0.6264`
   - Approximate F:  `39.2228`
-  - p-value:        `3.825613e-88` (Statistically Significant)
+  - p-value:        `< 0.0001` (Statistically Significant)
 
 
 #### ANOVA Outputs (Significant Univariate Groupings)
 We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
 
-- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `1279.3364`, p = `7.058921e-220`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'AVG_DISCOUNT_BIN'**: F = `14.2000`, p = `9.357620e-07`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `511.4893`, p = `1.511196e-131`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `51.2760`, p = `2.654860e-21`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'O_TOTALPRICE_BIN'**: F = `1427.0373`, p = `9.191827e-232`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'AVG_DISCOUNT_BIN'**: F = `16.1459`, p = `1.464904e-07`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `518.9834`, p = `9.180689e-133`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `52.4728`, p = `9.553803e-22`
-- **Significant variation in 'AVG_DISCOUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `53.0806`, p = `5.422092e-22`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'O_TOTALPRICE_BIN'**: F = `448.7368`, p = `6.684884e-121`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `452.6462`, p = `1.369331e-121`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'AVG_DISCOUNT_BIN'**: F = `71.1741`, p = `1.569322e-28`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `35.7527`, p = `2.095695e-15`
-- **Significant variation in 'ITEM_COUNT' grouped by 'O_TOTALPRICE_BIN'**: F = `716.1448`, p = `2.463064e-161`
-- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_QUANTITY_BIN'**: F = `830.1939`, p = `1.925547e-175`
-- **Significant variation in 'ITEM_COUNT' grouped by 'AVG_DISCOUNT_BIN'**: F = `28.6173`, p = `1.307479e-12`
-- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `341.0506`, p = `2.185895e-100`
-- **Significant variation in 'ITEM_COUNT' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `65.4372`, p = `1.841252e-26`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'C_MKTSEGMENT'**: F = `2.8583`, p = `2.294843e-02`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'O_TOTALPRICE_BIN'**: F = `67.2699`, p = `4.092169e-27`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_QUANTITY_BIN'**: F = `73.0717`, p = `3.676138e-29`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'AVG_DISCOUNT_BIN'**: F = `4.4221`, p = `1.239777e-02`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `49.7741`, p = `9.621240e-21`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `463.7476`, p = `5.717854e-123`
+- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `1279.3364`, p = `< 0.0001`
+- **Significant variation in 'O_TOTALPRICE' grouped by 'AVG_DISCOUNT_BIN'**: F = `14.2000`, p = `< 0.0001`
+- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `511.4893`, p = `< 0.0001`
+- **Significant variation in 'O_TOTALPRICE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `51.2760`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_QUANTITY' grouped by 'O_TOTALPRICE_BIN'**: F = `1427.0373`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_QUANTITY' grouped by 'AVG_DISCOUNT_BIN'**: F = `16.1459`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_QUANTITY' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `518.9834`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_QUANTITY' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `52.4728`, p = `< 0.0001`
+- **Significant variation in 'AVG_DISCOUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `53.0806`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'O_TOTALPRICE_BIN'**: F = `448.7368`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `452.6462`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'AVG_DISCOUNT_BIN'**: F = `71.1741`, p = `< 0.0001`
+- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `35.7527`, p = `< 0.0001`
+- **Significant variation in 'ITEM_COUNT' grouped by 'O_TOTALPRICE_BIN'**: F = `716.1448`, p = `< 0.0001`
+- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_QUANTITY_BIN'**: F = `830.1939`, p = `< 0.0001`
+- **Significant variation in 'ITEM_COUNT' grouped by 'AVG_DISCOUNT_BIN'**: F = `28.6173`, p = `< 0.0001`
+- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `341.0506`, p = `< 0.0001`
+- **Significant variation in 'ITEM_COUNT' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `65.4372`, p = `< 0.0001`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'C_MKTSEGMENT'**: F = `2.8583`, p = `0.0229`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'O_TOTALPRICE_BIN'**: F = `67.2699`, p = `< 0.0001`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_QUANTITY_BIN'**: F = `73.0717`, p = `< 0.0001`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'AVG_DISCOUNT_BIN'**: F = `4.4221`, p = `0.0124`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `49.7741`, p = `< 0.0001`
+- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `463.7476`, p = `< 0.0001`
 
 Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
 
 ![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_nominal_scatterplots.png)
 
-### Customer Persona Profiles (K-Means)
-We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=2$) to identify behavioral personas. To determine the optimal number of clusters programmatically, we performed a **[Silhouette Analysis](https://en.wikipedia.org/wiki/Silhouette_(clustering))** across candidate sizes of $k \in [2, 6]$. The optimal $k$ was selected by maximizing the average silhouette width (Rousseeuw, 1987), which measures cluster cohesion and separation. If the maximum average silhouette width was $\le 0.25$, indicating no substantial structure, the algorithm fell back to a single nominal cluster ($k=1$):
+### Customer Order Persona Profiles (K-Means)
+We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=2$) to identify distinct customer order personas. To determine the optimal number of clusters programmatically, we performed a **[Silhouette Analysis](https://en.wikipedia.org/wiki/Silhouette_(clustering))** across candidate sizes of $k \in [2, 6]$. The optimal $k$ was selected by maximizing the average silhouette width (Rousseeuw, 1987), which measures cluster cohesion and separation. If the maximum average silhouette width was $\le 0.25$, indicating no substantial structure, the algorithm fell back to a single nominal cluster ($k=1$):
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
@@ -144,8 +163,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 | **Cluster 2** | 331 | 53.56% |
 
 
-#### Behavioral Profiles (Cluster Feature Means)
-To characterize the discovered personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
+#### Population Profiles (Cluster Feature Means)
+To characterize the discovered customer order personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
 
 | Cluster | O_TOTALPRICE | C_ACCTBAL | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
 |---|---|---|---|---|---|---|---|
@@ -154,12 +173,12 @@ To characterize the discovered personas in terms of the original variables, the 
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
-Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
+Figure 1 presents the 2x2 data quality and customer order persona visualization dashboard:
 
-![Figure 1: PCA Persona Dashboard](customer_orders_nominal_validation_plot.png)
+![Figure 1: PCA Dashboard](customer_orders_nominal_validation_plot.png)
 
 ### Principal Component Loadings (Feature Contributions)
-To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:
+To reverse-engineer which original variables drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:
 
 | Metric | PC1 Loading | PC2 Loading | Influence Strength (PC1 & PC2) |
 |---|---|---|---|
@@ -173,10 +192,10 @@ To reverse-engineer which original transaction metrics drive the principal compo
 
 
 ### Interpretation of Figure 1:
-1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
+1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct customer order personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.
 2. **Correlation Heatmap**: Pairwise correlations between metrics. Strong colors indicate potential redundant attributes or duplicate join bugs.
-3. **Persona Cluster Sizes**: Frequency counts across the discovered personas.
-4. **Boxplot of Total Price**: Shows the distribution of the primary outcome metric across the clusters.
+3. **Cluster Sizes**: Frequency counts across the discovered customer order personas.
+4. **Boxplot of O_TOTALPRICE**: Shows the distribution of the primary outcome metric across the clusters.
 
 ## 5. Discussion and SQL Improvement Recommendations
 Based on the results, we recommend the following modifications to improve the SQL query:
@@ -192,7 +211,7 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Investigate Uniformity on 'TOTAL_DISCOUNT_VALUE_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
 
 ### Methodological Discussion on Skewness
-As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
+As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying behavioral deviations in the customer order personas.
 
 ## References
 1. University of Sheffield. (n.d.). *Science lab reports*. University of Sheffield 301 Academic Skills. https://www.sheffield.ac.uk/301/study-skills/writing/academic/lab-reports

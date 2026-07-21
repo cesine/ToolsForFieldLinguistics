@@ -20,6 +20,16 @@ get_skewness <- function(x) {
   return(skew)
 }
 
+# Helper function to format p-values cleanly without scientific notation
+format_pval <- function(p) {
+  if (is.na(p) || is.nan(p)) return("NA")
+  if (p < 0.0001) {
+    return("< 0.0001")
+  } else {
+    return(sprintf("%.4f", p))
+  }
+}
+
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) {
   default_path <- "gen/customer_orders_nominal.csv"
@@ -51,12 +61,69 @@ cat(sprintf("===================================================================
 cat(sprintf("R SQL DATA QUALITY AUDITOR - SUMMARY REPORT FOR: %s\n", basename(csv_path)))
 cat(sprintf("========================================================================\n\n"))
 
-# Read data
-data <- read.csv(csv_path, stringsAsFactors = FALSE)
+# Read data with fast parser options (data.table::fread or readr::read_csv) to handle large datasets efficiently.
+# Falls back to base R read.csv with dynamic sampling if fast parsers are unavailable and the file is very large.
+full_data <- tryCatch({
+  if (requireNamespace("data.table", quietly = TRUE)) {
+    cat("Using data.table::fread for fast CSV parsing.\n")
+    as.data.frame(data.table::fread(csv_path))
+  } else if (requireNamespace("readr", quietly = TRUE)) {
+    cat("Using readr::read_csv for fast CSV parsing.\n")
+    as.data.frame(readr::read_csv(csv_path, show_col_types = FALSE))
+  } else {
+    file_info <- file.info(csv_path)
+    if (!is.na(file_info$size) && file_info$size > 10 * 1024 * 1024) { # > 10 MB
+      cat("Warning: Large file detected (> 10MB) and fast parsers (data.table/readr) are unavailable.\n")
+      cat("         Sampling the first 20,000 rows to prevent memory exhaustion and slow execution.\n")
+      read.csv(csv_path, stringsAsFactors = FALSE, nrows = 20000)
+    } else {
+      cat("Using base R read.csv (slower for large datasets).\n")
+      read.csv(csv_path, stringsAsFactors = FALSE)
+    }
+  }
+}, error = function(e) {
+  cat("Fast parsing failed, falling back to base R read.csv.\n")
+  read.csv(csv_path, stringsAsFactors = FALSE)
+})
+data <- full_data
 n_rows <- nrow(data)
 n_cols <- ncol(data)
 
 cat(sprintf("Dataset loaded successfully: %d rows, %d columns.\n\n", n_rows, n_cols))
+
+# Deduce dataset subject terminology based on filename and columns
+subject_singular <- "record"
+subject_plural <- "records"
+subject_domain_singular <- "data population profile"
+subject_domain_plural <- "data population profiles"
+
+filename_lower <- tolower(basename(csv_path))
+if (grepl("arbre", filename_lower) || grepl("tree", filename_lower) || grepl("forest", filename_lower)) {
+  subject_singular <- "tree"
+  subject_plural <- "trees"
+  subject_domain_singular <- "tree population profile"
+  subject_domain_plural <- "tree population profiles"
+} else if (grepl("customer", filename_lower) || grepl("order", filename_lower) || grepl("sales", filename_lower) || grepl("transaction", filename_lower)) {
+  subject_singular <- "order"
+  subject_plural <- "orders"
+  subject_domain_singular <- "customer order persona"
+  subject_domain_plural <- "customer order personas"
+} else if (grepl("bixi", filename_lower) || grepl("trip", filename_lower) || grepl("deplacement", filename_lower) || grepl("bike", filename_lower)) {
+  subject_singular <- "trip"
+  subject_plural <- "trips"
+  subject_domain_singular <- "trip profile"
+  subject_domain_plural <- "trip profiles"
+} else if (grepl("locale", filename_lower) || grepl("commerce", filename_lower) || grepl("shop", filename_lower)) {
+  subject_singular <- "locale"
+  subject_plural <- "locales"
+  subject_domain_singular <- "commercial locale profile"
+  subject_domain_plural <- "commercial locale profiles"
+} else if (grepl("supplier", filename_lower) || grepl("fournisseur", filename_lower)) {
+  subject_singular <- "supplier"
+  subject_plural <- "suppliers"
+  subject_domain_singular <- "supplier profile"
+  subject_domain_plural <- "supplier profiles"
+}
 
 if (n_rows == 0) {
   cat("Error: The loaded dataset is empty (0 rows). No validation can be performed.\n")
@@ -79,8 +146,11 @@ for (col_name in colnames(data)) {
   col_data <- data[[col_name]]
   n_unique <- length(unique(col_data))
   
-  # Check if numeric
-  is_num <- is.numeric(col_data) || is.integer(col_data)
+  # Check if numeric (excluding Date and Timestamp classes that act as integers)
+  is_num <- (is.numeric(col_data) || is.integer(col_data)) && 
+            !inherits(col_data, "Date") && 
+            !inherits(col_data, "IDate") && 
+            !inherits(col_data, "POSIXt")
   is_all_int <- is_num && all(col_data == round(col_data), na.rm = TRUE)
   is_float <- is_num && !is_all_int
   
@@ -343,6 +413,13 @@ if (!collinearity_detected) {
   cat("\n")
 }
 
+# Downsample for ANOVA, MANOVA, K-Means, and plotting to ensure computational performance on large datasets
+if (n_rows > 5000) {
+  set.seed(42)
+  data <- full_data[sample(1:n_rows, 5000), ]
+  cat(sprintf("[NOTE] Downsampling to 5,000 rows for statistical modeling and plotting.\n\n"))
+}
+
 # 5. ANOVA & MANOVA Audit (Multivariate Quality Check)
 cat("--- ANOVA & MANOVA Audit (Replication Check) ---\n")
 anova_tested <- FALSE
@@ -363,10 +440,14 @@ if (length(numeric_cols) >= 2 && length(categorical_cols) > 0) {
     }
     if (is_self_bin) next
     
-    group_counts <- table(data[[cat_col]])
+    # Filter rows with NA in any of the numeric columns or the grouping column
+    valid_rows <- complete.cases(data[numeric_cols]) & !is.na(data[[cat_col]])
+    valid_data <- data[valid_rows, ]
+    
+    group_counts <- table(valid_data[[cat_col]])
     if (length(group_counts) >= 2 && min(group_counts) >= 2) {
-      Y <- as.matrix(data[numeric_cols])
-      group <- factor(data[[cat_col]])
+      Y <- as.matrix(valid_data[numeric_cols])
+      group <- factor(valid_data[[cat_col]])
       
       fit <- tryCatch({
         manova(Y ~ group)
@@ -387,7 +468,7 @@ if (length(numeric_cols) >= 2 && length(categorical_cols) > 0) {
                                    sprintf("- **Group Factor '%s'**:", cat_col),
                                    sprintf("  - Pillai's Trace: `%.4f`", pillai),
                                    sprintf("  - Approximate F:  `%.4f`", ifelse(is.na(fval), 0, fval)),
-                                   sprintf("  - p-value:        `%e` (%s)", pval, 
+                                   sprintf("  - p-value:        `%s` (%s)", format_pval(pval), 
                                            ifelse(pval < 0.05, "Statistically Significant", "Not Significant")),
                                    "")
           
@@ -427,34 +508,43 @@ if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
       base_num <- gsub("_LOG$", "", num)
       if (cat == paste0(base_num, "_BIN")) next
       
-      group_counts <- table(data[[cat]])
+      # Filter non-NA cases for this specific pair
+      valid_rows <- !is.na(data[[num]]) & !is.na(data[[cat]])
+      valid_data <- data[valid_rows, ]
+      
+      group_counts <- table(valid_data[[cat]])
       if (length(group_counts) >= 2 && min(group_counts) >= 2) {
-        fit <- aov(data[[num]] ~ factor(data[[cat]]))
-        aov_summary <- summary(fit)
+        fit <- tryCatch({
+          aov(valid_data[[num]] ~ factor(valid_data[[cat]]))
+        }, error = function(e) { NULL })
         
-        f_val <- aov_summary[[1]]["factor(data[[cat]])", "F value"]
-        p_val <- aov_summary[[1]]["factor(data[[cat]])", "Pr(>F)"]
-        
-        if (!is.null(p_val) && !is.na(p_val)) {
-          anova_tested <- TRUE
-          if (p_val > 0.999 && (is.na(f_val) || f_val < 1e-4)) {
-            cat(sprintf("[ANOMALY] ANOVA anomaly on '%s' grouped by '%s'!\n", num, cat))
-            cat(sprintf("       - p-value:     %.6f (identical group distributions)\n", p_val))
-            cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(f_val), 0, f_val)))
-            cat(sprintf("       - CRITICAL ANOMALY: Numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
-            
-            report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: ANOVA Replication Anomaly on '%s' by '%s'**: p-value = %.6f (F-statistic = %.6f). The values are perfectly cloned across categories.", num, cat, p_val, ifelse(is.na(f_val), 0, f_val)))
-            report_suggestions <- c(report_suggestions, sprintf("- **Fix ANOVA Replication on '%s' by '%s'**: Check your SQL join logic. This indicates matching values are replicated across categories.", num, cat))
-            report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
-          } else {
-            cat(sprintf("[COMPLIANT] ANOVA for '%s' grouped by '%s':\n", num, cat))
-            cat(sprintf("       - p-value:     %.6f\n", p_val))
-            cat(sprintf("       - F-statistic: %.4f\n", ifelse(is.na(f_val), 0, f_val)))
-            
-            if (p_val < 0.05) {
-              anova_report_lines <- c(anova_report_lines,
-                                      sprintf("- **Significant variation in '%s' grouped by '%s'**: F = `%.4f`, p = `%e`",
-                                              num, cat, ifelse(is.na(f_val), 0, f_val), p_val))
+        if (!is.null(fit)) {
+          aov_summary <- summary(fit)
+          term_name <- rownames(aov_summary[[1]])[1]
+          f_val <- aov_summary[[1]][term_name, "F value"]
+          p_val <- aov_summary[[1]][term_name, "Pr(>F)"]
+          
+          if (!is.null(p_val) && !is.na(p_val)) {
+            anova_tested <- TRUE
+            if (p_val > 0.999 && (is.na(f_val) || f_val < 1e-4)) {
+              cat(sprintf("[ANOMALY] ANOVA anomaly on '%s' grouped by '%s'!\n", num, cat))
+              cat(sprintf("       - p-value:     %.6f (identical group distributions)\n", p_val))
+              cat(sprintf("       - F-statistic: %.6f\n", ifelse(is.na(f_val), 0, f_val)))
+              cat(sprintf("       - CRITICAL ANOMALY: Numeric values are perfectly cloned across categories. Check for a cross-join or incorrect merge!\n"))
+              
+              report_findings <- c(report_findings, sprintf("- **CRITICAL ANOMALY: ANOVA Replication Anomaly on '%s' by '%s'**: p-value = %.6f (F-statistic = %.6f). The values are perfectly cloned across categories.", num, cat, p_val, ifelse(is.na(f_val), 0, f_val)))
+              report_suggestions <- c(report_suggestions, sprintf("- **Fix ANOVA Replication on '%s' by '%s'**: Check your SQL join logic. This indicates matching values are replicated across categories.", num, cat))
+              report_grade <- "CRITICAL ANOMALY DETECTED 🔴"
+            } else {
+              cat(sprintf("[COMPLIANT] ANOVA for '%s' grouped by '%s':\n", num, cat))
+              cat(sprintf("       - p-value:     %.6f\n", p_val))
+              cat(sprintf("       - F-statistic: %.4f\n", ifelse(is.na(f_val), 0, f_val)))
+              
+              if (p_val < 0.05) {
+                anova_report_lines <- c(anova_report_lines,
+                                        sprintf("- **Significant variation in '%s' grouped by '%s'**: F = `%.4f`, p = `%s`",
+                                                num, cat, ifelse(is.na(f_val), 0, f_val), format_pval(p_val)))
+              }
             }
           }
         }
@@ -519,8 +609,8 @@ if (length(numeric_cols) >= 2) {
   
   if (k_centers == 1) {
     kmeans_run <- TRUE
-    data$KMeans_Cluster <- as.factor(rep(1, n_rows))
-    cat("[SUCCESS] Discovered 1 customer order persona (no distinct sub-populations found).\n\n")
+    data$KMeans_Cluster <- as.factor(rep(1, nrow(data)))
+    cat(sprintf("[SUCCESS] Discovered 1 %s (no distinct sub-populations found).\n\n", subject_domain_singular))
   } else {
     km_fit <- tryCatch({
       kmeans(scaled_data, centers = k_centers, nstart = 25)
@@ -529,11 +619,11 @@ if (length(numeric_cols) >= 2) {
     if (!is.null(km_fit)) {
       kmeans_run <- TRUE
       data$KMeans_Cluster <- as.factor(km_fit$cluster)
-      cat(sprintf("[SUCCESS] Discovered %d customer order personas using K-Means.\n", k_centers))
+      cat(sprintf("[SUCCESS] Discovered %d %s using K-Means.\n", k_centers, subject_domain_plural))
       cl_tbl <- table(data$KMeans_Cluster)
       for (cl_id in names(cl_tbl)) {
-        cat(sprintf("          - Persona Cluster %s: %d orders (%.2f%%)\n", 
-                    cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id] / n_rows))
+        cat(sprintf("          - Cluster %s: %d %s (%.2f%%)\n", 
+                    cl_id, cl_tbl[cl_id], subject_plural, 100 * cl_tbl[cl_id] / nrow(data)))
       }
       cat("\n")
     }
@@ -560,11 +650,11 @@ if (kmeans_run && length(numeric_cols) >= 2) {
     plot(pca_fit$x[,1], pca_fit$x[,2],
          col = rainbow(k_centers)[as.numeric(data$KMeans_Cluster)],
          pch = 19, cex = 1.2,
-         main = "Customer Personas (PCA Cluster Space)",
+         main = paste("PCA Cluster Space (", subject_plural, ")"),
          xlab = paste0("PC1 (", var_exp[1], "% variance)"),
          ylab = paste0("PC2 (", var_exp[2], "% variance)"))
     grid()
-    legend("topright", legend = paste("Persona", 1:k_centers),
+    legend("topright", legend = paste("Cluster", 1:k_centers),
            col = rainbow(k_centers), pch = 19, cex = 0.8)
   } else {
     plot(1, 1, type = "n", xlab = "", ylab = "", main = "PCA Space (Unavailable)")
@@ -587,14 +677,14 @@ if (kmeans_run && length(numeric_cols) >= 2) {
   # Panel 3: Persona Cluster Count Barplot
   cl_counts <- table(data$KMeans_Cluster)
   barplot(cl_counts,
-          main = "Persona Cluster Sizes",
-          xlab = "Persona ID", ylab = "Number of Orders",
+          main = paste(tools::toTitleCase(subject_singular), "Cluster Sizes"),
+          xlab = "Cluster ID", ylab = paste("Number of", tools::toTitleCase(subject_plural)),
           col = "lightgreen", border = "white")
   
   # Panel 4: Boxplot of O_TOTALPRICE by Persona Cluster
   boxplot(data[[numeric_cols[1]]] ~ data$KMeans_Cluster,
-          main = paste(numeric_cols[1], "by Persona"),
-          xlab = "Persona ID", ylab = numeric_cols[1],
+          main = paste(numeric_cols[1], "by Cluster"),
+          xlab = "Cluster ID", ylab = numeric_cols[1],
           col = rainbow(k_centers), las = 1)
   
   dev.off()
@@ -671,12 +761,20 @@ if (length(numeric_cols) >= 2) {
   
   # Helper function to plot scatter with abline
   plot_scatter_fit <- function(x, y, xlab, ylab, title, color) {
-    plot(x, y, col = color, pch = 19, cex = 1.2,
-         main = title, xlab = xlab, ylab = ylab)
-    grid()
-    fit <- lm(y ~ x)
-    if (!any(is.na(coef(fit)))) {
-      abline(fit, col = "red", lwd = 3)
+    valid_idx <- !is.na(x) & !is.na(y)
+    if (sum(valid_idx) >= 2) {
+      plot(x[valid_idx], y[valid_idx], col = color, pch = 19, cex = 1.2,
+           main = title, xlab = xlab, ylab = ylab)
+      grid()
+      fit <- tryCatch({
+        lm(y[valid_idx] ~ x[valid_idx])
+      }, error = function(e) { NULL })
+      if (!is.null(fit) && !any(is.na(coef(fit)))) {
+        abline(fit, col = "red", lwd = 3)
+      }
+    } else {
+      plot(1, type = "n", xlab = xlab, ylab = ylab, main = title, xlim = c(0, 1), ylim = c(0, 1))
+      text(0.5, 0.5, "Insufficient data", cex = 1.2)
     }
   }
   
@@ -716,12 +814,18 @@ if (length(categorical_cols) > 0) {
     col_name <- categorical_cols[i]
     tbl <- table(data[[col_name]], useNA = "no")
     color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
-    barplot(tbl,
-            main = paste("Distribution of", col_name),
-            xlab = col_name, ylab = "Sample Size (N)",
-            col = color_choice, border = "white",
-            las = 2, cex.names = 0.8)
-    grid(nx = NA, ny = NULL)
+    if (length(tbl) > 0) {
+      barplot(tbl,
+              main = paste("Distribution of", col_name),
+              xlab = col_name, ylab = "Sample Size (N)",
+              col = color_choice, border = "white",
+              las = 2, cex.names = 0.8)
+      grid(nx = NA, ny = NULL)
+    } else {
+      plot(1, type = "n", xlab = col_name, ylab = "Sample Size (N)", 
+           main = paste("Distribution of", col_name), xlim = c(0, 1), ylim = c(0, 1))
+      text(0.5, 0.5, "No data", cex = 1.2)
+    }
   }
   dev.off()
   cat(sprintf("[SAVED] Independent variable distributions saved to '%s'.\n", indep_file))
@@ -730,24 +834,22 @@ if (length(categorical_cols) > 0) {
 # --- 8. Markdown Scientific Report Generation ---
 report_file <- file.path("gen", paste0(file_base, "_audit_report.md"))
 
-# Calculate descriptive stats for participants (orders)
-desc_region <- table(data$C_REGION)
-desc_priority <- table(data$O_ORDERPRIORITY)
-desc_segment <- table(data$C_MKTSEGMENT)
-
-# Prepare participants table text
+# Prepare participants table text dynamically based on actual categorical variables
 part_lines <- c(
   "| Category Variable | Group Level | Sample Size (N) | Percentage (%) |",
   "|---|---|---|---|"
 )
-for (lvl in names(desc_region)) {
-  part_lines <- c(part_lines, sprintf("| **Region** | %s | %d | %.2f%% |", lvl, desc_region[lvl], 100 * desc_region[lvl] / n_rows))
-}
-for (lvl in names(desc_segment)) {
-  part_lines <- c(part_lines, sprintf("| **Market Segment** | %s | %d | %.2f%% |", lvl, desc_segment[lvl], 100 * desc_segment[lvl] / n_rows))
-}
-for (lvl in names(desc_priority)) {
-  part_lines <- c(part_lines, sprintf("| **Order Priority** | %s | %d | %.2f%% |", lvl, desc_priority[lvl], 100 * desc_priority[lvl] / n_rows))
+if (length(categorical_cols) > 0) {
+  for (cat_col in categorical_cols) {
+    tbl <- table(data[[cat_col]])
+    tbl <- sort(tbl, decreasing = TRUE)
+    levels_to_show <- head(names(tbl), 5)
+    for (lvl in levels_to_show) {
+      part_lines <- c(part_lines, sprintf("| **%s** | %s | %d | %.2f%% |", cat_col, lvl, tbl[lvl], 100 * tbl[lvl] / nrow(data)))
+    }
+  }
+} else {
+  part_lines <- c(part_lines, "| N/A | No categorical features found | - | - |")
 }
 
 # Format findings and suggestions
@@ -792,7 +894,7 @@ if (kmeans_run) {
   kmeans_table <- "| Persona Cluster | Order Count | Percentage (%) |\n|---|---|---|\n"
   cl_tbl <- table(data$KMeans_Cluster)
   for (cl_id in names(cl_tbl)) {
-    kmeans_table <- paste0(kmeans_table, sprintf("| **Cluster %s** | %d | %.2f%% |\n", cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id]/n_rows))
+    kmeans_table <- paste0(kmeans_table, sprintf("| **Cluster %s** | %d | %.2f%% |\n", cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id]/nrow(data)))
   }
   
   # Construct Cluster Profiles table (means of original numeric columns)
@@ -846,18 +948,18 @@ report_lines <- c(
   "---",
   "",
   "## Abstract",
-  paste0("This report presents a controlled statistical audit of the SQL database query results comprising ", 
-         n_rows, " samples and ", n_cols, " features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize customer order personas. Our findings show that the dataset has a classification status of **", report_grade, "**. We detail actionable recommendations for query optimizations based on detected data anomalies."),
+  paste0("This report presents a controlled statistical audit of the database query results comprising ", 
+         n_rows, " samples and ", n_cols, " features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying ", subject_domain_plural, ". Our findings show that the dataset has a classification status of **", report_grade, "**. We detail actionable recommendations for query optimizations based on detected data anomalies."),
   "",
   "## 1. Introduction and Hypotheses",
   "In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:",
-  "* **Null Hypothesis ($H_0$)**: Customer transaction metrics (such as order price, item quantity, average discount, and account balances) are homogeneous and do not vary significantly across market segments, geographic regions, or order priorities.",
-  "* **Alternative Hypothesis ($H_1$)**: Customer transaction metrics show statistically significant variations across these categorical dimensions, indicating distinct behavioral sub-populations.",
+  paste0("* **Null Hypothesis ($H_0$)**: The physical and spatial parameters of the observed ", subject_plural, " (such as ", paste(head(numeric_cols, 4), collapse = ", "), ") are homogeneous and do not vary significantly across categorical groupings."),
+  paste0("* **Alternative Hypothesis ($H_1$)**: The physical and spatial parameters of the observed ", subject_plural, " show statistically significant variations across these categorical dimensions, indicating distinct sub-populations."),
   "",
   "## 2. Experimental Methodology",
   "",
   "### Participants (Dataset Description)",
-  "The 'participants' in this study consist of the customer orders fetched from the database.",
+  paste0("The 'participants' (observed entities) in this study consist of the ", subject_plural, " fetched from the database."),
   "The demographic distribution of the sample is detailed below:",
   "",
   part_lines,
@@ -878,8 +980,8 @@ report_lines <- c(
   "",
   "### Experimental Design",
   "We define a mixed multivariate design incorporating:",
-  "* **Independent Variables (Factors)**: `C_MKTSEGMENT` (Market Segment), `C_REGION` (Geographic region), and `O_ORDERPRIORITY` (Order priority).",
-  "* **Dependent Variables (Metrics)**: `O_TOTALPRICE` (total price), `C_ACCTBAL` (account balance), `TOTAL_QUANTITY` (quantity ordered), `AVG_DISCOUNT` (average discount), `TOTAL_DISCOUNT_VALUE` (total discount value), `ITEM_COUNT` (lineitem count), and `MAX_SHIP_DELAY` (shipping latency).",
+  paste0("* **Independent Variables (Factors)**: ", paste(paste0("`", categorical_cols, "`"), collapse = ", ")),
+  paste0("* **Dependent Variables (Metrics)**: ", paste(paste0("`", numeric_cols, "`"), collapse = ", ")),
   "",
   rt_methodology_txt,
   "",
@@ -903,39 +1005,39 @@ report_lines <- c(
   "",
   paste0("![Figure 2: Pairwise Scatterplots with Line of Fit](", file_base, "_scatterplots.png)"),
   "",
-  "### Customer Persona Profiles (K-Means)",
-  paste0("We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=", k_centers, "$) to identify behavioral personas. To determine the optimal number of clusters programmatically, we performed a **[Silhouette Analysis](https://en.wikipedia.org/wiki/Silhouette_(clustering))** across candidate sizes of $k \\in [2, 6]$. The optimal $k$ was selected by maximizing the average silhouette width (Rousseeuw, 1987), which measures cluster cohesion and separation. If the maximum average silhouette width was $\\le 0.25$, indicating no substantial structure, the algorithm fell back to a single nominal cluster ($k=1$):"),
+  paste0("### ", tools::toTitleCase(subject_domain_singular), " Profiles (K-Means)"),
+  paste0("We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=", k_centers, "$) to identify distinct ", subject_domain_plural, ". To determine the optimal number of clusters programmatically, we performed a **[Silhouette Analysis](https://en.wikipedia.org/wiki/Silhouette_(clustering))** across candidate sizes of $k \\in [2, 6]$. The optimal $k$ was selected by maximizing the average silhouette width (Rousseeuw, 1987), which measures cluster cohesion and separation. If the maximum average silhouette width was $\\le 0.25$, indicating no substantial structure, the algorithm fell back to a single nominal cluster ($k=1$):"),
   "",
-  kmeans_table,
+  `kmeans_table`,
   "",
-  "#### Behavioral Profiles (Cluster Feature Means)",
-  "To characterize the discovered personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:",
+  "#### Population Profiles (Cluster Feature Means)",
+  paste0("To characterize the discovered ", subject_domain_plural, " in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:"),
   "",
-  profile_table,
+  `profile_table`,
   "",
   "## 4. Exploratory Multivariate Analysis and Cluster Diagnostics",
-  "Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:",
+  paste0("Figure 1 presents the 2x2 data quality and ", subject_domain_singular, " visualization dashboard:"),
   "",
-  paste0("![Figure 1: PCA Persona Dashboard](", basename(plot_file), ")"),
+  paste0("![Figure 1: PCA Dashboard](", basename(plot_file), ")"),
   "",
   "### Principal Component Loadings (Feature Contributions)",
-  "To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:",
+  paste0("To reverse-engineer which original variables drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:"),
   "",
-  pca_table,
+  `pca_table`,
   "",
   "### Interpretation of Figure 1:",
-  "1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.",
+  paste0("1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct ", subject_domain_plural, ". If the points form tight, overlapping lines or grids, it indicates identical data replication bugs."),
   "2. **Correlation Heatmap**: Pairwise correlations between metrics. Strong colors indicate potential redundant attributes or duplicate join bugs.",
-  "3. **Persona Cluster Sizes**: Frequency counts across the discovered personas.",
-  "4. **Boxplot of Total Price**: Shows the distribution of the primary outcome metric across the clusters.",
+  paste0("3. **Cluster Sizes**: Frequency counts across the discovered ", subject_domain_plural, "."),
+  paste0("4. **Boxplot of ", numeric_cols[1], "**: Shows the distribution of the primary outcome metric across the clusters."),
   "",
   "## 5. Discussion and SQL Improvement Recommendations",
   "Based on the results, we recommend the following modifications to improve the SQL query:",
   "",
-  suggestions_txt,
+  `suggestions_txt`,
   "",
   "### Methodological Discussion on Skewness",
-  "As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.",
+  paste0("As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying behavioral deviations in the ", subject_domain_plural, "."),
   "",
   "## References",
   "1. University of Sheffield. (n.d.). *Science lab reports*. University of Sheffield 301 Academic Skills. https://www.sheffield.ac.uk/301/study-skills/writing/academic/lab-reports",
