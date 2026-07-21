@@ -92,3 +92,4 @@ gen/*
 !gen/*_audit_report.md
 !gen/*_validation_plot.png
 !gen/*_scatterplots.png
+!gen/*_independent_distributions.png

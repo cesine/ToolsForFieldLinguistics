@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-21 09:03:45.686167
+**Report Generated on:** 2026-07-21 09:06:26.749956
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -37,6 +37,10 @@ The demographic distribution of the sample is detailed below:
 | **Order Priority** | 3-MEDIUM | 111 | 17.96% |
 | **Order Priority** | 4-NOT SPECIFIED | 133 | 21.52% |
 | **Order Priority** | 5-LOW | 103 | 16.67% |
+
+Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
+
+![Figure 3: Independent Variable Sample Size Distributions](customer_orders_happy_independent_distributions.png)
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
@@ -130,9 +134,9 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 202 | 32.69% |
-| **Cluster 2** | 246 | 39.81% |
-| **Cluster 3** | 170 | 27.51% |
+| **Cluster 1** | 246 | 39.81% |
+| **Cluster 2** | 170 | 27.51% |
+| **Cluster 3** | 202 | 32.69% |
 
 
 ## 4. Visualizations Dashboard

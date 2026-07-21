@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_sad
 
-**Report Generated on:** 2026-07-21 09:03:46.782523
+**Report Generated on:** 2026-07-21 09:06:27.839526
 **Source Dataset:** `customer_orders_sad.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -26,6 +26,10 @@ The demographic distribution of the sample is detailed below:
 | **Region** | EUROPE | 5 | 50.00% |
 | **Market Segment** | AUTOMOBILE | 10 | 100.00% |
 | **Order Priority** | 3-MEDIUM | 10 | 100.00% |
+
+Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
+
+![Figure 3: Independent Variable Sample Size Distributions](customer_orders_sad_independent_distributions.png)
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
@@ -103,8 +107,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 3 | 30.00% |
-| **Cluster 2** | 2 | 20.00% |
+| **Cluster 1** | 2 | 20.00% |
+| **Cluster 2** | 3 | 30.00% |
 | **Cluster 3** | 5 | 50.00% |
 
 

@@ -569,9 +569,24 @@ if (kmeans_run && length(numeric_cols) >= 2) {
 }
 
 # 8. Pairwise Scatterplots with Line of Best Fit
-required_cols <- c("TOTAL_QUANTITY", "O_TOTALPRICE", "TOTAL_DISCOUNT_VALUE", "ITEM_COUNT")
-if (all(required_cols %in% colnames(data))) {
+if (length(numeric_cols) >= 2) {
   scatter_file <- file.path("gen", paste0(file_base, "_scatterplots.png"))
+  cols_to_plot <- numeric_cols[1:min(4, length(numeric_cols))]
+  num_plots <- length(cols_to_plot)
+  
+  pair_x <- c()
+  pair_y <- c()
+  if (num_plots == 2) {
+    pair_x <- c(cols_to_plot[1])
+    pair_y <- c(cols_to_plot[2])
+  } else if (num_plots == 3) {
+    pair_x <- c(cols_to_plot[1], cols_to_plot[1], cols_to_plot[2])
+    pair_y <- c(cols_to_plot[2], cols_to_plot[3], cols_to_plot[3])
+  } else {
+    pair_x <- c(cols_to_plot[1], cols_to_plot[1], cols_to_plot[1], cols_to_plot[2])
+    pair_y <- c(cols_to_plot[2], cols_to_plot[3], cols_to_plot[4], cols_to_plot[3])
+  }
+  
   png(scatter_file, width = 1000, height = 800)
   # Set up a 2x2 grid layout
   layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
@@ -588,28 +603,43 @@ if (all(required_cols %in% colnames(data))) {
     }
   }
   
-  # Panel 1: Total Price vs Quantity
-  plot_scatter_fit(data$TOTAL_QUANTITY, data$O_TOTALPRICE, 
-                   "Total Quantity", "Total Price ($)", 
-                   "Total Price vs Quantity", "#1f77b4")
-                   
-  # Panel 2: Total Price vs Discount Value
-  plot_scatter_fit(data$TOTAL_DISCOUNT_VALUE, data$O_TOTALPRICE, 
-                   "Total Discount Value ($)", "Total Price ($)", 
-                   "Total Price vs Discount Value", "#2ca02c")
-                   
-  # Panel 3: Total Price vs Item Count
-  plot_scatter_fit(data$ITEM_COUNT, data$O_TOTALPRICE, 
-                   "Item Count", "Total Price ($)", 
-                   "Total Price vs Item Count", "#9467bd")
-                   
-  # Panel 4: Discount Value vs Quantity
-  plot_scatter_fit(data$TOTAL_QUANTITY, data$TOTAL_DISCOUNT_VALUE, 
-                   "Total Quantity", "Total Discount Value ($)", 
-                   "Discount Value vs Quantity", "#ff7f0e")
-                   
+  plot_colors <- c("#1f77b4", "#2ca02c", "#9467bd", "#ff7f0e")
+  for (i in 1:length(pair_x)) {
+    col_x <- pair_x[i]
+    col_y <- pair_y[i]
+    title_str <- paste(col_y, "vs", col_x)
+    plot_scatter_fit(data[[col_x]], data[[col_y]], 
+                     col_x, col_y, 
+                     title_str, plot_colors[i])
+  }
   dev.off()
   cat(sprintf("[SAVED] Pairwise Scatterplots saved to '%s'.\n\n", scatter_file))
+}
+
+# 9. Independent Variables Distribution Plots (Group Sample Sizes)
+if (length(categorical_cols) > 0) {
+  indep_file <- file.path("gen", paste0(file_base, "_independent_distributions.png"))
+  cols_to_plot <- categorical_cols[1:min(4, length(categorical_cols))]
+  n_indep <- length(cols_to_plot)
+  
+  png(indep_file, width = 1000, height = 800)
+  # Set up a 2x2 grid layout
+  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  par(mar = c(6, 5, 4, 2))
+  
+  bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow")
+  for (i in 1:n_indep) {
+    col_name <- cols_to_plot[i]
+    tbl <- table(data[[col_name]], useNA = "no")
+    barplot(tbl,
+            main = paste("Distribution of", col_name),
+            xlab = col_name, ylab = "Sample Size (N)",
+            col = bar_colors[i], border = "white",
+            las = 2, cex.names = 0.8)
+    grid(nx = NA, ny = NULL)
+  }
+  dev.off()
+  cat(sprintf("[SAVED] Independent variable distributions saved to '%s'.\n\n", indep_file))
 }
 
 # --- 8. Markdown Scientific Report Generation ---
@@ -706,6 +736,10 @@ report_lines <- c(
   "The demographic distribution of the sample is detailed below:",
   "",
   part_lines,
+  "",
+  "Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:",
+  "",
+  paste0("![Figure 3: Independent Variable Sample Size Distributions](", file_base, "_independent_distributions.png)"),
   "",
   "### Apparatus and Setup",
   "Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).",
