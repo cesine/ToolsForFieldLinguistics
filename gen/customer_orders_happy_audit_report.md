@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-21 08:28:25.91148
+**Report Generated on:** 2026-07-21 08:51:34.457166
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -42,11 +42,11 @@ The demographic distribution of the sample is detailed below:
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
 
 ### Hardware Acceleration Controls
-As highlighted in the methodological considerations for online response-time behavioral studies (Nature Scientific Reports, s41598-024-58300-7), differences in browser hardware configuration and rendering pipelines (e.g. software rasterizer vs. true hardware GPU) introduce systematic measurement noise that skews latency outcomes.
+As highlighted in the methodological considerations for online response-time behavioral studies (McConnell et al., 2024), differences in browser hardware configuration and rendering pipelines (e.g. software rasterizer vs. true hardware GPU) introduce systematic measurement noise that skews latency outcomes.
 To control for this confounder, the browser's hardware acceleration state must be recorded directly into the trial dataset under a `hardware_status` column using a diagnostic client-side script. The implementation of this client check is provided in Appendix A.
 
 ### Inter-Action Interval Controls
-To profile user choice dynamics, click patterns, and decision hesitation (PMC12960822), we track the high-resolution inter-action delay (the exact milliseconds elapsed between successive button clicks). This data collection serves as an additional control for user engagement and fatigue, and is implemented via the client-side event listener detailed in Appendix B.
+To profile user choice dynamics, click patterns, and decision hesitation (Pongratz & Schoemann, 2026), we track the high-resolution inter-action delay (the exact milliseconds elapsed between successive button clicks). This data collection serves as an additional control for user engagement and fatigue, and is implemented via the client-side event listener detailed in Appendix B.
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
@@ -54,7 +54,7 @@ We define a mixed multivariate design incorporating:
 * **Dependent Variables (Metrics)**: `O_TOTALPRICE` (total price), `C_ACCTBAL` (account balance), `TOTAL_QUANTITY` (quantity ordered), `AVG_DISCOUNT` (average discount), `TOTAL_DISCOUNT_VALUE` (total discount value), `ITEM_COUNT` (lineitem count), and `MAX_SHIP_DELAY` (shipping latency).
 
 ### Response-Time Preprocessing (Methodological Standards)
-Following standard methodologies for reaction time outcomes (Nature Scientific Reports, s41598-024-58300-7):
+Following standard methodologies for reaction time outcomes (McConnell et al., 2024):
 1. **Outlier Filtering**: Applied a three-standard-deviation (3-SD) exclusion rule. Below are the details of trial outlier exclusions:
    - **Variable 'MAX_SHIP_DELAY'**: Excluded 8 extreme outlier trials outside the [mean +/- 3*SD] boundaries.
 2. **Log-Transformation**: Because response-time variables display severe positive skewness, we applied a **natural log-transformation** (`log(X + 1)`) to stabilize variance and satisfy the [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) of [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) and [MANOVA](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) tests. Skewness was corrected as follows:
@@ -153,10 +153,10 @@ Based on the results, we recommend the following modifications to improve the SQ
 As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
 
 ## References
-1. **Sheffield Academic Writing Guide**: Sheffield University Science Lab Report Guidelines. [Reference Link](https://sheffield.ac.uk/study-skills/writing/academic/lab-reports)
-2. **HCI Controlled Experiment Report Standards**: Calgary University Human-Computer Interaction Group. [Reference Link](https://cspages.ucalgary.ca/~saul/hci_topics/assignments/controlled_expt/ass1_reports.html)
-3. **Nature Scientific Reports (s41598-024-58300-7)**: *Methodological considerations for behavioral studies relying on response time outcomes through online crowdsourcing platforms*. Nature, 2024.
-4. **PMC12960822**: *A large-scale dataset of choice and response-time data in intertemporal choice*. PubMed Central, 2024.
+1. University of Sheffield. (n.d.). *Science lab reports*. University of Sheffield 301 Academic Skills. https://www.sheffield.ac.uk/301/study-skills/writing/academic/lab-reports
+2. Saul, S. (n.d.). *Guidelines for controlled experiment reports*. University of Calgary Department of Computer Science. https://pages.cpsc.ucalgary.ca/~saul/hci_topics/assignments/controlled_expt/ass1_reports.html
+3. McConnell, P. A., Finetto, C., & Heise, K.-F. (2024). Methodological considerations for behavioral studies relying on response time outcomes through online crowdsourcing platforms. *Scientific Reports*, *14*(1), Article 7719. https://doi.org/10.1038/s41598-024-58300-7
+4. Pongratz, H., & Schoemann, M. (2026). A large-scale dataset of choice and response-time data in intertemporal choice. *Scientific Data*, *13*, Article 150. https://doi.org/10.1038/s41597-026-06947-4
 
 ---
 
