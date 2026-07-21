@@ -256,7 +256,7 @@ for (col_name in colnames(full_data)) {
   n_unique <- length(unique(col_data))
   is_char_or_factor <- is.character(col_data) || is.factor(col_data)
   
-  if (is_char_or_factor && n_unique > 15 && n_unique <= 200 && n_unique < n_rows * 0.90) {
+  if (is_char_or_factor && n_unique > 15 && n_unique <= 1000 && n_unique < n_rows * 0.90) {
     tbl <- sort(table(col_data, useNA = "no"), decreasing = TRUE)
     if (length(tbl) > 0) {
       proportions <- as.numeric(tbl) / sum(tbl)
