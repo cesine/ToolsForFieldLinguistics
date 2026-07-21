@@ -478,9 +478,12 @@ if (length(numeric_cols) >= 2) {
   scaled_data[is.na(scaled_data)] <- 0
   
   # Determine the optimal number of clusters using Silhouette analysis
-  best_k <- 2
+  best_k <- 1
   best_sil <- -Inf
-  max_k <- min(6, n_rows - 1)
+  
+  # Ensure we don't request more clusters than unique distinct data points
+  n_unique_rows <- nrow(unique(scaled_data))
+  max_k <- min(6, n_rows - 1, n_unique_rows - 1)
   
   if (max_k >= 2) {
     for (k in 2:max_k) {
@@ -500,26 +503,35 @@ if (length(numeric_cols) >= 2) {
         }
       }
     }
-  } else {
-    best_k <- 2
   }
   
-  k_centers <- best_k
+  # Fall back to k=1 if best silhouette width is <= 0.25 (no substantial structure)
+  if (best_sil <= 0.25) {
+    k_centers <- 1
+  } else {
+    k_centers <- best_k
+  }
   
-  km_fit <- tryCatch({
-    kmeans(scaled_data, centers = k_centers, nstart = 25)
-  }, error = function(e) { NULL })
-  
-  if (!is.null(km_fit)) {
+  if (k_centers == 1) {
     kmeans_run <- TRUE
-    data$KMeans_Cluster <- as.factor(km_fit$cluster)
-    cat(sprintf("[SUCCESS] Discovered %d customer order personas using K-Means.\n", k_centers))
-    cl_tbl <- table(data$KMeans_Cluster)
-    for (cl_id in names(cl_tbl)) {
-      cat(sprintf("          - Persona Cluster %s: %d orders (%.2f%%)\n", 
-                  cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id] / n_rows))
+    data$KMeans_Cluster <- as.factor(rep(1, n_rows))
+    cat("[SUCCESS] Discovered 1 customer order persona (no distinct sub-populations found).\n\n")
+  } else {
+    km_fit <- tryCatch({
+      kmeans(scaled_data, centers = k_centers, nstart = 25)
+    }, error = function(e) { NULL })
+    
+    if (!is.null(km_fit)) {
+      kmeans_run <- TRUE
+      data$KMeans_Cluster <- as.factor(km_fit$cluster)
+      cat(sprintf("[SUCCESS] Discovered %d customer order personas using K-Means.\n", k_centers))
+      cl_tbl <- table(data$KMeans_Cluster)
+      for (cl_id in names(cl_tbl)) {
+        cat(sprintf("          - Persona Cluster %s: %d orders (%.2f%%)\n", 
+                    cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id] / n_rows))
+      }
+      cat("\n")
     }
-    cat("\n")
   }
 } else {
   cat("Insufficient numeric columns for K-Means clustering.\n\n")
