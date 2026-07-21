@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 09:25:13.47953
+**Report Generated on:** 2026-07-21 10:44:23.400788
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -112,7 +112,7 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 | **Cluster 3** | 2 | 20.00% |
 
 
-## 4. Visualizations Dashboard
+## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
 Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
 
 ![Figure 1: PCA Persona Dashboard](customer_orders_anomalous_validation_plot.png)

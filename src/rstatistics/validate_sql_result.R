@@ -787,7 +787,7 @@ report_lines <- c(
   "",
   kmeans_table,
   "",
-  "## 4. Visualizations Dashboard",
+  "## 4. Exploratory Multivariate Analysis and Cluster Diagnostics",
   "Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:",
   "",
   paste0("![Figure 1: PCA Persona Dashboard](", basename(plot_file), ")"),
