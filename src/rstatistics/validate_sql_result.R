@@ -571,25 +571,21 @@ if (kmeans_run && length(numeric_cols) >= 2) {
 # 8. Pairwise Scatterplots with Line of Best Fit
 if (length(numeric_cols) >= 2) {
   scatter_file <- file.path("gen", paste0(file_base, "_scatterplots.png"))
-  cols_to_plot <- numeric_cols[1:min(4, length(numeric_cols))]
-  num_plots <- length(cols_to_plot)
   
-  pair_x <- c()
-  pair_y <- c()
-  if (num_plots == 2) {
-    pair_x <- c(cols_to_plot[1])
-    pair_y <- c(cols_to_plot[2])
-  } else if (num_plots == 3) {
-    pair_x <- c(cols_to_plot[1], cols_to_plot[1], cols_to_plot[2])
-    pair_y <- c(cols_to_plot[2], cols_to_plot[3], cols_to_plot[3])
-  } else {
-    pair_x <- c(cols_to_plot[1], cols_to_plot[1], cols_to_plot[1], cols_to_plot[2])
-    pair_y <- c(cols_to_plot[2], cols_to_plot[3], cols_to_plot[4], cols_to_plot[3])
-  }
+  # Generate all pairwise combinations of numeric columns
+  pairs_idx <- combn(length(numeric_cols), 2)
+  num_plots <- ncol(pairs_idx)
   
-  png(scatter_file, width = 1000, height = 800)
-  # Set up a 2x2 grid layout
-  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  # Determine dynamic grid layout
+  grid_cols <- ceiling(sqrt(num_plots))
+  grid_rows <- ceiling(num_plots / grid_cols)
+  
+  # Scale PNG dimensions dynamically (minimum 600px, 350px per panel)
+  png_width <- max(600, 350 * grid_cols)
+  png_height <- max(500, 350 * grid_rows)
+  
+  png(scatter_file, width = png_width, height = png_height)
+  layout(matrix(c(1:(grid_rows * grid_cols)), nrow = grid_rows, byrow = TRUE))
   par(mar = c(5, 5, 4, 2))
   
   # Helper function to plot scatter with abline
@@ -603,43 +599,51 @@ if (length(numeric_cols) >= 2) {
     }
   }
   
-  plot_colors <- c("#1f77b4", "#2ca02c", "#9467bd", "#ff7f0e")
-  for (i in 1:length(pair_x)) {
-    col_x <- pair_x[i]
-    col_y <- pair_y[i]
+  # Cycle colors
+  colors_palette <- c("#1f77b4", "#2ca02c", "#9467bd", "#ff7f0e", "#e377c2", "#17becf", "#bcbd22")
+  
+  for (i in 1:num_plots) {
+    col_x <- numeric_cols[pairs_idx[1, i]]
+    col_y <- numeric_cols[pairs_idx[2, i]]
     title_str <- paste(col_y, "vs", col_x)
+    col_choice <- colors_palette[((i - 1) %% length(colors_palette)) + 1]
     plot_scatter_fit(data[[col_x]], data[[col_y]], 
                      col_x, col_y, 
-                     title_str, plot_colors[i])
+                     title_str, col_choice)
   }
   dev.off()
-  cat(sprintf("[SAVED] Pairwise Scatterplots saved to '%s'.\n\n", scatter_file))
+  cat(sprintf("[SAVED] Pairwise Scatterplots saved to '%s'.\n", scatter_file))
 }
 
 # 9. Independent Variables Distribution Plots (Group Sample Sizes)
 if (length(categorical_cols) > 0) {
   indep_file <- file.path("gen", paste0(file_base, "_independent_distributions.png"))
-  cols_to_plot <- categorical_cols[1:min(4, length(categorical_cols))]
-  n_indep <- length(cols_to_plot)
+  num_plots <- length(categorical_cols)
   
-  png(indep_file, width = 1000, height = 800)
-  # Set up a 2x2 grid layout
-  layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+  grid_cols <- ceiling(sqrt(num_plots))
+  grid_rows <- ceiling(num_plots / grid_cols)
+  
+  png_width <- max(600, 350 * grid_cols)
+  png_height <- max(500, 350 * grid_rows)
+  
+  png(indep_file, width = png_width, height = png_height)
+  layout(matrix(c(1:(grid_rows * grid_cols)), nrow = grid_rows, byrow = TRUE))
   par(mar = c(6, 5, 4, 2))
   
-  bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow")
-  for (i in 1:n_indep) {
-    col_name <- cols_to_plot[i]
+  bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow", "aquamarine", "lavender")
+  for (i in 1:num_plots) {
+    col_name <- categorical_cols[i]
     tbl <- table(data[[col_name]], useNA = "no")
+    color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
     barplot(tbl,
             main = paste("Distribution of", col_name),
             xlab = col_name, ylab = "Sample Size (N)",
-            col = bar_colors[i], border = "white",
+            col = color_choice, border = "white",
             las = 2, cex.names = 0.8)
     grid(nx = NA, ny = NULL)
   }
   dev.off()
-  cat(sprintf("[SAVED] Independent variable distributions saved to '%s'.\n\n", indep_file))
+  cat(sprintf("[SAVED] Independent variable distributions saved to '%s'.\n", indep_file))
 }
 
 # --- 8. Markdown Scientific Report Generation ---

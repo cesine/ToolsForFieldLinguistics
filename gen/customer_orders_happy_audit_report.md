@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_happy
 
-**Report Generated on:** 2026-07-21 09:06:26.749956
+**Report Generated on:** 2026-07-21 09:13:09.339771
 **Source Dataset:** `customer_orders_happy.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -134,9 +134,9 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 246 | 39.81% |
-| **Cluster 2** | 170 | 27.51% |
-| **Cluster 3** | 202 | 32.69% |
+| **Cluster 1** | 170 | 27.51% |
+| **Cluster 2** | 202 | 32.69% |
+| **Cluster 3** | 246 | 39.81% |
 
 
 ## 4. Visualizations Dashboard
