@@ -477,9 +477,34 @@ if (length(numeric_cols) >= 2) {
   scaled_data <- scale(data[numeric_cols])
   scaled_data[is.na(scaled_data)] <- 0
   
-  # Heuristic for cluster counts:
-  # Action Item: Programmatic Elbow / Silhouette optimization
-  k_centers <- 3
+  # Determine the optimal number of clusters using Silhouette analysis
+  best_k <- 2
+  best_sil <- -Inf
+  max_k <- min(6, n_rows - 1)
+  
+  if (max_k >= 2) {
+    for (k in 2:max_k) {
+      km <- tryCatch({
+        kmeans(scaled_data, centers = k, nstart = 25)
+      }, error = function(e) { NULL })
+      
+      if (!is.null(km)) {
+        sil <- tryCatch({
+          s <- silhouette(km$cluster, dist(scaled_data))
+          mean(s[, 3])
+        }, error = function(e) { -1 })
+        
+        if (sil > best_sil) {
+          best_sil <- sil
+          best_k <- k
+        }
+      }
+    }
+  } else {
+    best_k <- 2
+  }
+  
+  k_centers <- best_k
   
   km_fit <- tryCatch({
     kmeans(scaled_data, centers = k_centers, nstart = 25)
@@ -819,7 +844,7 @@ report_lines <- c(
   paste0("![Figure 2: Pairwise Scatterplots with Line of Fit](", file_base, "_scatterplots.png)"),
   "",
   "### Customer Persona Profiles (K-Means)",
-  "We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:",
+  paste0("We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=", k_centers, "$) to identify behavioral personas:"),
   "",
   kmeans_table,
   "",

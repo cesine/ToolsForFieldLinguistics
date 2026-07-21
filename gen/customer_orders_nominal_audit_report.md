@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 14:18:08.653783
+**Report Generated on:** 2026-07-21 14:23:09.845156
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -136,13 +136,12 @@ Figure 2 presents the pairwise scatterplots with a fitted linear regression line
 ![Figure 2: Pairwise Scatterplots with Line of Fit](customer_orders_nominal_scatterplots.png)
 
 ### Customer Persona Profiles (K-Means)
-We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=3$) to identify behavioral personas:
+We standardized the numeric metrics and fitted a [K-Means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) ($k=2$) to identify behavioral personas:
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 202 | 32.69% |
-| **Cluster 2** | 170 | 27.51% |
-| **Cluster 3** | 246 | 39.81% |
+| **Cluster 1** | 331 | 53.56% |
+| **Cluster 2** | 287 | 46.44% |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
