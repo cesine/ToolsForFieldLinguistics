@@ -1,6 +1,6 @@
-# Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
+# SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 15:13:41.733398
+**Report Generated on:** 2026-07-21 15:15:16.708597
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 

@@ -837,7 +837,7 @@ if (kmeans_run && !is.null(pca_fit)) {
 
 # Assemble lab report
 report_lines <- c(
-  paste0("# Advanced SQL Data Quality and Behavior Analysis Lab Report: ", file_base),
+  paste0("# SQL Data Quality and Behavior Analysis Lab Report: ", file_base),
   "",
   paste0("**Report Generated on:** ", Sys.time()),
   paste0("**Source Dataset:** `", basename(csv_path), "`"),
