@@ -13,7 +13,10 @@ All communications, documentation, pull request descriptions, and reports genera
 5. **Cite Primary Sources**: When describing technical capabilities, algorithms, or API functionalities, always cite primary sources. These include:
    * **Official Documentation**: Links or exact references to the official API specification or library documentation (e.g., Snowflake, R package car, etc.).
    * **Academic Publications**: Links or citations of original peer-reviewed papers (e.g. from Google Scholar, Nature, PubMed) to support statistical methodologies (e.g., Nature s41598-024-58300-7 for reaction time skewed distributions).
+6. **Descriptive Figure and Graphic Callouts**: Do not use uninformative or purely mechanical phrases to describe figure generation or saving (e.g. *"visualization was saved to disk"*). Instead, use active and informative academic callouts to introduce figures (e.g. *"Figure 1 presents..."*, *"The relationship is illustrated in Figure 1..."*), explaining what the figure contains and what the reader should look for.
 
 ## Examples
 * **Uncited Claim (Prohibited)**: *"We applied a log-transform because it is standard practice to normalize skewed response times."*
 * **Cited Factual Claim (Allowed)**: *"We applied a natural log-transformation `log(RT + 1)` on delay metrics to address positive skewness, satisfying normality assumptions for parametric ANOVA/MANOVA as recommended in Nature Scientific Reports (s41598-024-58300-7)."*
+* **Mechanical Graphic Phrasing (Prohibited)**: *"The correlation heatmap plot was saved to the disk."*
+* **Descriptive Graphic Callout (Allowed)**: *"Figure 1 presents the correlation heatmap, illustrating pairwise correlations between all transaction metrics."*
