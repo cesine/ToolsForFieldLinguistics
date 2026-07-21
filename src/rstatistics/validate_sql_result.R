@@ -279,7 +279,43 @@ if (coalesce_warnings == 0) {
   cat("\n")
 }
 
-# 4. Multicollinearity Audit (SQL Join & Math Bug Guard)
+# 4. Uniformity & Synthetic Data Audit
+cat("--- Uniformity & Synthetic Data Audit ---\n")
+uniformity_warnings <- 0
+if (length(categorical_cols) > 0) {
+  for (col_name in categorical_cols) {
+    col_data <- data[[col_name]]
+    freq_tbl <- table(col_data, useNA = "no")
+    
+    # Check columns with at least 3 categories and at least 30 samples to avoid small-sample noise
+    if (length(freq_tbl) >= 3 && sum(freq_tbl) >= 30) {
+      mean_freq <- mean(freq_tbl)
+      sd_freq <- sd(freq_tbl)
+      cv <- sd_freq / mean_freq
+      
+      # If CV of category counts is less than 8%, flag it as abnormally uniform
+      if (cv < 0.08) {
+        cat(sprintf("[WARNING] Suspicious uniformity detected in column '%s'! (CV of category counts = %.4f)\n", col_name, cv))
+        cat("          - Category counts are nearly identical. Natural data usually shows greater variance;\n")
+        cat("            perfectly even category distribution is a characteristic of synthetic data generators.\n")
+        uniformity_warnings <- uniformity_warnings + 1
+        
+        report_findings <- c(report_findings, sprintf("- **WARNING: Suspicious Uniformity on '%s'**: Category counts are highly uniform (Coefficient of Variation = %.4f). This suggests the dataset is synthetic or has been artificially balanced.", col_name, cv))
+        report_suggestions <- c(report_suggestions, sprintf("- **Investigate Uniformity on '%s'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.", col_name))
+        if (report_grade != "DANGER / FAIL 🔴") {
+          report_grade <- "WARNING 🟡"
+        }
+      }
+    }
+  }
+}
+if (uniformity_warnings == 0) {
+  cat("[PASS] No artificial category uniformity detected.\n\n")
+} else {
+  cat("\n")
+}
+
+# 5. Multicollinearity Audit (SQL Join & Math Bug Guard)
 cat("--- Multicollinearity Audit ---\n")
 collinearity_detected <- FALSE
 if (length(numeric_cols) >= 2) {

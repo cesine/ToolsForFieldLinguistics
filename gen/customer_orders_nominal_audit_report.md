@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 10:45:44.707544
+**Report Generated on:** 2026-07-21 11:24:50.304296
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -71,6 +71,12 @@ Following standard methodologies for reaction time outcomes (McConnell et al., 2
 - **FAIL: Duplicate Join Key in 'O_CUSTKEY'**: Unique rate is 99.51%. Joining on this column will cause a Cartesian product multiplication (row duplication).
 - **WARNING: Constant Column 'O_ORDERSTATUS'**: 100% of rows contain the value 'O'.
 - **WARNING: Constant Column 'O_ORDERDATE'**: 100% of rows contain the value '1998-08-01'.
+- **WARNING: Suspicious Uniformity on 'C_REGION'**: Category counts are highly uniform (Coefficient of Variation = 0.0474). This suggests the dataset is synthetic or has been artificially balanced.
+- **WARNING: Suspicious Uniformity on 'O_TOTALPRICE_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
+- **WARNING: Suspicious Uniformity on 'C_ACCTBAL_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
+- **WARNING: Suspicious Uniformity on 'TOTAL_QUANTITY_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0146). This suggests the dataset is synthetic or has been artificially balanced.
+- **WARNING: Suspicious Uniformity on 'AVG_DISCOUNT_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0128). This suggests the dataset is synthetic or has been artificially balanced.
+- **WARNING: Suspicious Uniformity on 'TOTAL_DISCOUNT_VALUE_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
@@ -134,9 +140,9 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 246 | 39.81% |
-| **Cluster 2** | 202 | 32.69% |
-| **Cluster 3** | 170 | 27.51% |
+| **Cluster 1** | 202 | 32.69% |
+| **Cluster 2** | 170 | 27.51% |
+| **Cluster 3** | 246 | 39.81% |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -156,6 +162,12 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Fix duplicate join key 'O_CUSTKEY'**: Ensure you are joining on a unique primary key. If you are joining a detail table, aggregate it first (e.g. in a subquery or CTE) before joining.
 - **Constant Column 'O_ORDERSTATUS'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.
 - **Constant Column 'O_ORDERDATE'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.
+- **Investigate Uniformity on 'C_REGION'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
+- **Investigate Uniformity on 'O_TOTALPRICE_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
+- **Investigate Uniformity on 'C_ACCTBAL_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
+- **Investigate Uniformity on 'TOTAL_QUANTITY_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
+- **Investigate Uniformity on 'AVG_DISCOUNT_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
+- **Investigate Uniformity on 'TOTAL_DISCOUNT_VALUE_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
 
 ### Methodological Discussion on Skewness
 As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher Type I errors. Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying customer behavioral deviations.
