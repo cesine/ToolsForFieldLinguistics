@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_anomalous
 
-**Report Generated on:** 2026-07-21 15:02:49.112196
+**Report Generated on:** 2026-07-21 15:06:42.696259
 **Source Dataset:** `customer_orders_anomalous.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -111,10 +111,33 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 | **Cluster 2** | 3 | 30.00% |
 
 
+#### Behavioral Profiles (Cluster Feature Means)
+To characterize the discovered personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
+
+| Cluster | O_ORDERKEY | O_CUSTKEY | O_TOTALPRICE | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT |
+|---|---|---|---|---|---|---|---|
+| **Cluster 1** | 6.14 | 56903.14 | 107142.86 | 107.14 | 0.05 | 5357.14 | 5.29 |
+| **Cluster 2** | 3.00 | 29344.00 | 183333.33 | 183.33 | 0.05 | 9166.67 | 9.00 |
+
+
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
 Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
 
 ![Figure 1: PCA Persona Dashboard](customer_orders_anomalous_validation_plot.png)
+
+### Principal Component Loadings (Feature Contributions)
+To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:
+
+| Metric | PC1 Loading | PC2 Loading |
+|---|---|---|
+| `O_ORDERKEY` | `0.2092` | `-0.6695` |
+| `O_CUSTKEY` | `0.1788` | `-0.6904` |
+| `O_TOTALPRICE` | `-0.4811` | `-0.1357` |
+| `TOTAL_QUANTITY` | `-0.4811` | `-0.1357` |
+| `AVG_DISCOUNT` | `0.0000` | `-0.0000` |
+| `TOTAL_DISCOUNT_VALUE` | `-0.4811` | `-0.1357` |
+| `ITEM_COUNT` | `-0.4794` | `-0.1410` |
+
 
 ### Interpretation of Figure 1:
 1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.

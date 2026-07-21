@@ -1,6 +1,6 @@
 # Advanced SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-21 15:02:48.190524
+**Report Generated on:** 2026-07-21 15:06:41.762535
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** DANGER / FAIL 🔴
 
@@ -140,14 +140,37 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 287 | 46.44% |
-| **Cluster 2** | 331 | 53.56% |
+| **Cluster 1** | 331 | 53.56% |
+| **Cluster 2** | 287 | 46.44% |
+
+
+#### Behavioral Profiles (Cluster Feature Means)
+To characterize the discovered personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
+
+| Cluster | O_TOTALPRICE | C_ACCTBAL | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
+|---|---|---|---|---|---|---|---|
+| **Cluster 1** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
+| **Cluster 2** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
 Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:
 
 ![Figure 1: PCA Persona Dashboard](customer_orders_nominal_validation_plot.png)
+
+### Principal Component Loadings (Feature Contributions)
+To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:
+
+| Metric | PC1 Loading | PC2 Loading |
+|---|---|---|
+| `O_TOTALPRICE` | `-0.4916` | `-0.1107` |
+| `C_ACCTBAL` | `0.0462` | `-0.3143` |
+| `TOTAL_QUANTITY` | `-0.4938` | `-0.1083` |
+| `AVG_DISCOUNT` | `-0.0911` | `0.8663` |
+| `TOTAL_DISCOUNT_VALUE` | `-0.4614` | `0.2736` |
+| `ITEM_COUNT` | `-0.4673` | `-0.1320` |
+| `MAX_SHIP_DELAY_LOG` | `-0.2700` | `-0.1856` |
+
 
 ### Interpretation of Figure 1:
 1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.

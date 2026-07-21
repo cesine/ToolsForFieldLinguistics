@@ -472,10 +472,15 @@ if (!anova_tested && !manova_tested) {
 # 6. K-Means Persona Discovery
 cat("--- K-Means Persona Discovery ---\n")
 kmeans_run <- FALSE
+pca_fit <- NULL
 if (length(numeric_cols) >= 2) {
   # Scale numeric variables
   scaled_data <- scale(data[numeric_cols])
   scaled_data[is.na(scaled_data)] <- 0
+  
+  pca_fit <- tryCatch({
+    prcomp(scaled_data)
+  }, error = function(e) { NULL })
   
   # Determine the optimal number of clusters using Silhouette analysis
   best_k <- 1
@@ -550,18 +555,21 @@ if (kmeans_run && length(numeric_cols) >= 2) {
   par(mar = c(6, 5, 4, 3))
   
   # Panel 1: PCA Cluster Scatterplot (PC1 vs PC2)
-  pca_fit <- prcomp(scaled_data)
-  var_exp <- round(100 * pca_fit$sdev^2 / sum(pca_fit$sdev^2), 1)
-  
-  plot(pca_fit$x[,1], pca_fit$x[,2],
-       col = rainbow(k_centers)[as.numeric(data$KMeans_Cluster)],
-       pch = 19, cex = 1.2,
-       main = "Customer Personas (PCA Cluster Space)",
-       xlab = paste0("PC1 (", var_exp[1], "% variance)"),
-       ylab = paste0("PC2 (", var_exp[2], "% variance)"))
-  grid()
-  legend("topright", legend = paste("Persona", 1:k_centers),
-         col = rainbow(k_centers), pch = 19, cex = 0.8)
+  if (!is.null(pca_fit)) {
+    var_exp <- round(100 * pca_fit$sdev^2 / sum(pca_fit$sdev^2), 1)
+    plot(pca_fit$x[,1], pca_fit$x[,2],
+         col = rainbow(k_centers)[as.numeric(data$KMeans_Cluster)],
+         pch = 19, cex = 1.2,
+         main = "Customer Personas (PCA Cluster Space)",
+         xlab = paste0("PC1 (", var_exp[1], "% variance)"),
+         ylab = paste0("PC2 (", var_exp[2], "% variance)"))
+    grid()
+    legend("topright", legend = paste("Persona", 1:k_centers),
+           col = rainbow(k_centers), pch = 19, cex = 0.8)
+  } else {
+    plot(1, 1, type = "n", xlab = "", ylab = "", main = "PCA Space (Unavailable)")
+    text(1, 1, "PCA calculation failed", cex = 1.2)
+  }
   
   # Panel 2: Correlation Heatmap of Numeric Variables
   cor_mat <- cor(data[numeric_cols], use = "pairwise.complete.obs")
@@ -779,11 +787,33 @@ if (length(rt_cols) > 0) {
 
 # K-Means Persona table
 kmeans_table <- ""
+profile_table <- ""
 if (kmeans_run) {
   kmeans_table <- "| Persona Cluster | Order Count | Percentage (%) |\n|---|---|---|\n"
   cl_tbl <- table(data$KMeans_Cluster)
   for (cl_id in names(cl_tbl)) {
     kmeans_table <- paste0(kmeans_table, sprintf("| **Cluster %s** | %d | %.2f%% |\n", cl_id, cl_tbl[cl_id], 100 * cl_tbl[cl_id]/n_rows))
+  }
+  
+  # Construct Cluster Profiles table (means of original numeric columns)
+  profile_table <- paste0("| Cluster | ", paste(numeric_cols, collapse = " | "), " |\n")
+  profile_table <- paste0(profile_table, "|---|", paste(rep("---|", length(numeric_cols)), collapse = ""), "\n")
+  for (cl_id in names(cl_tbl)) {
+    cluster_subset <- data[data$KMeans_Cluster == cl_id, ]
+    means <- sapply(numeric_cols, function(col) mean(cluster_subset[[col]], na.rm = TRUE))
+    profile_table <- paste0(profile_table, "| **Cluster ", cl_id, "** | ", 
+                            paste(sprintf("%.2f", means), collapse = " | "), " |\n")
+  }
+}
+
+# PCA Loadings table
+pca_table <- ""
+if (kmeans_run && !is.null(pca_fit)) {
+  pca_table <- "| Metric | PC1 Loading | PC2 Loading |\n|---|---|---|\n"
+  for (row_name in rownames(pca_fit$rotation)) {
+    val1 <- pca_fit$rotation[row_name, 1]
+    val2 <- if (ncol(pca_fit$rotation) >= 2) pca_fit$rotation[row_name, 2] else 0.0
+    pca_table <- paste0(pca_table, sprintf("| `%s` | `%.4f` | `%.4f` |\n", row_name, val1, val2))
   }
 }
 
@@ -860,10 +890,20 @@ report_lines <- c(
   "",
   kmeans_table,
   "",
+  "#### Behavioral Profiles (Cluster Feature Means)",
+  "To characterize the discovered personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:",
+  "",
+  profile_table,
+  "",
   "## 4. Exploratory Multivariate Analysis and Cluster Diagnostics",
   "Figure 1 presents the 2x2 data quality and customer persona visualization dashboard:",
   "",
   paste0("![Figure 1: PCA Persona Dashboard](", basename(plot_file), ")"),
+  "",
+  "### Principal Component Loadings (Feature Contributions)",
+  "To reverse-engineer which original transaction metrics drive the principal component projections, the table below lists the loadings (rotation coefficients) for the first two components:",
+  "",
+  pca_table,
   "",
   "### Interpretation of Figure 1:",
   "1. **[PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) Cluster Space**: Represents the first two principal components. Good separation between color groups indicates distinct personas. If the points form tight, overlapping lines or grids, it indicates identical data replication bugs.",
