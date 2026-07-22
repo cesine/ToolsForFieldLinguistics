@@ -712,12 +712,12 @@ if (kmeans_run && length(numeric_cols) >= 2) {
   axis(2, at = 1:length(numeric_cols), labels = numeric_cols, las = 2, cex.axis = 0.7)
   box()
   
-  # Panel 3: Persona Cluster Count Barplot
-  cl_counts <- table(data$KMeans_Cluster)
-  barplot(cl_counts,
-          main = paste(tools::toTitleCase(subject_singular), "Cluster Sizes"),
-          xlab = "Cluster ID", ylab = paste("Number of", tools::toTitleCase(subject_plural)),
-          col = "lightgreen", border = "white")
+  # Panel 3: Cluster Counts Histogram
+  cl_counts <- as.numeric(table(data$KMeans_Cluster))
+  hist(cl_counts,
+       main = paste(tools::toTitleCase(subject_singular), "Cluster Sizes"),
+       xlab = "Cluster Sample Size", ylab = "Frequency of Clusters",
+       col = "lightgreen", border = "white")
   
   # Panel 4: Boxplot of O_TOTALPRICE by Persona Cluster
   boxplot(data[[numeric_cols[1]]] ~ data$KMeans_Cluster,
@@ -756,14 +756,13 @@ if (kmeans_run && length(numeric_cols) >= 2) {
        col = "lightblue",
        border = "white")
        
-  cat_counts <- sort(table(data[[cat_plot]]), decreasing = TRUE)
-  barplot(cat_counts,
-          main = paste("Counts of", cat_plot, "(Independent)"),
-          xlab = cat_plot,
-          ylab = "Frequency",
-          col = "lightgreen",
-          border = "white",
-          las = 2)
+  cat_counts <- as.numeric(table(data[[cat_plot]]))
+  hist(cat_counts,
+       main = paste("Histogram of Counts for", cat_plot),
+       xlab = "Category Sample Size",
+       ylab = "Frequency of Categories",
+       col = "lightgreen",
+       border = "white")
           
   qqnorm(data[[num_plot]],
          main = paste("Normal Q-Q Plot of", num_plot),
@@ -853,12 +852,10 @@ if (length(categorical_cols) > 0) {
     tbl <- sort(table(data[[col_name]], useNA = "no"), decreasing = TRUE)
     color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
     if (length(tbl) > 0) {
-      barplot(tbl,
-              main = paste("Distribution of", col_name),
-              xlab = col_name, ylab = "Sample Size (N)",
-              col = color_choice, border = "white",
-              las = 2, cex.names = 0.8)
-      grid(nx = NA, ny = NULL)
+      hist(as.numeric(tbl),
+           main = paste("Histogram of Counts for", col_name),
+           xlab = "Category Sample Size (N)", ylab = "Frequency of Categories",
+           col = color_choice, border = "white")
     } else {
       plot(1, type = "n", xlab = col_name, ylab = "Sample Size (N)", 
            main = paste("Distribution of", col_name), xlim = c(0, 1), ylim = c(0, 1))
