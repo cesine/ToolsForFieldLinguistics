@@ -37,4 +37,4 @@ To run the R unit tests, use:
 ```bash
 npm run test:r
 ```
-*This executes `Rscript test/run_tests.R` using the packages installed in the local environment.*
+*This executes the R test suite in test/rstatistics/ using testthat directly.*
