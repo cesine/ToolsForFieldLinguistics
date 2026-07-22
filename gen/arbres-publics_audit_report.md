@@ -1,13 +1,13 @@
 # SQL Data Quality and Behavior Analysis Lab Report: arbres-publics
 
-**Report Generated on:** 2026-07-22 09:44:49.560444
+**Report Generated on:** 2026-07-22 09:49:09.228853
 **Source Dataset:** `arbres-publics.csv`
 **Auditor Classification Status:** MINOR ANOMALY DETECTED 🟡
 
 ---
 
 ## Abstract
-This report presents a controlled statistical audit of the database query results comprising 334680 samples and 33 features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying tree population profiles. Our findings show that the dataset has a classification status of **MINOR ANOMALY DETECTED 🟡**. We detail actionable recommendations for query optimizations based on detected data anomalies.
+This report presents a controlled statistical audit of the database query results comprising 334680 samples and 33 features. (Note: The dataset containing 334680 rows was downsampled to 5,000 rows for statistical modeling and plotting.) Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying tree population profiles. Our findings show that the dataset has a classification status of **MINOR ANOMALY DETECTED 🟡**. We detail actionable recommendations for query optimizations based on detected data anomalies.
 
 ## 1. Introduction and Hypotheses
 In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:
@@ -17,7 +17,7 @@ In database engineering and agentic data pipelines, query errors often manifest 
 ## 2. Experimental Methodology
 
 ### Participants (Dataset Description)
-The 'participants' (observed entities) in this study consist of the trees fetched from the database.
+The 'participants' (observed entities) in this study consist of the trees fetched from the database. Note that the statistical tests and clustering were performed on a representative random downsample of 5,000 entities to ensure computational stability and performance.
 The demographic distribution of the sample is detailed below:
 
 | Category Variable | Group Level | Sample Size (N) | Percentage (%) |

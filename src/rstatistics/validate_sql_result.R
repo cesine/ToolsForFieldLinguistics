@@ -16,6 +16,12 @@ suppressPackageStartupMessages(library(grDevices))
 suppressPackageStartupMessages(library(cluster))
 suppressPackageStartupMessages(library(car))
 
+# =====================================================================
+# Configuration Constants
+# =====================================================================
+MAX_CATEGORICAL_UNIQUE_VALUES <- 15
+ENABLE_QUANTILE_BINNING <- TRUE
+
 # Helper function to calculate skewness in base R
 get_skewness <- function(x) {
   x <- x[!is.na(x)]
@@ -52,7 +58,9 @@ load_data <- function(csv_path) {
         # TODO ensure the fact that the data was sampled is persisted in the report
         cat("Warning: Large file detected (> 10MB) and fast parsers (data.table/readr) are unavailable.\n")
         cat("         Sampling the first 20,000 rows to prevent memory exhaustion and slow execution.\n")
-        read.csv(csv_path, stringsAsFactors = FALSE, nrows = 20000)
+        df_sampled <- read.csv(csv_path, stringsAsFactors = FALSE, nrows = 20000)
+        attr(df_sampled, "was_sampled_at_load") <- TRUE
+        df_sampled
       } else {
         cat("Using base R read.csv (slower for large datasets).\n")
         read.csv(csv_path, stringsAsFactors = FALSE)
@@ -147,7 +155,7 @@ classify_columns <- function(data) {
     is_low_card_int <- is_all_int && n_unique >= 1 && n_unique <= 5
     
     # TODO why 15 name aribtrary numbers like this in a variable so we can tune it if needed
-    if ((is_char_or_factor || is_low_card_int) && n_unique >= 1 && n_unique <= 15) {
+    if ((is_char_or_factor || is_low_card_int) && n_unique >= 1 && n_unique <= MAX_CATEGORICAL_UNIQUE_VALUES) {
       if (n_unique < n_rows * 0.90 || n_rows == 1) {
         categorical_cols <- c(categorical_cols, col_name)
       }
@@ -215,22 +223,24 @@ preprocess_data <- function(data, cols) {
   
   binned_cols <- c()
   # TODO im not sure we realy need to create the binned columns. surround the bining by an if here so we can toggle it to true or false later
-  for (num_col in numeric_cols) {
-    col_data <- data[[num_col]]
-    n_unique <- length(unique(col_data))
-    
-    if (n_unique > 10) {
-      quantiles <- quantile(col_data, probs = c(0, 0.33, 0.67, 1), na.rm = TRUE)
-      if (length(unique(quantiles)) < 4) {
-        breaks <- seq(min(col_data, na.rm = TRUE), max(col_data, na.rm = TRUE), length.out = 4)
-      } else {
-        breaks <- quantiles
-      }
+  if (isTRUE(ENABLE_QUANTILE_BINNING)) {
+    for (num_col in numeric_cols) {
+      col_data <- data[[num_col]]
+      n_unique <- length(unique(col_data))
       
-      bin_name <- paste0(num_col, "_BIN")
-      data[[bin_name]] <- cut(col_data, breaks = breaks, include.lowest = TRUE, labels = c("Low", "Medium", "High"))
-      categorical_cols <- c(categorical_cols, bin_name)
-      binned_cols <- c(binned_cols, bin_name)
+      if (n_unique > 10) {
+        quantiles <- quantile(col_data, probs = c(0, 0.33, 0.67, 1), na.rm = TRUE)
+        if (length(unique(quantiles)) < 4) {
+          breaks <- seq(min(col_data, na.rm = TRUE), max(col_data, na.rm = TRUE), length.out = 4)
+        } else {
+          breaks <- quantiles
+        }
+        
+        bin_name <- paste0(num_col, "_BIN")
+        data[[bin_name]] <- cut(col_data, breaks = breaks, include.lowest = TRUE, labels = c("Low", "Medium", "High"))
+        categorical_cols <- c(categorical_cols, bin_name)
+        binned_cols <- c(binned_cols, bin_name)
+      }
     }
   }
   
@@ -294,7 +304,7 @@ preprocess_data <- function(data, cols) {
 audit_keys <- function(data, candidate_keys) {
   findings <- c()
   suggestions <- c()
-  grade <- "COMPLIANT 🟢"
+  grade <- "UNKNOWN"
   n_rows <- nrow(data)
   
   cat("--- Join Key Audit ---\n")
@@ -334,6 +344,10 @@ audit_keys <- function(data, candidate_keys) {
     cat("\n")
   }
   
+  if (grade == "UNKNOWN") {
+    grade <- "COMPLIANT 🟢"
+  }
+  
   return(list(findings = findings, suggestions = suggestions, grade = grade))
 }
 
@@ -341,7 +355,7 @@ audit_keys <- function(data, candidate_keys) {
 audit_coalescing <- function(data) {
   findings <- c()
   suggestions <- c()
-  grade <- "COMPLIANT 🟢"
+  grade <- "UNKNOWN"
   n_rows <- nrow(data)
   
   cat("--- Value Coalescing & Mode Collapse Audit ---\n")
@@ -390,6 +404,10 @@ audit_coalescing <- function(data) {
     cat("\n")
   }
   
+  if (grade == "UNKNOWN") {
+    grade <- "COMPLIANT 🟢"
+  }
+  
   return(list(findings = findings, suggestions = suggestions, grade = grade))
 }
 
@@ -397,7 +415,7 @@ audit_coalescing <- function(data) {
 audit_uniformity <- function(data, categorical_cols) {
   findings <- c()
   suggestions <- c()
-  grade <- "COMPLIANT 🟢"
+  grade <- "UNKNOWN"
   
   cat("--- Uniformity & Synthetic Data Audit ---\n")
   uniformity_warnings <- 0
@@ -430,6 +448,10 @@ audit_uniformity <- function(data, categorical_cols) {
     cat("\n")
   }
   
+  if (grade == "UNKNOWN") {
+    grade <- "COMPLIANT 🟢"
+  }
+  
   return(list(findings = findings, suggestions = suggestions, grade = grade))
 }
 
@@ -437,7 +459,7 @@ audit_uniformity <- function(data, categorical_cols) {
 audit_collinearity <- function(data, numeric_cols) {
   findings <- c()
   suggestions <- c()
-  grade <- "COMPLIANT 🟢"
+  grade <- "UNKNOWN"
   collinearity_detected <- FALSE
   collinear_redundant_cols <- c()
   
@@ -467,6 +489,10 @@ audit_collinearity <- function(data, numeric_cols) {
     cat("\n")
   }
   
+  if (grade == "UNKNOWN") {
+    grade <- "COMPLIANT 🟢"
+  }
+  
   return(list(
     findings = findings,
     suggestions = suggestions,
@@ -481,7 +507,7 @@ run_significance_tests <- function(data, numeric_cols, categorical_cols) {
   findings <- c()
   suggestions <- c()
   # TODO start with unknown grade?
-  grade <- "COMPLIANT 🟢"
+  grade <- "UNKNOWN"
   manova_report_lines <- c()
   anova_report_lines <- c()
   anova_tested <- FALSE
@@ -624,6 +650,10 @@ run_significance_tests <- function(data, numeric_cols, categorical_cols) {
     cat("\n")
   }
   
+  if (grade == "UNKNOWN") {
+    grade <- "COMPLIANT 🟢"
+  }
+  
   return(list(
     findings = findings,
     suggestions = suggestions,
@@ -665,11 +695,11 @@ select_uninformative_factors <- function(sig_results, collinear_redundant_cols, 
       mean_freq <- mean(freq_tbl)
       sd_freq <- sd(freq_tbl)
       # TODO define cv (rename variable to be more informative)
-      cv <- sd_freq / mean_freq
-      if (cv < 0.08) {
+      coefficient_of_variation <- sd_freq / mean_freq
+      if (coefficient_of_variation < 0.08) {
         uninformative_factors[[col_name]] <- list(
           name = col_name,
-          reason = sprintf("Suspicious uniformity (Coefficient of Variation = %.4f < 8%%)", cv),
+          reason = sprintf("Suspicious uniformity (Coefficient of Variation = %.4f < 8%%)", coefficient_of_variation),
           type = "uniform"
         )
       }
@@ -1129,6 +1159,18 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
   n_rows <- nrow(original_data)
   n_cols <- ncol(original_data)
   
+  was_sampled_at_load <- isTRUE(attr(original_data, "was_sampled_at_load"))
+  was_downsampled <- nrow(original_data) > nrow(sampled_data)
+  
+  sampling_note_abstract <- ""
+  if (was_sampled_at_load && was_downsampled) {
+    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time, and further downsampled to 5,000 rows for statistical modeling and plotting.)")
+  } else if (was_sampled_at_load) {
+    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time.)")
+  } else if (was_downsampled) {
+    sampling_note_abstract <- sprintf(" (Note: The dataset containing %d rows was downsampled to 5,000 rows for statistical modeling and plotting.)", nrow(original_data))
+  }
+  
   grade <- "COMPLIANT 🟢"
   for (audit_name in names(audit_info)) {
     a_grade <- audit_info[[audit_name]]$grade
@@ -1248,7 +1290,7 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
     "",
     "## Abstract",
     paste0("This report presents a controlled statistical audit of the database query results comprising ", 
-           n_rows, " samples and ", n_cols, " features. Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying ", terminology$domain_plural, ". Our findings show that the dataset has a classification status of **", grade, "**. We detail actionable recommendations for query optimizations based on detected data anomalies."),
+           n_rows, " samples and ", n_cols, " features.", sampling_note_abstract, " Using [Multivariate Analysis of Variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance), [K-Means clustering](https://en.wikipedia.org/wiki/K-means_clustering), and correlation-matrix collinearity tests, we investigate the structure of the retrieved dataset. The objective is to identify potential query design flaws (such as duplicate joins, cross joins, and hardcoded values) and characterize the underlying ", terminology$domain_plural, ". Our findings show that the dataset has a classification status of **", grade, "**. We detail actionable recommendations for query optimizations based on detected data anomalies."),
     "",
     "## 1. Introduction and Hypotheses",
     "In database engineering and agentic data pipelines, query errors often manifest as subtle statistical anomalies (e.g. artificial correlation due to duplicate joins or zero variance due to cross joins) rather than outright syntax failures. We formally evaluate the following hypotheses:",
@@ -1258,7 +1300,11 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
     "## 2. Experimental Methodology",
     "",
     "### Participants (Dataset Description)",
-    paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database."),
+    if (was_downsampled) {
+      paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database. Note that the statistical tests and clustering were performed on a representative random downsample of 5,000 entities to ensure computational stability and performance.")
+    } else {
+      paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database.")
+    },
     "The demographic distribution of the sample is detailed below:",
     "",
     part_lines,
