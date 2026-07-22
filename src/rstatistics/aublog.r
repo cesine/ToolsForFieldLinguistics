@@ -72,30 +72,30 @@ aublogttest <- read.table("~/Documents/aublog/results/resultsttestarticulationra
 t.test(aublogttest$draft1,aublogttest$draft2,paired=TRUE, alt="less")
 
 
-	Paired t-test
-
-data:  aublogttest$draft1 and aublogttest$draft2 
-t = -0.6826, df = 4, p-value = 0.2662
-alternative hypothesis: true difference in means is less than 0 
-95 percent confidence interval:
-      -Inf 0.3057439 
-sample estimates:
-mean of the differences 
-                 -0.144 
-
-
-
+#	Paired t-test
+#
+#data:  aublogttest$draft1 and aublogttest$draft2 
+#t = -0.6826, df = 4, p-value = 0.2662
+#alternative hypothesis: true difference in means is less than 0 
+#95 percent confidence interval:
+#      -Inf 0.3057439 
+#sample estimates:
+#mean of the differences 
+#                 -0.144 
+#
+#
+#
 #Compare all participant data to skeptoid
 
  t.test(aublogall$artirate,skeptoid$artirate)
 
-	Welch Two Sample t-test
-
-data:  articulationrate and skeptoid$artirate 
-t = -6.0765, df = 21.333, p-value = 4.649e-06
-alternative hypothesis: true difference in means is not equal to 0 
-95 percent confidence interval:
- -1.2350082 -0.6056605 
-sample estimates:
-mean of x mean of y 
- 4.002857  4.923191 
+#	Welch Two Sample t-test
+#
+#data:  articulationrate and skeptoid$artirate 
+#t = -6.0765, df = 21.333, p-value = 4.649e-06
+#alternative hypothesis: true difference in means is not equal to 0 
+#95 percent confidence interval:
+# -1.2350082 -0.6056605 
+#sample estimates:
+#mean of x mean of y 
+# 4.002857  4.923191 
