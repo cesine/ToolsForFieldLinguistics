@@ -10,7 +10,7 @@
 #    Identify your account identifier from your Snowflake URL (e.g. "xdwsima-gp91834").
 # 2. Install the Snowflake CLI (snow):
 #    https://docs.snowflake.com/en/developer-guide/snowflake-cli/installation/installation
-#    (Typically installed at /Users/gchiodo/.local/bin/snow or available on PATH)
+#    (Typically installed at ~/.local/bin/snow or available on PATH)
 # 3. Configure credentials in your ~/.env file:
 #    SNOWFLAKE_ACCOUNT="xdwsima-gp91834"
 #    SNOWFLAKE_USER="<your_username>"
@@ -24,7 +24,7 @@ set -e
 # Resolve paths
 ENV_FILE="$HOME/.env"
 OUTPUT_FILE="gen/customer_orders_nominal.csv"
-SNOW_EXEC="/Users/gchiodo/.local/bin/snow"
+SNOW_EXEC="$HOME/.local/bin/snow"
 
 # Load environment variables from ~/.env if it exists
 if [ -f "$ENV_FILE" ]; then

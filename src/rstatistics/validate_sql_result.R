@@ -156,7 +156,8 @@ for (col_name in colnames(data)) {
   
   if (is_num) {
     # It is a float (e.g. balance), OR it is an integer that is not acting as a unique ID
-    if (is_float || (n_unique > 1 && n_unique < n_rows * 0.95)) {
+    # Exclude columns with zero variance (n_unique <= 1)
+    if (n_unique > 1 && (is_float || n_unique < n_rows * 0.95)) {
       numeric_cols <- c(numeric_cols, col_name)
     }
   }
