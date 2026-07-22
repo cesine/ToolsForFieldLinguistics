@@ -49,6 +49,7 @@ load_data <- function(csv_path) {
     } else {
       file_info <- file.info(csv_path)
       if (!is.na(file_info$size) && file_info$size > 10 * 1024 * 1024) { # > 10 MB
+        # TODO ensure the fact that the data was sampled is persisted in the report
         cat("Warning: Large file detected (> 10MB) and fast parsers (data.table/readr) are unavailable.\n")
         cat("         Sampling the first 20,000 rows to prevent memory exhaustion and slow execution.\n")
         read.csv(csv_path, stringsAsFactors = FALSE, nrows = 20000)
@@ -145,6 +146,7 @@ classify_columns <- function(data) {
     is_char_or_factor <- is.character(col_data) || is.factor(col_data)
     is_low_card_int <- is_all_int && n_unique >= 1 && n_unique <= 5
     
+    # TODO why 15 name aribtrary numbers like this in a variable so we can tune it if needed
     if ((is_char_or_factor || is_low_card_int) && n_unique >= 1 && n_unique <= 15) {
       if (n_unique < n_rows * 0.90 || n_rows == 1) {
         categorical_cols <- c(categorical_cols, col_name)
@@ -212,6 +214,7 @@ preprocess_data <- function(data, cols) {
   }
   
   binned_cols <- c()
+  # TODO im not sure we realy need to create the binned columns. surround the bining by an if here so we can toggle it to true or false later
   for (num_col in numeric_cols) {
     col_data <- data[[num_col]]
     n_unique <- length(unique(col_data))
@@ -477,6 +480,7 @@ audit_collinearity <- function(data, numeric_cols) {
 run_significance_tests <- function(data, numeric_cols, categorical_cols) {
   findings <- c()
   suggestions <- c()
+  # TODO start with unknown grade?
   grade <- "COMPLIANT 🟢"
   manova_report_lines <- c()
   anova_report_lines <- c()
@@ -660,6 +664,7 @@ select_uninformative_factors <- function(sig_results, collinear_redundant_cols, 
     if (length(freq_tbl) >= 3 && sum(freq_tbl) >= 30) {
       mean_freq <- mean(freq_tbl)
       sd_freq <- sd(freq_tbl)
+      # TODO define cv (rename variable to be more informative)
       cv <- sd_freq / mean_freq
       if (cv < 0.08) {
         uninformative_factors[[col_name]] <- list(

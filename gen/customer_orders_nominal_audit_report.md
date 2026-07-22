@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-22 09:14:01.322912
+**Report Generated on:** 2026-07-22 09:44:32.604644
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
