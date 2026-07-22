@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-22 08:40:55.906217
+**Report Generated on:** 2026-07-22 09:14:01.322912
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
@@ -159,8 +159,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 287 | 46.44% |
-| **Cluster 2** | 331 | 53.56% |
+| **Cluster 1** | 331 | 53.56% |
+| **Cluster 2** | 287 | 46.44% |
 
 
 #### Population Profiles (Cluster Feature Means)
@@ -168,8 +168,8 @@ To characterize the discovered customer order personas in terms of the original 
 
 | Cluster | O_TOTALPRICE | C_ACCTBAL | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
 |---|---|---|---|---|---|---|---|
-| **Cluster 1** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
-| **Cluster 2** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
+| **Cluster 1** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
+| **Cluster 2** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -265,3 +265,24 @@ document.querySelectorAll('.experiment-button').forEach(button => {
     });
 });
 ```
+
+---
+
+## Appendix C: Audited and Uninformative Variables
+The following table details the variables that were audited and identified as uninformative:
+
+| Variable | Type | Reason for Exclusion |
+|---|---|---|
+| `O_ORDERSTATUS` | constant | Constant column (0 variance) |
+| `C_REGION` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0474 < 8%) |
+| `O_TOTALPRICE_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
+| `C_ACCTBAL_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
+| `TOTAL_QUANTITY_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0146 < 8%) |
+| `AVG_DISCOUNT_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0128 < 8%) |
+| `TOTAL_DISCOUNT_VALUE_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
+| `O_ORDERPRIORITY` | insignificant | Statistically insignificant (p-value >= 0.05 across all ANOVA/MANOVA groups) |
+
+Figure 4 presents the distribution of these uninformative variables, showing why they lack statistical value (e.g. constant values, artificial uniform distributions, or flat statistical groupings):
+
+![Figure 4: Uninformative Variable Distributions](customer_orders_nominal_uninformative_distributions.png)
+

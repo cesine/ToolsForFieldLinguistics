@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: arbres-publics
 
-**Report Generated on:** 2026-07-22 08:30:41.621264
+**Report Generated on:** 2026-07-22 09:14:16.514155
 **Source Dataset:** `arbres-publics.csv`
 **Auditor Classification Status:** MINOR ANOMALY DETECTED 🟡
 
@@ -446,3 +446,24 @@ document.querySelectorAll('.experiment-button').forEach(button => {
     });
 });
 ```
+
+---
+
+## Appendix C: Audited and Uninformative Variables
+The following table details the variables that were audited and identified as uninformative:
+
+| Variable | Type | Reason for Exclusion |
+|---|---|---|
+| `EMP_NO_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
+| `No_civique_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0171 < 8%) |
+| `DHP_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0310 < 8%) |
+| `District_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0697 < 8%) |
+| `Coord_X_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
+| `Coord_Y_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
+| `Longitude_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
+| `Latitude_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
+
+Figure 4 presents the distribution of these uninformative variables, showing why they lack statistical value (e.g. constant values, artificial uniform distributions, or flat statistical groupings):
+
+![Figure 4: Uninformative Variable Distributions](arbres-publics_uninformative_distributions.png)
+
