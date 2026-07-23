@@ -111,15 +111,18 @@ test_that("Story 2: identify if a data set contains statistically significant in
   expect_lt(res$anova_pvals$group[1], 0.05)
 })
 
+# TODO: Implement a test that verifies report generation output and cross-checking claims (currently only tests format_pval helper)
 test_that("Story 3: produce a report that is easy to read that follows scientific rigor and contains claims that can be cross checked and proved true or false", {
   # Accuracy and format checks
   expect_equal(format_pval(0.00001), "< 0.0001")
 })
 
+# TODO: Implement a test that verifies box and whisker plot generation for significant factors
 test_that("Story 4: produce a report that contains box and whisker plots showing the statistically significant factors", {
   expect_true(TRUE)
 })
 
+# TODO: Implement a test that verifies scatter plot generation and check for normal distribution line of fit
 test_that("Story 5: show the distribution of the data in scatter plots so i can see if the data is normally distributed or not normally distributed as well as the variance of the data around a line of fit", {
   expect_true(TRUE)
 })
@@ -134,11 +137,13 @@ test_that("Story 6: attempt to cluster the data using the factors to identify cl
   expect_equal(res$k_centers, 2)
 })
 
+# TODO: Implement a test that verifies report accuracy and verification check routines (currently only tests format_pval helper)
 test_that("Story 7: produce a report that is accurate", {
   expect_equal(format_pval(0.000001), "< 0.0001")
   expect_equal(format_pval(0.05123), "0.0512")
 })
 
+# TODO: Implement a test that verifies histogram generation showing long tails and non-normal distributions
 test_that("Story 8: show histograms to see which factors have a long tail and which factors are not normally distributed", {
   expect_true(TRUE)
 })
