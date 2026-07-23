@@ -21,6 +21,7 @@ suppressPackageStartupMessages(library(car))
 # =====================================================================
 MAX_CATEGORICAL_UNIQUE_VALUES <- 15
 ENABLE_QUANTILE_BINNING <- TRUE
+MODELING_SAMPLE_SIZE <- 5000
 
 # Helper function to calculate skewness in base R
 get_skewness <- function(x) {
@@ -1164,11 +1165,11 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
   
   sampling_note_abstract <- ""
   if (was_sampled_at_load && was_downsampled) {
-    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time, and further downsampled to 5,000 rows for statistical modeling and plotting.)")
+    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time, and further downsampled to %s rows for statistical modeling and plotting.)", format(MODELING_SAMPLE_SIZE, big.mark=","))
   } else if (was_sampled_at_load) {
     sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time.)")
   } else if (was_downsampled) {
-    sampling_note_abstract <- sprintf(" (Note: The dataset containing %d rows was downsampled to 5,000 rows for statistical modeling and plotting.)", nrow(original_data))
+    sampling_note_abstract <- sprintf(" (Note: The dataset containing %d rows was downsampled to %s rows for statistical modeling and plotting.)", nrow(original_data), format(MODELING_SAMPLE_SIZE, big.mark=","))
   }
   
   grade <- "COMPLIANT 🟢"
@@ -1301,7 +1302,7 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
     "",
     "### Participants (Dataset Description)",
     if (was_downsampled) {
-      paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database. Note that the statistical tests and clustering were performed on a representative random downsample of 5,000 entities to ensure computational stability and performance.")
+      paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database. Note that the statistical tests and clustering were performed on a representative random downsample of ", format(MODELING_SAMPLE_SIZE, big.mark=","), " entities to ensure computational stability and performance.")
     } else {
       paste0("The 'participants' (observed entities) in this study consist of the ", terminology$plural, " fetched from the database.")
     },
@@ -1501,10 +1502,10 @@ main <- function(csv_path) {
   # Downsample for ANOVA, MANOVA, K-Means, and plotting to ensure computational performance on large datasets
   n_rows <- nrow(prep$data)
   sampled_data <- prep$data
-  if (n_rows > 5000) {
+  if (n_rows > MODELING_SAMPLE_SIZE) {
     set.seed(42)
-    sampled_data <- prep$data[sample(1:n_rows, 5000), ]
-    cat(sprintf("[NOTE] Downsampling to 5,000 rows for statistical modeling and plotting.\n\n"))
+    sampled_data <- prep$data[sample(1:n_rows, MODELING_SAMPLE_SIZE), ]
+    cat(sprintf("[NOTE] Downsampling to %s rows for statistical modeling and plotting.\n\n", format(MODELING_SAMPLE_SIZE, big.mark=",")))
   }
   
   # Step 6: Significance Testing
