@@ -93,3 +93,5 @@ gen/*
 !gen/*_validation_plot.png
 !gen/*_scatterplots.png
 !gen/*_independent_distributions.png
+!gen/*_dependent_distributions.png
+!gen/*_uninformative_distributions.png

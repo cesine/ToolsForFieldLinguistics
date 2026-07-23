@@ -463,6 +463,7 @@ audit_collinearity <- function(data, numeric_cols) {
   grade <- "UNKNOWN"
   collinearity_detected <- FALSE
   collinear_redundant_cols <- c()
+  modeling_redundant_cols <- c()
   
   cat("--- Multicollinearity Audit ---\n")
   if (length(numeric_cols) >= 2) {
@@ -470,16 +471,21 @@ audit_collinearity <- function(data, numeric_cols) {
     for (i in 1:(length(numeric_cols)-1)) {
       for (j in (i+1):length(numeric_cols)) {
         c_val <- cor_matrix[i, j]
-        if (!is.na(c_val) && abs(c_val) >= 0.999) {
-          cat(sprintf("[ANOMALY] Multicollinearity bug detected between '%s' and '%s'! (Correlation = %.4f)\n", 
-                      numeric_cols[i], numeric_cols[j], c_val))
-          cat("       - CRITICAL ANOMALY: Perfectly correlated numeric columns indicate duplicate joins or redundant SQL computations.\n")
-          collinearity_detected <- TRUE
-          collinear_redundant_cols <- unique(c(collinear_redundant_cols, numeric_cols[j]))
-          
-          findings <- c(findings, sprintf("- **CRITICAL ANOMALY: Multicollinearity between '%s' and '%s'**: Correlation coefficient is %.4f.", numeric_cols[i], numeric_cols[j], c_val))
-          suggestions <- c(suggestions, sprintf("- **Remove Collinearity between '%s' and '%s'**: Review your SQL query to ensure you did not join the same table twice or select the same column multiple times under different aliases.", numeric_cols[i], numeric_cols[j]))
-          grade <- "CRITICAL ANOMALY DETECTED 🔴"
+        if (!is.na(c_val)) {
+          if (abs(c_val) >= 0.95) {
+            modeling_redundant_cols <- unique(c(modeling_redundant_cols, numeric_cols[j]))
+          }
+          if (abs(c_val) >= 0.999) {
+            cat(sprintf("[ANOMALY] Multicollinearity bug detected between '%s' and '%s'! (Correlation = %.4f)\n", 
+                        numeric_cols[i], numeric_cols[j], c_val))
+            cat("       - CRITICAL ANOMALY: Perfectly correlated numeric columns indicate duplicate joins or redundant SQL computations.\n")
+            collinearity_detected <- TRUE
+            collinear_redundant_cols <- unique(c(collinear_redundant_cols, numeric_cols[j]))
+            
+            findings <- c(findings, sprintf("- **CRITICAL ANOMALY: Multicollinearity between '%s' and '%s'**: Correlation coefficient is %.4f.", numeric_cols[i], numeric_cols[j], c_val))
+            suggestions <- c(suggestions, sprintf("- **Remove Collinearity between '%s' and '%s'**: Review your SQL query to ensure you did not join the same table twice or select the same column multiple times under different aliases.", numeric_cols[i], numeric_cols[j]))
+            grade <- "CRITICAL ANOMALY DETECTED 🔴"
+          }
         }
       }
     }
@@ -499,7 +505,8 @@ audit_collinearity <- function(data, numeric_cols) {
     suggestions = suggestions,
     grade = grade,
     collinearity_detected = collinearity_detected,
-    collinear_redundant_cols = collinear_redundant_cols
+    collinear_redundant_cols = collinear_redundant_cols,
+    modeling_redundant_cols = modeling_redundant_cols
   ))
 }
 
@@ -518,26 +525,29 @@ run_significance_tests <- function(data, numeric_cols, categorical_cols) {
   cat("--- ANOVA & MANOVA Audit (Replication Check) ---\n")
   
   if (length(numeric_cols) >= 2 && length(categorical_cols) > 0) {
-    for (cat_col in categorical_cols) {
-      is_self_bin <- FALSE
-      for (num_col in numeric_cols) {
-        base_num <- gsub("_LOG$", "", num_col)
-        if (cat_col == paste0(base_num, "_BIN")) {
-          is_self_bin <- TRUE
-          break
+    # Exclude numeric columns with >= 10% missingness to avoid dropping all observations in complete.cases
+    manova_numeric_cols <- numeric_cols[sapply(numeric_cols, function(col) mean(is.na(data[[col]]))) < 0.10]
+    
+    if (length(manova_numeric_cols) >= 2) {
+      for (cat_col in categorical_cols) {
+        is_self_bin <- FALSE
+        for (num_col in manova_numeric_cols) {
+          base_num <- gsub("_LOG$", "", num_col)
+          if (cat_col == paste0(base_num, "_BIN")) {
+            is_self_bin <- TRUE
+            break
+          }
         }
-      }
-      if (is_self_bin) next
-      
-      valid_rows <- complete.cases(data[numeric_cols]) & !is.na(data[[cat_col]])
-      valid_data <- data[valid_rows, ]
-      
-      group_counts <- table(valid_data[[cat_col]])
-      cat(sprintf("group_counts '%s':\n", group_counts))
-
-      if (length(group_counts) >= 2 && min(group_counts) >= 2) {
-        Y <- as.matrix(valid_data[numeric_cols])
-        group <- factor(valid_data[[cat_col]])
+        if (is_self_bin) next
+        
+        valid_rows <- complete.cases(data[manova_numeric_cols]) & !is.na(data[[cat_col]])
+        valid_data <- data[valid_rows, ]
+        
+        group_counts <- table(valid_data[[cat_col]])
+        
+        if (length(group_counts) >= 2 && min(group_counts) >= 2) {
+          Y <- as.matrix(valid_data[manova_numeric_cols])
+          group <- factor(valid_data[[cat_col]])
         
         fit <- tryCatch({
           manova(Y ~ group)
@@ -593,6 +603,7 @@ run_significance_tests <- function(data, numeric_cols, categorical_cols) {
       }
     }
   }
+}
   
   if (length(numeric_cols) > 0 && length(categorical_cols) > 0) {
     for (num in numeric_cols) {
@@ -739,9 +750,10 @@ select_uninformative_factors <- function(sig_results, collinear_redundant_cols, 
   # 4. Multicollinear / redundant numeric columns
   if (length(collinear_redundant_cols) > 0) {
     for (col_name in collinear_redundant_cols) {
+      is_perfect_bug <- col_name %in% audit_info$collinearity$collinear_redundant_cols
       uninformative_factors[[col_name]] <- list(
         name = col_name,
-        reason = "Multicollinearity (perfect correlation >= 0.999 with another variable)",
+        reason = if (is_perfect_bug) "Multicollinearity (perfect correlation >= 0.999 indicating duplicate join bug)" else "Multicollinearity (high redundancy correlation >= 0.95 with another variable)",
         type = "collinear"
       )
     }
@@ -1061,12 +1073,12 @@ generate_plots <- function(data, numeric_cols, categorical_cols, kmeans_res, csv
     bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow", "aquamarine", "lavender")
     for (i in 1:num_plots) {
       col_name <- numeric_cols[i]
-      tbl <- sort(table(data[[col_name]], useNA = "no"), decreasing = TRUE)
       color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
-      if (length(tbl) > 0) {
-        hist(as.numeric(tbl),
-          main = paste("Histogram of ", col_name),
-          xlab = "Value", ylab = "Count",
+      non_na_vals <- data[[col_name]][!is.na(data[[col_name]])]
+      if (length(non_na_vals) > 0) {
+        hist(non_na_vals,
+          main = paste("Distribution of", col_name),
+          xlab = "Value", ylab = "Frequency",
           col = color_choice, border = "white")
         grid(nx = NA, ny = NULL)
       } else {
@@ -1535,7 +1547,7 @@ main <- function(csv_path) {
   )
   
   # Remove collinear redundant columns from numeric modeling candidates
-  clean_numeric_cols <- setdiff(prep$numeric_cols, audit_info$collinearity$collinear_redundant_cols)
+  clean_numeric_cols <- setdiff(prep$numeric_cols, audit_info$collinearity$modeling_redundant_cols)
   
   # Downsample for ANOVA, MANOVA, K-Means, and plotting to ensure computational performance on large datasets
   n_rows <- nrow(prep$data)
@@ -1550,7 +1562,7 @@ main <- function(csv_path) {
   stat_results <- run_significance_tests(sampled_data, clean_numeric_cols, prep$categorical_cols)
   
   # Step 7: Select Uninformative Factors (Feedback Loop)
-  reporting <- select_uninformative_factors(stat_results, audit_info$collinearity$collinear_redundant_cols, prep, audit_info)
+  reporting <- select_uninformative_factors(stat_results, audit_info$collinearity$modeling_redundant_cols, prep, audit_info)
   
   # Step 8: Clustering and PCA
   kmeans_res <- discover_personas(sampled_data, clean_numeric_cols, terminology)

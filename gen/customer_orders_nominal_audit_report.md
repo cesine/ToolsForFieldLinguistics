@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-23 09:06:38.885301
+**Report Generated on:** 2026-07-23 09:52:08.220948
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
@@ -38,28 +38,11 @@ The demographic distribution of the sample is detailed below:
 | **C_REGION** | AFRICA | 125 | 20.23% |
 | **C_REGION** | EUROPE | 118 | 19.09% |
 | **C_REGION** | AMERICA | 117 | 18.93% |
-| **O_TOTALPRICE_BIN** | Medium | 210 | 33.98% |
-| **O_TOTALPRICE_BIN** | Low | 204 | 33.01% |
-| **O_TOTALPRICE_BIN** | High | 204 | 33.01% |
-| **C_ACCTBAL_BIN** | Medium | 210 | 33.98% |
-| **C_ACCTBAL_BIN** | Low | 204 | 33.01% |
-| **C_ACCTBAL_BIN** | High | 204 | 33.01% |
-| **TOTAL_QUANTITY_BIN** | Medium | 209 | 33.82% |
-| **TOTAL_QUANTITY_BIN** | Low | 206 | 33.33% |
-| **TOTAL_QUANTITY_BIN** | High | 203 | 32.85% |
-| **AVG_DISCOUNT_BIN** | Low | 209 | 33.82% |
-| **AVG_DISCOUNT_BIN** | Medium | 205 | 33.17% |
-| **AVG_DISCOUNT_BIN** | High | 204 | 33.01% |
-| **TOTAL_DISCOUNT_VALUE_BIN** | Medium | 210 | 33.98% |
-| **TOTAL_DISCOUNT_VALUE_BIN** | Low | 204 | 33.01% |
-| **TOTAL_DISCOUNT_VALUE_BIN** | High | 204 | 33.01% |
-| **MAX_SHIP_DELAY_LOG_BIN** | Medium | 258 | 41.75% |
-| **MAX_SHIP_DELAY_LOG_BIN** | Low | 203 | 32.85% |
-| **MAX_SHIP_DELAY_LOG_BIN** | High | 149 | 24.11% |
 
 Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
 
-![Figure 3: Independent Variable Sample Size Distributions](customer_orders_nominal_independent_distributions.png)
+![Figure 3a: Dependent Variable Sample Size Distributions](customer_orders_nominal_dependent_distributions.png)
+![Figure 3b: Independent Variable Sample Size Distributions](customer_orders_nominal_independent_distributions.png)
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`; Transaction Processing Performance Council [TPC], 2014) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
@@ -73,7 +56,7 @@ To profile user choice dynamics, click patterns, and decision hesitation (Pongra
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
-* **Independent Variables (Factors)**: `O_ORDERSTATUS`, `O_ORDERPRIORITY`, `C_MKTSEGMENT`, `C_REGION`, `O_TOTALPRICE_BIN`, `C_ACCTBAL_BIN`, `TOTAL_QUANTITY_BIN`, `AVG_DISCOUNT_BIN`, `TOTAL_DISCOUNT_VALUE_BIN`, `MAX_SHIP_DELAY_LOG_BIN`
+* **Independent Variables (Factors)**: `O_ORDERSTATUS`, `O_ORDERPRIORITY`, `C_MKTSEGMENT`, `C_REGION`
 * **Dependent Variables (Metrics)**: `O_TOTALPRICE`, `C_ACCTBAL`, `TOTAL_QUANTITY`, `AVG_DISCOUNT`, `TOTAL_DISCOUNT_VALUE`, `ITEM_COUNT`, `MAX_SHIP_DELAY_LOG`
 
 ### Response-Time Preprocessing (Methodological Standards)
@@ -91,64 +74,31 @@ Following standard methodologies for reaction time outcomes (McConnell et al., 2
 - **WARNING: Constant Column 'O_ORDERSTATUS'**: 100% of rows contain the value 'O'.
 - **WARNING: Constant Column 'O_ORDERDATE'**: 100% of rows contain the value '1998-08-01'.
 - **WARNING: Suspicious Uniformity on 'C_REGION'**: Category counts are highly uniform (Coefficient of Variation = 0.0474). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'O_TOTALPRICE_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'C_ACCTBAL_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'TOTAL_QUANTITY_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0146). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'AVG_DISCOUNT_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0128). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'TOTAL_DISCOUNT_VALUE_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0168). This suggests the dataset is synthetic or has been artificially balanced.
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
 We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://www.statisticshowto.com/pillais-trace/) to test for overall group differences across continuous variables:
 
 - **Group Factor 'O_ORDERPRIORITY'**:
-  - Pillai's Trace: `0.0382`
-  - Approximate F:  `0.8289`
-  - p-value:        `0.7218` (Not Significant)
+  - Pillai's Trace: `0.0310`
+  - Approximate F:  `0.7840`
+  - p-value:        `0.7611` (Not Significant)
 
 - **Group Factor 'C_MKTSEGMENT'**:
-  - Pillai's Trace: `0.0509`
-  - Approximate F:  `1.1079`
-  - p-value:        `0.3175` (Not Significant)
+  - Pillai's Trace: `0.0484`
+  - Approximate F:  `1.2307`
+  - p-value:        `0.2022` (Not Significant)
 
 - **Group Factor 'C_REGION'**:
-  - Pillai's Trace: `0.0254`
-  - Approximate F:  `0.5488`
-  - p-value:        `0.9739` (Not Significant)
-
-- **Group Factor 'MAX_SHIP_DELAY_LOG_BIN'**:
-  - Pillai's Trace: `0.6264`
-  - Approximate F:  `39.2228`
-  - p-value:        `< 0.0001` (Statistically Significant)
+  - Pillai's Trace: `0.0180`
+  - Approximate F:  `0.4539`
+  - p-value:        `0.9896` (Not Significant)
 
 
 #### ANOVA Outputs (Significant Univariate Groupings)
 We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
 
-- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `1279.3364`, p = `< 0.0001`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'AVG_DISCOUNT_BIN'**: F = `14.2000`, p = `< 0.0001`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `511.4893`, p = `< 0.0001`
-- **Significant variation in 'O_TOTALPRICE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `51.2760`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'O_TOTALPRICE_BIN'**: F = `1427.0373`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'AVG_DISCOUNT_BIN'**: F = `16.1459`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `518.9834`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_QUANTITY' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `52.4728`, p = `< 0.0001`
-- **Significant variation in 'AVG_DISCOUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `53.0806`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'O_TOTALPRICE_BIN'**: F = `448.7368`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'TOTAL_QUANTITY_BIN'**: F = `452.6462`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'AVG_DISCOUNT_BIN'**: F = `71.1741`, p = `< 0.0001`
-- **Significant variation in 'TOTAL_DISCOUNT_VALUE' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `35.7527`, p = `< 0.0001`
-- **Significant variation in 'ITEM_COUNT' grouped by 'O_TOTALPRICE_BIN'**: F = `716.1448`, p = `< 0.0001`
-- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_QUANTITY_BIN'**: F = `830.1939`, p = `< 0.0001`
-- **Significant variation in 'ITEM_COUNT' grouped by 'AVG_DISCOUNT_BIN'**: F = `28.6173`, p = `< 0.0001`
-- **Significant variation in 'ITEM_COUNT' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `341.0506`, p = `< 0.0001`
-- **Significant variation in 'ITEM_COUNT' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `65.4372`, p = `< 0.0001`
 - **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'C_MKTSEGMENT'**: F = `2.8583`, p = `0.0229`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'O_TOTALPRICE_BIN'**: F = `67.2699`, p = `< 0.0001`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_QUANTITY_BIN'**: F = `73.0717`, p = `< 0.0001`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'AVG_DISCOUNT_BIN'**: F = `4.4221`, p = `0.0124`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'TOTAL_DISCOUNT_VALUE_BIN'**: F = `49.7741`, p = `< 0.0001`
-- **Significant variation in 'MAX_SHIP_DELAY_LOG' grouped by 'MAX_SHIP_DELAY_LOG_BIN'**: F = `463.7476`, p = `< 0.0001`
 
 Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
 
@@ -159,17 +109,17 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 287 | 46.44% |
-| **Cluster 2** | 331 | 53.56% |
+| **Cluster 1** | 317 | 51.29% |
+| **Cluster 2** | 301 | 48.71% |
 
 
 #### Population Profiles (Cluster Feature Means)
 To characterize the discovered customer order personas in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
 
-| Cluster | O_TOTALPRICE | C_ACCTBAL | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
-|---|---|---|---|---|---|---|---|
-| **Cluster 1** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
-| **Cluster 2** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
+| Cluster | O_TOTALPRICE | C_ACCTBAL | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
+|---|---|---|---|---|---|---|
+| **Cluster 1** | 81640.16 | 4764.78 | 0.05 | 3686.01 | 2.42 | 3.02 |
+| **Cluster 2** | 225819.33 | 4316.29 | 0.05 | 11942.45 | 5.70 | 3.29 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -182,13 +132,12 @@ To reverse-engineer which original variables drive the principal component proje
 
 | Metric | PC1 Loading | PC2 Loading | Influence Strength (PC1 & PC2) |
 |---|---|---|---|
-| `AVG_DISCOUNT` | `-0.0911` | `0.8663` | `0.8711` |
-| `TOTAL_DISCOUNT_VALUE` | `-0.4614` | `0.2736` | `0.5364` |
-| `TOTAL_QUANTITY` | `-0.4938` | `-0.1083` | `0.5055` |
-| `O_TOTALPRICE` | `-0.4916` | `-0.1107` | `0.5039` |
-| `ITEM_COUNT` | `-0.4673` | `-0.1320` | `0.4855` |
-| `MAX_SHIP_DELAY_LOG` | `-0.2700` | `-0.1856` | `0.3276` |
-| `C_ACCTBAL` | `0.0462` | `-0.3143` | `0.3177` |
+| `AVG_DISCOUNT` | `-0.1410` | `0.8526` | `0.8642` |
+| `TOTAL_DISCOUNT_VALUE` | `-0.5341` | `0.2340` | `0.5831` |
+| `O_TOTALPRICE` | `-0.5456` | `-0.1462` | `0.5648` |
+| `ITEM_COUNT` | `-0.5309` | `-0.1807` | `0.5608` |
+| `MAX_SHIP_DELAY_LOG` | `-0.3333` | `-0.2676` | `0.4275` |
+| `C_ACCTBAL` | `0.0648` | `-0.3045` | `0.3113` |
 
 
 ### Interpretation of Figure 1:
@@ -204,11 +153,6 @@ Based on the results, we recommend the following modifications to improve the SQ
 - **Constant Column 'O_ORDERSTATUS'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.
 - **Constant Column 'O_ORDERDATE'**: Verify if this is an intended filter (e.g., single day partition). If not, verify that you didn't accidentally hardcode a value or introduce a query join bug.
 - **Investigate Uniformity on 'C_REGION'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'O_TOTALPRICE_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'C_ACCTBAL_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'TOTAL_QUANTITY_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'AVG_DISCOUNT_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'TOTAL_DISCOUNT_VALUE_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
 
 ### Methodological Discussion on Skewness
 As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying behavioral deviations in the customer order personas.
@@ -275,12 +219,8 @@ The following table details the variables that were audited and identified as un
 |---|---|---|
 | `O_ORDERSTATUS` | constant | Constant column (0 variance) |
 | `C_REGION` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0474 < 8%) |
-| `O_TOTALPRICE_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
-| `C_ACCTBAL_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
-| `TOTAL_QUANTITY_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0146 < 8%) |
-| `AVG_DISCOUNT_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0128 < 8%) |
-| `TOTAL_DISCOUNT_VALUE_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0168 < 8%) |
 | `O_ORDERPRIORITY` | insignificant | Statistically insignificant (p-value >= 0.05 across all ANOVA/MANOVA groups) |
+| `TOTAL_QUANTITY` | collinear | Multicollinearity (high redundancy correlation >= 0.95 with another variable) |
 
 Figure 4 presents the distribution of these uninformative variables, showing why they lack statistical value (e.g. constant values, artificial uniform distributions, or flat statistical groupings):
 

@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: arbres-publics
 
-**Report Generated on:** 2026-07-23 09:43:28.26632
+**Report Generated on:** 2026-07-23 09:52:21.379951
 **Source Dataset:** `arbres-publics.csv`
 **Auditor Classification Status:** MINOR ANOMALY DETECTED 🟡
 
@@ -103,7 +103,51 @@ We define a mixed multivariate design incorporating:
 #### MANOVA Group Factor Outcomes
 We executed [multivariate analysis of variance (MANOVA)](https://en.wikipedia.org/wiki/Multivariate_analysis_of_variance) using [Pillai's trace](https://www.statisticshowto.com/pillais-trace/) to test for overall group differences across continuous variables:
 
-No MANOVA tests could be computed.
+- **Group Factor 'INV_TYPE'**:
+  - Pillai's Trace: `0.1354`
+  - Approximate F:  `156.3662`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Rue_cote_LUMPED'**:
+  - Pillai's Trace: `0.5601`
+  - Approximate F:  `125.9315`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Emplacement_LUMPED'**:
+  - Pillai's Trace: `0.2525`
+  - Approximate F:  `53.0966`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Sigle_LUMPED'**:
+  - Pillai's Trace: `0.4433`
+  - Approximate F:  `32.3058`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Essence_latin_LUMPED'**:
+  - Pillai's Trace: `0.4433`
+  - Approximate F:  `32.3058`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Essence_fr_LUMPED'**:
+  - Pillai's Trace: `0.4433`
+  - Approximate F:  `32.3058`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Essence_ang_LUMPED'**:
+  - Pillai's Trace: `0.4433`
+  - Approximate F:  `32.3058`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Stationnement_jour_LUMPED'**:
+  - Pillai's Trace: `0.1687`
+  - Approximate F:  `34.8504`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
+- **Group Factor 'Stationnement_heure_LUMPED'**:
+  - Pillai's Trace: `0.2057`
+  - Approximate F:  `16.4451`
+  - p-value:        `< 0.0001` (Statistically Significant)
+
 
 #### ANOVA Outputs (Significant Univariate Groupings)
 We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) models for each continuous metric. The following factors show statistically significant differences (p < 0.05) in group means:
@@ -180,24 +224,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'Coord_Y' grouped by 'Essence_ang_LUMPED'**: F = `4.5766`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Stationnement_jour_LUMPED'**: F = `36.2717`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Stationnement_heure_LUMPED'**: F = `11.6129`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'ARROND_NOM'**: F = `4179.3510`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Rue_cote_LUMPED'**: F = `70.2823`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Emplacement_LUMPED'**: F = `42.6297`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Sigle_LUMPED'**: F = `6.9019`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Essence_latin_LUMPED'**: F = `6.9019`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Essence_fr_LUMPED'**: F = `6.9019`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Essence_ang_LUMPED'**: F = `6.9019`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Stationnement_jour_LUMPED'**: F = `36.1739`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Stationnement_heure_LUMPED'**: F = `25.5656`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'ARROND_NOM'**: F = `5706.9610`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Rue_cote_LUMPED'**: F = `32.4302`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Emplacement_LUMPED'**: F = `17.5808`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Sigle_LUMPED'**: F = `4.5741`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Essence_latin_LUMPED'**: F = `4.5741`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Essence_fr_LUMPED'**: F = `4.5741`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Essence_ang_LUMPED'**: F = `4.5741`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Stationnement_jour_LUMPED'**: F = `36.3713`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Stationnement_heure_LUMPED'**: F = `11.6520`, p = `< 0.0001`
 
 Figure 2 presents the pairwise scatterplots with a fitted linear regression line of best fit to visualize the correlation and linear relationships between these continuous metrics:
 
@@ -208,17 +234,17 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 376 | 7.52% |
-| **Cluster 2** | 4624 | 92.48% |
+| **Cluster 1** | 4304 | 86.08% |
+| **Cluster 2** | 696 | 13.92% |
 
 
 #### Population Profiles (Cluster Feature Means)
 To characterize the discovered tree population profiles in terms of the original variables, the table below presents the mean value of each numeric metric within each cluster:
 
-| Cluster | EMP_NO | ARROND | No_civique | DHP | Distance_pave | District | Code_secteur | Coord_X | Coord_Y | Longitude | Latitude |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| **Cluster 1** | 181924.55 | 24.67 | 4992.94 | 23.79 | 3.04 | 196.53 | 1.67 | 281728.15 | 5036944.03 | -73.80 | 45.47 |
-| **Cluster 2** | 143259.96 | 6.17 | 5239.44 | 25.40 | 2.53 | 330.70 | 4.01 | 297919.83 | 5045097.88 | -73.59 | 45.55 |
+| Cluster | EMP_NO | ARROND | No_civique | DHP | Distance_pave | District | Code_secteur | Coord_X | Coord_Y |
+|---|---|---|---|---|---|---|---|---|---|
+| **Cluster 1** | 137655.13 | 5.45 | 5487.62 | 25.82 | 2.50 | 328.10 | 4.28 | 297768.84 | 5045826.38 |
+| **Cluster 2** | 198807.50 | 20.62 | 3448.55 | 21.93 | 3.27 | 273.62 | 1.35 | 290106.27 | 5036187.96 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
@@ -231,17 +257,15 @@ To reverse-engineer which original variables drive the principal component proje
 
 | Metric | PC1 Loading | PC2 Loading | Influence Strength (PC1 & PC2) |
 |---|---|---|---|
-| `Coord_Y` | `-0.4401` | `0.4652` | `0.6404` |
-| `Latitude` | `-0.4407` | `0.4642` | `0.6401` |
-| `Longitude` | `-0.4839` | `-0.3295` | `0.5855` |
-| `Coord_X` | `-0.4842` | `-0.3289` | `0.5854` |
-| `District` | `-0.1328` | `-0.4090` | `0.4300` |
-| `ARROND` | `0.3478` | `0.0666` | `0.3542` |
-| `No_civique` | `0.0006` | `0.3275` | `0.3275` |
-| `EMP_NO` | `0.0435` | `0.2248` | `0.2290` |
-| `Distance_pave` | `0.0287` | `0.1460` | `0.1487` |
-| `Code_secteur` | `-0.0412` | `0.0225` | `0.0470` |
-| `DHP` | `-0.0187` | `0.0055` | `0.0195` |
+| `EMP_NO` | `0.1596` | `0.6995` | `0.7174` |
+| `DHP` | `-0.0762` | `-0.6655` | `0.6698` |
+| `Coord_X` | `-0.6049` | `0.1298` | `0.6187` |
+| `ARROND` | `0.5561` | `0.0075` | `0.5562` |
+| `Coord_Y` | `-0.4865` | `0.2090` | `0.5295` |
+| `District` | `-0.2238` | `-0.0636` | `0.2327` |
+| `Distance_pave` | `0.0674` | `0.0244` | `0.0717` |
+| `Code_secteur` | `-0.0461` | `0.0489` | `0.0672` |
+| `No_civique` | `0.0093` | `0.0166` | `0.0190` |
 
 
 ### Interpretation of Figure 1:
@@ -314,7 +338,17 @@ document.querySelectorAll('.experiment-button').forEach(button => {
 ---
 
 ## Appendix C: Audited and Uninformative Variables
-No variables were identified as uninformative during this audit.
+The following table details the variables that were audited and identified as uninformative:
+
+| Variable | Type | Reason for Exclusion |
+|---|---|---|
+| `Longitude` | collinear | Multicollinearity (high redundancy correlation >= 0.95 with another variable) |
+| `Latitude` | collinear | Multicollinearity (high redundancy correlation >= 0.95 with another variable) |
+
+Figure 4 presents the distribution of these uninformative variables, showing why they lack statistical value (e.g. constant values, artificial uniform distributions, or flat statistical groupings):
+
+![Figure 4: Uninformative Variable Distributions](arbres-publics_uninformative_distributions.png)
+
 
 ---
 
