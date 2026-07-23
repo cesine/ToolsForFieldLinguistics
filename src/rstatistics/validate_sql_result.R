@@ -1440,7 +1440,31 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
     "---",
     "",
     "## Appendix C: Audited and Uninformative Variables",
-    appendix_c_txt
+    appendix_c_txt,
+    "",
+    "---",
+    "",
+    "## Appendix D: Methodology Execution Flow (Mermaid Diagram)",
+    "Below is the Mermaid flowchart illustrating the modular structure and statistical feedback loops of our auditing methodology:",
+    "",
+    "```mermaid",
+    "graph TD",
+    "    A[\"1. Load Data<br/>(load_data)\"] --> B[\"2. Auto-Classify Columns<br/>(classify_columns)\"]",
+    "    B --> C[\"3. Preprocess & Transform<br/>(preprocess_data)\"]",
+    "    C --> D[\"4. Correlation & Collinearity Audit<br/>(audit_collinearity)\"]",
+    "    ",
+    "    D -->|Feedback: Identify collinear uninformative columns| E[\"5. Run ANOVA/MANOVA<br/>(run_significance_tests)\"]",
+    "    ",
+    "    E -->|Feedback: Identify insignificant uninformative columns| F[\"6. Partition Reporting Factors<br/>(select_uninformative_factors)\"]",
+    "    ",
+    "    F -->|Informative Variable Set| G[\"7. Cluster & PCA<br/>(discover_personas)\"]",
+    "    F -->|Informative Variable Set| H[\"8. Save Dashboard & Plots<br/>(generate_plots)\"]",
+    "    F -->|Uninformative Variable Set| J[\"8b. Save Uninformative Histograms<br/>(generate_uninformative_plots)\"]",
+    "    ",
+    "    G --> I[\"9. Compile Markdown Report<br/>(generate_report)\"]",
+    "    H --> I",
+    "    J -->|Rendered in Appendix| I",
+    "```"
   )
   
   writeLines(report_lines, report_file)
