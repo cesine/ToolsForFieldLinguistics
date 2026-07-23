@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: arbres-publics
 
-**Report Generated on:** 2026-07-23 09:03:57.363277
+**Report Generated on:** 2026-07-23 09:06:51.499916
 **Source Dataset:** `arbres-publics.csv`
 **Auditor Classification Status:** MINOR ANOMALY DETECTED 🟡
 

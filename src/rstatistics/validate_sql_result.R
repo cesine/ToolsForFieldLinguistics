@@ -22,6 +22,7 @@ suppressPackageStartupMessages(library(car))
 MAX_CATEGORICAL_UNIQUE_VALUES <- 15
 ENABLE_QUANTILE_BINNING <- TRUE
 MODELING_SAMPLE_SIZE <- 5000
+LOAD_SAMPLE_SIZE <- 20000
 
 # Helper function to calculate skewness in base R
 get_skewness <- function(x) {
@@ -58,8 +59,8 @@ load_data <- function(csv_path) {
       if (!is.na(file_info$size) && file_info$size > 10 * 1024 * 1024) { # > 10 MB
         # TODO ensure the fact that the data was sampled is persisted in the report
         cat("Warning: Large file detected (> 10MB) and fast parsers (data.table/readr) are unavailable.\n")
-        cat("         Sampling the first 20,000 rows to prevent memory exhaustion and slow execution.\n")
-        df_sampled <- read.csv(csv_path, stringsAsFactors = FALSE, nrows = 20000)
+        cat(sprintf("         Sampling the first %s rows to prevent memory exhaustion and slow execution.\n", format(LOAD_SAMPLE_SIZE, big.mark=",")))
+        df_sampled <- read.csv(csv_path, stringsAsFactors = FALSE, nrows = LOAD_SAMPLE_SIZE)
         attr(df_sampled, "was_sampled_at_load") <- TRUE
         df_sampled
       } else {
@@ -1165,9 +1166,9 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
   
   sampling_note_abstract <- ""
   if (was_sampled_at_load && was_downsampled) {
-    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time, and further downsampled to %s rows for statistical modeling and plotting.)", format(MODELING_SAMPLE_SIZE, big.mark=","))
+    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first %s rows at load time, and further downsampled to %s rows for statistical modeling and plotting.)", format(LOAD_SAMPLE_SIZE, big.mark=","), format(MODELING_SAMPLE_SIZE, big.mark=","))
   } else if (was_sampled_at_load) {
-    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first 20,000 rows at load time.)")
+    sampling_note_abstract <- sprintf(" (Note: Due to memory and execution constraints, the dataset was sampled to the first %s rows at load time.)", format(LOAD_SAMPLE_SIZE, big.mark=","))
   } else if (was_downsampled) {
     sampling_note_abstract <- sprintf(" (Note: The dataset containing %d rows was downsampled to %s rows for statistical modeling and plotting.)", nrow(original_data), format(MODELING_SAMPLE_SIZE, big.mark=","))
   }

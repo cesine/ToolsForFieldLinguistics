@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: customer_orders_nominal
 
-**Report Generated on:** 2026-07-23 09:03:44.68437
+**Report Generated on:** 2026-07-23 09:06:38.885301
 **Source Dataset:** `customer_orders_nominal.csv`
 **Auditor Classification Status:** CRITICAL ANOMALY DETECTED 🔴
 
@@ -159,8 +159,8 @@ We standardized the numeric metrics and fitted a [K-Means clustering algorithm](
 
 | Persona Cluster | Order Count | Percentage (%) |
 |---|---|---|
-| **Cluster 1** | 331 | 53.56% |
-| **Cluster 2** | 287 | 46.44% |
+| **Cluster 1** | 287 | 46.44% |
+| **Cluster 2** | 331 | 53.56% |
 
 
 #### Population Profiles (Cluster Feature Means)
@@ -168,8 +168,8 @@ To characterize the discovered customer order personas in terms of the original 
 
 | Cluster | O_TOTALPRICE | C_ACCTBAL | TOTAL_QUANTITY | AVG_DISCOUNT | TOTAL_DISCOUNT_VALUE | ITEM_COUNT | MAX_SHIP_DELAY_LOG |
 |---|---|---|---|---|---|---|---|
-| **Cluster 1** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
-| **Cluster 2** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
+| **Cluster 1** | 230128.95 | 4277.64 | 155.00 | 0.05 | 12067.62 | 5.79 | 3.29 |
+| **Cluster 2** | 84001.63 | 4779.32 | 56.68 | 0.05 | 3926.69 | 2.48 | 3.03 |
 
 
 ## 4. Exploratory Multivariate Analysis and Cluster Diagnostics
