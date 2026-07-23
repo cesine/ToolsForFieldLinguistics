@@ -5,7 +5,7 @@
 <GateDocumentFeatures>
 <Feature>
   <Name className="java.lang.String">gate.SourceURL</Name>
-  <Value className="java.lang.String">file:/Users/gina/Documents/workspacests/NonPublicCorpora/gen/InukMagzine/InukMagazine104_preprocessed.html</Value>
+  <Value className="java.lang.String">file:~/Documents/workspacests/NonPublicCorpora/gen/InukMagzine/InukMagazine104_preprocessed.html</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">MimeType</Name>

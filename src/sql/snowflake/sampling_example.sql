@@ -1,0 +1,61 @@
+-- =====================================================================
+-- Snowflake SQL Sampling Examples
+-- Use these patterns to pull a representative sample of data locally 
+-- for validation and testing before running queries on full datasets.
+--
+-- REFERENCE DATASET (TPC-H Benchmark):
+-- This query references the standard Snowflake TPC-H sample dataset:
+-- https://docs.snowflake.com/en/user-guide/sample-data-tpch
+--
+-- To set up this shared database in your Snowflake account:
+--   CREATE DATABASE SNOWFLAKE_SAMPLE_DATA FROM SHARE SFC_SAMPLES.SAMPLE_DATA;
+--   GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE_SAMPLE_DATA TO ROLE PUBLIC;
+--
+-- OUTPUT CONVENTION:
+-- Export the query output as a CSV file to the project's local 'gen/' 
+-- directory (e.g. 'gen/snowflake_sample.csv') so that the R validation 
+-- scripts can easily locate and audit the results.
+-- =====================================================================
+
+-- Pattern 1: Date Partition Filtering with Limit (Cheapest & Recommended)
+-- When data is naturally partitioned by date (e.g. event tracking or behavioral logs),
+-- filtering for a single day and using LIMIT is the best, cheapest way to get a natural slice of data.
+-- Snowflake performs query pruning to only read that day's partitions, saving CPU and cost.
+SELECT 
+  O_ORDERKEY,
+  O_CUSTKEY,
+  O_ORDERDATE,
+  O_TOTALPRICE
+FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERS
+WHERE O_ORDERDATE = '1998-08-01'
+LIMIT 5000;
+
+-- Pattern 2: Bernoulli (Row-based) Random Sampling
+-- Good for random sampling of large tables.
+-- Percentage-based: returns roughly 1% of the total rows.
+-- Note: Requires scanning partitions to gather rows.
+SELECT 
+  C_CUSTKEY,
+  C_NAME,
+  C_MKTSEGMENT,
+  C_ACCTBAL
+FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER SAMPLE (1 PERCENT);
+
+-- Pattern 3: System (Block-based) Sampling
+-- More efficient on extremely large tables than Bernoulli as it samples blocks,
+-- but less random.
+SELECT 
+  O_ORDERKEY,
+  O_CUSTKEY,
+  O_TOTALPRICE,
+  O_ORDERDATE
+FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERS SAMPLE SYSTEM (10 PERCENT);
+
+-- Pattern 4: Fixed Row Count Sampling
+-- Snowflake returns exactly 1,000 random rows from the table.
+SELECT 
+  L_ORDERKEY,
+  L_PARTKEY,
+  L_QUANTITY,
+  L_EXTENDEDPRICE
+FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.LINEITEM SAMPLE (1000 ROWS);

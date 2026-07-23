@@ -13,9 +13,10 @@ Depends:
 Imports:
     digest,
     crayon,
-    kernlab
-Suggests:
-    devtools
+    kernlab,
+    testthat,
+    car,
+    cluster
 License: Apache 2.0 + file LICENSE
 Collate:
     'spam.r'

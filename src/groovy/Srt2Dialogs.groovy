@@ -2,7 +2,7 @@
 			web to get the information by taking a snippet of text and googling for it.
 */
 try {
-	String NonPublicCorpora = "/Users/gina/Documents/workspacests/NonPublicCorpora/"
+	String NonPublicCorpora = System.getProperty("user.home") + "/Documents/workspacests/NonPublicCorpora/"
 	/*
 	 * get all files in directory containing substring, 
 	 * for each file, extract the dialogs

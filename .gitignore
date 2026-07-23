@@ -84,3 +84,14 @@ Thumbs.db
 # Linux generated files #
 #########################
 *~
+
+# SQL validation outputs (ignore gen/ contents by default, except standard test files)
+gen/*
+!gen/customer_orders_nominal.csv
+!gen/customer_orders_anomalous.csv
+!gen/*_audit_report.md
+!gen/*_validation_plot.png
+!gen/*_scatterplots.png
+!gen/*_independent_distributions.png
+!gen/*_dependent_distributions.png
+!gen/*_uninformative_distributions.png
