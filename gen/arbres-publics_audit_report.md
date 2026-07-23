@@ -1,6 +1,6 @@
 # SQL Data Quality and Behavior Analysis Lab Report: arbres-publics
 
-**Report Generated on:** 2026-07-23 09:06:51.499916
+**Report Generated on:** 2026-07-23 09:43:28.26632
 **Source Dataset:** `arbres-publics.csv`
 **Auditor Classification Status:** MINOR ANOMALY DETECTED 🟡
 
@@ -31,39 +31,6 @@ The demographic distribution of the sample is detailed below:
 | **ARROND_NOM** | Côte-des-Neiges - Notre-Dame-de-Grâce | 438 | 8.76% |
 | **Arbre_remarquable** | N | 4999 | 99.98% |
 | **Arbre_remarquable** | O | 1 | 0.02% |
-| **EMP_NO_BIN** | Medium | 1741 | 34.82% |
-| **EMP_NO_BIN** | Low | 1644 | 32.88% |
-| **EMP_NO_BIN** | High | 1615 | 32.30% |
-| **ARROND_BIN** | Low | 2056 | 41.12% |
-| **ARROND_BIN** | High | 1573 | 31.46% |
-| **ARROND_BIN** | Medium | 1371 | 27.42% |
-| **No_civique_BIN** | Low | 883 | 17.66% |
-| **No_civique_BIN** | High | 845 | 16.90% |
-| **No_civique_BIN** | Medium | 835 | 16.70% |
-| **DHP_BIN** | Medium | 1732 | 34.64% |
-| **DHP_BIN** | Low | 1667 | 33.34% |
-| **DHP_BIN** | High | 1598 | 31.96% |
-| **Distance_pave_BIN** | Medium | 1076 | 21.52% |
-| **Distance_pave_BIN** | Low | 985 | 19.70% |
-| **Distance_pave_BIN** | High | 802 | 16.04% |
-| **District_BIN** | Low | 1136 | 22.72% |
-| **District_BIN** | Medium | 1060 | 21.20% |
-| **District_BIN** | High | 1024 | 20.48% |
-| **Code_secteur_BIN** | Low | 1759 | 35.18% |
-| **Code_secteur_BIN** | Medium | 20 | 0.40% |
-| **Code_secteur_BIN** | High | 1 | 0.02% |
-| **Coord_X_BIN** | Medium | 1755 | 35.10% |
-| **Coord_X_BIN** | High | 1638 | 32.76% |
-| **Coord_X_BIN** | Low | 1607 | 32.14% |
-| **Coord_Y_BIN** | Low | 1682 | 33.64% |
-| **Coord_Y_BIN** | Medium | 1677 | 33.54% |
-| **Coord_Y_BIN** | High | 1641 | 32.82% |
-| **Longitude_BIN** | Medium | 1756 | 35.12% |
-| **Longitude_BIN** | High | 1639 | 32.78% |
-| **Longitude_BIN** | Low | 1605 | 32.10% |
-| **Latitude_BIN** | Low | 1683 | 33.66% |
-| **Latitude_BIN** | Medium | 1676 | 33.52% |
-| **Latitude_BIN** | High | 1641 | 32.82% |
 | **Rue_cote_LUMPED** |  | NA | NA% |
 | **Rue_cote_LUMPED** | E | 857 | 17.14% |
 | **Rue_cote_LUMPED** | O | 804 | 16.08% |
@@ -107,7 +74,8 @@ The demographic distribution of the sample is detailed below:
 
 Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:
 
-![Figure 3: Independent Variable Sample Size Distributions](arbres-publics_independent_distributions.png)
+![Figure 3a: Dependent Variable Sample Size Distributions](arbres-publics_dependent_distributions.png)
+![Figure 3b: Independent Variable Sample Size Distributions](arbres-publics_independent_distributions.png)
 
 ### Apparatus and Setup
 Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`; Transaction Processing Performance Council [TPC], 2014) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).
@@ -121,7 +89,7 @@ To profile user choice dynamics, click patterns, and decision hesitation (Pongra
 
 ### Experimental Design
 We define a mixed multivariate design incorporating:
-* **Independent Variables (Factors)**: `INV_TYPE`, `ARROND_NOM`, `Arbre_remarquable`, `EMP_NO_BIN`, `ARROND_BIN`, `No_civique_BIN`, `DHP_BIN`, `Distance_pave_BIN`, `District_BIN`, `Code_secteur_BIN`, `Coord_X_BIN`, `Coord_Y_BIN`, `Longitude_BIN`, `Latitude_BIN`, `Rue_cote_LUMPED`, `Emplacement_LUMPED`, `Sigle_LUMPED`, `Essence_latin_LUMPED`, `Essence_fr_LUMPED`, `Essence_ang_LUMPED`, `Stationnement_jour_LUMPED`, `Stationnement_heure_LUMPED`
+* **Independent Variables (Factors)**: `INV_TYPE`, `ARROND_NOM`, `Arbre_remarquable`, `Rue_cote_LUMPED`, `Emplacement_LUMPED`, `Sigle_LUMPED`, `Essence_latin_LUMPED`, `Essence_fr_LUMPED`, `Essence_ang_LUMPED`, `Stationnement_jour_LUMPED`, `Stationnement_heure_LUMPED`
 * **Dependent Variables (Metrics)**: `EMP_NO`, `ARROND`, `No_civique`, `DHP`, `Distance_pave`, `District`, `Code_secteur`, `Coord_X`, `Coord_Y`, `Longitude`, `Latitude`
 
 
@@ -130,14 +98,6 @@ We define a mixed multivariate design incorporating:
 
 ### Data Quality and SQL Integrity Audits
 - **WARNING: Highly Collapsed Column 'Arbre_remarquable'**: 99.95% of rows contain the value 'N'.
-- **WARNING: Suspicious Uniformity on 'EMP_NO_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0173). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'No_civique_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0171). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'DHP_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0310). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'District_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0697). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'Coord_X_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0173). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'Coord_Y_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0173). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'Longitude_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0173). This suggests the dataset is synthetic or has been artificially balanced.
-- **WARNING: Suspicious Uniformity on 'Latitude_BIN'**: Category counts are highly uniform (Coefficient of Variation = 0.0173). This suggests the dataset is synthetic or has been artificially balanced.
 
 ### Statistical Hypothesis Testing
 #### MANOVA Group Factor Outcomes
@@ -150,13 +110,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 
 - **Significant variation in 'EMP_NO' grouped by 'INV_TYPE'**: F = `556.3986`, p = `< 0.0001`
 - **Significant variation in 'EMP_NO' grouped by 'ARROND_NOM'**: F = `21.8104`, p = `< 0.0001`
-- **Significant variation in 'EMP_NO' grouped by 'ARROND_BIN'**: F = `93.0807`, p = `< 0.0001`
-- **Significant variation in 'EMP_NO' grouped by 'No_civique_BIN'**: F = `6.2424`, p = `0.0020`
-- **Significant variation in 'EMP_NO' grouped by 'DHP_BIN'**: F = `224.2719`, p = `< 0.0001`
-- **Significant variation in 'EMP_NO' grouped by 'Distance_pave_BIN'**: F = `3.8203`, p = `0.0220`
-- **Significant variation in 'EMP_NO' grouped by 'District_BIN'**: F = `47.4181`, p = `< 0.0001`
-- **Significant variation in 'EMP_NO' grouped by 'Coord_Y_BIN'**: F = `3.2263`, p = `0.0398`
-- **Significant variation in 'EMP_NO' grouped by 'Latitude_BIN'**: F = `3.3139`, p = `0.0365`
 - **Significant variation in 'EMP_NO' grouped by 'Rue_cote_LUMPED'**: F = `210.8289`, p = `< 0.0001`
 - **Significant variation in 'EMP_NO' grouped by 'Emplacement_LUMPED'**: F = `96.4981`, p = `< 0.0001`
 - **Significant variation in 'EMP_NO' grouped by 'Sigle_LUMPED'**: F = `14.3015`, p = `< 0.0001`
@@ -167,15 +120,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'EMP_NO' grouped by 'Stationnement_heure_LUMPED'**: F = `2.3902`, p = `0.0034`
 - **Significant variation in 'ARROND' grouped by 'INV_TYPE'**: F = `23.5452`, p = `< 0.0001`
 - **Significant variation in 'ARROND' grouped by 'ARROND_NOM'**: F = `60529787028191640196183228416.0000`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'EMP_NO_BIN'**: F = `252.0533`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'No_civique_BIN'**: F = `71.0541`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'DHP_BIN'**: F = `27.0944`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'Distance_pave_BIN'**: F = `12.5746`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'District_BIN'**: F = `240.4213`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'Coord_X_BIN'**: F = `26.6000`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'Coord_Y_BIN'**: F = `1734.2238`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'Longitude_BIN'**: F = `26.5035`, p = `< 0.0001`
-- **Significant variation in 'ARROND' grouped by 'Latitude_BIN'**: F = `1729.4045`, p = `< 0.0001`
 - **Significant variation in 'ARROND' grouped by 'Rue_cote_LUMPED'**: F = `617.1805`, p = `< 0.0001`
 - **Significant variation in 'ARROND' grouped by 'Emplacement_LUMPED'**: F = `62.6416`, p = `< 0.0001`
 - **Significant variation in 'ARROND' grouped by 'Sigle_LUMPED'**: F = `8.1884`, p = `< 0.0001`
@@ -185,15 +129,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'ARROND' grouped by 'Stationnement_jour_LUMPED'**: F = `170.8500`, p = `< 0.0001`
 - **Significant variation in 'ARROND' grouped by 'Stationnement_heure_LUMPED'**: F = `62.0334`, p = `< 0.0001`
 - **Significant variation in 'No_civique' grouped by 'ARROND_NOM'**: F = `143.9682`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'EMP_NO_BIN'**: F = `66.5962`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'ARROND_BIN'**: F = `140.3707`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'DHP_BIN'**: F = `7.1941`, p = `0.0008`
-- **Significant variation in 'No_civique' grouped by 'Distance_pave_BIN'**: F = `65.0115`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'District_BIN'**: F = `237.6488`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'Coord_X_BIN'**: F = `117.8733`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'Coord_Y_BIN'**: F = `181.1530`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'Longitude_BIN'**: F = `117.8733`, p = `< 0.0001`
-- **Significant variation in 'No_civique' grouped by 'Latitude_BIN'**: F = `180.4687`, p = `< 0.0001`
 - **Significant variation in 'No_civique' grouped by 'Emplacement_LUMPED'**: F = `25.2752`, p = `< 0.0001`
 - **Significant variation in 'No_civique' grouped by 'Sigle_LUMPED'**: F = `4.1699`, p = `< 0.0001`
 - **Significant variation in 'No_civique' grouped by 'Essence_latin_LUMPED'**: F = `4.1699`, p = `< 0.0001`
@@ -203,13 +138,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'No_civique' grouped by 'Stationnement_heure_LUMPED'**: F = `14.0538`, p = `< 0.0001`
 - **Significant variation in 'DHP' grouped by 'INV_TYPE'**: F = `7.1071`, p = `0.0077`
 - **Significant variation in 'DHP' grouped by 'ARROND_NOM'**: F = `12.6053`, p = `< 0.0001`
-- **Significant variation in 'DHP' grouped by 'EMP_NO_BIN'**: F = `161.1945`, p = `< 0.0001`
-- **Significant variation in 'DHP' grouped by 'No_civique_BIN'**: F = `4.2173`, p = `0.0148`
-- **Significant variation in 'DHP' grouped by 'Distance_pave_BIN'**: F = `62.7589`, p = `< 0.0001`
-- **Significant variation in 'DHP' grouped by 'Coord_X_BIN'**: F = `11.4573`, p = `< 0.0001`
-- **Significant variation in 'DHP' grouped by 'Coord_Y_BIN'**: F = `5.1086`, p = `0.0061`
-- **Significant variation in 'DHP' grouped by 'Longitude_BIN'**: F = `11.7207`, p = `< 0.0001`
-- **Significant variation in 'DHP' grouped by 'Latitude_BIN'**: F = `5.1611`, p = `0.0058`
 - **Significant variation in 'DHP' grouped by 'Rue_cote_LUMPED'**: F = `9.2505`, p = `< 0.0001`
 - **Significant variation in 'DHP' grouped by 'Emplacement_LUMPED'**: F = `43.6527`, p = `< 0.0001`
 - **Significant variation in 'DHP' grouped by 'Sigle_LUMPED'**: F = `201.6380`, p = `< 0.0001`
@@ -218,15 +146,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'DHP' grouped by 'Essence_ang_LUMPED'**: F = `201.6380`, p = `< 0.0001`
 - **Significant variation in 'DHP' grouped by 'Stationnement_jour_LUMPED'**: F = `9.2164`, p = `< 0.0001`
 - **Significant variation in 'DHP' grouped by 'Stationnement_heure_LUMPED'**: F = `4.6759`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'EMP_NO_BIN'**: F = `16.7250`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'ARROND_BIN'**: F = `39.0389`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'No_civique_BIN'**: F = `22.6613`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'DHP_BIN'**: F = `12.1087`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'District_BIN'**: F = `43.5096`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'Coord_X_BIN'**: F = `32.6261`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'Coord_Y_BIN'**: F = `57.3166`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'Longitude_BIN'**: F = `32.6261`, p = `< 0.0001`
-- **Significant variation in 'Distance_pave' grouped by 'Latitude_BIN'**: F = `57.0886`, p = `< 0.0001`
 - **Significant variation in 'Distance_pave' grouped by 'Emplacement_LUMPED'**: F = `221.7752`, p = `< 0.0001`
 - **Significant variation in 'Distance_pave' grouped by 'Sigle_LUMPED'**: F = `7.3136`, p = `< 0.0001`
 - **Significant variation in 'Distance_pave' grouped by 'Essence_latin_LUMPED'**: F = `7.3136`, p = `< 0.0001`
@@ -235,14 +154,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'Distance_pave' grouped by 'Stationnement_jour_LUMPED'**: F = `18.9677`, p = `< 0.0001`
 - **Significant variation in 'Distance_pave' grouped by 'Stationnement_heure_LUMPED'**: F = `8.3513`, p = `< 0.0001`
 - **Significant variation in 'District' grouped by 'ARROND_NOM'**: F = `7604.5027`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'EMP_NO_BIN'**: F = `184.5599`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'ARROND_BIN'**: F = `288.9067`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'No_civique_BIN'**: F = `312.8267`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'Distance_pave_BIN'**: F = `53.9479`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'Coord_X_BIN'**: F = `656.2291`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'Coord_Y_BIN'**: F = `4.2378`, p = `0.0145`
-- **Significant variation in 'District' grouped by 'Longitude_BIN'**: F = `656.2291`, p = `< 0.0001`
-- **Significant variation in 'District' grouped by 'Latitude_BIN'**: F = `4.4003`, p = `0.0123`
 - **Significant variation in 'District' grouped by 'Emplacement_LUMPED'**: F = `57.6220`, p = `< 0.0001`
 - **Significant variation in 'District' grouped by 'Sigle_LUMPED'**: F = `5.2506`, p = `< 0.0001`
 - **Significant variation in 'District' grouped by 'Essence_latin_LUMPED'**: F = `5.2506`, p = `< 0.0001`
@@ -251,20 +162,7 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'District' grouped by 'Stationnement_jour_LUMPED'**: F = `67.1759`, p = `< 0.0001`
 - **Significant variation in 'District' grouped by 'Stationnement_heure_LUMPED'**: F = `90.9015`, p = `< 0.0001`
 - **Significant variation in 'Code_secteur' grouped by 'ARROND_NOM'**: F = `10.1795`, p = `< 0.0001`
-- **Significant variation in 'Code_secteur' grouped by 'EMP_NO_BIN'**: F = `72.4838`, p = `< 0.0001`
-- **Significant variation in 'Code_secteur' grouped by 'Coord_X_BIN'**: F = `16.5511`, p = `< 0.0001`
-- **Significant variation in 'Code_secteur' grouped by 'Coord_Y_BIN'**: F = `13.5298`, p = `< 0.0001`
-- **Significant variation in 'Code_secteur' grouped by 'Longitude_BIN'**: F = `16.4524`, p = `< 0.0001`
-- **Significant variation in 'Code_secteur' grouped by 'Latitude_BIN'**: F = `13.5298`, p = `< 0.0001`
 - **Significant variation in 'Coord_X' grouped by 'ARROND_NOM'**: F = `4185.7391`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'EMP_NO_BIN'**: F = `41.2464`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'ARROND_BIN'**: F = `53.1720`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'No_civique_BIN'**: F = `71.9828`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'Distance_pave_BIN'**: F = `27.8151`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'District_BIN'**: F = `340.0794`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'Coord_Y_BIN'**: F = `506.4381`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'Longitude_BIN'**: F = `3939.3440`, p = `< 0.0001`
-- **Significant variation in 'Coord_X' grouped by 'Latitude_BIN'**: F = `507.2800`, p = `< 0.0001`
 - **Significant variation in 'Coord_X' grouped by 'Rue_cote_LUMPED'**: F = `70.3664`, p = `< 0.0001`
 - **Significant variation in 'Coord_X' grouped by 'Emplacement_LUMPED'**: F = `42.5785`, p = `< 0.0001`
 - **Significant variation in 'Coord_X' grouped by 'Sigle_LUMPED'**: F = `6.9014`, p = `< 0.0001`
@@ -274,15 +172,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'Coord_X' grouped by 'Stationnement_jour_LUMPED'**: F = `36.2581`, p = `< 0.0001`
 - **Significant variation in 'Coord_X' grouped by 'Stationnement_heure_LUMPED'**: F = `25.5647`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'ARROND_NOM'**: F = `5710.6946`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'EMP_NO_BIN'**: F = `28.1538`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'ARROND_BIN'**: F = `722.7820`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'No_civique_BIN'**: F = `200.1028`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'DHP_BIN'**: F = `5.9280`, p = `0.0027`
-- **Significant variation in 'Coord_Y' grouped by 'Distance_pave_BIN'**: F = `48.5689`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'District_BIN'**: F = `1016.5072`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'Coord_X_BIN'**: F = `327.4585`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'Longitude_BIN'**: F = `325.4719`, p = `< 0.0001`
-- **Significant variation in 'Coord_Y' grouped by 'Latitude_BIN'**: F = `11052.3947`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Rue_cote_LUMPED'**: F = `32.2673`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Emplacement_LUMPED'**: F = `17.7029`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Sigle_LUMPED'**: F = `4.5766`, p = `< 0.0001`
@@ -292,14 +181,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'Coord_Y' grouped by 'Stationnement_jour_LUMPED'**: F = `36.2717`, p = `< 0.0001`
 - **Significant variation in 'Coord_Y' grouped by 'Stationnement_heure_LUMPED'**: F = `11.6129`, p = `< 0.0001`
 - **Significant variation in 'Longitude' grouped by 'ARROND_NOM'**: F = `4179.3510`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'EMP_NO_BIN'**: F = `41.3655`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'ARROND_BIN'**: F = `53.1846`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'No_civique_BIN'**: F = `72.4493`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Distance_pave_BIN'**: F = `27.8621`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'District_BIN'**: F = `340.5172`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Coord_X_BIN'**: F = `3938.7159`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Coord_Y_BIN'**: F = `504.2784`, p = `< 0.0001`
-- **Significant variation in 'Longitude' grouped by 'Latitude_BIN'**: F = `505.1161`, p = `< 0.0001`
 - **Significant variation in 'Longitude' grouped by 'Rue_cote_LUMPED'**: F = `70.2823`, p = `< 0.0001`
 - **Significant variation in 'Longitude' grouped by 'Emplacement_LUMPED'**: F = `42.6297`, p = `< 0.0001`
 - **Significant variation in 'Longitude' grouped by 'Sigle_LUMPED'**: F = `6.9019`, p = `< 0.0001`
@@ -309,15 +190,6 @@ We evaluated individual [univariate Analysis of Variance (ANOVA)](https://en.wik
 - **Significant variation in 'Longitude' grouped by 'Stationnement_jour_LUMPED'**: F = `36.1739`, p = `< 0.0001`
 - **Significant variation in 'Longitude' grouped by 'Stationnement_heure_LUMPED'**: F = `25.5656`, p = `< 0.0001`
 - **Significant variation in 'Latitude' grouped by 'ARROND_NOM'**: F = `5706.9610`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'EMP_NO_BIN'**: F = `28.1379`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'ARROND_BIN'**: F = `720.5583`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'No_civique_BIN'**: F = `199.4310`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'DHP_BIN'**: F = `5.9257`, p = `0.0027`
-- **Significant variation in 'Latitude' grouped by 'Distance_pave_BIN'**: F = `48.4193`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'District_BIN'**: F = `1013.2219`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Coord_X_BIN'**: F = `329.4697`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Coord_Y_BIN'**: F = `11073.2950`, p = `< 0.0001`
-- **Significant variation in 'Latitude' grouped by 'Longitude_BIN'**: F = `327.4770`, p = `< 0.0001`
 - **Significant variation in 'Latitude' grouped by 'Rue_cote_LUMPED'**: F = `32.4302`, p = `< 0.0001`
 - **Significant variation in 'Latitude' grouped by 'Emplacement_LUMPED'**: F = `17.5808`, p = `< 0.0001`
 - **Significant variation in 'Latitude' grouped by 'Sigle_LUMPED'**: F = `4.5741`, p = `< 0.0001`
@@ -382,14 +254,6 @@ To reverse-engineer which original variables drive the principal component proje
 Based on the results, we recommend the following modifications to improve the SQL query:
 
 - **Collapsed Column 'Arbre_remarquable'**: Verify if this massive skew is natural in your business logic or is caused by a faulty join.
-- **Investigate Uniformity on 'EMP_NO_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'No_civique_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'DHP_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'District_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'Coord_X_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'Coord_Y_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'Longitude_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
-- **Investigate Uniformity on 'Latitude_BIN'**: Ensure this uniform distribution is natural for your business domain, or replace with a representative natural dataset.
 
 ### Methodological Discussion on Skewness
 As detailed in the references, response-time metrics are typically right-skewed and violating [normality assumptions](https://en.wikipedia.org/wiki/Normal_distribution#Statistical_inference) in raw [ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance) leads to higher [Type I errors](https://en.wikipedia.org/wiki/Type_I_and_Type_II_errors#Type_I_error). Log-transforming the delay metrics significantly stabilizes the residuals, making our multivariate models highly reliable for identifying behavioral deviations in the tree population profiles.
@@ -450,23 +314,7 @@ document.querySelectorAll('.experiment-button').forEach(button => {
 ---
 
 ## Appendix C: Audited and Uninformative Variables
-The following table details the variables that were audited and identified as uninformative:
-
-| Variable | Type | Reason for Exclusion |
-|---|---|---|
-| `EMP_NO_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
-| `No_civique_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0171 < 8%) |
-| `DHP_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0310 < 8%) |
-| `District_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0697 < 8%) |
-| `Coord_X_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
-| `Coord_Y_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
-| `Longitude_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
-| `Latitude_BIN` | uniform | Suspicious uniformity (Coefficient of Variation = 0.0173 < 8%) |
-
-Figure 4 presents the distribution of these uninformative variables, showing why they lack statistical value (e.g. constant values, artificial uniform distributions, or flat statistical groupings):
-
-![Figure 4: Uninformative Variable Distributions](arbres-publics_uninformative_distributions.png)
-
+No variables were identified as uninformative during this audit.
 
 ---
 

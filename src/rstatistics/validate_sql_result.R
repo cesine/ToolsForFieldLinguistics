@@ -20,7 +20,7 @@ suppressPackageStartupMessages(library(car))
 # Configuration Constants
 # =====================================================================
 MAX_CATEGORICAL_UNIQUE_VALUES <- 15
-ENABLE_QUANTILE_BINNING <- TRUE
+ENABLE_QUANTILE_BINNING <- FALSE
 MODELING_SAMPLE_SIZE <- 5000
 LOAD_SAMPLE_SIZE <- 20000
 
@@ -57,9 +57,9 @@ load_data <- function(csv_path) {
     } else {
       file_info <- file.info(csv_path)
       if (!is.na(file_info$size) && file_info$size > 10 * 1024 * 1024) { # > 10 MB
-        # TODO ensure the fact that the data was sampled is persisted in the report
         cat("Warning: Large file detected (> 10MB) and fast parsers (data.table/readr) are unavailable.\n")
         cat(sprintf("         Sampling the first %s rows to prevent memory exhaustion and slow execution.\n", format(LOAD_SAMPLE_SIZE, big.mark=",")))
+        # Ensure the fact that the data was sampled is persisted in the report
         df_sampled <- read.csv(csv_path, stringsAsFactors = FALSE, nrows = LOAD_SAMPLE_SIZE)
         attr(df_sampled, "was_sampled_at_load") <- TRUE
         df_sampled
@@ -156,7 +156,6 @@ classify_columns <- function(data) {
     is_char_or_factor <- is.character(col_data) || is.factor(col_data)
     is_low_card_int <- is_all_int && n_unique >= 1 && n_unique <= 5
     
-    # TODO why 15 name aribtrary numbers like this in a variable so we can tune it if needed
     if ((is_char_or_factor || is_low_card_int) && n_unique >= 1 && n_unique <= MAX_CATEGORICAL_UNIQUE_VALUES) {
       if (n_unique < n_rows * 0.90 || n_rows == 1) {
         categorical_cols <- c(categorical_cols, col_name)
@@ -224,7 +223,7 @@ preprocess_data <- function(data, cols) {
   }
   
   binned_cols <- c()
-  # TODO im not sure we realy need to create the binned columns. surround the bining by an if here so we can toggle it to true or false later
+  # surround the bining by an if here so we can toggle it to true or false later
   if (isTRUE(ENABLE_QUANTILE_BINNING)) {
     for (num_col in numeric_cols) {
       col_data <- data[[num_col]]
@@ -508,7 +507,6 @@ audit_collinearity <- function(data, numeric_cols) {
 run_significance_tests <- function(data, numeric_cols, categorical_cols) {
   findings <- c()
   suggestions <- c()
-  # TODO start with unknown grade?
   grade <- "UNKNOWN"
   manova_report_lines <- c()
   anova_report_lines <- c()
@@ -535,6 +533,8 @@ run_significance_tests <- function(data, numeric_cols, categorical_cols) {
       valid_data <- data[valid_rows, ]
       
       group_counts <- table(valid_data[[cat_col]])
+      cat(sprintf("group_counts '%s':\n", group_counts))
+
       if (length(group_counts) >= 2 && min(group_counts) >= 2) {
         Y <- as.matrix(valid_data[numeric_cols])
         group <- factor(valid_data[[cat_col]])
@@ -696,7 +696,6 @@ select_uninformative_factors <- function(sig_results, collinear_redundant_cols, 
     if (length(freq_tbl) >= 3 && sum(freq_tbl) >= 30) {
       mean_freq <- mean(freq_tbl)
       sd_freq <- sd(freq_tbl)
-      # TODO define cv (rename variable to be more informative)
       coefficient_of_variation <- sd_freq / mean_freq
       if (coefficient_of_variation < 0.08) {
         uninformative_factors[[col_name]] <- list(
@@ -1001,13 +1000,13 @@ generate_plots <- function(data, numeric_cols, categorical_cols, kmeans_res, csv
     
     pairs_idx <- combn(length(numeric_cols), 2)
     num_plots <- ncol(pairs_idx)
-    
+
     grid_cols <- ceiling(sqrt(num_plots))
     grid_rows <- ceiling(num_plots / grid_cols)
-    
+
     png_width <- max(600, 350 * grid_cols)
     png_height <- max(500, 350 * grid_rows)
-    
+
     png(scatter_file, width = png_width, height = png_height)
     layout(matrix(c(1:(grid_rows * grid_cols)), nrow = grid_rows, byrow = TRUE))
     par(mar = c(5, 5, 4, 2))
@@ -1045,6 +1044,41 @@ generate_plots <- function(data, numeric_cols, categorical_cols, kmeans_res, csv
     cat(sprintf("[SAVED] Pairwise Scatterplots saved to '%s'.\n", scatter_file))
   }
   
+  if (length(numeric_cols) > 0) {
+    dep_file <- file.path("gen", paste0(file_base, "_dependent_distributions.png"))
+    num_plots <- length(numeric_cols)
+
+    grid_cols <- ceiling(sqrt(num_plots))
+    grid_rows <- ceiling(num_plots / grid_cols)
+
+    png_width <- max(600, 350 * grid_cols)
+    png_height <- max(500, 350 * grid_rows)
+
+    png(dep_file, width = png_width, height = png_height)
+    layout(matrix(c(1:(grid_rows * grid_cols)), nrow = grid_rows, byrow = TRUE))
+    par(mar = c(6, 5, 4, 2))
+
+    bar_colors <- c("lightblue", "lightgreen", "lightpink", "lightyellow", "aquamarine", "lavender")
+    for (i in 1:num_plots) {
+      col_name <- numeric_cols[i]
+      tbl <- sort(table(data[[col_name]], useNA = "no"), decreasing = TRUE)
+      color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
+      if (length(tbl) > 0) {
+        hist(as.numeric(tbl),
+          main = paste("Histogram of ", col_name),
+          xlab = "Value", ylab = "Count",
+          col = color_choice, border = "white")
+        grid(nx = NA, ny = NULL)
+      } else {
+        plot(1, type = "n", xlab = col_name, ylab = "Sample Size (N)",
+          main = paste("Distribution of", col_name), xlim = c(0, 1), ylim = c(0, 1))
+        text(0.5, 0.5, "No data", cex = 1.2)
+      }
+    }
+    dev.off()
+    cat(sprintf("[SAVED] Dependent variable distributions saved to '%s'.\n", dep_file))
+  }
+
   if (length(categorical_cols) > 0) {
     indep_file <- file.path("gen", paste0(file_base, "_independent_distributions.png"))
     num_plots <- length(categorical_cols)
@@ -1065,13 +1099,15 @@ generate_plots <- function(data, numeric_cols, categorical_cols, kmeans_res, csv
       tbl <- sort(table(data[[col_name]], useNA = "no"), decreasing = TRUE)
       color_choice <- bar_colors[((i - 1) %% length(bar_colors)) + 1]
       if (length(tbl) > 0) {
-        hist(as.numeric(tbl),
-             main = paste("Histogram of Counts for", col_name),
-             xlab = "Category Sample Size (N)", ylab = "Frequency of Categories",
-             col = color_choice, border = "white")
+        barplot(tbl,
+          main = paste("Distribution of", col_name),
+          xlab = col_name, ylab = "Sample Size (N)",
+          col = color_choice, border = "white",
+          las = 2, cex.names = 0.8)
+        grid(nx = NA, ny = NULL)
       } else {
         plot(1, type = "n", xlab = col_name, ylab = "Sample Size (N)", 
-             main = paste("Distribution of", col_name), xlim = c(0, 1), ylim = c(0, 1))
+          main = paste("Distribution of", col_name), xlim = c(0, 1), ylim = c(0, 1))
         text(0.5, 0.5, "No data", cex = 1.2)
       }
     }
@@ -1313,7 +1349,8 @@ generate_report <- function(csv_path, original_data, prep, audit_info, stat_resu
     "",
     "Figure 3 presents the sample size distributions across each independent categorical variable to evaluate demographic coverage and statistical power:",
     "",
-    paste0("![Figure 3: Independent Variable Sample Size Distributions](", file_base, "_independent_distributions.png)"),
+    paste0("![Figure 3a: Dependent Variable Sample Size Distributions](", file_base, "_dependent_distributions.png)"),
+    paste0("![Figure 3b: Independent Variable Sample Size Distributions](", file_base, "_independent_distributions.png)"),
     "",
     "### Apparatus and Setup",
     "Queries were executed against the Snowflake TPC-H sample database (`SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`; Transaction Processing Performance Council [TPC], 2014) using the Snowflake CLI tool (`snow` CLI v3.20.0). Statistical analysis and clustering were computed in R using packages `car` (ANOVA/MANOVA modelling) and `cluster` (K-Means silhouette groupings).",
